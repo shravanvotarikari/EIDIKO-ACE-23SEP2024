@@ -1,0 +1,12 @@
+BROKER SCHEMA com.eidiko.caller
+PATH com.eidiko.calling;
+
+CREATE COMPUTE MODULE caller
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE result CHARACTER;
+		CALL concatStr('hello','there',result);
+		SET OutputRoot.XMLNSC.res=result;
+		RETURN TRUE;
+	END;
+END MODULE;
