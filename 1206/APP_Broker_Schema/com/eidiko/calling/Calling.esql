@@ -1,0 +1,18 @@
+BROKER SCHEMA com.eidiko.calling
+
+
+CREATE PROCEDURE integerPROC (IN num1 INTEGER, IN num2 INTEGER, OUT result CHARACTER )
+BEGIN
+	DECLARE str1 CHARACTER;
+	DECLARE str2 CHARACTER;
+	
+	SET str1 = CAST(num1 AS CHARACTER);
+	SET str2 = CAST(num2 AS CHARACTER);
+	
+	SET result = str1 || str2;
+END;
+
+CREATE PROCEDURE charPROC (IN str1 CHARACTER, IN str2 CHARACTER, OUT result CHARACTER)
+BEGIN
+	SET result = str1 || str2;
+END;
