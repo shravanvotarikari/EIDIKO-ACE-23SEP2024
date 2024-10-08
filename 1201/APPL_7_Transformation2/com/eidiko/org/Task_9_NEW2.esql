@@ -1,0 +1,8 @@
+BROKER SCHEMA com.eidiko.org
+
+Create procedure add (in num1 integer,in num2 integer,out sum integer)
+Begin
+	
+	SET sum =  num1+num2;
+	
+End;
