@@ -1,0 +1,24 @@
+
+
+CREATE COMPUTE MODULE MF_xml_to_json_xmltojson
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	
+		CALL XMLtoJSON();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE XMLtoJSON()
+	BEGIN	
+		
+		CREATE FIELD OutputRoot.JSON.Data.employees IDENTITY(JSON.Array)employees;
+		
+		DECLARE outRef REFERENCE TO OutputRoot.JSON.Data.employees;
+		DECLARE inRef REFERENCE TO InputRoot.XMLNSC.employees;
+		
+		SET outRef.Item[1] = inRef.employee[1];
+		SET outRef.Item[2] = inRef.employee[2];
+		SET outRef.Item[3] = inRef.employee[3];
+		
+	END;
+END MODULE;
