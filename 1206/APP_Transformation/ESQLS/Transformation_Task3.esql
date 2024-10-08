@@ -1,6 +1,7 @@
+BROKER SCHEMA ESQLS
 
 
-CREATE COMPUTE MODULE mul_Mf_Compute
+CREATE COMPUTE MODULE Transformation_Task3
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
@@ -19,12 +20,14 @@ CREATE COMPUTE MODULE mul_Mf_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputRoot = InputRoot;
-		DECLARE ODM REFERENCE to OutputLocalEnvironment.DestinationList.MQ;
-		SET OutputLocalEnvironment.DestinationList.MQ.DestinationData[1].queueName = 'q4';
-		SET OutputLocalEnvironment.DestinationList.MQ.DestinationData[2].queueName = 'q5';
-		SET OutputLocalEnvironment.DestinationList.MQ.DestinationData[3].queueName = 'q6';
+		--SET OutputRoot = InputRoot;
+		CREATE FIELD OutputRoot.JSON.Data.employees IDENTITY(JSON.Array)employees;
 		
+		DECLARE outRef REFERENCE TO OutputRoot.JSON.Data.employees;
+		DECLARE inRef REFERENCE TO InputRoot.XMLNSC.employees;
 		
+		SET outRef.item[1] = inRef.employee[1];
+		SET outRef.item[2] = inRef.employee[2];
+		SET outRef.item[3] = inRef.employee[3];
 	END;
 END MODULE;
