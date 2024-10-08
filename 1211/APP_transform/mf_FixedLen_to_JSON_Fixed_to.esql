@@ -14,43 +14,21 @@ CREATE COMPUTE MODULE mf_FixedLen_to_JSON_Fixed_to
 		DECLARE outputRef REFERENCE TO OutputRoot.JSON.Data.employees;
 		DECLARE InputRef REFERENCE TO InputRoot.DFDL.fixed_to_json;
 		
-		DECLARE employeeRef REFERENCE TO InputRef.employee;
-      MOVE employeeRef FIRSTCHILD;
-
-        DECLARE i INTEGER 1;
-
-        WHILE LASTMOVE(employeeRef) DO
-            
-CREATE LASTCHILD OF outputRef DOMAIN 'JSON';
-
-            SET outputRef.Item[i].employee_id = employeeRef.employee_id;
-            SET outputRef.Item[i].first_name = employeeRef.first_name;
-            SET outputRef.Item[i].last_name = employeeRef.last_name;
-            SET outputRef.Item[i].department = employeeRef.department;
-            SET outputRef.Item[i].salary = employeeRef.salary;
-
-         MOVE employeeRef NEXTSIBLING;
-
-            SET i = i + 1;
-        END WHILE;
 		
---		DECLARE count INTEGER;
---		DECLARE i INTEGER 1;
---		
---		SET count = CARDINALITY(InputRef.employee.Item[]);
---		
---		lastmove(Inputref);
---		
---		
---		WHILE(i <= 3) DO
---			
---			SET outputRef.Item[i].employee_id = InputRef.employee[i].employee_id;
---			SET outputRef.Item[i].first_name = InputRef.employee[i].first_name;
---			SET outputRef.Item[i].last_name = InputRef.employee[i].last_name;
---			SET outputRef.Item[i].department = InputRef.employee[i].department;
---			SET outputRef.Item[i].salary = InputRef.employee[i].salary;
---			SET i = i + 1;
---			
---	END WHILE;
+		DECLARE count INTEGER;
+		DECLARE i INTEGER 1;
+		
+		SET count = CARDINALITY(InputRef.employee[]);		
+		
+		WHILE(i <= 3) DO
+			
+			SET outputRef.Item[i].employee_id = InputRef.employee[i].employee_id;
+			SET outputRef.Item[i].first_name = InputRef.employee[i].first_name;
+			SET outputRef.Item[i].last_name = InputRef.employee[i].last_name;
+			SET outputRef.Item[i].department = InputRef.employee[i].department;
+			SET outputRef.Item[i].salary = InputRef.employee[i].salary;
+			SET i = i + 1;
+			
+	END WHILE;
 	END;
 END MODULE;
