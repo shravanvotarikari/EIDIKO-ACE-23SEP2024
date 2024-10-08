@@ -1,0 +1,12 @@
+BROKER SCHEMA com.eidiko.calling
+
+CREATE PROCEDURE charProc(IN Str1 CHARACTER, IN Str2 CHARACTER, OUT Result CHARACTER)
+
+BEGIN
+	SET Result = Str1 || ' ' || Str2;	
+END;
+
+CREATE PROCEDURE integerPROC(IN var1 INTEGER, IN var2 INTEGER, OUT Result1 INTEGER) 
+BEGIN
+    SET Result1 = var1+var2;
+END;
