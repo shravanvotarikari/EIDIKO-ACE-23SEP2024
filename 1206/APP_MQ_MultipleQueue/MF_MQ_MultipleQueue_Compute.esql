@@ -1,0 +1,30 @@
+
+
+CREATE COMPUTE MODULE MF_MQ_MultipleQueue_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		 CALL SendToQueues();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE SendToQueues ( )
+	BEGIN
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData[1].queueName = 'outputQ';
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData[2].queueName = 'failQ';
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData[3].queueName = 'Backout';
+		
+--		PROPAGATE TO TERMINAL 'out';
+--		
+--		SET OutputLocalEnvironment.Destination.MQ.policy.destinationQueueManagerName = 'Manager_1';
+--		SET OutputLocalEnvironment.Destination.MQ.DestinationData[2].queueName = 'Q1';
+--		SET OutputLocalEnvironment.Destination.MQ.DestinationData[3].queueName = 'Q2';
+		
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
+
+
