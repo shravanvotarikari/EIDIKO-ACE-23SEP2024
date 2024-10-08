@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ibmDfdlExtn="http://www.ibm.com/dfdl/extensions" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:recSepFieldsFmt="http://www.ibm.com/dfdl/RecordSeparatedFieldFormat" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+          
+  
+  
+  <xsd:import namespace="http://www.ibm.com/dfdl/RecordSeparatedFieldFormat" schemaLocation="IBMdefined/RecordSeparatedFieldFormat.xsd"/>
+          
+  
+  
+  <xsd:annotation>
+            		
+    
+    
+    <xsd:appinfo source="http://www.ogf.org/dfdl/">
+                  			
+      
+      
+      <dfdl:format encoding="{$dfdl:encoding}" escapeSchemeRef="" occursCountKind="implicit" ref="recSepFieldsFmt:RecordSeparatedFieldsFormat"/>
+                  		
+    
+    
+    </xsd:appinfo>
+            	
+  
+  
+  </xsd:annotation>
+      	
+  
+  
+  <xsd:element dfdl:emptyValueDelimiterPolicy="none" dfdl:outputNewLine="%CR;%LF;" ibmSchExtn:docRoot="true" name="rec">
+            		
+    
+    
+    <xsd:complexType>
+                  			
+      
+      
+      <xsd:sequence dfdl:separator="%CR;%LF;%WSP*;" dfdl:separatorSuppressionPolicy="anyEmpty">
+                        				
+        
+        
+        <xsd:element dfdl:emptyValueDelimiterPolicy="none" dfdl:outputNewLine="%CR;%LF;" maxOccurs="unbounded" name="body">
+                              					
+          
+          
+          <xsd:complexType>
+                                    						
+            
+            
+            <xsd:sequence dfdl:initiatedContent="no" dfdl:separator="%#124;" dfdl:separatorSuppressionPolicy="anyEmpty">
+                                          							
+              
+              
+              <xsd:element dfdl:emptyValueDelimiterPolicy="initiator" dfdl:initiator="" dfdl:outputNewLine="%CR;%LF;" dfdl:textNumberPattern="0" minOccurs="0" name="id" type="xsd:int"/>
+                                          							
+              
+              
+              <xsd:element dfdl:emptyValueDelimiterPolicy="initiator" dfdl:initiator="" dfdl:outputNewLine="%CR;%LF;" ibmDfdlExtn:sampleValue="abh" minOccurs="0" name="name" type="xsd:string"/>
+                                          							
+              
+              
+              <xsd:element dfdl:emptyValueDelimiterPolicy="initiator" dfdl:initiator="" ibmDfdlExtn:sampleValue="hyd" minOccurs="0" name="place" type="xsd:string"/>
+                                          						
+            
+            
+            </xsd:sequence>
+                                    					
+          
+          
+          </xsd:complexType>
+                              				
+        
+        
+        </xsd:element>
+                        			
+      
+      
+      </xsd:sequence>
+                  		
+    
+    
+    </xsd:complexType>
+            	
+  
+  
+  </xsd:element>
+      
+
+
+</xsd:schema>
