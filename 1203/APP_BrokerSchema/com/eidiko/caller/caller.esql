@@ -7,9 +7,15 @@ CREATE COMPUTE MODULE caller
 	BEGIN
 		-- CALL CopyMessageHeaders();
 		-- CALL CopyEntireMessage();
+		
 		DECLARE Result CHARACTER;
 		call charProc('hello', 'vedanti', Result);
 		SET OutputRoot.JSON.Data.emp = Result;
+		
+		DECLARE sum INTEGER;
+		call integerProc(10, 20, sum);
+		--SET OutputLocalEnvironment.Variables.sum1 = sum;
+		SET OutputRoot.JSON.Data.sum1=sum;
 		RETURN TRUE;
 		
 

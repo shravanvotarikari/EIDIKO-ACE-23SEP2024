@@ -1,10 +1,10 @@
 
 
-CREATE COMPUTE MODULE mul_Mf_Compute
+CREATE COMPUTE MODULE Multiple_MF_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
-		 CALL CopyEntireMessage();
+	   CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
 
@@ -20,11 +20,9 @@ CREATE COMPUTE MODULE mul_Mf_Compute
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		SET OutputRoot = InputRoot;
-		DECLARE ODM REFERENCE to OutputLocalEnvironment.DestinationList.MQ;
-		SET OutputLocalEnvironment.DestinationList.MQ.DestinationData[1].queueName = 'q4';
-		SET OutputLocalEnvironment.DestinationList.MQ.DestinationData[2].queueName = 'q5';
-		SET OutputLocalEnvironment.DestinationList.MQ.DestinationData[3].queueName = 'q6';
-		
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData[1].queueName = 'qt2';
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData[2].queueName = 'qt3';
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData[3].queueName = 'qt4';
 		
 	END;
 END MODULE;
