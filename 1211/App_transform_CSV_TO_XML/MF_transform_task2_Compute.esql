@@ -1,0 +1,43 @@
+PATH com.eidiko.bs1;
+
+CREATE COMPUTE MODULE MF_transform_task2_Compute
+		
+		CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		--call compModes();
+		--call CSVtoXML();
+		--CALL XMLtoJSON();
+		
+		DECLARE sum INTEGER;
+		DECLARE fullName CHARACTER;
+
+		CALL intgerPROC(20,24,sum);
+		
+		CALL charProc('JHON','WICK',fullName);
+		
+		SET OutputLocalEnvironment.Variabl.Sum = sum;
+		SET OutputLocalEnvironment.Variabl.FullName = fullName;
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE compModes() BEGIN 
+	
+		SET OutputLocalEnvironment.Variabl.ID = 1211;
+	END;
+	
+	
+CREATE PROCEDURE CSVtoXML() BEGIN
+		--SET OutputRoot.XMLNSC.employees.employee = InputRoot.DFDL.transform_task2.record;
+		SET OutputRoot.XMLNSC.employees = InputRoot.DFDL.transform_task2;
+		SET OutputRoot.XMLNSC.employees.header = null;
+		
+	END;
+	
+	CREATE PROCEDURE XMLtoJSON()
+	BEGIN	
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		--SET OutputRoot.JSON.Data.root.name = InputRoot.XMLNSC.root.name;
+	END;
+	
+END MODULE;
