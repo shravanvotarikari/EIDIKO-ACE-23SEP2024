@@ -1,6 +1,6 @@
 
 
-CREATE COMPUTE MODULE mf_FixedLen_to_JSON_Fixed_to
+CREATE COMPUTE MODULE MF_FixedLength_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		CALL fixedToJson();
@@ -9,16 +9,15 @@ CREATE COMPUTE MODULE mf_FixedLen_to_JSON_Fixed_to
 
 	CREATE PROCEDURE fixedToJson() BEGIN
 	
-		CREATE FIELD OutputRoot.JSON.Data.employees IDENTITY(JSON.Array)employees;
+		CREATE FIELD OutputRoot.JSON.Data.employee IDENTITY(JSON.Array)employee;
 		
-		DECLARE outputRef REFERENCE TO OutputRoot.JSON.Data.employees;
-		DECLARE InputRef REFERENCE TO InputRoot.DFDL.fixed_to_json;
-		
+		DECLARE outputRef REFERENCE TO OutputRoot.JSON.Data.employee;
+		DECLARE InputRef REFERENCE TO InputRoot.DFDL.FixedLength;
 		
 		DECLARE count INTEGER;
 		DECLARE i INTEGER 1;
 		
-		SET count = CARDINALITY(InputRef.employee[]);		
+		--SET count = CARDINALITY(InputRef.employee.Item[]);
 		
 		WHILE(i <= 3) DO
 			
@@ -32,3 +31,4 @@ CREATE COMPUTE MODULE mf_FixedLen_to_JSON_Fixed_to
 	END WHILE;
 	END;
 END MODULE;
+
