@@ -1,0 +1,44 @@
+BROKER SCHEMA ESQLS
+
+
+
+CREATE COMPUTE MODULE Transformation_task5
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		
+		CREATE FIELD OutputRoot.JSON.Data.employees IDENTITY(JSON.Array)employees;
+		
+		DECLARE outRef REFERENCE TO OutputRoot.JSON.Data.employees;
+		DECLARE inRef REFERENCE TO InputRoot.DFDL.Trans_task5;
+		
+		DECLARE i INTEGER 1;
+		DECLARE count INTEGER CARDINALITY(inRef.employee[]);
+		
+		WHILE i <= count DO
+			SET outRef.employees[i].employee_id = inRef.employee[i].employee_id;
+			SET outRef.employees[i].first_name = inRef.employee[i].first_name;
+			SET outRef.employees[i].last_name = inRef.employee[i].last_name;
+			SET outRef.employees[i].department = inRef.employee[i].department;
+			SET outRef.employees[i].salary = inRef.employee[i].salary;
+			
+			SET i=i+1;
+		END WHILE;
+	END;
+END MODULE;
