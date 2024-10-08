@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    
+    <!-- Root element "employees" -->
+    <xs:element name="employees">
+        <xs:complexType>
+            <xs:sequence>
+                <!-- Repeated "employee" element -->
+                <xs:element name="employee" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <!-- Define the fields within the "employee" element -->
+                            <xs:element name="employee_id" type="xs:string"/>
+                            <xs:element name="first_name" type="xs:string"/>
+                            <xs:element name="last_name" type="xs:string"/>
+                            <xs:element name="department" type="xs:string"/>
+                            <xs:element name="salary" type="xs:decimal"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
