@@ -13,7 +13,7 @@
     	
   </xsd:annotation>
   	
-  <xsd:element ibmSchExtn:docRoot="true" name="csv_model">
+  <xsd:element ibmSchExtn:docRoot="true" name="csvmodel">
     		
     <xsd:complexType>
       			
