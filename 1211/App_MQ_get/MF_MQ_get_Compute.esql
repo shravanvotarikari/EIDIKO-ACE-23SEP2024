@@ -1,0 +1,18 @@
+
+
+CREATE COMPUTE MODULE MF_MQ_get_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'QM2OUTPUT3';
+		
+		SET OutputLocalEnvironment.XMLNSC.data.in = InputRoot.XMLNSC;
+	END;
+END MODULE;
