@@ -19,6 +19,7 @@ CREATE COMPUTE MODULE MF_MQGet_GenerateMode_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputLocalEnvironment.Variables.var1 = InputRoot.XMLNSC;
 		SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName='Q3';
 		SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueManagerName='MQman';
 		

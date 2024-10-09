@@ -19,7 +19,8 @@ CREATE COMPUTE MODULE MF_MQGet_GenerateMode_Compute1
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputRoot = InputRoot;
+		SET OutputRoot.XMLNSC.Root.d0 = InputLocalEnvironment.Variables.var1;
+		SET OutputRoot.XMLNSC.Root.d1 = InputRoot.XMLNSC;
 		SET OutputLocalEnvironment = InputLocalEnvironment;
 	END;
 END MODULE;
