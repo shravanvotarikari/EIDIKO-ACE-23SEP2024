@@ -1,0 +1,16 @@
+BROKER SCHEMA com.eidiko.caller
+
+PATH com.eidiko.calling;
+
+CREATE COMPUTE MODULE Caller
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE result CHARACTER;
+		CALL integerPROC(20,24,result);
+		SET OutputLocalEnvironment.data.num = result;
+		CALL charPROC('Ashar','Khan',result);
+		SET OutputLocalEnvironment.data.str = result;
+		RETURN TRUE;
+	END;
+
+END MODULE;

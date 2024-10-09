@@ -1,0 +1,77 @@
+
+
+CREATE COMPUTE MODULE MF_MQ_tasks_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL highPriority();
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE highPriority() BEGIN
+	
+		IF (InputRoot.MQMD.Priority = 9) THEN
+			SET OutputRoot = InputRoot;
+		ELSE
+			THROW EXCEPTION;
+		END IF;
+	END;
+	
+	CREATE PROCEDURE lowPriority() BEGIN
+	
+		IF InputRoot.MQMD.Priority = 0 THEN
+			SET OutputRoot = InputRoot;
+		ELSE
+			THROW EXCEPTION;
+		END IF;
+	END;
+	
+	CREATE PROCEDURE userIdentifier() BEGIN
+	
+		IF InputRoot.MQMD.UserIdentifier = 'Sreenivas Ba' THEN
+			SET OutputRoot = InputRoot;
+		ELSE
+			THROW EXCEPTION;
+		END IF;
+	END;
+	
+	CREATE PROCEDURE multipleQueue() BEGIN
+		SET OutputRoot = InputRoot;
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData[1].queueName = 'OUTPUT2';
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData[2].queueName = 'OUTPUT3';
+		--SET OutputLocalEnvironment.Destination.MQ.DestinationData[3].queueName = 'OUTPUT4';
+	END;
+	
+	CREATE PROCEDURE multipleQueueManager() BEGIN
+		SET OutputRoot = InputRoot;
+		
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData[1].queueManagerName = 'QM2';
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData[1].queueName = 'QM2OUTPUT1';
+--		SET OutputLocalEnvironment.Destination.MQ.policy.destinationQueueManagerName = 'QM2';			
+--		SET OutputLocalEnvironment.Destination.MQ.DestinationData[2].queueManagerName = 'QM3';
+--		SET OutputLocalEnvironment.Destination.MQ.DestinationData[2].queueName = 'QM3OUTPUT2';
+		
+	END;
+END MODULE;
+--	CREATE PROCEDURE corelationID() BEGIN
+--	
+--		IF InputRoot.MQMD.CorrelId = 000000000000000000 THEN
+--			SET OutputRoot = InputRoot;
+--		ELSE
+--			THROW EXCEPTION;
+--		END IF;
+--	END;
+--	
+--	CREATE PROCEDURE msgID() BEGIN
+--	
+--		IF InputRoot.MQMD.MsgId = '414D5120514D31202020202020202020EEB7046711090640' THEN
+--			SET OutputRoot = InputRoot;
+--		ELSE
+--			THROW EXCEPTION;
+--		END IF;
+--	END;
+
+--
+--SET OutputLocalEnvironment.Destination.MQ.policy.destinationQueueManagerName = 'QM2';		
+--		SET OutputLocalEnvironment.Destination.MQ.DestinationData[1].queueName = 'QM2OUTPUT1';
+--		SET OutputLocalEnvironment.Destination.MQ.DestinationData[2].queueName = 'QM2OUTPUT2';

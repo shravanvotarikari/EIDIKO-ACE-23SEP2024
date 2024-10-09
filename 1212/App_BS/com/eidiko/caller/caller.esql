@@ -1,0 +1,22 @@
+BROKER SCHEMA com.eidiko.caller
+PATH com.eidiko.calling;
+
+
+CREATE COMPUTE MODULE caller
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		-- CALL CopyEntireMessage();
+		DECLARE Result CHARACTER;
+		call charProc('hello', 'Apurva', Result);
+		SET OutputRoot.JSON.Data.emp = Result;
+		
+		DECLARE Result1 INTEGER;
+		call integerProc(20, 24, Result1);
+		SET OutputRoot.JSON.Data.sum = Result1;
+		RETURN TRUE;
+		
+
+	
+	END;
+END MODULE;
