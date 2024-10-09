@@ -9,7 +9,7 @@ CREATE COMPUTE MODULE Mf_get_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputLocalEnvironment.Variables.v1=InputRoot.BLOB.BLOB;
+		SET OutputLocalEnvironment.Variables.v1 = InputRoot.BLOB.BLOB;
 		SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName= '2q2';
 	END;
 END MODULE;

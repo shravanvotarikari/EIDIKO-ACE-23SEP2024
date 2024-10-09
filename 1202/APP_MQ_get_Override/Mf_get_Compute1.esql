@@ -10,7 +10,7 @@ CREATE COMPUTE MODULE Mf_get_Compute1
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		
-		SET OutputRoot.BLOB.BLOB = InputRoot.BLOB.BLOB || InputLocalEnvironment.Variables.v1;
+		SET OutputRoot.BLOB.BLOB = InputRoot.BLOB.BLOB ||' '|| InputLocalEnvironment.Variables.v1;
 		
 		SET OutputLocalEnvironment = InputLocalEnvironment;
 	END;

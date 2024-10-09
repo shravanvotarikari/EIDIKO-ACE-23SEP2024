@@ -9,7 +9,7 @@
       <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="21,31" queueName="q1" destinationQueueManagerName="Manager1">
         <translation xmi:type="utility:ConstantString" string="MQ Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="450,30" queueName="2q1" destinationQueueManagerName="Manager2" destinationMode="list">
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="550,50" queueName="2q1" destinationQueueManagerName="Manager2" destinationMode="list">
         <translation xmi:type="utility:ConstantString" string="MQ Output"/>
       </nodes>
       <nodes xmi:type="ComIbmMQGet.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="230,5" queueName="temp" destinationQueueManagerName="Manager2" generateMode="messageAndLocalEnvironment" copyMessage="copyEntireMessage">
