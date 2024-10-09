@@ -25,5 +25,6 @@ CREATE COMPUTE MODULE MF_MQGet_GenerateMode_Compute
 		SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueManagerName='QM1';
 		
 		SET OutputRoot = InputRoot;
+		
 	END;
 END MODULE;

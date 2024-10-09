@@ -8,6 +8,7 @@ CREATE COMPUTE MODULE MF_MQGet_GenerateMode_Compute1
 		RETURN TRUE;
 	END;
 
+
 	CREATE PROCEDURE CopyMessageHeaders() BEGIN
 		DECLARE I INTEGER 1;
 		DECLARE J INTEGER;
@@ -23,5 +24,6 @@ CREATE COMPUTE MODULE MF_MQGet_GenerateMode_Compute1
 		SET OutputRoot.XMLNSC.Root.d0 = InputLocalEnvironment.Variables.var1;
 		SET OutputRoot.XMLNSC.Root.d1 = InputRoot.XMLNSC;
 		SET OutputLocalEnvironment = InputLocalEnvironment;
+		
 	END;
 END MODULE;
