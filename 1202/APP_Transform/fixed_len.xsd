@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ibmDfdlExtn="http://www.ibm.com/dfdl/extensions" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:recFixLengthFieldsFmt="http://www.ibm.com/dfdl/RecordFixLengthFieldFormat" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        
+  
+  <xsd:import namespace="http://www.ibm.com/dfdl/RecordFixLengthFieldFormat" schemaLocation="IBMdefined/RecordFixLengthFieldFormat.xsd"/>
+        
+  
+  <xsd:annotation>
+        		
+    
+    <xsd:appinfo source="http://www.ogf.org/dfdl/">
+            			
+      
+      <dfdl:format encoding="{$dfdl:encoding}" escapeSchemeRef="" occursCountKind="fixed" ref="recFixLengthFieldsFmt:RecordFixLengthFieldsFormat"/>
+            		
+    
+    </xsd:appinfo>
+        	
+  
+  </xsd:annotation>
+    	
+  
+  <xsd:element dfdl:lengthKind="delimited" ibmSchExtn:docRoot="true" name="fixed_len">
+        		
+    
+    <xsd:complexType>
+            			
+      
+      <xsd:sequence dfdl:separator="%CR;%LF;%WSP*;" dfdl:separatorSuppressionPolicy="anyEmpty">
+                				
+        
+        <xsd:element dfdl:initiator="" dfdl:lengthKind="delimited" dfdl:occursCountKind="implicit" maxOccurs="unbounded" name="body">
+                    					
+          
+          <xsd:complexType>
+                        						
+            
+            <xsd:sequence>
+                            							
+              
+              <xsd:element dfdl:lengthKind="pattern" dfdl:lengthPattern="\d+" dfdl:textNumberPattern="0" name="id" type="xsd:integer"/>
+                            							
+              
+              <xsd:element dfdl:lengthKind="pattern" dfdl:lengthPattern="[A-Z][a-z]*" ibmDfdlExtn:sampleValue="body_valu2" name="f_name" type="xsd:string"/>
+                            							
+              
+              <xsd:element dfdl:lengthKind="pattern" dfdl:lengthPattern="[A-Z][a-z]*" ibmDfdlExtn:sampleValue="body_valu3" name="l_name" type="xsd:string"/>
+                                                        
+              
+              <xsd:element dfdl:lengthKind="pattern" dfdl:lengthPattern="[A-Z][a-z]*" ibmDfdlExtn:sampleValue="body_value4" name="dept" type="xsd:string"/>
+                                                        
+              
+              <xsd:element dfdl:lengthKind="pattern" dfdl:lengthPattern="\d+" dfdl:textNumberPattern="0" name="sal" type="xsd:integer"/>
+                                                    
+            
+            </xsd:sequence>
+                        					
+          
+          </xsd:complexType>
+                    				
+        
+        </xsd:element>
+                			
+      
+      </xsd:sequence>
+            		
+    
+    </xsd:complexType>
+        	
+  
+  </xsd:element>
+    
+
+</xsd:schema>

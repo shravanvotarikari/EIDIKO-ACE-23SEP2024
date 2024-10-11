@@ -9,11 +9,11 @@
       <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="36,50" inputDirectory="C:\Users\Sreenivas Bandaru\Desktop\in" messageDomainProperty="JSON">
         <translation xmi:type="utility:ConstantString" string="File Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="479,47" outputDirectory="C:\Users\Sreenivas Bandaru\Desktop\out" outputFilename="*">
-        <translation xmi:type="utility:ConstantString" string="File Output"/>
-      </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="240,59" computeExpression="esql://routine/#MF1_Compute.Main">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="240,59" computeExpression="esql://routine/#Jarray_csv.Main">
         <translation xmi:type="utility:ConstantString" string="jsontocsv"/>
+      </nodes>
+      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="455,83" outputDirectory="C:\Users\Sreenivas Bandaru\Desktop\out" outputFilename="*">
+        <translation xmi:type="utility:ConstantString" string="File Output"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>

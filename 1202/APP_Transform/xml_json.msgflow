@@ -6,7 +6,7 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/APP_Transform/icons/full/obj16/xml_json.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/APP_Transform/icons/full/obj30/xml_json.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="295,14" computeExpression="esql://routine/#MF1_Compute.Main">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="295,14" computeExpression="esql://routine/#xml_json.Main">
         <translation xmi:type="utility:ConstantString" string="xml_json"/>
       </nodes>
       <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="93,34" inputDirectory="C:\Users\Sreenivas Bandaru\Desktop\in">
