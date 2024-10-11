@@ -20,7 +20,7 @@ CREATE COMPUTE MODULE mf_FixedLen_to_JSON_Fixed_to
 		
 		SET count = CARDINALITY(InputRef.employee[]);		
 		
-		WHILE(i <= 3) DO
+		WHILE(i <= count) DO
 			
 			SET outputRef.Item[i].employee_id = InputRef.employee[i].employee_id;
 			SET outputRef.Item[i].first_name = InputRef.employee[i].first_name;

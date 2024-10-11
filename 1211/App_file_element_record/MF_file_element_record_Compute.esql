@@ -1,0 +1,44 @@
+--DECLARE count SHARED INTEGER 1;
+
+CREATE COMPUTE MODULE MF_file_element_record_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		--CALL createCount();
+		CALL CopyMessageInNewFile();
+		RETURN TRUE;
+	END;
+	
+	
+	CREATE PROCEDURE CopyMessageInNewFile() BEGIN
+		
+--		SET OutputLocalEnvironment.Wildcard.WildcardMatch = 'OUTPUT' || CAST(count AS CHARACTER);
+--		SET count = count + 1;
+
+		DECLARE myTimestamp TIMESTAMP;
+		SET myTimestamp = CURRENT_TIMESTAMP;
+		
+		--SET OutputLocalEnvironment.Wildcard.WildcardMatch = 'OUTPUT' || CAST(myTimestamp AS CHARACTER FORMAT 'hh_mm_ss_SSS');
+		SET OutputLocalEnvironment.Wildcard.WildcardMatch = 'OUTPUT' || CAST(myTimestamp AS CHARACTER FORMAT 'DD_MM_hh_mm_ss_SSS');
+		
+		SET OutputRoot = InputRoot;
+	END;
+	
+	
+		
+END MODULE;
+
+
+
+		--SET OutputLocalEnvironment.Wildcard.WildcardMatch = CAST(InputRoot.BLOB.BLOB AS CHARACTER CCSID 5348);
+		
+		--SET OutputLocalEnvironment.Wildcard.WildcardMatch = CAST(InputRoot.XMLNSC AS CHARACTER);
+
+--	CREATE PROCEDURE createCount() BEGIN
+--		
+--		IF (count > 0) THEN
+--			--SET Environment.variable.count = Environment.variable.count;
+--		ELSE 
+--			--DECLARE count INTEGER EXTERNAL 1;
+--		END IF;
+--	END;
