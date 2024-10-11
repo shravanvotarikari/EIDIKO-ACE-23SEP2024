@@ -1,0 +1,13 @@
+
+
+CREATE COMPUTE MODULE MF_file_element_record_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL resetCount();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE resetCount() BEGIN
+		--SET count = 1 ;
+	END;
+END MODULE;

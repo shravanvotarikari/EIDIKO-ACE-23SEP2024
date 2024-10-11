@@ -7,7 +7,7 @@
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_MessageModel/icons/full/obj30/MF_MessageModelFlow.gif"/>
     <composition>
       <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="100,105" queueName="q1" destinationQueueManagerName="newManager" messageDomainProperty="DFDL" messageTypeProperty="{}:RecordProblem4">
-        <translation xmi:type="utility:ConstantString" string="MQ Input"/>
+        <translation xmi:type="utility:ConstantString" string="MQInput"/>
       </nodes>
       <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="604,104" queueName="q2" destinationQueueManagerName="newManager" transactionMode="yes">
         <translation xmi:type="utility:ConstantString" string="MQ Output"/>
