@@ -20,7 +20,7 @@
   </xsd:annotation>
     	
   
-  <xsd:element dfdl:initiator="[Begin]{" dfdl:terminator="}[End]" ibmSchExtn:docRoot="true" name="RecordOrientedData_02">
+  <xsd:element ibmSchExtn:docRoot="true" name="Delimiter_02">
         		
     
     <xsd:complexType>
@@ -35,22 +35,22 @@
           <xsd:complexType>
                         						
             
-            <xsd:sequence dfdl:initiatedContent="yes" dfdl:separator="%#124;" dfdl:separatorSuppressionPolicy="anyEmpty">
+            <xsd:sequence dfdl:initiator="[Begin]{" dfdl:separator="^" dfdl:terminator="}[End]">
                             							
               
-              <xsd:element dfdl:initiator="iBody1" dfdl:textStringPadCharacter="^" ibmDfdlExtn:sampleValue="body_value1" name="body_elem1" type="xsd:string"/>
+              <xsd:element ibmDfdlExtn:sampleValue="body_value1" name="body_elem1" type="xsd:string"/>
                             							
               
-              <xsd:element dfdl:initiator="iBody2" ibmDfdlExtn:sampleValue="body_value2" name="body_elem2" type="xsd:string"/>
+              <xsd:element ibmDfdlExtn:sampleValue="body_value2" name="body_elem2" type="xsd:string"/>
                             							
               
-              <xsd:element dfdl:initiator="iBody3" ibmDfdlExtn:sampleValue="body_value3" name="body_elem3" type="xsd:string"/>
+              <xsd:element ibmDfdlExtn:sampleValue="body_value3" name="body_elem3" type="xsd:string"/>
                                                         
               
-              <xsd:element dfdl:initiator="iBody4" ibmDfdlExtn:sampleValue="body_value4" name="body_elem4" type="xsd:string"/>
+              <xsd:element ibmDfdlExtn:sampleValue="body_value4" name="body_elem4" type="xsd:string"/>
                                                         
               
-              <xsd:element dfdl:initiator="iBody5" ibmDfdlExtn:sampleValue="body_value5" name="body_elem5" type="xsd:string"/>
+              <xsd:element ibmDfdlExtn:sampleValue="body_value5" name="body_elem5" type="xsd:string"/>
                                                     
             
             </xsd:sequence>
