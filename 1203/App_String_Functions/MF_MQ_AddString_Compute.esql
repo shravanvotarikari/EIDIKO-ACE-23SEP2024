@@ -1,0 +1,32 @@
+
+
+CREATE COMPUTE MODULE MF_MQ_AddString_Compute
+	 CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL Task3();
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE Task3() BEGIN
+		DECLARE originalString CHARACTER;
+		SET originalString = InputRoot.XMLNSC.emp.name;
+		
+		DECLARE modifiedString CHARACTER;
+		
+		DECLARE subStr1 CHARACTER;
+		SET subStr1 = SUBSTRING(originalString from 1 for 3);
+		
+		DECLARE subStr2 CHARACTER;
+		SET subStr2 = SUBSTRING(originalString from 4 for 6);
+		
+		DECLARE myNumber INTEGER 123;
+		DECLARE myNumberString CHARACTER;
+		
+		SET myNumberString = CAST(myNumber AS CHARACTER);
+		
+		SET modifiedString = subStr1 || myNumberString || UCASE(subStr2);
+		
+		SET OutputRoot.XMLNSC.emp.name = modifiedString;
+	
+	END;
+END MODULE;
