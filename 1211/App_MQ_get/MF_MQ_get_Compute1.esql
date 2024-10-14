@@ -9,10 +9,10 @@ CREATE COMPUTE MODULE MF_MQ_get_Compute1
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputRoot.XMLNSC.data.get = InputRoot.XMLNSC;
+		--SET OutputRoot.XMLNSC.data.get = InputRoot.XMLNSC;
 		
-		SET OutputRoot.XMLNSC.data.in = InputLocalEnvironment.XMLNSC.data.in;
-		
+		--SET OutputRoot.XMLNSC.data.in = InputLocalEnvironment.XMLNSC.data.in;
+		SET OutputRoot = InputRoot;
 		SET OutputLocalEnvironment = InputLocalEnvironment;
 	END;
 END MODULE;

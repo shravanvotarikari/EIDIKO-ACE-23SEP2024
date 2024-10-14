@@ -6,7 +6,7 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_MQ_tasks/icons/full/obj16/MF_ORDERBY.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_MQ_tasks/icons/full/obj30/MF_ORDERBY.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="150,107" queueName="INPUT.Q" destinationQueueManagerName="QM1" logicalOrder="false">
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="150,107" queueName="INPUT.Q" destinationQueueManagerName="QM1" orderMode="byUserId" logicalOrder="false">
         <translation xmi:type="utility:ConstantString" string="MQ Input"/>
       </nodes>
       <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="431,106" queueName="OUTPUT.Q" destinationQueueManagerName="QM1">

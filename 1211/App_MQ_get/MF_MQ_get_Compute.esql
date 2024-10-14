@@ -11,8 +11,8 @@ CREATE COMPUTE MODULE MF_MQ_get_Compute
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		SET OutputRoot = InputRoot;
 		
-		SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'QM2OUTPUT3';
+		--SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'QM2OUTPUT3';
 		
-		SET OutputLocalEnvironment.XMLNSC.data.in = InputRoot.XMLNSC;
+		--SET OutputLocalEnvironment.XMLNSC.data.in = InputRoot.XMLNSC;
 	END;
 END MODULE;
