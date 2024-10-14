@@ -10,14 +10,12 @@ CREATE COMPUTE MODULE MF_MQ_pub_sub_Compute
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		
-		
 		SET OutputRoot.MQRFH2.Version = 2;
 
         SET OutputRoot.MQRFH2.Format = MQFMT_NONE;
 
         SET OutputRoot.MQRFH2.NameValueCCSID = 1208;
         
-
 		SET OutputRoot.MQRFH2.psc.Command = 'Publish';
 
 		SET OutputRoot.MQRFH2.psc.Topic = 'Sample_Topic_String';
