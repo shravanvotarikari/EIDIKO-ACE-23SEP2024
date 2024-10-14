@@ -26,7 +26,6 @@ CREATE COMPUTE MODULE MF_Remove_Compute
 	CREATE PROCEDURE RemoveChar ( )
 	BEGIN
 		DECLARE str CHARACTER '';
-		DECLARE i INTEGER 1;
 		DECLARE inref REFERENCE TO InputRoot.XMLNSC.emp.name;
 		
 
