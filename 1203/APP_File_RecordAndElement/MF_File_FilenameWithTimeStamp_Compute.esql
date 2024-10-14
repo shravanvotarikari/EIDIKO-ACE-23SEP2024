@@ -1,0 +1,20 @@
+
+CREATE COMPUTE MODULE MF_File_FilenameWithTimeStamp_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		
+   
+   DECLARE myTimestamp TIMESTAMP;
+
+    SET myTimestamp = CURRENT_TIMESTAMP;
+
+   SET OutputLocalEnvironment.Wildcard.WildcardMatch = 'output' || ' ' || CAST(myTimestamp AS CHARACTER FORMAT 'DD_MM_hh_mm_ss_SSS');
+
+	END;
+END MODULE;

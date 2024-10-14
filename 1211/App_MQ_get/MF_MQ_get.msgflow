@@ -6,13 +6,13 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_MQ_get/icons/full/obj16/MF_MQ_get.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_MQ_get/icons/full/obj30/MF_MQ_get.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="9,79" queueName="INPUT.Q" destinationQueueManagerName="QM1" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="9,79" queueName="INPUT.Q" destinationQueueManagerName="QM1" messageDomainProperty="XMLNSC" logicalOrder="false">
         <translation xmi:type="utility:ConstantString" string="MQ Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="713,86" queueName="QM2OUTPUT1" destinationQueueManagerName="QM2" destinationMode="list">
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="713,86" queueName="A2" destinationQueueManagerName="QM1" destinationMode="list">
         <translation xmi:type="utility:ConstantString" string="MQ Output"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQGet.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="346,79" queueName="QM2INPUT" destinationQueueManagerName="QM2" messageDomainProperty="XMLNSC" generateMode="messageAndLocalEnvironment">
+      <nodes xmi:type="ComIbmMQGet.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="346,79" queueName="A1" destinationQueueManagerName="QM1" messageDomainProperty="XMLNSC" generateMode="messageAndLocalEnvironment" outputDataLocation="OutputRoot.XMLNSC.data.get" resultDataLocation="ResultRoot.XMLNSC">
         <translation xmi:type="utility:ConstantString" string="MQ Get"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="174,6" computeExpression="esql://routine/#MF_MQ_get_Compute.Main" computeMode="destinationAndMessage">
