@@ -1,0 +1,36 @@
+
+
+CREATE COMPUTE MODULE MF_TransformToUpper_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		-- CALL CopyEntireMessage();
+		CALL TransformToUpper();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+	
+	CREATE PROCEDURE TransformToUpper ( )
+	BEGIN
+		DECLARE inref REFERENCE TO InputRoot.XMLNSC.emp.name;
+		DECLARE result CHARACTER REPLACE(inref,'e','F');
+		
+		SET OutputRoot.XMLNSC.emp.name = result;
+		
+		
+	END;
+	
+END MODULE;
