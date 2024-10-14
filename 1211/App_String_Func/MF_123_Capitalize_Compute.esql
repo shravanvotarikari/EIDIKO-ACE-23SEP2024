@@ -1,0 +1,20 @@
+
+
+CREATE COMPUTE MODULE MF_123_Capitalize_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL insert123Captital();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE insert123Captital() BEGIN
+		
+		DECLARE name CHARACTER InputRoot.XMLNSC.emp.name;
+		DECLARE newName CHARACTER;
+		
+		SET newName = OVERLAY(name PLACING ('123' || UPPER(RIGHT(name,3))) FROM 4 FOR 3);
+
+		SET OutputRoot.XMLNSC.emp.name = newName;
+
+	END;
+END MODULE;
