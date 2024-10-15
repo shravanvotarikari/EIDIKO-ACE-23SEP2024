@@ -1,11 +1,10 @@
 
 
-CREATE COMPUTE MODULE MF_Remove_Compute
+CREATE COMPUTE MODULE MF_String_Overlay_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
-		-- CALL CopyEntireMessage();
-		CALL RemoveChar();
+		CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
 
@@ -20,18 +19,11 @@ CREATE COMPUTE MODULE MF_Remove_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputRoot = InputRoot;
-	END;
-	
-	CREATE PROCEDURE RemoveChar ( )
-	BEGIN
-		DECLARE str CHARACTER '';
-		DECLARE inref REFERENCE TO InputRoot.XMLNSC.emp.name;
+		DECLARE originalString CHARACTER InputRoot.XMLNSC.data.s;
+		DECLARE modifiedString CHARACTER;
 		
-
-		SET str = REPLACE(inref,'i','');
-		SET OutputRoot.XMLNSC.emp.name = str;
+		SET modifiedString = OVERLAY(originalString placing 'DB' from 6 for 4);
 		
+		SET OutputRoot.XMLNSC.data.s = modifiedString;
 	END;
-	
 END MODULE;

@@ -1,11 +1,10 @@
 
 
-CREATE COMPUTE MODULE MF_Remove_Compute
+CREATE COMPUTE MODULE MF_GetById_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		-- CALL CopyMessageHeaders();
-		-- CALL CopyEntireMessage();
-		CALL RemoveChar();
+		 CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
 
@@ -21,17 +20,6 @@ CREATE COMPUTE MODULE MF_Remove_Compute
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		SET OutputRoot = InputRoot;
+--		SET OutputRoot.MQMD.MsgId = CAST(X'313D5120514D3120202020202020202091FC0D677D0B0090' AS BLOB);
 	END;
-	
-	CREATE PROCEDURE RemoveChar ( )
-	BEGIN
-		DECLARE str CHARACTER '';
-		DECLARE inref REFERENCE TO InputRoot.XMLNSC.emp.name;
-		
-
-		SET str = REPLACE(inref,'i','');
-		SET OutputRoot.XMLNSC.emp.name = str;
-		
-	END;
-	
 END MODULE;

@@ -1,11 +1,11 @@
 
 
-CREATE COMPUTE MODULE MF_Remove_Compute
+CREATE COMPUTE MODULE MF_Reverse_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
-		-- CALL CopyEntireMessage();
-		CALL RemoveChar();
+		 CALL CopyEntireMessage();
+		CALL ReverseString();
 		RETURN TRUE;
 	END;
 
@@ -23,15 +23,27 @@ CREATE COMPUTE MODULE MF_Remove_Compute
 		SET OutputRoot = InputRoot;
 	END;
 	
-	CREATE PROCEDURE RemoveChar ( )
+	Create PROCEDURE ReverseString ()
 	BEGIN
-		DECLARE str CHARACTER '';
-		DECLARE inref REFERENCE TO InputRoot.XMLNSC.emp.name;
 		
-
-		SET str = REPLACE(inref,'i','');
-		SET OutputRoot.XMLNSC.emp.name = str;
+		DECLARE str CHARACTER NULL;
+		DECLARE Result CHARACTER '';
+		
+		DECLARE i INTEGER;
+		
+		SET str = InputRoot.XMLNSC.emp.name;
+		
+		SET i = LENGTH(str);
+		
+		WHILE i>0 DO
+			SET Result = Result || SUBSTRING(str FROM i FOR 1);
+			SET i = i-1;
+			
+		END WHILE;
+		
+		SET OutputRoot.XMLNSC.emp.name = Result;
 		
 	END;
+	
 	
 END MODULE;
