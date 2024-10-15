@@ -1,11 +1,11 @@
 
 
-CREATE COMPUTE MODULE MF_Remove_Compute
+CREATE COMPUTE MODULE ADD_Number_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
-		-- CALL CopyEntireMessage();
-		CALL RemoveChar();
+		 CALL CopyEntireMessage();
+		 CALL AddNumber();
 		RETURN TRUE;
 	END;
 
@@ -23,15 +23,19 @@ CREATE COMPUTE MODULE MF_Remove_Compute
 		SET OutputRoot = InputRoot;
 	END;
 	
-	CREATE PROCEDURE RemoveChar ( )
+	CREATE PROCEDURE AddNumber ( )
 	BEGIN
-		DECLARE str CHARACTER '';
+		
 		DECLARE inref REFERENCE TO InputRoot.XMLNSC.emp.name;
+		DECLARE firstpart CHARACTER SUBSTRING(inref FROM 1 FOR LENGTH(inref)/2);
+		DECLARE secondpart CHARACTER SUBSTRING(inref FROM LENGTH(inref)/2+1 FOR LENGTH(inref));
 		
-
-		SET str = REPLACE(inref,'i','');
-		SET OutputRoot.XMLNSC.emp.name = str;
+		DECLARE Number CHARACTER '123';
+		DECLARE result CHARACTER '';
 		
+		SET result = firstpart || Number || UPPER(secondpart);
+		
+		SET OutputRoot.XMLNSC.emp.name = result;
 	END;
 	
 END MODULE;

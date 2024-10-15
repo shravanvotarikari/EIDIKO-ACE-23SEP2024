@@ -1,11 +1,11 @@
 
 
-CREATE COMPUTE MODULE MF_Remove_Compute
+CREATE COMPUTE MODULE Transform_letter_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
 		-- CALL CopyEntireMessage();
-		CALL RemoveChar();
+		 CALL Transform();
 		RETURN TRUE;
 	END;
 
@@ -23,15 +23,12 @@ CREATE COMPUTE MODULE MF_Remove_Compute
 		SET OutputRoot = InputRoot;
 	END;
 	
-	CREATE PROCEDURE RemoveChar ( )
+	CREATE PROCEDURE Transform ( )
 	BEGIN
-		DECLARE str CHARACTER '';
 		DECLARE inref REFERENCE TO InputRoot.XMLNSC.emp.name;
+		DECLARE Result CHARACTER REPLACE(inref,'e','F');
 		
-
-		SET str = REPLACE(inref,'i','');
-		SET OutputRoot.XMLNSC.emp.name = str;
-		
+		SET OutputRoot.XMLNSC.emp.name = Result;
 	END;
 	
 END MODULE;

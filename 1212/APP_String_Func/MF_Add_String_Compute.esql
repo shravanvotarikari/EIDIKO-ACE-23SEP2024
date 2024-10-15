@@ -1,7 +1,8 @@
 
 
-CREATE COMPUTE MODULE MF_String_CapitalConcat_Compute
-	CREATE FUNCTION Main() RETURNS BOOLEAN
+CREATE COMPUTE MODULE MF_Add_String_Compute
+   
+    CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		CALL Task3();
 		RETURN TRUE;
@@ -17,7 +18,7 @@ CREATE COMPUTE MODULE MF_String_CapitalConcat_Compute
 		SET subStr1 = SUBSTRING(originalString from 1 for 3);
 		
 		DECLARE subStr2 CHARACTER;
-		SET subStr2 = SUBSTRING(originalString from 4);
+		SET subStr2 = SUBSTRING(originalString from 4 for 6);
 		
 		DECLARE myNumber INTEGER 123;
 		DECLARE myNumberString CHARACTER;
@@ -27,7 +28,6 @@ CREATE COMPUTE MODULE MF_String_CapitalConcat_Compute
 		SET modifiedString = subStr1 || myNumberString || UCASE(subStr2);
 		
 		SET OutputRoot.XMLNSC.emp.name = modifiedString;
-
 	END;
-	
+   
 END MODULE;

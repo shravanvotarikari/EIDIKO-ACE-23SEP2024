@@ -1,0 +1,21 @@
+
+
+CREATE COMPUTE MODULE MF_Add_Number_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	call Add_Number();
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE Add_Number()
+	Begin
+		DECLARE inref reference to InputRoot.XMLNSC.emp.name;
+		DECLARE num character '123';
+		DECLARE result CHARACTER '';
+		declare firstchar character SUBSTRING(inref from 1 for LENGTH(inref)/2);
+		declare lastchar character SUBSTRING(inref from LENGTH(inref)/2+1 for  LENGTH(inref));
+		
+		SET result = firstchar || num || UPPER(lastchar);
+		SET OutputRoot.XMLNSC.emp.data = result; 
+	End;	
+END MODULE;
