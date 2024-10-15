@@ -11,7 +11,7 @@ CREATE COMPUTE MODULE MF_String_Reverse_Compute
 
 	
 	CREATE PROCEDURE StringReverse() BEGIN
-		DECLARE originalString CHARACTER InputRoot.XMLNSC.emp.name;
+		DECLARE originalString CHARACTER InputRoot.XMLNSC.d1;
 		DECLARE reversedString CHARACTER '';
 		DECLARE strLength INTEGER;
 		DECLARE i INTEGER;
@@ -26,7 +26,7 @@ CREATE COMPUTE MODULE MF_String_Reverse_Compute
 		END WHILE;
 		
 		-- Output the reversed string
-		SET OutputRoot.XMLNSC.emp.name = reversedString;
+		SET OutputRoot.XMLNSC.d1 = reversedString;
 	END;
 END MODULE;
 

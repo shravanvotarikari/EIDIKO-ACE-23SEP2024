@@ -1,0 +1,18 @@
+
+
+CREATE COMPUTE MODULE MF_RemoveChar_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL RemoveChar();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE RemoveChar() BEGIN
+		DECLARE str character '';
+		DECLARE inref reference to InputRoot.XMLNSC.emp.name;
+		--Declare RESULT CHARACTER;
+		set str = REPLACE(inref,'i','');
+		Set OutputRoot.XMLNSC.emp.name = str;
+		
+	END;
+END MODULE;

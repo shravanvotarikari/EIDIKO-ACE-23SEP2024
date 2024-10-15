@@ -1,33 +1,80 @@
+--CREATE COMPUTE MODULE MF_Add_String_Compute
+--   
+--    CREATE FUNCTION Main() RETURNS BOOLEAN
+--    BEGIN
+--        CALL Task3();
+--        RETURN TRUE;
+--    END;
+--    
+--    CREATE PROCEDURE Task3() 
+--    BEGIN
+--        -- Declare the input string
+--        DECLARE originalString CHARACTER;
+--        SET originalString = InputRoot.XMLNSC.d1;
+--        
+--        -- Declare variables for substrings
+--        DECLARE subStr1 CHARACTER;
+--        DECLARE subStr2 CHARACTER;
+--        
+--        -- Extract first 3 characters (or fewer if string is shorter)
+--        SET subStr1 = SUBSTRING(originalString FROM 1 FOR 3);
+--        
+--        -- Extract remaining characters (if any) after the 3rd character
+--        SET subStr2 = SUBSTRING(originalString FROM 4 FOR LENGTH(originalString) - 3);
+--        
+--        -- Declare the number to be inserted
+--        DECLARE myNumberString CHARACTER '123';
+--        
+--        -- Create the final modified string with uppercase transformation of subStr2
+--        DECLARE modifiedString CHARACTER;
+--        SET modifiedString = subStr1 || myNumberString || UCASE(subStr2);
+--        
+--        -- Set the modified string as the output
+--        SET OutputRoot.XMLNSC.d1 = modifiedString;
+--    END;
+--   
+--END MODULE;
 
 
 CREATE COMPUTE MODULE MF_Add_String_Compute
-   
+
     CREATE FUNCTION Main() RETURNS BOOLEAN
-	BEGIN
-		CALL Task3();
-		RETURN TRUE;
-	END;
-	
-	CREATE PROCEDURE Task3() BEGIN
-		DECLARE originalString CHARACTER;
-		SET originalString = InputRoot.XMLNSC.emp.name;
-		
-		DECLARE modifiedString CHARACTER;
-		
-		DECLARE subStr1 CHARACTER;
-		SET subStr1 = SUBSTRING(originalString from 1 for 3);
-		
-		DECLARE subStr2 CHARACTER;
-		SET subStr2 = SUBSTRING(originalString from 4 for 6);
-		
-		DECLARE myNumber INTEGER 123;
-		DECLARE myNumberString CHARACTER;
-		
-		SET myNumberString = CAST(myNumber AS CHARACTER);
-		
-		SET modifiedString = subStr1 || myNumberString || UCASE(subStr2);
-		
-		SET OutputRoot.XMLNSC.emp.name = modifiedString;
-	END;
+    BEGIN
+        CALL Task3();
+        RETURN TRUE;
+    END;
+    
+    CREATE PROCEDURE Task3() 
+    BEGIN
+        -- Declare the input string
+        DECLARE originalString CHARACTER;
+        SET originalString = InputRoot.XMLNSC.d1;
+        
+        -- Find the length of the input string
+        DECLARE stringLength INTEGER;
+        SET stringLength = LENGTH(originalString);
+        
+        -- Calculate the middle index of the string (favoring the first half in case of even lengths)
+        DECLARE middleIndex INTEGER;
+        SET middleIndex = FLOOR(stringLength / 2);
+        
+        -- Extract the first half (before the middle) and the second half (after the middle)
+        DECLARE firstHalf CHARACTER;
+        DECLARE secondHalf CHARACTER;
+        
+        SET firstHalf = SUBSTRING(originalString FROM 1 FOR middleIndex);
+        SET secondHalf = SUBSTRING(originalString FROM middleIndex + 1 FOR stringLength - middleIndex);
+        
+        -- Declare the number to be inserted
+        DECLARE myNumberString CHARACTER '123';
+        
+        -- Create the final modified string with uppercase transformation of secondHalf
+        DECLARE modifiedString CHARACTER;
+        SET modifiedString = firstHalf || myNumberString || UCASE(secondHalf);
+        
+        -- Set the modified string as the output
+        SET OutputRoot.XMLNSC.d1 = modifiedString;
+    END;
    
 END MODULE;
+
