@@ -26,7 +26,6 @@ CREATE COMPUTE MODULE Remove_letter_Compute
 	Create PROCEDURE RemoveWord ( )
 	BEGIN
 		DECLARE str CHARACTER '';
-		DECLARE i INTEGER 1;
 		
 		DECLARE inref REFERENCE TO InputRoot.XMLNSC.emp.name;
 		
