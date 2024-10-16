@@ -8,45 +8,46 @@ CREATE COMPUTE MODULE Remove_Substring_Compute
 
     CREATE PROCEDURE RemoveSubstring() 
     BEGIN
-      
-        DECLARE originalString CHARACTER InputRoot.XMLNSC.d1;  
-        DECLARE modifiedString CHARACTER '';                            
-        DECLARE positionOfUppercase INTEGER 0;                        
-        DECLARE stringLength INTEGER;                                 
-        DECLARE currentChar CHARACTER '';                             
-        DECLARE foundUppercase BOOLEAN FALSE;                  
-
-      
-        SET stringLength = LENGTH(originalString);
-
-      
-        DECLARE i INTEGER 1;
-
-        WHILE i <= stringLength AND NOT foundUppercase DO
-          
-            SET currentChar = SUBSTRING(originalString FROM i FOR 1);
-
-           
-            IF currentChar >= 'A' AND currentChar <= 'Z' THEN
-                SET positionOfUppercase = i; 
-                SET foundUppercase = TRUE;    
-            END IF;
-
-            SET i = i + 1;  
-        END WHILE;
-
-       
-        IF positionOfUppercase > 0 THEN
-      
-            SET modifiedString = SUBSTRING(originalString FROM 1 FOR positionOfUppercase - 1);
-        ELSE
-          
-            SET modifiedString = originalString;
-        END IF;
-
-    
-        SET OutputRoot.XMLNSC.OutputField = modifiedString;
-
-    END; 
-
+--      
+--        DECLARE originalString CHARACTER InputRoot.XMLNSC.d1;  
+--        DECLARE modifiedString CHARACTER '';                            
+--        DECLARE positionOfUppercase INTEGER 0;                        
+--        DECLARE stringLength INTEGER;                                 
+--        DECLARE currentChar CHARACTER '';                             
+--        DECLARE foundUppercase BOOLEAN FALSE;                  
+--
+--      
+--        SET stringLength = LENGTH(originalString);
+--
+--      
+--        DECLARE i INTEGER 1;
+--
+--        WHILE i <= stringLength AND NOT foundUppercase DO
+--          
+--            SET currentChar = SUBSTRING(originalString FROM i FOR 1);
+--
+--           
+--            IF currentChar >= 'A' AND currentChar <= 'Z' THEN
+--                SET positionOfUppercase = i; 
+--                SET foundUppercase = TRUE;    
+--            END IF;
+--
+--            SET i = i + 1;  
+--        END WHILE;
+--
+--       
+--        IF positionOfUppercase > 0 THEN
+--      
+--            SET modifiedString = SUBSTRING(originalString FROM 1 FOR positionOfUppercase - 1);
+--        ELSE
+--          
+--            SET modifiedString = originalString;
+--        END IF;
+--
+--    
+--        SET OutputRoot.XMLNSC.OutputField = modifiedString;
+--
+--    END; 
+END;
 END MODULE;  
+
