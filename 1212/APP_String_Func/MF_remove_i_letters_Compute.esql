@@ -24,13 +24,13 @@ CREATE COMPUTE MODULE MF_remove_i_letters_Compute
         SET OutputRoot = InputRoot;
         
         -- Extract the name from the input XML
-        DECLARE InputName CHAR InputRoot.XMLNSC.emp.name;
+        DECLARE InputName CHAR InputRoot.XMLNSC.d1;
 
         -- Replace all occurrences of 'i' with an empty string
         DECLARE OutputName CHAR REPLACE(InputName, 'i', '');
 
         -- Set the modified name back in the output XML
-        SET OutputRoot.XMLNSC.emp.name = OutputName;
+        SET OutputRoot.XMLNSC.d1 = OutputName;
         
      
 	END;

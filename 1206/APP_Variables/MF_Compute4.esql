@@ -1,11 +1,10 @@
 
 
-CREATE COMPUTE MODULE Remove_letter_Compute
+CREATE COMPUTE MODULE MF_Compute4
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		-- CALL CopyMessageHeaders();
-		CALL CopyEntireMessage();
-		CALL RemoveWord();
+		 CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
 
@@ -21,16 +20,9 @@ CREATE COMPUTE MODULE Remove_letter_Compute
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		SET OutputRoot = InputRoot;
+		SET OutputLocalEnvironment = InputLocalEnvironment;
+		SET OutputLocalEnvironment.compute4.lclVar = lclVarCompute1;
+		SET OutputLocalEnvironment.compute4.extVar = extVarCompute1;
+		SET OutputLocalEnvironment.compute4.shrVar = shrVarCompute1;
 	END;
-	
-	Create PROCEDURE RemoveWord ( )
-	BEGIN
-		DECLARE str CHARACTER '';
-		
-		DECLARE inref REFERENCE TO InputRoot.XMLNSC.emp.name;
-		
-		SET str = REPLACE(inref,'i','');
-		SET OutputRoot.XMLNSC.emp.name = str;
-	END;
-	
 END MODULE;

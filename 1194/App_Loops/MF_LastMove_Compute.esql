@@ -1,0 +1,23 @@
+
+
+CREATE COMPUTE MODULE MF_LastMove_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL funName();
+		RETURN TRUE;
+	END;
+
+	CREATE FUNCTION funName() BEGIN
+	DECLARE empRef REFERENCE TO InputRoot.XMLNSC.employees.employee;
+--	MOVE empRef FIRSTCHILD;
+	DECLARE countOfEmployees INTEGER 0;
+	
+	WHILE LASTMOVE(empRef) DO
+		SET countOfEmployees = countOfEmployees + 1;
+		MOVE empRef NEXTSIBLING;
+	END WHILE;
+	
+	SET OutputLocalEnvironment.count = countOfEmployees;
+	SET OutputRoot.XMLNSC = InputRoot.XMLNSC;
+	END;
+END MODULE;

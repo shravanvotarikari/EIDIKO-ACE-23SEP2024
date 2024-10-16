@@ -9,6 +9,7 @@ CREATE COMPUTE MODULE MF_MQ_get_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
 		SET OutputRoot = InputRoot;
 		
 		--SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'QM2OUTPUT3';

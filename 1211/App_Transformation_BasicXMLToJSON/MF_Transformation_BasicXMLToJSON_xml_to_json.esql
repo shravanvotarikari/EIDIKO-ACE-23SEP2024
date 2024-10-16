@@ -1,0 +1,13 @@
+
+
+CREATE COMPUTE MODULE MF_Transformation_BasicXMLToJSON_xml_to_json
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+	END;
+END MODULE;

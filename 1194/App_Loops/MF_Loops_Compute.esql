@@ -1,0 +1,39 @@
+
+
+CREATE COMPUTE MODULE MF_Loops_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL sumPrice();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE sumPrice() BEGIN
+		DECLARE sum INTEGER 0;
+		DECLARE countOfElements INTEGER;
+		SET countOfElements = CARDINALITY(InputRoot.JSON.Data.Order.Item[]);
+		
+--		Sum Using While Loop
+		DECLARE i INTEGER 1;
+		WHILE (i <= countOfElements) DO
+			SET sum = sum + InputRoot.JSON.Data.Order.Item[i].price;
+			SET i = i + 1;
+		END WHILE;
+		
+		
+--		Sum using For Loop -- doesnt work
+--		FOR i AS INTEGER FROM 1 TO countOfElements DO
+--			SET sum = sum + InputRoot.JSON.Data.Order.Item[i].price;
+--		END FOR;
+
+		
+--		Sum using Repeat Loop	-- Doesnt Work
+--		REPEAT
+--			SET sum = sum + InputRoot.JSON.Data.Order.Item[i].price;
+--			SET i = i + 1;
+--		UNTIL i <= countOfElements
+--		END REPEAT;
+		
+		SET OutputLocalEnvironment.sum = sum;
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
