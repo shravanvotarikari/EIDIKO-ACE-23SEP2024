@@ -1,0 +1,18 @@
+
+
+CREATE COMPUTE MODULE MF_Remove_Substring_Simple_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE originalString CHARACTER InputRoot.XMLNSC.d1;
+		DECLARE modifiedString CHARACTER;
+		
+		SET modifiedString = SUBSTRING(originalString before 'Exception');
+		
+       	SET OutputRoot.XMLNSC.d1 = modifiedString;
+	END;
+END MODULE;
