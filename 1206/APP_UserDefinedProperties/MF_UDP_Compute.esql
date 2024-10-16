@@ -1,11 +1,14 @@
+DECLARE userDefinedVariable CHARACTER '';
+DECLARE var2 EXTERNAL CHARACTER;
 
 
-CREATE COMPUTE MODULE Remove_letter_Compute
+
+CREATE COMPUTE MODULE MF_UDP_Compute
+	
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
-		CALL CopyEntireMessage();
-		CALL RemoveWord();
+		   CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
 
@@ -21,16 +24,8 @@ CREATE COMPUTE MODULE Remove_letter_Compute
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		SET OutputRoot = InputRoot;
-	END;
+		SET OutputLocalEnvironment.userDV = userDefinedVariable;
+		SET OutputLocalEnvironment.var = var2;
 	
-	Create PROCEDURE RemoveWord ( )
-	BEGIN
-		DECLARE str CHARACTER '';
-		
-		DECLARE inref REFERENCE TO InputRoot.XMLNSC.emp.name;
-		
-		SET str = REPLACE(inref,'i','');
-		SET OutputRoot.XMLNSC.emp.name = str;
 	END;
-	
 END MODULE;
