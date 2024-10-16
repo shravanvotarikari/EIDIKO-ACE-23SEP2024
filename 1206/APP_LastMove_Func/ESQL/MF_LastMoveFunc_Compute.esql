@@ -1,0 +1,44 @@
+BROKER SCHEMA ESQL
+
+
+CREATE COMPUTE MODULE MF_LastMoveFunc_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+--		 CALL CopyMessageHeaders();
+--		 CALL CopyEntireMessage();
+		 CALL UseLastMoveFunc();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+	
+	CREATE PROCEDURE UseLastMoveFunc ( )
+	BEGIN
+		CREATE FIELD OutputRoot.JSON.Data.employees IDENTITY(JSON.Array) employees;
+		DECLARE inref REFERENCE TO InputRoot.XMLNSC.employees.employee[1];
+		DECLARE outref REFERENCE TO OutputRoot.JSON.Data.employees;
+		DECLARE i INTEGER 1;
+		
+		While LASTMOVE(inref) = TRUE DO
+			
+			SET outref.Item[i] = inref;
+			
+			SET i = i+1;
+			MOVE inref NEXTSIBLING;
+		END WHILE;
+		
+	END;
+	
+END MODULE;
