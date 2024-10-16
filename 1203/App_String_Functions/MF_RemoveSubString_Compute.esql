@@ -12,7 +12,8 @@ CREATE COMPUTE MODULE MF_RemoveSubString_Compute
 		DECLARE OriginalStr CHARACTER ;
 		DECLARE WordToRemove CHARACTER ;
 		SET OriginalStr =  InputRoot.XMLNSC.emp.name;
-		SET WordToRemove = REPLACE(OriginalStr, 'Exception', '');
+		SET WordToRemove = SUBSTRING(OriginalStr before 'Exception');
+		--SET WordToRemove = REPLACE(OriginalStr, 'Exception', '');
 		
 		
 	SET OutputRoot.XMLNSC.emp.name = WordToRemove;

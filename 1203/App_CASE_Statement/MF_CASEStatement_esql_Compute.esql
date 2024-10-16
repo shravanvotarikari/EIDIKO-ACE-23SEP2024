@@ -1,0 +1,27 @@
+CREATE COMPUTE MODULE MF_CASEStatement_esql_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+         -- CALL CopyEntireMessage();
+         CALL CaseExample_Compute();
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE CaseExample_Compute() BEGIN
+    SET OutputRoot = InputRoot;
+    DECLARE status CHAR;
+    SET status = InputRoot.XMLNSC.Order.Status;
+
+    CASE status
+        WHEN 'PENDING' THEN
+            SET OutputRoot.XMLNSC.Order.Action = 'Processing';
+        WHEN 'COMPLETED' THEN
+            SET OutputRoot.XMLNSC.Order.Action = 'No Further Action';
+        WHEN 'FAILED' THEN
+            SET OutputRoot.XMLNSC.Order.Action = 'Retry Required';
+        ELSE
+            SET OutputRoot.XMLNSC.Order.Action = 'Unknown Status';
+    END CASE;
+
+END;
+END MODULE;
