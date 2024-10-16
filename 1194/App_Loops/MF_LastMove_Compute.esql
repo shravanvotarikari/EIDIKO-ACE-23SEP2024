@@ -8,8 +8,8 @@ CREATE COMPUTE MODULE MF_LastMove_Compute
 	END;
 
 	CREATE FUNCTION funName() BEGIN
-	DECLARE empRef REFERENCE TO InputRoot.XMLNSC.employees;
-	MOVE empRef FIRSTCHILD;
+	DECLARE empRef REFERENCE TO InputRoot.XMLNSC.employees.employee;
+--	MOVE empRef FIRSTCHILD;
 	DECLARE countOfEmployees INTEGER 0;
 	
 	WHILE LASTMOVE(empRef) DO
