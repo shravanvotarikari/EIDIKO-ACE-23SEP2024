@@ -1,0 +1,31 @@
+
+
+CREATE COMPUTE MODULE MF_addSibling_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL makeJsonArray();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE makeJsonArray()
+BEGIN
+    DECLARE inRef REFERENCE to InputRoot.XMLNSC.root.d;  -- Initialize inRef to point to the first <d> node
+    CREATE FIELD OutputRoot.JSON.Data.base IDENTITY(JSON.Array)base;  -- Create an empty JSON array
+    DECLARE outRef REFERENCE to OutputRoot.JSON.Data;  -- Create a reference to the output JSON data structure
+    DECLARE i INTEGER 1;  -- Initialize a counter variable for array indexing
+
+    -- The WHILE loop processes each <d> element in the XML structure
+    WHILE LASTMOVE(inRef) DO
+        -- Create a new sibling element <description> with a default value
+        CREATE FIELD inRef.description;  -- Create the sibling <description> element
+        SET inRef.description = 'Description for ' || CAST(inRef.name AS CHAR CCSID 1208);  -- Set the value of the new sibling
+
+        -- Assign the current XML node (with the new sibling) to the JSON array
+        SET outRef.base.Item[i] = inRef;
+
+        MOVE inRef NEXTSIBLING;  -- Move to the next sibling node
+        SET i = i + 1;  -- Increment the index for the next item in the JSON array
+    END WHILE;
+END;
+	
+END MODULE;
