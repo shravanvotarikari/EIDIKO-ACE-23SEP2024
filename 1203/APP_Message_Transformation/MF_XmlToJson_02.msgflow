@@ -9,10 +9,10 @@
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="378,123" computeExpression="esql://routine/#MF_XmlToJson_02_Compute.Main">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="72,142" inputDirectory="C:\Users\Aruns\OneDrive\Desktop\fileInputNode_1" messageDomainProperty="XMLNSC" messageSetProperty="XmlToJson.xsd" validateTiming="immediate">
+      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="72,142" inputDirectory="D:\Office Stuff\IIB\f1" messageDomainProperty="XMLNSC" validateTiming="immediate">
         <translation xmi:type="utility:ConstantString" string="File Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="730,191" outputDirectory="C:\Users\Aruns\OneDrive\Desktop\fileIOutNode_2" outputFilename="XmlToJson_Data">
+      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="730,191" outputDirectory="D:\Office Stuff\IIB\f2" outputFilename="XmlToJson_Data">
         <translation xmi:type="utility:ConstantString" string="File Output"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
