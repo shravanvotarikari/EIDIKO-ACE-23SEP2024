@@ -1,0 +1,34 @@
+
+
+CREATE COMPUTE MODULE MF_Extract_exception_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		CALL copyLastException();
+		RETURN TRUE;
+	END;
+
+	
+	CREATE PROCEDURE copyLastException() BEGIN
+
+		DECLARE messageText CHARACTER;
+		
+		DECLARE inputExcepction REFERENCE TO InputExceptionList;
+		
+		WHILE LASTMOVE(inputExcepction) DO
+			
+		--SET OutputLocalEnvironment.Variable.lastexception = inputExcepction.Text;
+			
+			IF inputExcepction.Text is not null THEN
+        		SET messageText = inputExcepction.Text;
+  			END IF;
+  			
+			move inputExcepction lastchild;
+		END WHILE;
+		SET OutputRoot.BLOB.BLOB = CAST(messageText AS BLOB CCSID 437);
+	END;
+	
+	
+	
+END MODULE;
+
