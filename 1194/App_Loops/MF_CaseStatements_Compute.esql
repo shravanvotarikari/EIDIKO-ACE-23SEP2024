@@ -3,7 +3,7 @@
 CREATE COMPUTE MODULE MF_CaseStatements_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		CALL Scenario(18);
+		CALL Scenario(15);
 		RETURN TRUE;
 	END;
 	
