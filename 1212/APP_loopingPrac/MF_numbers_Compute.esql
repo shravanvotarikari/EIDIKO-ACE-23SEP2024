@@ -1,0 +1,19 @@
+CREATE COMPUTE MODULE MF_numbers_Compute
+    CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+        -- Declare variables
+        DECLARE i INTEGER 1;
+        DECLARE numCount INTEGER CARDINALITY(InputRoot.XMLNSC.Numbers.Number[]);
+
+        -- Initialize the output XML structure
+        SET OutputRoot.XMLNSC = InputRoot.XMLNSC;
+
+        -- Loop through each Number and multiply by 2
+        WHILE i <= numCount DO
+            SET OutputRoot.XMLNSC.Numbers.Number[i] = InputRoot.XMLNSC.Numbers.Number[i] * 2;
+            SET i = i + 1;
+        END WHILE;
+
+        RETURN TRUE;
+    END;
+END MODULE;

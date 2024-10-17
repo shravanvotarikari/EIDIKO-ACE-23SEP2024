@@ -9,7 +9,7 @@
       <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="91,88" queueName="p3" destinationQueueManagerName="QM1" messageDomainProperty="XMLNSC" validateTiming="immediate">
         <translation xmi:type="utility:ConstantString" string="MQ Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="561,86" queueName="p6" destinationQueueManagerName="QM1">
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="542,86" queueName="p6" destinationQueueManagerName="QM1">
         <translation xmi:type="utility:ConstantString" string="MQ Output"/>
       </nodes>
       <nodes xmi:type="ComIbmMQGet.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="326,89" queueName="p5" destinationQueueManagerName="QM1" messageDomainProperty="XMLNSC" copyMessage="copyEntireMessage" outputDataLocation="OutputRoot.XMLNSC.m1.x2" resultDataLocation="ResultRoot.XMLNSC.x3">

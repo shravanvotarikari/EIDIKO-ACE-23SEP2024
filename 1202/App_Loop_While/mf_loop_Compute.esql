@@ -1,0 +1,25 @@
+
+
+CREATE COMPUTE MODULE mf_loop_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE cursor REFERENCE TO InputExceptionList.ParserException.ParserException.ParserException;
+		move cursor FIRSTCHILD;
+		WHILE LASTMOVE(cursor) DO
+			
+		END WHILE;
+		
+		RETURN TRUE;
+	END;
+	
+	create PROCEDURE lastString ( )
+	BEGIN
+		DECLARE cursor REFERENCE TO InputExceptionList;
+		WHILE LASTMOVE(cursor) DO
+			move cursor LASTCHILD;
+		END WHILE;
+		create field OutputRoot.XMLNSC.data;
+		SET OutputRoot.XMLNSC.data =  cursor;
+	END;
+
+END MODULE;

@@ -1,0 +1,25 @@
+
+
+CREATE COMPUTE MODULE MF_Loops_LeaveStatement_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL getSum();
+		RETURN TRUE;
+	END;
+
+	CREATE FUNCTION getSum() BEGIN
+		DECLARE i INTEGER 1;
+		DECLARE sum INTEGER 0;
+		
+		label1 : WHILE i<10 DO
+			IF i = 5 THEN
+				LEAVE label1;
+			END IF;
+			SET sum = sum + i;
+			SET i = i + 1;
+		END WHILE;
+		
+		SET OutputRoot.XMLNSC.sum = sum;
+	END;
+
+END MODULE;
