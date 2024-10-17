@@ -1,0 +1,65 @@
+CREATE COMPUTE MODULE Loop_using_Leave_Compute
+
+    CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+
+        CALL find_status();
+        
+        RETURN TRUE;
+    END;
+
+
+    CREATE PROCEDURE CopyMessageHeaders() 
+    BEGIN
+        DECLARE I INTEGER 1;
+        DECLARE J INTEGER;
+        
+        -- Get the number of elements in InputRoot
+        SET J = CARDINALITY(InputRoot.*[]);
+        
+        -- Loop through InputRoot elements and copy them to OutputRoot
+        WHILE I <= J DO
+            SET OutputRoot.*[I] = InputRoot.*[I];
+            SET I = I + 1;
+        END WHILE;
+    END;
+
+
+    CREATE PROCEDURE CopyEntireMessage() 
+    BEGIN
+
+        SET OutputRoot = InputRoot;
+    END;
+
+
+    CREATE PROCEDURE find_status ()
+    BEGIN
+
+        DECLARE pointer REFERENCE TO InputRoot.XMLNSC.root.employee[1];
+      --  DECLARE found BOOLEAN FALSE;
+        DECLARE i INTEGER 1;
+
+
+        WHILE LASTMOVE(pointer) DO
+
+            IF pointer.status = 'Inactive' THEN
+            	
+            --    SET found = TRUE;
+                
+                -- Copy employee details to OutputRoot
+                SET OutputRoot.XMLNSC.root.employee[i].employee_id = pointer.employee_id;
+                SET OutputRoot.XMLNSC.root.employee[i].F_name = pointer.first_name;
+                SET OutputRoot.XMLNSC.root.employee[i].l_name = pointer.last_name;
+                SET OutputRoot.XMLNSC.root.employee[i].Dept = pointer.department;
+                SET OutputRoot.XMLNSC.root.employee[i].salary = pointer.salary;
+                SET OutputRoot.XMLNSC.root.employee[i].status = pointer.status;
+                
+                SET i = i + 1;
+            END IF;
+
+            -- Move to the next employee node
+            MOVE pointer NEXTSIBLING;
+        END WHILE;
+    END;
+
+END MODULE;
