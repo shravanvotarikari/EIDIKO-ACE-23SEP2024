@@ -9,7 +9,7 @@
       <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="94,73" queueName="q1" destinationQueueManagerName="newManager" validateTiming="immediate">
         <translation xmi:type="utility:ConstantString" string="MQ Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="654,96" destinationQueueManagerName="newManager" destinationMode="list">
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="575,80" destinationQueueManagerName="newManager" destinationMode="list">
         <translation xmi:type="utility:ConstantString" string="MQ Output"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="337,97" computeExpression="esql://routine/#MF_multipleQ_Compute.Main" computeMode="destinationAndMessage">
