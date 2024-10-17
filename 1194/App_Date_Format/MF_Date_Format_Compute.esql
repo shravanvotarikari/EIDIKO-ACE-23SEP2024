@@ -1,0 +1,32 @@
+
+
+CREATE COMPUTE MODULE MF_Date_Format_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL dateFunctions();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE dateFunctions() BEGIN
+		DECLARE curDate DATE;
+		SET curDate = CURRENT_DATE;
+		
+		DECLARE task1 CHARACTER;
+		SET task1 = CAST(curDate AS CHARACTER FORMAT 'yyyyMMdd');
+		
+		DECLARE task2 CHARACTER;
+		SET task2 = CAST(curDate AS CHARACTER FORMAT 'yyyy|MM|dd');
+		
+		DECLARE futureDate DATE;
+		SET futureDate = curDate + INTERVAL '5' DAY;
+		
+		DECLARE task3 CHARACTER;
+		SET task3 = CAST(futureDate AS CHARACTER FORMAT 'ddMMyyyy');
+		
+		SET OutputRoot.XMLNSC.dates.date1 = task1;
+		SET OutputRoot.XMLNSC.dates.date2 = task2;
+		SET OutputRoot.XMLNSC.dates.date3 = task3;
+		
+	END;
+
+END MODULE;

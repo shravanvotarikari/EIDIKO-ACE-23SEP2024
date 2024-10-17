@@ -1,0 +1,37 @@
+
+
+CREATE COMPUTE MODULE MF_Date_Format_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL dateTask();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE dateTask() BEGIN
+		
+		DECLARE time_date CHARACTER;
+		SET time_date = CURRENT_TIMESTAMP; --InputRoot.XMLNSC.root.date1;
+		
+		DECLARE curr_date DATE;
+		SET curr_date = CURRENT_DATE; -- CAST(str AS DATE FORMAT 'yyyyMMDD');
+		
+		SET OutputRoot.XMLNSC.root.first_date = CAST(curr_date AS CHARACTER FORMAT 'YYYYMMdd');
+		SET OutputRoot.XMLNSC.root.second_date = CAST(curr_date AS CHARACTER FORMAT 'YYYY|MM|dd');
+		
+		SET curr_date = curr_date + INTERVAL '5' DAY;
+		
+		SET OutputRoot.XMLNSC.root.third_date = CAST(curr_date AS CHARACTER FORMAT 'ddMMYYYY');
+		
+	END;
+END MODULE;

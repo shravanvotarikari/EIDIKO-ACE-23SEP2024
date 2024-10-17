@@ -1,0 +1,19 @@
+
+
+CREATE COMPUTE MODULE mf_data_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE mydate date CURRENT_DATE;
+		create FIELD OutputRoot.XMLNSC.root;
+		
+		SET OutputRoot.XMLNSC.root.d = cast(mydate as character format 'ddMMYYYY');
+		SET OutputRoot.XMLNSC.root.d1 = cast(mydate as character format 'dd|MM|YYYY');
+		
+		
+		
+		
+		
+		
+		RETURN TRUE;
+	END;
+END MODULE;
