@@ -18,13 +18,16 @@ CREATE COMPUTE MODULE MF_Extract_exception_Compute
 		WHILE LASTMOVE(inputExcepction) DO
 			
 		--SET OutputLocalEnvironment.Variable.lastexception = inputExcepction.Text;
-			
+		
 			IF inputExcepction.Text is not null THEN
+			
         		SET messageText = inputExcepction.Text;
+        		
   			END IF;
   			
 			move inputExcepction lastchild;
 		END WHILE;
+		
 		SET OutputRoot.BLOB.BLOB = CAST(messageText AS BLOB CCSID 437);
 	END;
 	
@@ -32,3 +35,15 @@ CREATE COMPUTE MODULE MF_Extract_exception_Compute
 	
 END MODULE;
 
+
+
+
+
+
+
+		
+--			WHILE inputExcepction.Text is not null DO
+--				SET messageText = inputExcepction.Text;
+--				move inputExcepction lastchild;
+--			END WHILE;
+			
