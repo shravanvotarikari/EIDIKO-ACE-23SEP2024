@@ -1,0 +1,36 @@
+
+
+CREATE COMPUTE MODULE MF_Loop_Leave_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL inactiveEmployees();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE inactiveEmployees() BEGIN
+		
+		--SET OutputRoot = InputRoot;
+		
+		
+		CREATE FIELD OutputRoot.XMLNSC.root;
+		DECLARE outputRef REFERENCE TO OutputRoot.XMLNSC.root;
+		
+		DECLARE inputRef REFERENCE TO InputRoot.XMLNSC.root.employee;
+		
+		DECLARE i INTEGER 1;
+		
+		WHILE LASTMOVE(inputRef) DO
+			
+			IF inputRef.status = 'Inactive' THEN
+				
+				CREATE FIRSTCHILD OF outputRef NAME 'employee';
+				
+				SET outputRef.employee = inputRef;
+				
+				--SET i = i + 1;
+			END IF;
+				move inputRef NEXTSIBLING;
+		END WHILE;
+
+	END;
+END MODULE;
