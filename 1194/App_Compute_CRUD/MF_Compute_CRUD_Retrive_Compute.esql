@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE MF_Compute_CRUD_Retrive_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE rowVar ROW;
+		SET rowVar.arr[] = SELECT * FROM Database.Employees WHERE Employees.id=1194;
+		SET OutputLocalEnvironment.data = rowVar;
+	END;
+END MODULE;

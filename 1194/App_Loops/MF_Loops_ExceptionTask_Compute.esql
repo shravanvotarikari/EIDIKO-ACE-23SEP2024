@@ -11,13 +11,15 @@ CREATE COMPUTE MODULE MF_Loops_ExceptionTask_Compute
 		DECLARE exceptionText CHARACTER;
 		DECLARE exRef REFERENCE TO InputExceptionList;
 		
-		WHILE LASTMOVE(exRef) DO
-			IF (exRef.Text IS NOT NULL) THEN
-				SET exceptionText = exRef.Text;
-			END IF;
-			MOVE exRef LASTCHILD;
-		END WHILE;
+		SET OutputRoot.XMLNSC.msg = exRef.*[<].Text;
 		
-		SET OutputRoot.BLOB.BLOB = CAST(exceptionText AS BLOB CCSID 437);
+--		WHILE LASTMOVE(exRef) DO
+--			IF (exRef.Text IS NOT NULL) THEN
+--				SET exceptionText = exRef.Text;
+--			END IF;
+--			MOVE exRef LASTCHILD;
+--		END WHILE;
+--		
+--		SET OutputRoot.BLOB.BLOB = CAST(exceptionText AS BLOB CCSID 437);
 	END;
 END MODULE;

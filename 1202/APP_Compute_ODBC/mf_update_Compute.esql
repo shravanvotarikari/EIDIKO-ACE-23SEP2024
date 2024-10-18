@@ -1,0 +1,10 @@
+
+
+CREATE COMPUTE MODULE mf_update_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		update Database.table1 as t set COL2 = 'jay' where t.COL1 = 'hello';
+		RETURN TRUE;
+	END;
+
+END MODULE;
