@@ -9,10 +9,18 @@ CREATE COMPUTE MODULE MF_Field_Name_Compute
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		
-		SET OutputRoot.XMLNSC.fieldName = FIELDNAME(InputExceptionList);
+		--SET OutputRoot.XMLNSC.fieldName = FIELDNAME(InputExceptionList);
 		
+		DECLARE REF REFERENCE TO InputExceptionList.[1];
+	
+		SET OutputRoot.XMLNSC.data.fieldName = FIELDNAME(REF);
+	
+		SET OutputRoot.XMLNSC.data.fieldValue = FIELDVALUE(REF);
+	
+		SET OutputRoot.XMLNSC.data.fieldType = FIELDTYPE(REF);
+	
+		SET OutputRoot.XMLNSC.data.fieldNameSpace = FIELDNAMESPACE(REF);
 		
-		
---		SET OutputRoot = InputRoot;
 	END;
+	
 END MODULE;

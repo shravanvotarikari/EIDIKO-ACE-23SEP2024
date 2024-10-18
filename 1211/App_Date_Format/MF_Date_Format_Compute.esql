@@ -29,7 +29,7 @@ CREATE COMPUTE MODULE MF_Date_Format_Compute
 		SET OutputRoot.XMLNSC.root.first_date = CAST(curr_date AS CHARACTER FORMAT 'YYYYMMdd');
 		SET OutputRoot.XMLNSC.root.second_date = CAST(curr_date AS CHARACTER FORMAT 'YYYY|MM|dd');
 		
-		SET curr_date = curr_date + INTERVAL '5' DAY;
+		SET curr_date = curr_date + INTERVAL '5' DAY + INTERVAL '4' YEAR;
 		
 		SET OutputRoot.XMLNSC.root.third_date = CAST(curr_date AS CHARACTER FORMAT 'ddMMYYYY');
 		
