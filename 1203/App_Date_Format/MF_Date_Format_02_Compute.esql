@@ -11,6 +11,6 @@ CREATE COMPUTE MODULE MF_Date_Format_02_Compute
 
         -- Get the current date and format it as YYYY|MM|DD
         SET currentDate = CAST(CURRENT_DATE AS CHAR FORMAT 'yyyy|MM|dd');
-
+ 	    SET OutputRoot.XMLNSC.Date = currentDate;
     END;
 END MODULE;
