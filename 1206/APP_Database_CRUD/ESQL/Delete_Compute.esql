@@ -1,0 +1,26 @@
+BROKER SCHEMA ESQL
+
+
+CREATE COMPUTE MODULE Delete_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		 DECLARE flag BOOLEAN false;
+		 SET flag = DeleteValues(3);
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+	
+	CREATE FUNCTION DeleteValues (IN id INTEGER) RETURNS BOOLEAN
+	BEGIN
+		DELETE FROM Database.ACE_TASKS WHERE ACE_TASKS.EMP_ID = id;
+		RETURN TRUE;
+	END;
+	
+	
+END MODULE;
