@@ -1,0 +1,22 @@
+
+
+CREATE COMPUTE MODULE MF_database_merge_data_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		 CALL getData();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE getData() BEGIN
+					
+		DECLARE rowactive ROW;
+		SET rowactive.emp[] = SELECT e.emp_id FROM Database.employee_status AS e WHERE e.status = 'active';
+		SET Environment.active = rowactive;
+		
+		DECLARE rowinactive ROW;
+		SET rowinactive.emp[] = SELECT e.emp_id FROM Database.employee_status AS e WHERE e.status = 'inactive';
+		SET Environment.inactive = rowinactive;
+		
+	END;
+END MODULE;
