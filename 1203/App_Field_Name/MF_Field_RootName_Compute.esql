@@ -8,10 +8,13 @@ CREATE COMPUTE MODULE MF_Field_RootName_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		DECLARE rootName CHAR;
+		--DECLARE rootName CHAR;
 		   -- Use FIELDNAME to get the name of the root element (InputRoot)
-		SET rootName = FIELDNAME(InputRoot);
+		--SET rootName = FIELDNAME(InputRoot);
 		 -- Set the root name in the output XML structure
-		SET OutputRoot.XMLNSC.RootName= rootName;
+		--SET OutputRoot.XMLNSC.RootName= rootName;
+		 DECLARE rootName CHARACTER ;
+		 SET rootName = FIELDNAME(InputRoot.XMLNSC.*[1]);
+         SET OutputRoot.XMLNSC.Data.RootName = rootName;
 	END;
 END MODULE;
