@@ -1,5 +1,4 @@
 
-
 CREATE COMPUTE MODULE MF_Retrive_Cmd_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
@@ -10,10 +9,10 @@ CREATE COMPUTE MODULE MF_Retrive_Cmd_Compute
 
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-	--	SET OutputRoot.XMLNS.Data.TableData.parts[] = SELECT * FROM Database.EMPLOYEES_1 AS E WHERE E.ID = 2;
-		DECLARE rowVar ROW;
-		SET rowVar.arr[] = SELECT * FROM Database.EMPLOYEES_1;
-		SET OutputLocalEnvironment.data = rowVar;
+		SET OutputRoot.XMLNS.Data.TableData.parts[] = SELECT * FROM Database.EMPLOYEES_2 AS E WHERE E.ID = 2;
+--		DECLARE rowVar ROW;
+--		SET rowVar.arr[] = SELECT * FROM Database.EMPLOYEES_2;
+--		SET OutputLocalEnvironment.data = rowVar;
 	
 	END;
 END MODULE;

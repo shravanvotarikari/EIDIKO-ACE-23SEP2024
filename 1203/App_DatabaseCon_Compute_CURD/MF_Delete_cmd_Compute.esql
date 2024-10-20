@@ -1,5 +1,4 @@
 
-
 CREATE COMPUTE MODULE MF_Delete_cmd_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
@@ -8,12 +7,10 @@ CREATE COMPUTE MODULE MF_Delete_cmd_Compute
 		RETURN TRUE;
 	END;
 
-	
-
-	CREATE PROCEDURE CopyEntireMessage() BEGIN
+	 CREATE PROCEDURE CopyEntireMessage() BEGIN
 		--DELETE FROM Database.EMPLOYEES_1 AS E
       -- WHERE E.id = 1;
-       DELETE FROM Database.EMPLOYEES_1 where EMPLOYEES_1.id = 3;
+       DELETE FROM Database.EMPLOYEES_2 where EMPLOYEES_2.ID = 3;
 		--SET OutputRoot = InputRoot;
 	END;
 END MODULE;
