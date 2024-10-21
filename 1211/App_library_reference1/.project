@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>App_xml_validate</name>
+	<name>App_library_reference1</name>
 	<comment></comment>
 	<projects>
 		<project>Lib_MessageModel</project>
+		<project>shared_lib_MessageModel</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -108,11 +109,6 @@
 		</buildCommand>
 		<buildCommand>
 			<name>com.ibm.etools.mft.unittest.ui.TestCaseBuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>com.ibm.dfdl.validation.dfdlBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>

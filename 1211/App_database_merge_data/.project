@@ -3,6 +3,7 @@
 	<name>App_database_merge_data</name>
 	<comment></comment>
 	<projects>
+		<project>Lib_MessageModel</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
