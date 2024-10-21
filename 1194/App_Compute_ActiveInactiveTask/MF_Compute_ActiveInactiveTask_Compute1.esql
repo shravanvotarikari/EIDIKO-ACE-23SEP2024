@@ -12,8 +12,8 @@ CREATE COMPUTE MODULE MF_Compute_ActiveInactiveTask_Compute1
 --		SET OutputRoot.XMLNSC.Employees.active = Environment.activeUsers;
 --		SET OutputRoot.XMLNSC.Employees.inactive = Environment.inActiveUsers;
 		
---		Second Approach (using list but not working)
---		SET OutputRoot.Employees = LIST{Environment.activeUsers, Environment.inActiveUsers};
+--		Second Approach (using list function)
+--		SET OutputRoot.XMLNSC.Data.Employees[] = LIST{ Environment.activeUsers,Environment.inActiveUsers};
 
 --		Third Approach
 		DECLARE refActive REFERENCE TO Environment.activeUsers;
@@ -36,6 +36,6 @@ CREATE COMPUTE MODULE MF_Compute_ActiveInactiveTask_Compute1
 		END WHILE;
 		
 		SET OutputRoot.XMLNSC.Employees = Environment.Employees;
-		
+--		
 	END;
 END MODULE;
