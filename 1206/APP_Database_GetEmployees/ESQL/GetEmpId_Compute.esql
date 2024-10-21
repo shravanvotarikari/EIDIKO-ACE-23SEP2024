@@ -21,13 +21,19 @@ CREATE COMPUTE MODULE GetEmpId_Compute
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		
-		DECLARE r ROW;
-		SET r.emp[] = SELECT e.emp_id FROM Database.ACE_TASKS AS e WHERE e.status = 'Active';
-		SET Environment.active = r;
-		
-		DECLARE rowinactive ROW;
-		SET r.emp[] = SELECT e.emp_id FROM Database.ACE_TASKS AS e WHERE e.status = 'InActive';
-		SET Environment.inactive = r;
+--		DECLARE r ROW;
+--		SET r.emp[] = SELECT e.emp_id FROM Database.ACE_TASKS AS e WHERE e.status = 'Active';
+--		SET Environment.active = r;
+--		
+--		DECLARE rowinactive ROW;
+--		SET r.emp[] = SELECT e.emp_id FROM Database.ACE_TASKS AS e WHERE e.status = 'InActive';
+--		SET Environment.inactive = r;
+
+
+
+		SET Environment.Variables.Active.id[] = SELECT e.emp_id AS ID FROM Database.ACE_TASKS AS e WHERE e.status = 'Active';
+
+		SET Environment.Variables.InActive.id[] = SELECT e.emp_id AS ID FROM Database.ACE_TASKS AS e WHERE e.status = 'InActive';
 		
 	END;
 END MODULE;

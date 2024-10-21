@@ -16,27 +16,29 @@ CREATE COMPUTE MODULE PutEmpId_Compute
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		
-		CREATE FIELD OutputRoot.XMLNSC.employees;
-		DECLARE empRef REFERENCE TO OutputRoot.XMLNSC.employees;
+--		CREATE FIELD OutputRoot.XMLNSC.employees;
+--		DECLARE empRef REFERENCE TO OutputRoot.XMLNSC.employees;
 		
-		DECLARE refactive REFERENCE TO Environment.active.emp;
+--		DECLARE refactive REFERENCE TO Environment.active.emp;
+--
+--		DECLARE i INTEGER 1;
+--
+--		WHILE LASTMOVE(refactive) DO
+--
+--			SET empRef.id[i] = CAST(refactive.emp_id AS INTEGER);
+--			SET i = i + 1;
+--			move refactive NEXTSIBLING;
+--		END WHILE;
+--
+--		DECLARE refinactive REFERENCE TO Environment.inactive.emp;
+--
+--		WHILE LASTMOVE(refinactive) DO
+--			SET empRef.id[i] = CAST(refinactive.emp_id AS INTEGER);
+--			SET i = i + 1;
+--			move refinactive NEXTSIBLING;
+--		END WHILE;
 
-		DECLARE i INTEGER 1;
-
-		WHILE LASTMOVE(refactive) DO
-
-			SET empRef.id[i] = CAST(refactive.emp_id AS INTEGER);
-			SET i = i + 1;
-			move refactive NEXTSIBLING;
-		END WHILE;
-
-		DECLARE refinactive REFERENCE TO Environment.inactive.emp;
-
-		WHILE LASTMOVE(refinactive) DO
-			SET empRef.id[i] = CAST(refinactive.emp_id AS INTEGER);
-			SET i = i + 1;
-			move refinactive NEXTSIBLING;
-		END WHILE;
+		SET OutputRoot.XMLNSC.root.Employees[] = LIST{Environment.Variables.Active.id[],Environment.Variables.InActive.id[]};
 
 	END;
 END MODULE;
