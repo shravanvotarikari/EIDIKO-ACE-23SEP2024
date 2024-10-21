@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmMQInput.msgnode="ComIbmMQInput.msgnode" xmlns:ComIbmMQOutput.msgnode="ComIbmMQOutput.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="YYYYMMDD_Format.msgflow" nsPrefix="YYYYMMDD_Format.msgflow">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmMQInput.msgnode="ComIbmMQInput.msgnode" xmlns:Library_1_Local_subflow1.subflow="Library_1/Local_subflow1.subflow" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="YYYYMMDD_Format.msgflow" nsPrefix="YYYYMMDD_Format.msgflow">
   <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="RECTANGLE">
     <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
     <translation xmi:type="utility:TranslatableString" key="YYYYMMDD_Format" bundleName="YYYYMMDD_Format" pluginId="App_Date_Format"/>
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_Date_Format/icons/full/obj16/YYYYMMDD_Format.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_Date_Format/icons/full/obj30/YYYYMMDD_Format.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="273,146" computeExpression="esql://routine/#YYYYMMDD_Format_Compute.Main">
-        <translation xmi:type="utility:ConstantString" string="Compute"/>
-      </nodes>
       <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="52,143" queueName="Q2" destinationQueueManagerName="Manager1">
         <translation xmi:type="utility:ConstantString" string="MQ Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="517,146" queueName="Q6" destinationQueueManagerName="Manager1">
-        <translation xmi:type="utility:ConstantString" string="MQ Output"/>
+      <nodes xmi:type="Library_1_Local_subflow1.subflow:FCMComposite_1" xmi:id="FCMComposite_1_4" location="294,147">
+        <translation xmi:type="utility:ConstantString" string="Local_subflow1"/>
       </nodes>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
     </composition>
     <propertyOrganizer/>
     <stickyBoard/>
