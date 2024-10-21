@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>App_Date_Format</name>
+	<name>App_library_reference2</name>
 	<comment></comment>
 	<projects>
-		<project>Library_1</project>
+		<project>Lib_MessageModel</project>
+		<project>static_lib_1</project>
+		<project>shared_lib_MessageModel</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

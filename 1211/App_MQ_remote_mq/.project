@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>App_Date_Format</name>
+	<name>App_MQ_remote_mq</name>
 	<comment></comment>
 	<projects>
-		<project>Library_1</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

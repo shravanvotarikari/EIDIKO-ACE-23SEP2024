@@ -6,10 +6,10 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/APP_Message_Model/icons/full/obj16/MessageModel_CSV.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/APP_Message_Model/icons/full/obj30/MessageModel_CSV.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="85,107" inputDirectory="C:\Users\Sreenivas Bandaru\Documents\Task_input" recursiveDirectories="true" processedFileAction="moveToArchive" messageDomainProperty="DFDL" messageTypeProperty="{}:Message_Model_CSV">
+      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="85,107" inputDirectory="C:\Users\Sreenivas Bandaru\Documents\Task_input" recursiveDirectories="true" processedFileAction="moveToArchive" messageDomainProperty="DFDL" messageSetProperty="{Library_1}" messageTypeProperty="{}:Local_schema1" validateTiming="immediate">
         <translation xmi:type="utility:ConstantString" string="File Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="461,103" outputDirectory="C:\Users\Sreenivas Bandaru\Documents\Task_output" outputFilename="CSV1" writeMode="writeInPlace">
+      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="461,103" outputDirectory="C:\Users\Sreenivas Bandaru\Documents\Task_output" outputFilename="CSV1">
         <translation xmi:type="utility:ConstantString" string="File Output"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
