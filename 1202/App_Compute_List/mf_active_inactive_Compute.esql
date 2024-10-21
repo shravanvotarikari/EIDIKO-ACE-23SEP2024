@@ -1,0 +1,48 @@
+
+
+CREATE COMPUTE MODULE mf_active_inactive_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		declare temp row; 
+		declare i integer 1;
+		set temp.id[] = select t.ID from Database.TABLE1 as t where t.STATUS = 'Active';
+		
+		WHILE i <= CARDINALITY(temp.id[]) DO
+			set Environment.Active.ID[i] = temp.id[i].ID;
+			set i = i+1;
+		END WHILE;
+		
+		set temp.id[] = select t.ID from Database.TABLE1 as t where t.STATUS = 'Inactive';
+		
+		set i = 1;
+		while i <= CARDINALITY(temp.id[]) do
+			set Environment.Inactive.ID[i] = temp.id[i].ID;
+			set i = i+1;
+		end WHILE;
+		
+--		declare inref REFERENCE to InputRoot.XMLNSC.root.employee;
+--		
+--			declare i integer 1;
+--			declare j integer 1;
+--		
+--		WHILE LASTMOVE(inref) DO
+--			--declare enref REFERENCE to Environment.Active;
+--			IF inref.status = 'Active' THEN
+--				set Environment.Active.id[i] = inref.employee_id;
+--				set i = i+1;
+--			ELSE 
+--				set Environment.Inactive.id[j] = inref.employee_id;
+--				set j = j+1;
+--			END IF;
+--			
+--			move inref NEXTSIBLING;
+--			
+			
+--		END WHILE;
+		
+		RETURN TRUE;
+	END;
+
+	
+END MODULE;
