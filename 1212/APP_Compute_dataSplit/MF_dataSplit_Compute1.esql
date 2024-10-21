@@ -1,0 +1,46 @@
+
+
+CREATE COMPUTE MODULE MF_dataSplit_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+---- Create XMLNSC structure for output
+--CREATE FIELD OutputRoot.XMLNSC.Emp;
+--DECLARE outref REFERENCE TO OutputRoot.XMLNSC.Emp;
+--
+---- Initialize iterators
+--DECLARE i INTEGER 1;
+--DECLARE j INTEGER 1;
+--
+---- Process active employees and append them to the output
+--WHILE i <= CARDINALITY(Environment.Active.ID[]) DO
+--    SET outref.Active.Employee[i].ID = Environment.Active.ID[i];
+--    SET i = i + 1;
+--END WHILE;
+--
+---- Process inactive employees and append them to the output
+--WHILE j <= CARDINALITY(Environment.Inactive.ID[]) DO
+--    SET outref.Inactive.Employee[j].ID = Environment.Inactive.ID[j];
+--    SET j = j + 1;
+--END WHILE;
+--
+
+SET OutputRoot.XMLNSC.Employee05.ID[] = LIST{Environment.Active,Environment.Inactive};
+		
+	END;
+END MODULE;
