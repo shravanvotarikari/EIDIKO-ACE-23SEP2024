@@ -1,0 +1,28 @@
+
+CREATE COMPUTE MODULE MF_Employees_status_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		declare temp row; 
+		declare i integer 1;
+		set temp.id[] = select E.ID from Database.EMPLOYEES_2 as E where E.STATUS = 'Active';
+		
+		WHILE i <= CARDINALITY(temp.id[]) DO
+			set Environment.Active.ID[i] = temp.id[i].ID;
+			set i = i+1;
+		END WHILE;
+		
+		set temp.id[] = select E.ID from Database.EMPLOYEES_2 as E where E.STATUS = 'Inactive';
+		
+		set i = 1;
+		while i <= CARDINALITY(temp.id[]) do
+			set Environment.Inactive.ID[i] = temp.id[i].ID;
+			set i = i+1;
+		end WHILE;
+	END;
+END MODULE;
