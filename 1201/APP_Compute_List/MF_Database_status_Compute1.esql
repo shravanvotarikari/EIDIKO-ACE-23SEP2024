@@ -1,0 +1,36 @@
+
+CREATE COMPUTE MODULE mf_Database_status_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+--		create field OutputRoot.XMLNSC.root;
+--		DECLARE outref REFERENCE to OutputRoot.XMLNSC.root;
+--		
+--		declare i INTEGER 1;
+--		DECLARE enref reference to Environment.Variable.Active;
+--		
+--		while LASTMOVE(enref) do 
+--		--	create LASTCHILD of outref name 'id';
+--			set outref.ID[i] = enref;
+--			move enref NEXTSIBLING;
+--			set i = i+1;
+--		end WHILE;
+--		
+--		DECLARE enref2 REFERENCE to Environment.Variable.Inactive;
+--		while LASTMOVE(enref2) do 	
+--			--create LASTCHILD of outref name 'id';
+--			set outref.ID[i] = enref2;
+--			move enref2 NEXTSIBLING;
+--			set i = i +1;
+--		end WHILE;
+
+		SET OutputRoot.XMLNSC.Data.Employees[] = LIST{ Environment.Variable.Active[],Environment.Variable.Inactive[]};
+		
+		
+
+		RETURN TRUE;
+	END;
+
+END MODULE;
+
+
+
