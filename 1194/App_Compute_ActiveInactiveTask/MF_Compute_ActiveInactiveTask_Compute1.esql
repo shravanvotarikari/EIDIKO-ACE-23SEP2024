@@ -1,0 +1,41 @@
+
+
+CREATE COMPUTE MODULE MF_Compute_ActiveInactiveTask_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		First Approach
+--		SET OutputRoot.XMLNSC.Employees.active = Environment.activeUsers;
+--		SET OutputRoot.XMLNSC.Employees.inactive = Environment.inActiveUsers;
+		
+--		Second Approach (using list but not working)
+--		SET OutputRoot.Employees = LIST{Environment.activeUsers, Environment.inActiveUsers};
+
+--		Third Approach
+		DECLARE refActive REFERENCE TO Environment.activeUsers;
+		DECLARE refInActive REFERENCE TO Environment.inActiveUsers;
+		CREATE FIELD Environment.Employees;
+		DECLARE i INTEGER 1;
+		
+		MOVE refActive FIRSTCHILD;
+		WHILE LASTMOVE(refActive) DO
+			SET Environment.Employees.emp[i] = refActive;
+			MOVE refActive NEXTSIBLING;
+			SET i = i + 1;
+		END WHILE;
+
+		MOVE refInActive FIRSTCHILD;
+		WHILE LASTMOVE(refInActive) DO
+			SET Environment.Employees.emp[i] = refInActive;
+			MOVE refInActive NEXTSIBLING;
+			SET i = i + 1;
+		END WHILE;
+		
+		SET OutputRoot.XMLNSC.Employees = Environment.Employees;
+		
+	END;
+END MODULE;
