@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>App_MessageModel_01</name>
+	<name>App_HTTP_Basic</name>
 	<comment></comment>
 	<projects>
-		<project>Lib_MessageModel</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
