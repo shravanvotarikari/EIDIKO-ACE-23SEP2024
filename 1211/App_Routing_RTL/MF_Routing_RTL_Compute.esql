@@ -1,0 +1,33 @@
+
+
+
+
+CREATE COMPUTE MODULE MF_Routing_RTL_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		SET OutputRoot = InputRoot;
+		DECLARE crud CHARACTER;
+		SET crud = InputRoot.JSON.Data.crud;		
+
+
+		IF crud = 'insert' THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'create';
+		ELSEIF crud = 'read' THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'read';
+		ELSEIF crud = 'update' THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'update';
+		ELSEIF crud = 'delete' THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'delete';
+		ELSE
+			
+		END IF;
+		
+		
+	END;
+END MODULE;

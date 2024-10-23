@@ -1,0 +1,13 @@
+
+
+CREATE COMPUTE MODULE MF_Routing_Filter_unknown
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.JSON.Data.status = 'unknown';
+	END;
+END MODULE;
