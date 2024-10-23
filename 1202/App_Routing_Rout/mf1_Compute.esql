@@ -1,0 +1,17 @@
+
+
+CREATE COMPUTE MODULE mf1_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		passthru 'create table JAYTABLE1 (BRANCH varchar2(10),CID integer)' to Database.abhidsn;
+		Insert into Database.JAYTABLE1 values(InputRoot.JSON.Data.branch,InputRoot.JSON.Data.customerid);
+		
+		create field OutputRoot.JSON.Data;
+		set OutputRoot.JSON.Data.status = 'success';
+		set OutputRoot.JSON.Data.desc = 'AMOUNT Credited';
+		RETURN TRUE;
+	END;
+
+
+END MODULE;

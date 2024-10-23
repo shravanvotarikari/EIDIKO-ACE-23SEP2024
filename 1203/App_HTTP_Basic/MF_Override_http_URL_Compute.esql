@@ -11,7 +11,8 @@ CREATE COMPUTE MODULE MF_Override_http_URL_Compute
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		-- Example of dynamic URL, you can set this based on your requirements
-    DECLARE dynamicUrl CHARACTER 'http://echo.jsontest.com/key/value/one/two';
+   -- DECLARE dynamicUrl CHARACTER 'http://echo.jsontest.com/key/value/one/two';
+     DECLARE dynamicUrl CHARACTER 'http://www.google.com';
     
     -- Setting the HTTP Request URL dynamically in the LocalEnvironment
     SET OutputLocalEnvironment.Destination.HTTP.RequestURL = dynamicUrl;

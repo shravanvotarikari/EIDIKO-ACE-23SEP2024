@@ -1,0 +1,39 @@
+
+
+CREATE COMPUTE MODULE MF_routing_label_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot = InputRoot;
+		
+	DECLARE id CHARACTER;
+    DECLARE name CHARACTER;
+    DECLARE status CHARACTER;
+   -- DECLARE insertQuery CHARACTER;
+
+    SET id = InputRoot.JSON.Data.ID;
+    SET name = InputRoot.JSON.Data.NAME;
+    SET status = InputRoot.JSON.Data.STATUS;
+
+    INSERT INTO Database.COMPANY (id,name,status) VALUES (id,name,status);
+    
+    SET OutputRoot.JSON.Data.Status = 'Success';
+		
+		
+	END;
+END MODULE;

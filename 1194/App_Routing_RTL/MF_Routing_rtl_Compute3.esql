@@ -1,0 +1,14 @@
+
+
+CREATE COMPUTE MODULE MF_Routing_rtl_Compute3
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE query CHARACTER 'DELETE FROM Employees WHERE id = 1204';
+		SET OutputRoot.XMLNSC.Data = PASSTHRU(query);
+	END;
+END MODULE;
