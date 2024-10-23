@@ -13,5 +13,14 @@ CREATE COMPUTE MODULE MF_HTTP_remote_Remote
 		--passthru 'create table table1(id number,name varchar2(10),dept varchar2(20))' to Database.remotedsn3;
 		
 		SET OutputRoot = InputRoot;
+		passthru 'CREATE TABLE HDFC0094(customerid number PRIMARY KEY,accountno number,branch VARCHAR(20),amount number,currency varchar2(5))' to Database.remotedsn3;
+		passthru 'CREATE TABLE HDFC0096 (customerid number PRIMARY KEY,accountno number,branch VARCHAR(20),amount number,currency varchar2(5))' to Database.remotedsn3;
+		
 	END;
 END MODULE;
+--
+-- <Employee>
+--        <ID>10001</ID>
+--        <Name>Alice Smith</Name>
+--        <Department>Engineering</Department>
+--    </Employee>
