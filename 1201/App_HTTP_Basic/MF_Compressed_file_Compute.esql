@@ -1,0 +1,47 @@
+
+
+CREATE COMPUTE MODULE MF_Compressed_file_Compute
+    CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+
+        CALL DecompressFile();
+        RETURN TRUE;
+    END;
+
+   
+    CREATE PROCEDURE DecompressFile()
+    BEGIN
+        -- Access the HTTP request data as a BLOB (binary data)
+   --     DECLARE inputBlob BLOB InputRoot.BLOB.BLOB;
+
+        -- This is where you'd typically invoke an external process or tool to decompress the file
+        -- For example, you can pass the BLOB to an external decompression utility.
+        
+        -- After decompression, let's assume we get back the decompressed data as a BLOB
+      --  DECLARE decompressedBlob BLOB;
+
+        -- For now, just copy the inputBlob to simulate decompression (replace this with actual decompression logic)
+       -- SET decompressedBlob = inputBlob;
+
+        -- Set the decompressed data into the output
+        -- You can process the decompressed file as needed (e.g., XML, JSON, etc.)
+--        SET OutputRoot.BLOB.BLOB = decompressedBlob;
+
+        -- Alternatively, convert it to a readable format if needed (like Text, XML, etc.)
+         --SET OutputRoot.XMLNSC.myData = CAST(decompressedBlob AS CHAR CCSID 1208);
+         
+         
+         -- Retrieve input data as a BLOB (bitstream)
+	DECLARE inputBitstream BLOB;
+	
+	-- Get the bitstream from the input root (e.g., HTTP Input)
+	SET inputBitstream = ASBITSTREAM(InputRoot.BLOB.BLOB);
+	
+	-- Convert the bitstream to human-readable string (assuming UTF-8 encoding)
+	DECLARE humanReadableInput CHARACTER;
+	SET humanReadableInput = CAST(inputBitstream AS CHARACTER CCSID 1208);
+          SET OutputRoot.XMLNSC.data.new = humanReadableInput;
+         
+    END;
+END MODULE;
+
