@@ -18,5 +18,9 @@ CREATE COMPUTE MODULE MF_HTTP_PathParam_Compute
 		DECLARE data ROW;
 		SET data.values[] = SELECT * FROM Database.Employees WHERE Employees.id=eId;
 		SET OutputRoot.XMLNSC.empInfo[] = data.values[];
+
+--		Using PASSTHRU Function
+--		DECLARE var CHARACTER 'SELECT * FROM Employees WHERE id = ?';
+--		SET OutputRoot.XMLNSC.empInfo = PASSTHRU(var,eId);
 	END;
 END MODULE;
