@@ -1,7 +1,4 @@
 
-
-
-
 CREATE COMPUTE MODULE MF_Override_StatusCodes_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
@@ -10,9 +7,7 @@ CREATE COMPUTE MODULE MF_Override_StatusCodes_Compute
 		RETURN TRUE;
 	END;
 
-
-
-	CREATE PROCEDURE CopyEntireMessage() BEGIN
+  CREATE PROCEDURE CopyEntireMessage() BEGIN
 		SET OutputLocalEnvironment.Destination.HTTP.ReplyStatusCode = 500;
 		SET OutputRoot = InputRoot;
 	END;
