@@ -1,0 +1,21 @@
+
+
+CREATE FILTER MODULE MF_Routing_Filter_Filter
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		 DECLARE department CHARACTER;
+
+    	SET department = Root.JSON.Data.department;
+		
+		IF department = 'iib' THEN
+			RETURN TRUE;
+		ELSEIF department = 'ace' THEN
+			RETURN FALSE;
+		ELSE
+			--RETURN NULL;
+			
+		END IF;
+	END;
+
+END MODULE;
