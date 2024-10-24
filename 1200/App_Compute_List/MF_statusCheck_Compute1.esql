@@ -1,0 +1,29 @@
+
+
+CREATE COMPUTE MODULE MF_statusCheck_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		declare ref1 REFERENCE TO Environment.Variable.Active.list1;
+		declare ref2 REFERENCE TO Environment.Variable.Inactive.list2;
+		
+		set OutputRoot.XMLNSC.Variable.Merge[]= List{Environment.Variable.Active[],Environment.Variable.Inactive[]};
+		
+	END;
+END MODULE;

@@ -1,0 +1,30 @@
+
+
+CREATE COMPUTE MODULE MF_statusCheck_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+	
+--	declare list1 character;
+--	declare list2 CHARACTER;
+	set Environment.Variable.Active[] = SELECT E.ID from Database.EIDIKO AS E WHERE E.STATUS = 'active';
+	set Environment.Variable.Inactive[] = SELECT E.ID from Database.EIDIKO AS E WHERE E.STATUS = 'inactive';
+		
+		
+	END;
+END MODULE;
