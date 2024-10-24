@@ -1,0 +1,13 @@
+
+CREATE COMPUTE MODULE MF_Retrive_Payload_Compute
+    CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+        -- Call the procedure to process the message
+       DECLARE result CHARACTER;
+       CALL Proc(result);
+       CREATE LASTCHILD of OutputRoot Domain('JSON') PARSE(result,546,1208);
+        RETURN TRUE;
+    END;
+    CREATE PROCEDURE Proc (OUT var1 CHARACTER)
+    EXTERNAL NAME "PROCEDURE2";
+END MODULE;

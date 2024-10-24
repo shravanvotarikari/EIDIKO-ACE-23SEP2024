@@ -3,10 +3,12 @@ CREATE COMPUTE MODULE MF_Store_Payload_dbcol_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		 CALL CopyEntireMessage();
-		declare result character;
-		SET result = CAST(InputRoot.BLOB.BLOB as char CCSID 1208 Encoding 546);
-		
-		call PROC(result);
+		declare Result BLOB;
+		SET Result = ASBITSTREAM(InputRoot.JSON.Data, InputRoot.Properties.Encoding, InputRoot.Properties.CodedCharSetId);
+		declare CharResult character;
+
+		SET CharResult = CAST(Result AS CHARACTER CCSID 1208 Encoding 546);
+		call PROC(CharResult);
 		RETURN TRUE;
 	END;
 	
