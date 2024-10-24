@@ -11,7 +11,7 @@ CREATE COMPUTE MODULE MF_Routing_FlowOrder_Compute
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		
-	SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'Q3';
+	SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'A3';
 	--SET Environment.Variables.MQ_QUEUE = 'Q3';
 	
 	
