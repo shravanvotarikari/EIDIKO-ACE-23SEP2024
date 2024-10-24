@@ -1,0 +1,42 @@
+
+
+CREATE COMPUTE MODULE MF_route_crudoperation_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		SET OutputRoot = InputRoot;
+--		SET OutputRoot = InputRoot;
+		
+	declare customerid character;
+	declare accountno character;
+	declare branch CHARACTER;
+	DECLARE amount CHARACTER;
+	DECLARE currency CHARACTER;
+	
+	set customerid = InputRoot.JSON.Data.customerid;
+	set accountno = InputRoot.JSON.Data.accountno;
+	set branch = InputRoot.JSON.Data.branch;
+	set amount = InputRoot.JSON.Data.amount;
+	set currency = InputRoot.JSON.Data.currency;
+	
+	
+INSERT INTO Database.Bank(CUSTOMERID,ACCOUNTNO,BRANCH,AMOUNT,CURRENCY) values (customerid,accountno,branch,amount,currency);
+
+set OutputRoot.JSON.Data.status = 'success';
+	END;
+END MODULE;

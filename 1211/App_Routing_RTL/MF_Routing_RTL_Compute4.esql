@@ -1,0 +1,21 @@
+
+
+CREATE COMPUTE MODULE MF_Routing_RTL_Compute4
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		DECLARE id INTEGER;
+		SET id = CAST(InputRoot.JSON.Data.id AS INTEGER);
+		
+		DELETE FROM Database.table1 as t where t.id = id;	
+		 
+		SET OutputRoot.XMLNSC.status = 'success';
+	END;
+END MODULE;

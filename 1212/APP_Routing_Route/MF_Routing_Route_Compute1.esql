@@ -1,0 +1,28 @@
+
+
+CREATE COMPUTE MODULE MF_Routing_Route_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE customerID INTEGER;
+		DECLARE accNo INTEGER;
+		DECLARE branch CHARACTER;
+		DECLARE amt INTEGER;
+		DECLARE curr CHARACTER;
+		
+		SET customerID = CAST(InputRoot.JSON.Data.customerid AS INTEGER);
+		SET accNo = CAST(InputRoot.JSON.Data.accountno AS INTEGER);
+		SET branch = InputRoot.JSON.Data.branch;
+		SET amt = CAST(InputRoot.JSON.Data.amount AS INTEGER);
+		SET curr = InputRoot.JSON.Data.currency;
+		
+		INSERT INTO Database.Branch_02 VALUES (customerID, accNo, branch, amt, curr);
+		
+		SET OutputRoot.JSON.Data.status = 'success';
+		SET OutputRoot.JSON.Data.description = 'Amount Credited for your account';
+	END;
+END MODULE;

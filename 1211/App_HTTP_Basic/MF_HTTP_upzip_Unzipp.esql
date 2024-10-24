@@ -9,6 +9,13 @@ CREATE COMPUTE MODULE MF_HTTP_upzip_Unzipp
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		Set OutputLocalEnvironment = InputLocalEnvironment;
-		SET OutputRoot = InputRoot;
+		DECLARE var CHARACTER;
+		
+		SET var = CAST(ASBITSTREAM(InputRoot.XMLNSC)AS CHARACTER);
+		
+		SET OutputRoot.XMLNSC.root.data = var;
+		 		
 	END;
 END MODULE;
+
+
