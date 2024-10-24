@@ -9,7 +9,7 @@
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="266,86" computeExpression="esql://routine/#MF_HTTP_upzip_Unzipp.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="Unzipp"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="63,91" URLSpecifier="/here" parseQueryString="true" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="63,91" URLSpecifier="/zip" decompressInputMessage="true" messageDomainProperty="BLOB">
         <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
       </nodes>
       <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="490,84" compressionType="compressibleMimeTypes">
