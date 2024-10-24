@@ -3,6 +3,7 @@
 	<name>APP_Message_Model</name>
 	<comment></comment>
 	<projects>
+		<project>Library_1</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

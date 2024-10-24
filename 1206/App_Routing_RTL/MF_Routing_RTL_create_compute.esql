@@ -1,0 +1,26 @@
+
+
+
+
+CREATE COMPUTE MODULE MF_Routing_RTL_create_compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		DECLARE eid INTEGER;
+		DECLARE newName CHARACTER;
+		DECLARE department CHARACTER;
+
+		SET eid = InputRoot.JSON.Data.id;
+		SET newName = InputRoot.JSON.Data.name;
+		SET department = InputRoot.JSON.Data.department;
+
+		
+		INSERT INTO Database.table1 (id,name,dept) VALUES (eid,newName,department);
+		SET OutputRoot.XMLNSC.status = 'success';
+	END;
+END MODULE;

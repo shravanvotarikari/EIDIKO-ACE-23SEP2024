@@ -1,0 +1,26 @@
+
+
+CREATE COMPUTE MODULE MF_HTTP_PathParam_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE eId CHARACTER;
+--		To access Query params
+--		SET eId = FIELDVALUE(InputLocalEnvironment.HTTP.Input.QueryString.id);
+
+--		To access Path params
+		SET eId = FIELDVALUE(InputLocalEnvironment.HTTP.Input.Path.[2]);	-- 2nd path param variable
+		
+		DECLARE data ROW;
+		SET data.values[] = SELECT * FROM Database.Employees WHERE Employees.id=eId;
+		SET OutputRoot.XMLNSC.empInfo[] = data.values[];
+
+--		Using PASSTHRU Function
+--		DECLARE var CHARACTER 'SELECT * FROM Employees WHERE id = ?';
+--		SET OutputRoot.XMLNSC.empInfo = PASSTHRU(var,eId);
+	END;
+END MODULE;

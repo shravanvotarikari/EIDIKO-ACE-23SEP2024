@@ -1,0 +1,26 @@
+
+CREATE COMPUTE MODULE MF_DatabaseCon_Compute_01_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+    CREATE PROCEDURE CopyEntireMessage() BEGIN
+		-- Insert a new record into the EMP table
+   -- PASSTHRU('INSERT INTO EMP (ID, NAME, SALARY) VALUES (?, ?, ?)', 101, 'Alice', 50000);
+     INSERT INTO Database.EMP3(ID, NAME, SALARY) VALUES(8, 'Alice', 100000);
+		
+		--SET OutputRoot = InputRoot;
+	END;
+END MODULE;

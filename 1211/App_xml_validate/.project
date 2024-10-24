@@ -3,6 +3,7 @@
 	<name>App_xml_validate</name>
 	<comment></comment>
 	<projects>
+		<project>Lib_MessageModel</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

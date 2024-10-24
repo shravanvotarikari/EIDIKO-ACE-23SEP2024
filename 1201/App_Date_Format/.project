@@ -3,6 +3,7 @@
 	<name>App_Date_Format</name>
 	<comment></comment>
 	<projects>
+		<project>Library_1</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

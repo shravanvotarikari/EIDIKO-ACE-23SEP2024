@@ -1,0 +1,20 @@
+
+
+CREATE COMPUTE MODULE MF_database_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+				
+		INSERT INTO Database.employee (emp_id,emp_name,department ) VALUES (1112,'abhishek','iib');
+		
+		DECLARE rowval ROW;
+		SET rowval.emp[] = SELECT * FROM Database.employee AS e WHERE e.department = 'iib';
+		
+		SET OutputLocalEnvironment.variable.data = rowval;
+	END;
+END MODULE;

@@ -6,13 +6,13 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_MQ_MergeWithResultRoot/icons/full/obj16/MF_MergeWithResultRoot.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_MQ_MergeWithResultRoot/icons/full/obj30/MF_MergeWithResultRoot.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="50,158" queueName="A1" destinationQueueManagerName="QM1" messageDomainProperty="XMLNSC" validateTiming="immediate">
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="50,158" queueName="Q1" destinationQueueManagerName="MQman" messageDomainProperty="XMLNSC" validateTiming="immediate">
         <translation xmi:type="utility:ConstantString" string="MQ Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="662,173" queueName="A3" destinationQueueManagerName="QM1">
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="662,173" queueName="Q3" destinationQueueManagerName="MQman">
         <translation xmi:type="utility:ConstantString" string="MQ Output"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQGet.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="376,81" queueName="A2" destinationQueueManagerName="QM1" messageDomainProperty="XMLNSC" validateTiming="immediate" copyMessage="copyEntireMessage" outputDataLocation="OutputRoot.XMLNSC.root.d2" resultDataLocation="ResultRoot.XMLNSC.d3">
+      <nodes xmi:type="ComIbmMQGet.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="376,81" queueName="Q2" destinationQueueManagerName="MQman" messageDomainProperty="XMLNSC" validateTiming="immediate" copyMessage="copyEntireMessage" outputDataLocation="OutputRoot.XMLNSC.root.d2" resultDataLocation="ResultRoot.XMLNSC.d3">
         <translation xmi:type="utility:ConstantString" string="MQ Get"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>

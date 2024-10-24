@@ -1,0 +1,14 @@
+
+
+CREATE COMPUTE MODULE MF_environment_test_env_test
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputLocalEnvironment.var = Environment.active;
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;

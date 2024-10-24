@@ -1,0 +1,10 @@
+
+
+CREATE COMPUTE MODULE mf_delete_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		delete from Database.TABLE1 as t where t.COL1 = 'hello';
+		RETURN TRUE;
+	END;
+
+END MODULE;

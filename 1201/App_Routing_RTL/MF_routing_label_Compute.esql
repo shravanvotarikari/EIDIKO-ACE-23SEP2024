@@ -1,0 +1,33 @@
+
+
+CREATE COMPUTE MODULE MF_routing_label_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		
+		DECLARE operation CHARACTER;
+		SET operation = InputRoot.JSON.Data.operation;
+		
+		
+		IF operation = 'create' THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'create';
+		
+		ELSEIF operation = 'retrieve' THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'retrieve';
+			
+		ELSEIF operation = 'update' THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'update';
+			
+		ELSEIF operation = 'delete' THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'delete';
+		END IF;	
+		
+	END;
+END MODULE;
