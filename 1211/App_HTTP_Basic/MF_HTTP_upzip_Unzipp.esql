@@ -11,9 +11,10 @@ CREATE COMPUTE MODULE MF_HTTP_upzip_Unzipp
 		Set OutputLocalEnvironment = InputLocalEnvironment;
 		DECLARE var CHARACTER;
 		
-		SET var = CAST(ASBITSTREAM(InputRoot.XMLNSC)AS CHARACTER);
+		--SET var = CAST(ASBITSTREAM(InputRoot.BLOB.BLOB)AS CHARACTER);
+		--SET OutputRoot.XMLNSC.root.data = var;
 		
-		SET OutputRoot.XMLNSC.root.data = var;
+		SET OutputRoot.BLOB.BLOB = InputRoot.BLOB.BLOB;
 		 		
 	END;
 END MODULE;
