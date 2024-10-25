@@ -3,7 +3,7 @@
 CREATE COMPUTE MODULE mf_routetolabel_Compute1
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		-- CALL CopyMessageHeaders();
+		---- CALL CopyMessageHeaders();
 		CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
