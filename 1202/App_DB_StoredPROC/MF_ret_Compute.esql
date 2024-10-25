@@ -1,0 +1,16 @@
+
+
+CREATE COMPUTE MODULE MF_ret_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();ASBITSTREAM(VAR,InputRoot.Properties.Encoding,InputRoot.Properties.CodedCharSetId)
+		DECLARE VAR CHARACTER;
+		call myproc(VAR);
+		
+		create lastchild of OutputRoot DOMAIN('JSON') PARSE(VAR,InputRoot.Properties.Encoding,InputRoot.Properties.CodedCharSetId);
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE myproc(out var character)
+	EXTERNAL NAME "PROCEDURE2";
+END MODULE;
