@@ -3,9 +3,11 @@
 CREATE COMPUTE MODULE MF_DB_StoredPROC_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		declare result character;
-		SET result = CAST(InputRoot.BLOB.BLOB as char CCSID 1208 Encoding 546);
-		call myproc(result);
+		DECLARE result BLOB;  
+        SET result = ASBITSTREAM(InputRoot.JSON.Data, InputRoot.Properties.Encoding, InputRoot.Properties.CodedCharSetId);  
+
+        DECLARE characterResult CHARACTER;  
+        SET characterResult = CAST(result AS CHARACTER CCSID 1208 Encoding 546);
 		-- CALL CopyMessageHeaders();
 		CALL CopyEntireMessage();
 		RETURN TRUE;

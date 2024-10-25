@@ -1,0 +1,63 @@
+
+
+CREATE COMPUTE MODULE MF_DB_StoredPROC1_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		--CALL task1_procedure2(InputRoot.BLOB.BLOB);
+		call casttochar();
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE casttochar ( )
+	BEGIN
+		DECLARE message CHARACTER;
+		SET message = CAST(ASBITSTREAM(InputRoot.XMLNSC) AS CHARACTER CCSID 1208);
+		call task1_procedure(message);
+	END;
+	
+	CREATE PROCEDURE task1_procedure (IN msg CHARACTER)
+	EXTERNAL NAME TASK1_PROC;
+END MODULE;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--	CREATE PROCEDURE task1_procedure2 (IN msg BLOB)
+--	EXTERNAL NAME TASK1_PROC;
+--	
+--	
+--
+--	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		SET OutputRoot = InputRoot;
+--		
+--		DECLARE emp_id INTEGER;
+--		DECLARE first_name CHARACTER;
+--		DECLARE last_name CHARACTER;
+--		DECLARE department CHARACTER;
+--		DECLARE salary INTEGER;
+--		
+--		SET emp_id = InputRoot.XMLNSC.employees.emp_id;
+--		SET first_name = InputRoot.XMLNSC.employees.first_name;
+--		SET last_name = InputRoot.XMLNSC.employees.last_name;
+--		SET department = InputRoot.XMLNSC.employees.department;
+--		SET salary = InputRoot.XMLNSC.employees.salary;
+--
+--		CALL insert_into_employees(emp_id,first_name,last_name,department,salary);
+--	END;
+--		
+--	CREATE PROCEDURE insert_into_employees (IN emp_id INTEGER,IN first_name CHARACTER, IN last_name CHARACTER ,IN department CHARACTER, IN salary INTEGER)
+--	--LANGUAGE DATABASE
+--	EXTERNAL NAME "INSERT_EMPLOYEES";
+--	
