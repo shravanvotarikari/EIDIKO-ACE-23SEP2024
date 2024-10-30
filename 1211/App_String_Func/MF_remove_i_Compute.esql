@@ -1,0 +1,19 @@
+
+
+CREATE COMPUTE MODULE MF_remove_i_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		 CALL removeCharI();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE removeCharI() BEGIN
+		
+		DECLARE name CHARACTER InputRoot.XMLNSC.emp.name;
+		DECLARE newName CHARACTER;
+		
+		SET newName = TRANSLATE(name,'i','');
+		SET OutputRoot.XMLNSC.emp.name = newName;
+	END;
+END MODULE;

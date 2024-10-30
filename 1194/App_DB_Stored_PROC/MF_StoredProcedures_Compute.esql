@@ -1,0 +1,33 @@
+
+
+CREATE COMPUTE MODULE MF_StoredProcedures_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		Create reference to incoming data
+		DECLARE refVar REFERENCE TO InputRoot.XMLNSC;
+		
+--		Convert it into blob first (using ASBITSTREAM()) 
+		DECLARE blobVar BLOB;
+		SET blobVar = ASBITSTREAM(refVar);
+		
+--		and then into character using (CAST() with CCSID)
+        DECLARE payloadString CHARACTER;
+        SET payloadString = CAST(blobVar AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId);
+        
+--      Inserting payload in the database
+--		Call stored procedure
+		CALL storedP(1438, payloadString);
+        
+        SET OutputRoot = InputRoot;
+	END;
+	
+	CREATE PROCEDURE storedP (IN id INTEGER, IN msg CHARACTER)
+	LANGUAGE DATABASE
+	EXTERNAL NAME "storePROC";
+
+END MODULE;

@@ -1,0 +1,31 @@
+
+
+Importing file: C:\Users\Sreenivas Bandaru\IBM\ACET12\workspace\App_SOAP_ArithmeticOperations\Arithmetic.wsdl
+
+The WSDL import will proceed with bindings ArithmeticSOAP.
+Creating wsdl schema document for file:///C:/Users/Sreenivas Bandaru/IBM/ACET12/workspace/App_SOAP_ArithmeticOperations/Arithmetic.wsdl.
+Parsing wsdl binding {http://www.example.org/Arithmetic/}ArithmeticSOAP.
+Parsing wsdl binding input Add.
+Parsing wsdl binding output Add.
+Parsing wsdl binding input Sub.
+Parsing wsdl binding output Sub.
+Parsing wsdl binding input Mul.
+Parsing wsdl binding output Mul.
+Parsing wsdl binding input Div.
+Parsing wsdl binding output Div.
+Processing doc style for operation Add.
+Processing doc style for operation Sub.
+Processing doc style for operation Mul.
+Processing doc style for operation Div.
+Populating WSDL schema Arithmetic.xsd.
+Creating file Arithmetic.xsd in the workspace.
+Creating file Arithmetic_InlineSchema1.xsd in the workspace.
+Copying source WSDL Arithmetic.wsdl to Arithmetic.wsdl.
+
+Elapsed time processing this message definition file: 0.47 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+

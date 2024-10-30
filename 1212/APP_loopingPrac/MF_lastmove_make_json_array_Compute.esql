@@ -1,0 +1,26 @@
+
+
+CREATE COMPUTE MODULE MF_lastmove_make_json_array_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL makeJsonArray();
+		RETURN TRUE;
+	END;
+
+	create PROCEDURE makeJsonArray()
+	BEGIN
+		DECLARE inRef REFERENCE to InputRoot.XMLNSC.root.d;
+		create field OutputRoot.JSON.Data.base IDENTITY(JSON.Array)base;
+	    DECLARE outRef REFERENCE to OutputRoot.JSON.Data;
+	    DECLARE i integer 1;
+		--create field OutputRoot.JSON.Data.d IDENTITY(JSON.Array)d;
+		WHILE LASTMOVE(inRef) DO		
+			SET outRef.base.Item[i] = inRef;
+			MOVE inRef NEXTSIBLING;
+			set i = i+1;
+		END WHILE;
+	END;
+	
+
+	
+END MODULE;

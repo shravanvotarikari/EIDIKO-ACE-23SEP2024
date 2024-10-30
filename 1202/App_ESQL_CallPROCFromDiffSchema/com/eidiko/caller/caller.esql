@@ -1,0 +1,13 @@
+BROKER SCHEMA com.eidiko.caller
+PATH com.eidiko.calling;
+
+CREATE COMPUTE MODULE caller
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE res CHARACTER;
+		CALL integerProc('hello','there',res);
+		SET OutputRoot.XMLNSC.root = res;
+		RETURN TRUE;
+	END;
+
+END MODULE;

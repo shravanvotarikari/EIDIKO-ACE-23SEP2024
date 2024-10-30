@@ -1,0 +1,16 @@
+
+
+CREATE COMPUTE MODULE putCrud_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+	    CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		update Database.JAYTABLEREST AS T set id = InputRoot.JSON.Data.jsonmodel.id , fname = InputRoot.JSON.Data.jsonmodel.fname, lname=InputRoot.JSON.Data.jsonmodel.lname, salary=InputRoot.JSON.Data.jsonmodel.salary where T.id = InputLocalEnvironment.REST.Input.Parameters.id;
+		set OutputRoot.JSON.Data.out = 'updated';
+	END;
+END MODULE;

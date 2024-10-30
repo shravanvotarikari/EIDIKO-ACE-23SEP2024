@@ -1,0 +1,27 @@
+
+
+CREATE COMPUTE MODULE MF_FieldFunctions_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		SET Environment.fieldName = FIELDNAME(InputRoot.XMLNSC.data.name);
+		SET Environment.fieldValue = FIELDVALUE(InputRoot.XMLNSC.data.name);
+		SET Environment.bitStream = ASBITSTREAM(InputRoot.XMLNSC.data);
+		
+--		EXISTS() function not working
+
+--		DECLARE isExist BOOLEAN;
+--		IF EXISTS(InputRoot.XMLNSC.data) THEN
+--			SET isExist = TRUE;
+--		ELSE
+--			SET isExist = FALSE;
+--		END IF;
+		
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;

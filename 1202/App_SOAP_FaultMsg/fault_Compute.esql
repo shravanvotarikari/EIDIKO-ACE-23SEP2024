@@ -1,0 +1,17 @@
+
+
+CREATE COMPUTE MODULE fault_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		declare soapenv NAMESPACE 'http://schemas.xmlsoap.org/soap/envelope/';
+		declare new NAMESPACE 'http://www.example.org/NewWSDLFile/';
+		set OutputRoot.SOAP.Body.soapenv:Fault.faultcode = 'soapenv:Client';
+		set OutputRoot.SOAP.Body.soapenv:Fault.faultstring = 'Invalid request';
+		set OutputRoot.SOAP.Body.soapenv:Fault.detail.new:CustomFault.new:errorCode = '123';
+		set OutputRoot.SOAP.Body.soapenv:Fault.detail.new:CustomFault.new:errorMessage = 'The request is missing a required parameter.';
+		
+	
+		RETURN TRUE;
+	END;
+
+END MODULE;

@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE MF_database_create_table_create_table
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL createTable();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE createTable() BEGIN
+		
+		passthru 'create table table1(id number,name varchar2(10),dept varchar2(20))' to Database.ORADSN;
+		
+	END;
+END MODULE;

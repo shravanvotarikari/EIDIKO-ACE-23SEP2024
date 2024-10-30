@@ -1,0 +1,16 @@
+
+
+CREATE COMPUTE MODULE MF_database_update
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+	
+		update Database.employee set emp_id = employee.emp_id + 10 ;
+		
+		--WHERE employee.emp_id = 1112;
+	END;
+END MODULE;

@@ -1,0 +1,33 @@
+
+
+CREATE COMPUTE MODULE mf_active_inactive_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		set OutputRoot.XMLNSC.EMP[] = List{Environment.Active,Environment.Inactive};
+--		create field OutputRoot.XMLNSC.root;
+--		DECLARE outref REFERENCE to OutputRoot.XMLNSC.root;
+--		
+--		declare i INTEGER 1;
+--		DECLARE enref reference to Environment.Active.id;
+--		
+--		while LASTMOVE(enref) do 
+--			create LASTCHILD of outref name 'id';
+--			set outref.id[i] = enref;
+--			move enref NEXTSIBLING;
+--			set i = i+1;
+--		end WHILE;
+--		
+--		DECLARE enref2 REFERENCE to Environment.Inactive.id;
+--		while LASTMOVE(enref2) do 	
+--			create LASTCHILD of outref name 'id';
+--			set outref.id[i] = enref2;
+--			move enref2 NEXTSIBLING;
+--			set i = i +1;
+--		end WHILE;
+--		
+		
+
+		RETURN TRUE;
+	END;
+
+END MODULE;

@@ -1,0 +1,24 @@
+
+
+CREATE COMPUTE MODULE MF_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL reverse();
+		RETURN TRUE;
+	END;
+	CREATE PROCEDURE reverse() BEGIN
+		DECLARE str CHARACTER;
+		DECLARE rev CHARACTER;
+		SET rev = '';
+		SET str = InputRoot.XMLNSC.d1;
+		DECLARE count INTEGER;
+		
+		SET count = 1;
+		WHILE count <= LENGTH(str) DO
+			SET rev =rev || SUBSTRING(str FROM LENGTH(str) For 1);
+			SET str = SUBSTRING(str FROM 1 FOR LENGTH(str) - 1);
+		END WHILE;
+		SET OutputRoot.XMLNSC.d1 = rev;
+	END;
+END MODULE;

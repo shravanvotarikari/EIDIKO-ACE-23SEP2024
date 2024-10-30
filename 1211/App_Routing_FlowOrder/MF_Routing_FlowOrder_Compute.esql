@@ -1,0 +1,16 @@
+
+
+CREATE COMPUTE MODULE MF_Routing_FlowOrder_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'QM3OUTPUT3';
+		--CREATE LASTCHILD OF OutputRoot DOMAIN('XMLNSC') PARSE (InputRoot.BLOB.BLOB,InputRoot.Properties.Encoding, InputRoot.Properties.CodedCharSetId)
+		SET OutputRoot.JSON.Data.status = 'SUCCESS';
+	END;
+END MODULE;

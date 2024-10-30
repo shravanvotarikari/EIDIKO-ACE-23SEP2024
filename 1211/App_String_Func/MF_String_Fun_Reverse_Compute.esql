@@ -1,0 +1,52 @@
+
+
+CREATE COMPUTE MODULE MF_String_Fun_Reverse_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL reverseString();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE reverseString() BEGIN
+		
+		DECLARE name CHARACTER InputRoot.XMLNSC.emp.name;
+		DECLARE revName CHARACTER '';
+		
+		DECLARE count INTEGER 1;
+		DECLARE nameLength INTEGER;
+		SET nameLength = LENGTH(name);
+		
+		WHILE count <= nameLength DO
+			
+			SET revName = revName || RIGHT(name,count);
+			SET revName = LEFT(revName,count);
+			SET count = count + 1;
+		END WHILE;
+		
+		SET OutputRoot.XMLNSC.emp.name = revName;
+	END;
+END MODULE;
+--
+--DECLARE inref REFERENCE TO InputRoot.XMLNSC;
+--        DECLARE name CHARACTER inref.emp.name;
+--
+--        DECLARE reversedName CHARACTER '';
+--        DECLARE i INTEGER;
+--
+--       SET i = LENGTH(name);
+--
+--        WHILE i > 0 DO
+--            SET reversedName = reversedName || SUBSTRING(name FROM i FOR 1);
+--            SET i = i - 1;
+--        END WHILE;
+--
+--	 	        SET OutputRoot.XMLNSC.emp.name = reversedName; 
+
+
+
+
+
+
+
+
+

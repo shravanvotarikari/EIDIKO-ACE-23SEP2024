@@ -1,0 +1,33 @@
+BROKER SCHEMA com.eidiko.caller
+
+PATH com.eidiko.calling;
+CREATE COMPUTE MODULE caller
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		-- CALL CopyEntireMessage();
+		declare num1 CHARACTER;
+		declare num2 CHARACTER;
+		DECLARE CHAR1 CHARACTER;
+		DECLARE CHAR2 CHARACTER;
+		
+		DECLARE result1 CHARACTER;
+		declare result2 CHARACTER;
+		
+		Set num1 = InputRoot.XMLNSC.Data.a;
+		set num2 = InputRoot.XMLNSC.Data.b;
+		Set CHAR1 = InputRoot.XMLNSC.Data.c;
+		Set CHAR2 = InputRoot.XMLNSC.Data.d;
+		
+		call IntegerProc(num1,num2,result1);
+		set OutputRoot.XMLNSC.Data = result1;
+		call CharProc(CHAR1, CHAR2, result2);
+		
+		
+		set OutputRoot.XMLNSC.Data= result2;
+		 
+		 
+		RETURN TRUE;
+	END;
+
+END MODULE;

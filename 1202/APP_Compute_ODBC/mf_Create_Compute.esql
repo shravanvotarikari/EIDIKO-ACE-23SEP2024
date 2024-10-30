@@ -1,0 +1,11 @@
+
+
+CREATE COMPUTE MODULE mf_Create_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		set OutputRoot = InputRoot;
+		Passthru 'create table empjay(col1 integer, col2 integer)' to Database.jaydsn;
+		
+		RETURN TRUE;
+	END;
+END MODULE;

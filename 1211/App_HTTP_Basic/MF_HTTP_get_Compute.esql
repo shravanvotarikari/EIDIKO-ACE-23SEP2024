@@ -1,0 +1,31 @@
+
+
+CREATE COMPUTE MODULE MF_HTTP_get_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		Set OutputLocalEnvironment = InputLocalEnvironment;
+		
+		--SET OutputRoot = InputRoot;
+		--SET OutputRoot.XMLNSC.root.message = InputRoot.JSON.Data;
+		--SET OutputLocalEnvironment.urlstr = InputLocalEnvironment.HTTP.Input.Path.Segment;
+		--SET OutputLocalEnvironment.HTTP.Input.Path.Segment = 'there';
+		--SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'https://fake-json-api.mock.beeceptor.com/user';
+		
+		--Working --
+		
+		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://echo.jsontest.com/key/value/one/two';
+		--Working --SET OutputLocalEnvironment.Destination.HTTP.ReplyStatusCode  = 500;
+		
+--		DECLARE empID CHARACTER;
+--		SET empID = InputLocalEnvironment.HTTP.Input.QueryString.EID;
+--		
+--		DECLARE empInfo ROW;
+--		SET empInfo.emp[] = SELECT * FROM Database.employee_status AS e WHERE e.emp_id = empID ;
+--		SET OutputRoot.BLOB.BLOB.root.empinfo[] = empInfo.emp[];
+	END;
+END MODULE;

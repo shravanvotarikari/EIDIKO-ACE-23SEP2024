@@ -1,0 +1,22 @@
+
+
+CREATE COMPUTE MODULE MF_HTTP_upzip_Unzipp
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		Set OutputLocalEnvironment = InputLocalEnvironment;
+		DECLARE var CHARACTER;
+		
+		--SET var = CAST(ASBITSTREAM(InputRoot.BLOB.BLOB)AS CHARACTER);
+		--SET OutputRoot.XMLNSC.root.data = var;
+		
+		SET OutputRoot.BLOB.BLOB = InputRoot.BLOB.BLOB;
+		 		
+	END;
+END MODULE;
+
+

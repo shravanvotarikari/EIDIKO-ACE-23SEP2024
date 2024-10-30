@@ -1,0 +1,7 @@
+BROKER SCHEMA com.eidiko.calling
+
+
+CREATE PROCEDURE  integerProc(IN str1 CHARACTER,in str2 CHARACTER,out res CHARACTER)
+BEGIN
+	set res = str1 || str2;
+END;

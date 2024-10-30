@@ -1,0 +1,28 @@
+
+
+CREATE COMPUTE MODULE  Arithmetic_soap_op_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		declare arit NAMESPACE 'http://www.example.org/Arithmetic_Op/';
+		
+		IF InputRoot.SOAP.Context.operation = 'Addition' THEN
+			set OutputRoot.SOAP.Body.arit:AdditionResponse.out1 = InputRoot.SOAP.Body.arit:Addition.in1 +  InputRoot.SOAP.Body.arit:Addition.in2;
+			
+		ELSEIF InputRoot.SOAP.Context.operation = 'Substraction' THEN
+			set OutputRoot.SOAP.Body.arit:SubstractionResponse.out2 = InputRoot.SOAP.Body.arit:Substraction.in3 -  InputRoot.SOAP.Body.arit:Substraction.in4;
+			
+		ELSEIF InputRoot.SOAP.Context.operation = 'Multiply' THEN
+			set OutputRoot.SOAP.Body.arit:MultiplyResponse.out3 = InputRoot.SOAP.Body.arit:Multiply.in5 * InputRoot.SOAP.Body.arit:Multiply.in6;
+			
+		ELSEIF InputRoot.SOAP.Context.operation = 'Division' THEN
+			set OutputRoot.SOAP.Body.arit:DivisionResponse.out4 = InputRoot.SOAP.Body.arit:Division.in7 / InputRoot.SOAP.Body.arit:Division.in8;
+		END IF;
+
+
+
+
+		RETURN TRUE;
+	END;
+
+END MODULE;

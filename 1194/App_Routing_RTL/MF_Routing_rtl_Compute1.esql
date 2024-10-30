@@ -1,0 +1,20 @@
+
+
+CREATE COMPUTE MODULE MF_Routing_rtl_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE id INTEGER;
+		DECLARE query,myName,dept,status CHARACTER;
+		SET id = InputRoot.XMLNSC.Employees.id;
+		SET myName = InputRoot.XMLNSC.Employees.name;
+	    SET dept = InputRoot.XMLNSC.Employees.dept;
+	    SET status = InputRoot.XMLNSC.Employees.status;	
+	    INSERT INTO Employees VALUES (id, myName, dept,status);
+	    SET OutputRoot = InputRoot;
+	END;
+END MODULE;

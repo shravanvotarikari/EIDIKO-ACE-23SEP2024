@@ -1,0 +1,34 @@
+
+
+CREATE COMPUTE MODULE MF_CaseStatements_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL Scenario(15);
+		RETURN TRUE;
+	END;
+	
+	CREATE FUNCTION Scenario(age INTEGER) BEGIN
+		
+--		Using If-else ladder
+
+--		IF (age > 18) THEN
+--			SET OutputRoot.XMLNSC.root.vote = 'YES';
+--		ELSEIF (age < 18) THEN
+--			SET OutputRoot.XMLNSC.root.vote = 'NO';
+--		ELSE
+--			SET OutputRoot.XMLNSC.root.vote = 'Maybe';
+--		END IF;
+
+--		Using Case Statement
+
+		CASE age
+		WHEN 15 THEN
+			SET OutputRoot.XMLNSC.root.vote = 'No';
+		WHEN 18 THEN
+			SET OutputRoot.XMLNSC.root.vote = 'Maybe';
+		ELSE
+			SET OutputRoot.XMLNSC.root.vote = 'Yes';
+		END CASE;
+	END;
+
+END MODULE;

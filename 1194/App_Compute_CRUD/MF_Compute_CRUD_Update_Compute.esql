@@ -1,0 +1,13 @@
+
+
+CREATE COMPUTE MODULE MF_Compute_CRUD_Update_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		UPDATE Database.Employees SET dept = 'IIB' where Employees.id = 1194;
+	END;
+END MODULE;

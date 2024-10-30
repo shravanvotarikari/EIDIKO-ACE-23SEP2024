@@ -1,0 +1,28 @@
+
+
+CREATE COMPUTE MODULE MF_Routing_Route_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE custId INTEGER;
+		DECLARE accNo INTEGER;
+		DECLARE branch CHARACTER;
+		DECLARE amount INTEGER;
+		DECLARE currency CHARACTER;
+		
+		SET custId = CAST(InputRoot.JSON.Data.customerid AS INTEGER);
+		SET accNo = CAST(InputRoot.JSON.Data.accountno AS INTEGER);
+		SET branch = InputRoot.JSON.Data.branch;
+		SET amount = CAST(InputRoot.JSON.Data.amount AS INTEGER);
+		SET currency = InputRoot.JSON.Data.currency;
+		
+		INSERT INTO Database.HDFC0094 VALUES (custId, accNo, branch, amount, currency);
+		
+		SET OutputRoot.JSON.Data.status = 'success';
+		SET OutputRoot.JSON.Data.description = 'Amount Credited for your account HDFC0094';
+	END;
+END MODULE;

@@ -1,0 +1,41 @@
+CREATE COMPUTE MODULE MF_loopingPrac_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+BEGIN
+    -- Create a reference to the input Customers
+    DECLARE inputCustomers REFERENCE TO InputRoot.XMLNSC.Customers;
+    
+    -- Create the OutputRoot.XMLNSC structure
+    CREATE LASTCHILD OF OutputRoot DOMAIN 'XMLNSC';
+    DECLARE outputCustomers REFERENCE TO OutputRoot.XMLNSC.Customers;
+    CREATE LASTCHILD OF OutputRoot.XMLNSC NAME 'Customers';
+
+    -- Loop through each Customer element
+    DECLARE i INTEGER 1;
+    DECLARE customerCount INTEGER CARDINALITY(inputCustomers.Customer[]);
+
+    WHILE i <= customerCount DO
+        -- Reference to the current Customer in input
+        DECLARE currentCustomer REFERENCE TO inputCustomers.Customer[i]; 
+
+        -- Add the Customer element to the output
+        CREATE LASTCHILD OF outputCustomers NAME 'Customer';
+        DECLARE outputCustomer REFERENCE TO outputCustomers.Customer[i];
+
+        -- Copy the Name and Age fields from input to output
+        SET outputCustomer.Name = currentCustomer.Name;
+        SET outputCustomer.Age = currentCustomer.Age;
+
+        -- Determine if the customer is an adult
+        DECLARE isAdult BOOLEAN (CAST(currentCustomer.Age AS INTEGER) > 18);
+        SET outputCustomer.IsAdult = (CASE 
+                                            WHEN isAdult THEN 'Yes' 
+                                            ELSE 'No' 
+                                        END);
+
+        -- Increment the counter
+        SET i = i + 1;
+    END WHILE;
+
+    RETURN TRUE;
+END;
+END MODULE;

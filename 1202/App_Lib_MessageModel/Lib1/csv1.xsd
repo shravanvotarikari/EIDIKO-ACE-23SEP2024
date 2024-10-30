@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:csv="http://www.ibm.com/dfdl/CommaSeparatedFormat" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      
+  <xsd:import namespace="http://www.ibm.com/dfdl/CommaSeparatedFormat" schemaLocation="IBMdefined/CommaSeparatedFormat.xsd"/>
+      
+  <xsd:annotation>
+    		
+    <xsd:appinfo source="http://www.ogf.org/dfdl/">
+      			
+      <dfdl:format documentFinalTerminatorCanBeMissing="yes" encoding="{$dfdl:encoding}" escapeSchemeRef="csv:CSVEscapeScheme" ref="csv:CommaSeparatedFormat"/>
+      		
+    </xsd:appinfo>
+    	
+  </xsd:annotation>
+  	
+  <xsd:element ibmSchExtn:docRoot="true" name="csv1">
+    		
+    <xsd:complexType>
+      			
+      <xsd:sequence dfdl:separator="">
+        				
+        <xsd:element dfdl:terminator="%CR;%LF;%WSP*;" name="header">
+          					
+          <xsd:complexType>
+            						
+            <xsd:sequence>
+              							
+              <xsd:element default="head_value1" name="head_field1" type="xsd:string"/>
+              							
+              <xsd:element default="head_value2" name="head_field2" type="xsd:string"/>
+              							
+							
+              <xsd:element default="head_value3" name="head_field3" type="xsd:string"/>
+              							
+                            
+              <xsd:element default="head_value4" name="head_field4" type="xsd:string"/>
+                                          
+              <xsd:element default="head_value5" name="head_field5" type="xsd:string"/>
+                                      
+            </xsd:sequence>
+            					
+          </xsd:complexType>
+          				
+        </xsd:element>
+        			
+				
+        <xsd:element dfdl:occursCountKind="implicit" dfdl:terminator="%CR;%LF;%WSP*;" maxOccurs="unbounded" name="record">
+          					
+          <xsd:complexType>
+            						
+            <xsd:sequence>
+               
+							
+              <xsd:element default="value1" name="field1" type="xsd:string"/>
+              							
+              <xsd:element default="value2" name="field2" type="xsd:string"/>
+              							
+              <xsd:element default="value3" name="field3" type="xsd:string"/>
+                                          
+              <xsd:element default="value4" name="field4" type="xsd:string"/>
+                                          
+              <xsd:element default="value5" name="field5" type="xsd:string"/>
+                                      
+            </xsd:sequence>
+            					
+          </xsd:complexType>
+          				
+        </xsd:element>
+        				
+			
+      </xsd:sequence>
+      		
+    </xsd:complexType>
+    	
+  </xsd:element>
+  
+</xsd:schema>

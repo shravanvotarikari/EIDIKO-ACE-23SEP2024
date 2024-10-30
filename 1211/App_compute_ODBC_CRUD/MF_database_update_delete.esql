@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE MF_database_delete
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		DELETE FROM Database.employee WHERE employee.emp_id = 50;
+		--PASSTHRU'create';
+	END;
+END MODULE;

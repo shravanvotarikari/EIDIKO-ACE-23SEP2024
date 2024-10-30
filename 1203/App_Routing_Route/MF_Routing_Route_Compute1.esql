@@ -1,0 +1,21 @@
+
+CREATE COMPUTE MODULE MF_Routing_Route_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+	--	PASSTHRU 'CREATE TABLE Branch_02 (customerid INTEGER,accountno VARCHAR2(20),branch VARCHAR2(20),amount INTEGER)' TO Database.ORADSN;
+		  INSERT INTO Database.Branch_02 
+		  VALUES(InputRoot.JSON.Data.customerid, InputRoot.JSON.Data.accountno,
+		  InputRoot.JSON.Data.branch, InputRoot.JSON.Data.amount);
+		
+		SET OutputRoot.JSON.Data.status = 'success';
+        SET OutputRoot.JSON.Data.description = 'Amount Credited for your account';
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
+

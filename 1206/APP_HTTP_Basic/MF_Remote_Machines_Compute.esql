@@ -1,0 +1,24 @@
+
+
+
+
+CREATE COMPUTE MODULE MF_Remote_Machines_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+
+		Set OutputLocalEnvironment = InputLocalEnvironment;
+		--passthru 'create table table1(id number,name varchar2(10),dept varchar2(20))' to Database.remotedsn3;
+
+		passthru 'CREATE TABLE AsharTable(id number PRIMARY KEY,name varchar2(20),city varchar2(20))' to Database.AbhiDSN;
+		--passthru 'CREATE TABLE HDFC0096 (customerid number PRIMARY KEY,accountno number,branch VARCHAR(20),amount number,currency varchar2(5))' to Database.remotedsn3;
+	END;
+END MODULE;
