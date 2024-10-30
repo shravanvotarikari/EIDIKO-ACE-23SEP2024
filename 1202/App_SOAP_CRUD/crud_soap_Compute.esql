@@ -1,0 +1,45 @@
+
+
+CREATE COMPUTE MODULE crud_soap_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	
+		-- CALL CopyMessageHeaders();
+		-- CALL CopyEntireMessage();
+		call myProc();
+		RETURN TRUE;
+	END;
+
+	create Procedure myProc() 
+	Begin
+		declare new NAMESPACE 'http://www.example.org/NewWSDLFile/';
+		
+		IF InputRoot.SOAP.Context.operation= 'Create' then
+			declare cols CHARACTER '';
+			declare fch REFERENCE TO InputRoot.SOAP.Body.new:Create.*[1];
+			while lastmove(fch) DO
+				set cols = cols || fch ||' varchar2(20)';
+				if fch <> InputRoot.SOAP.Body.new:Create.*[<] then
+					set cols = cols || ',';
+				end if;
+				move fch NEXTSIBLING;
+			end while;
+			set cols = 'create table soaptable (' || cols ||')';
+			set OutputLocalEnvironment.Var = cols;
+			PASSTHRU cols TO Database.jaydsn;
+			set OutputRoot.SOAP.Body.new:CreateResponse.out = 'table created successfully :p';
+			
+		ELSEIF InputRoot.SOAP.Context.operation= 'Read' then
+			set OutputRoot.SOAP.Body.new:ReadResponse.out[] = select t.MSG from Database.soaptable as t where t.ID = InputRoot.SOAP.Body.new:Read.in;
+		
+		ELSEIF InputRoot.SOAP.Context.operation = 'Update' then
+			update Database.soaptable as t set MSG = InputRoot.SOAP.Body.new:Update.newcol2 where t.ID = InputRoot.SOAP.Body.new:Update.col1;
+			set OutputRoot.SOAP.Body.new:UpdateResponse.out = 'updated successfully';
+	
+		elseIf InputRoot.SOAP.Context.operation = 'Delete' then
+			delete from Database.soaptable as t where t.ID = InputRoot.SOAP.Body.new:Delete.in;
+			set OutputRoot.SOAP.Body.new:DeleteResponse.out = 'Deleted successfully';
+		end if;
+		
+	End;
+END MODULE;
