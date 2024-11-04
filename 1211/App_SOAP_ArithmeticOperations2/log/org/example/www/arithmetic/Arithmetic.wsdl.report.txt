@@ -1,0 +1,4 @@
+
+
+Importing file: C:\workspaces\message_model\App_SOAP_ArithmeticOperations2\Arithmetic.wsdl
+
