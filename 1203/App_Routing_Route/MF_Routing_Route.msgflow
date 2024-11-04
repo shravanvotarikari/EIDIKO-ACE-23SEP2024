@@ -10,8 +10,8 @@
         <outTerminals terminalNodeID="Match" dynamic="true" label="Match"/>
         <outTerminals terminalNodeID="Match01" dynamic="true" label="Match01"/>
         <translation xmi:type="utility:ConstantString" string="Route"/>
-        <filterTable filterPattern="$Root/JSON/Data/branch='HDFC0094'" routingOutputTerminal="Match"/>
         <filterTable filterPattern="$Root/JSON/Data/branch='HDFC0096'" routingOutputTerminal="Match01"/>
+        <filterTable filterPattern="$Root/JSON/Data/branch='HDFC0094'" routingOutputTerminal="Match"/>
       </nodes>
       <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="23,134" URLSpecifier="/path" messageDomainProperty="JSON">
         <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
@@ -19,10 +19,10 @@
       <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="755,121">
         <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="494,230" dataSource="ORADSN" computeExpression="esql://routine/#MF_Routing_Route_Compute1.Main" computeMode="destinationAndMessage">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="494,230" dataSource="ORADSN" connectDatasourceBeforeFlowStarts="true" computeExpression="esql://routine/#MF_Routing_Route_Compute1.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="Compute1"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="501,92" dataSource="ORADSN" computeExpression="esql://routine/#MF_Routing_Route_Compute.Main" computeMode="destinationAndMessage">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="501,92" dataSource="ORADSN" connectDatasourceBeforeFlowStarts="true" computeExpression="esql://routine/#MF_Routing_Route_Compute.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
