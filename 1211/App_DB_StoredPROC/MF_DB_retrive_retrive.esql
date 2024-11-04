@@ -3,7 +3,8 @@
 CREATE COMPUTE MODULE MF_DB_retrive_retrive
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		CALL CopyEntireMessage();
+		--CALL CopyEntireMessage();
+		CALL task1_procedure(OutputRoot.XMLNSC.root.data[]);
 		RETURN TRUE;
 	END;
 
@@ -12,8 +13,10 @@ CREATE COMPUTE MODULE MF_DB_retrive_retrive
 		
 		DECLARE MSG_BLOB Row;
 		CALL task1_procedure(MSG_BLOB.d[]);
-		--CALL task1_procedure(OutputRoot.XMLNSC.root.data[]);
+		
+		
 		SET OutputRoot.XMLNSC.root.data = MSG_BLOB;
+		--SET OutputRoot.XMLNSC.root.data = CAST(ASBITSTREAM(MSG_BLOB) as CHARACTER CCSID 1208);
 			
 	END;
 	
@@ -21,8 +24,6 @@ CREATE COMPUTE MODULE MF_DB_retrive_retrive
 		LANGUAGE DATABASE	
 		DYNAMIC RESULT SETS 1
 		EXTERNAL NAME "TASK1_SELECT";
-		
-		
 	
 END MODULE;
 	

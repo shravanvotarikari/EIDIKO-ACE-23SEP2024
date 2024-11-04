@@ -1,0 +1,18 @@
+DECLARE ns NAMESPACE 'http://www.example.org/operationOverridingWSDLFile/';
+
+
+CREATE COMPUTE MODULE MF_SOAP_demo_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		SET OutputLocalEnvironment.Destination.SOAP.Request.Operation = 'Sub';
+		SET OutputRoot.SOAP.Body.ns:Sub.a = 20;
+		SET OutputRoot.SOAP.Body.ns:Sub.b = 30;
+		
+	END;
+END MODULE;

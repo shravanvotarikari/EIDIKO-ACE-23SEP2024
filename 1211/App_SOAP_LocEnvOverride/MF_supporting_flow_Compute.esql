@@ -1,0 +1,17 @@
+
+
+CREATE COMPUTE MODULE MF_supporting_flow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		 CALL CopyEntireMessage();
+		 
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		SET OutputRoot.SOAP.Body.ns:SubResponse.out = InputRoot.SOAP.Body.ns:Sub.a - InputRoot.SOAP.Body.ns:Sub.b;
+		
+	END;
+END MODULE;
