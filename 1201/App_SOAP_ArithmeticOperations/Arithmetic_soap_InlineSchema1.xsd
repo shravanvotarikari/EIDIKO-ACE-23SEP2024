@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/Arithmetic_Op/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/Arithmetic_Op/">
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="Addition">
+            
+    <xsd:complexType>
+                
+      <xsd:sequence>
+
+      	<xsd:element name="in1" type="xsd:int" />
+
+      	<xsd:element name="in2" type="xsd:int"></xsd:element>
+      </xsd:sequence>
+
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="AdditionResponse">
+            
+    <xsd:complexType>
+                
+      <xsd:sequence>
+                    
+        <xsd:element name="out1" type="xsd:int"/>
+                  
+      </xsd:sequence>
+              
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element name="Substraction">
+          	
+    <xsd:complexType>
+            		
+      <xsd:sequence>
+
+      	<xsd:element name="in7" type="xsd:int" />
+
+      	<xsd:element name="in8" type="xsd:int"></xsd:element>
+      </xsd:sequence>
+
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element name="SubstractionResponse">
+          	
+    <xsd:complexType>
+            		
+      <xsd:sequence>
+              			
+        <xsd:element name="out4" type="xsd:int"/>
+              		
+      </xsd:sequence>
+            	
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element name="Multiply">
+          	
+    <xsd:complexType>
+            		
+      <xsd:sequence>
+
+      	<xsd:element name="in5" type="xsd:int" />
+
+      	<xsd:element name="in6" type="xsd:int"></xsd:element>
+      </xsd:sequence>
+
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element name="MultiplyResponse">
+          	
+    <xsd:complexType>
+            		
+      <xsd:sequence>
+              			
+        <xsd:element name="out3" type="xsd:int"/>
+              		
+      </xsd:sequence>
+            	
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element name="Division">
+          	
+    <xsd:complexType>
+            		
+      <xsd:sequence>
+
+      	<xsd:element name="in3" type="xsd:int" />
+
+      	<xsd:element name="in4" type="xsd:int"></xsd:element>
+      </xsd:sequence>
+
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element name="DivisionResponse">
+          	
+    <xsd:complexType>
+            		
+      <xsd:sequence>
+              			
+        <xsd:element name="out2" type="xsd:int"/>
+              		
+      </xsd:sequence>
+            	
+    </xsd:complexType>
+          
+  </xsd:element>
+      
+</xsd:schema>
