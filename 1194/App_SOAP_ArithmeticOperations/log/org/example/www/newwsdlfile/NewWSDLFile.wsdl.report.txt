@@ -1,0 +1,31 @@
+
+
+Importing file: C:\temp\App_SOAP_ArithmeticOperations\NewWSDLFile.wsdl
+
+The WSDL import will proceed with bindings NewWSDLFileSOAP.
+Creating wsdl schema document for file:///C:/temp/App_SOAP_ArithmeticOperations/NewWSDLFile.wsdl.
+Parsing wsdl binding {http://www.example.org/NewWSDLFile/}NewWSDLFileSOAP.
+Parsing wsdl binding input Addition.
+Parsing wsdl binding output Addition.
+Parsing wsdl binding input Subtraction.
+Parsing wsdl binding output Subtraction.
+Parsing wsdl binding input Multiplication.
+Parsing wsdl binding output Multiplication.
+Parsing wsdl binding input Division.
+Parsing wsdl binding output Division.
+Processing doc style for operation Addition.
+Processing doc style for operation Subtraction.
+Processing doc style for operation Multiplication.
+Processing doc style for operation Division.
+Populating WSDL schema NewWSDLFile.xsd.
+Creating file NewWSDLFile.xsd in the workspace.
+Creating file NewWSDLFile_InlineSchema2.xsd in the workspace.
+Copying source WSDL NewWSDLFile.wsdl to NewWSDLFile.wsdl.
+
+Elapsed time processing this message definition file: 0.264 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+

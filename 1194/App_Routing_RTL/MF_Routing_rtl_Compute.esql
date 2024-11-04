@@ -9,6 +9,7 @@ CREATE COMPUTE MODULE MF_Routing_rtl_Compute
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		DECLARE query CHARACTER 'SELECT * FROM Employees WHERE id = 1194';
-		SET OutputRoot.XMLNSC.Root.data = PASSTHRU(query);
+		SET OutputRoot.XMLNSC.Root.data[] = PASSTHRU(query);
+		
 	END;
 END MODULE;

@@ -15,14 +15,13 @@ CREATE COMPUTE MODULE MF_StoredProcedures_Compute
 		DECLARE blobVar BLOB;
 		SET blobVar = ASBITSTREAM(refVar);
 		
---		and then into character using (CAST())
+--		and then into character using (CAST() with CCSID)
         DECLARE payloadString CHARACTER;
         SET payloadString = CAST(blobVar AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId);
         
 --      Inserting payload in the database
 --		Call stored procedure
 		CALL storedP(1438, payloadString);
---        INSERT INTO Database.payLoad VALUES (1234, payloadString);
         
         SET OutputRoot = InputRoot;
 	END;

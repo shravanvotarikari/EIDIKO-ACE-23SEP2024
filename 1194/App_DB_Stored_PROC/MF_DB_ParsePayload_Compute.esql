@@ -23,7 +23,7 @@ CREATE COMPUTE MODULE MF_DB_ParsePayload_Compute
 --    	CCSID InputRoot.Properties.CodedCharSetId);
 --		OR
 --		CREATE LASTCHILD OF OutputRoot DOMAIN ('msgDomain') PARSE(blobVar, Encoding, CCSID);
-		CREATE LASTCHILD OF OutputRoot DOMAIN ('XMLNSC') PARSE(blobVar, 456, 1208);
+		CREATE LASTCHILD OF OutputRoot DOMAIN ('XMLNSC') PARSE(blobVar, 546, 1208);
 
 	END;
 	

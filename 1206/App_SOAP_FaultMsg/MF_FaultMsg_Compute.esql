@@ -1,0 +1,19 @@
+DECLARE ns NAMESPACE 'http://schemas.xmlsoap.org/wsdl/';
+
+
+CREATE COMPUTE MODULE MF_FaultMsg_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		SET OutputRoot.SOAP.Body.ns:Fault.faultcode = 'Client';
+		SET OutputRoot.SOAP.Body.ns:Fault.faultstring = 'Invalid Request';
+		
+	END;
+END MODULE;

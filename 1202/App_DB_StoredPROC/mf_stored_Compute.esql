@@ -1,0 +1,23 @@
+
+
+CREATE COMPUTE MODULE mf_stored_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		declare res character;
+		SET res = CAST(ASBITSTREAM(InputRoot.JSON.Data,456,1208) as char CCSID 1208 Encoding 546);
+		
+		call myproc(res);
+		
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+
+
+	CREATE PROCEDURE  myproc(in var character)
+	EXTERNAL NAME "PROCEDURE1";
+END MODULE;

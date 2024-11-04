@@ -1,0 +1,13 @@
+
+
+CREATE COMPUTE MODULE mf_routetolabel_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+	delete from Database.JAYTABLE1 as t where t.COL1 = InputRoot.JSON.Data.data1;
+		
+	RETURN TRUE;
+	END;
+
+
+END MODULE;

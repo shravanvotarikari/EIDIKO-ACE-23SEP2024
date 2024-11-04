@@ -8,7 +8,13 @@ CREATE COMPUTE MODULE MF_Routing_rtl_Compute1
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		DECLARE query CHARACTER 'INSERT INTO Employees VALUES (1204, ''Jayesh'', ''ACE'', ''Active'')';
-		SET OutputRoot.XMLNSC.data = PASSTHRU(query);
+		DECLARE id INTEGER;
+		DECLARE query,myName,dept,status CHARACTER;
+		SET id = InputRoot.XMLNSC.Employees.id;
+		SET myName = InputRoot.XMLNSC.Employees.name;
+	    SET dept = InputRoot.XMLNSC.Employees.dept;
+	    SET status = InputRoot.XMLNSC.Employees.status;	
+	    INSERT INTO Employees VALUES (id, myName, dept,status);
+	    SET OutputRoot = InputRoot;
 	END;
 END MODULE;

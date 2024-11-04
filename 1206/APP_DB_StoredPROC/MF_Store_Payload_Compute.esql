@@ -1,0 +1,25 @@
+
+
+CREATE COMPUTE MODULE MF_Store_Payload_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		
+		DECLARE msg CHARACTER;
+		SET msg = CAST(ASBITSTREAM(InputRoot.XMLNSC) AS CHARACTER CCSID 1208 ENCODING 546);
+		
+		CALL store_proc(msg);
+		
+	END;
+	
+	CREATE PROCEDURE store_proc( IN msg CHARACTER )
+	EXTERNAL NAME "store_data";
+	
+END MODULE;
