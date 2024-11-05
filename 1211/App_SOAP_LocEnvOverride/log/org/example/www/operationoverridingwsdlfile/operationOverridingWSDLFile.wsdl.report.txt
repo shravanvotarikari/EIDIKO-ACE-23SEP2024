@@ -1,0 +1,25 @@
+
+
+Importing file: C:\workspaces\message_model\App_SOAP_Operation_overriding\operationOverridingWSDLFile.wsdl
+
+The WSDL import will proceed with bindings operationOverridingWSDLFileSOAP.
+Creating wsdl schema document for file:///C:/workspaces/message_model/App_SOAP_Operation_overriding/operationOverridingWSDLFile.wsdl.
+Parsing wsdl binding {http://www.example.org/operationOverridingWSDLFile/}operationOverridingWSDLFileSOAP.
+Parsing wsdl binding input Add.
+Parsing wsdl binding output Add.
+Parsing wsdl binding input Sub.
+Parsing wsdl binding output Sub.
+Processing doc style for operation Add.
+Processing doc style for operation Sub.
+Populating WSDL schema operationOverridingWSDLFile.xsd.
+Creating file operationOverridingWSDLFile.xsd in the workspace.
+Creating file operationOverridingWSDLFile_InlineSchema1.xsd in the workspace.
+Copying source WSDL operationOverridingWSDLFile.wsdl to operationOverridingWSDLFile.wsdl.
+
+Elapsed time processing this message definition file: 0.628 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+

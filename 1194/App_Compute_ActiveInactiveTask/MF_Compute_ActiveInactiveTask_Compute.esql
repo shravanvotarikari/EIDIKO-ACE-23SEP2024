@@ -1,0 +1,20 @@
+
+
+CREATE COMPUTE MODULE MF_Compute_ActiveInactiveTask_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE rowVar1 ROW;
+		DECLARE rowVar2 ROW;
+		
+		SET rowVar1.arr[] = SELECT * FROM Database.Employees WHERE Employees.Status = 'Active';
+		SET rowVar2.arr[] = SELECT * FROM Database.Employees WHERE Employees.Status = 'Inactive';
+		
+		SET Environment.activeUsers = rowVar1;
+		SET Environment.inActiveUsers = rowVar2;
+	END;
+END MODULE;

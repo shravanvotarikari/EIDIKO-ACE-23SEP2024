@@ -1,0 +1,22 @@
+
+CREATE COMPUTE MODULE MF_Store_Payload_dbcol_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		declare Result BLOB;
+		SET Result = ASBITSTREAM(InputRoot.JSON.Data, InputRoot.Properties.Encoding, InputRoot.Properties.CodedCharSetId);
+		declare CharResult character;
+
+		SET CharResult = CAST(Result AS CHARACTER CCSID 1208 Encoding 546);
+		call PROC(CharResult);
+		RETURN TRUE;
+	END;
+	
+  CREATE PROCEDURE PROC (IN var1 CHARACTER)
+   EXTERNAL NAME "PROCEDURE1" ;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	
+	END;
+END MODULE;

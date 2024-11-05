@@ -1,0 +1,37 @@
+
+
+CREATE COMPUTE MODULE MF_remove_i_letters_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+	
+		   -- Copy the input message to output message
+        SET OutputRoot = InputRoot;
+        
+        -- Extract the name from the input XML
+        DECLARE InputName CHAR InputRoot.XMLNSC.d1;
+
+        -- Replace all occurrences of 'i' with an empty string
+        DECLARE OutputName CHAR REPLACE(InputName, 'i', '');
+
+        -- Set the modified name back in the output XML
+        SET OutputRoot.XMLNSC.d1 = OutputName;
+        
+     
+	END;
+END MODULE;

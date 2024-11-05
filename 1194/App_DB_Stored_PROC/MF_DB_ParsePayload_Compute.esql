@@ -1,0 +1,33 @@
+
+
+CREATE COMPUTE MODULE MF_DB_ParsePayload_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		Calling stored procedure and retrieving data from database inside msg variable
+		DECLARE msg CHARACTER;
+		CALL retrieveP(msg);
+		
+--		Converting msgContent(payload) from character into blob using CAST()
+		DECLARE blobVar BLOB;
+		SET blobVar = CAST(msg AS BLOB CCSID InputRoot.Properties.CodedCharSetId);
+
+--		Parsing blob msg into XMLNSC format and setting it as last child of OutputRoot
+
+--		CREATE LASTCHILD OF OutputRoot DOMAIN ('XMLNSC') PARSE (blobVar
+--    	ENCODING InputRoot.Properties.Encoding
+--    	CCSID InputRoot.Properties.CodedCharSetId);
+--		OR
+--		CREATE LASTCHILD OF OutputRoot DOMAIN ('msgDomain') PARSE(blobVar, Encoding, CCSID);
+		CREATE LASTCHILD OF OutputRoot DOMAIN ('XMLNSC') PARSE(blobVar, 546, 1208);
+
+	END;
+	
+	CREATE PROCEDURE retrieveP (OUT msg CHARACTER)
+	EXTERNAL NAME "RETRIEVEPROC";
+	
+END MODULE;

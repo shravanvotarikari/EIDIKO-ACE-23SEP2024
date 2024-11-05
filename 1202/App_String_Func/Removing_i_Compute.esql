@@ -1,0 +1,18 @@
+
+
+CREATE COMPUTE MODULE Removing_i_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL remove();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE remove() BEGIN
+		DECLARE str CHARACTER InputRoot.XMLNSC.d1;
+		WHILE POSITION('i' IN str) > 0 DO
+			SET str = REPLACE(str,'i','');
+		END WHILE;
+		SET OutputRoot.XMLNSC.d1 = str;
+	END;
+END MODULE;

@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE MF_HTTP_OverrideURL_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'https://www.w3schools.com/xml/cd_catalog.xml';
+		SET OutputLocalEnvironment.Destination.HTTP.ReplyStatusCode  = 500;
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;

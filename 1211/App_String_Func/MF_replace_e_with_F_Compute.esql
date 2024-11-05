@@ -1,0 +1,19 @@
+
+
+CREATE COMPUTE MODULE MF_replace_e_with_F_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		 CALL replace_e_With_F();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE replace_e_With_F() BEGIN
+		
+		DECLARE name CHARACTER InputRoot.XMLNSC.emp.name;
+		DECLARE newName CHARACTER;
+		
+		SET newName = TRANSLATE(name,'e','F');
+		SET OutputRoot.XMLNSC.emp.name = newName;
+	END;
+END MODULE;

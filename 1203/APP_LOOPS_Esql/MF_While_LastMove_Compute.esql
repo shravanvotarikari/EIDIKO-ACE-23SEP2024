@@ -1,0 +1,27 @@
+CREATE COMPUTE MODULE MF_While_LastMove_Compute
+
+    CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+        CALL ProcessItems();
+        RETURN TRUE;
+    END;
+
+    CREATE PROCEDURE ProcessItems() 
+    BEGIN
+        -- Declare a reference to the first Item in the input XML
+        DECLARE refItem REFERENCE TO InputRoot.XMLNSC.Data.Items.Item[1];
+        
+        -- Create an output field to store the results
+        CREATE FIELD OutputRoot.XMLNSC.Data.Result;
+
+        -- Loop through each Item using LASTMOVE() and MOVE()
+        WHILE LASTMOVE(refItem) DO
+            -- Log the name of the current Item
+            CREATE LASTCHILD OF OutputRoot.XMLNSC.Data.Result 
+                VALUE refItem.Name;  -- No namespace used here
+
+            -- Move to the next sibling Item
+            MOVE refItem NEXTSIBLING;
+        END WHILE;
+    END;
+END MODULE;

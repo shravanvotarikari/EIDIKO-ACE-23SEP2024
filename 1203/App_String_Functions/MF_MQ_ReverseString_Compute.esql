@@ -1,0 +1,26 @@
+CREATE COMPUTE MODULE MF_MQ_ReverseString_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL StringReverse();
+		RETURN TRUE;
+	END;
+	CREATE PROCEDURE StringReverse() BEGIN
+		DECLARE originalString CHARACTER InputRoot.XMLNSC.emp.name;
+		DECLARE reversedString CHARACTER '';
+		DECLARE strLength INTEGER;
+		DECLARE i INTEGER;
+		
+		SET strLength = LENGTH(originalString);  -- Get the length of the string
+		SET i = strLength;
+		
+		-- Loop through the string from the end to the beginning
+		WHILE (i > 0) DO
+			SET reversedString = reversedString || SUBSTRING(originalString FROM i FOR 1);
+			SET i = i - 1;
+		END WHILE;
+		-- Output the reversed string
+		SET OutputRoot.XMLNSC.emp.name = reversedString;
+	END;
+END MODULE;
+

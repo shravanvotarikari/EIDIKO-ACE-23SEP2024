@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<policies>
+  <policy policyType="MQEndpoint" policyName="MQ-endpoint_policy" policyTemplate="MQEndpoint">
+    <connection>CLIENT</connection>
+    <destinationQueueManagerName>QM1</destinationQueueManagerName>
+    <queueManagerHostname>192.168.3.174</queueManagerHostname>
+    <listenerPortNumber>1416</listenerPortNumber>
+    <channelName>Channel_01</channelName>
+    <CCDTUrl></CCDTUrl>
+    <securityIdentity></securityIdentity>
+    <useSSL>false</useSSL>
+    <SSLPeerName></SSLPeerName>
+    <SSLCipherSpec></SSLCipherSpec>
+    <SSLCertificateLabel></SSLCertificateLabel>
+    <MQApplName></MQApplName>
+    <reconnectOption>default</reconnectOption>
+  </policy>
+</policies>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/NewWSDLFile/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/NewWSDLFile/">
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="Addition">
+            
+    <xsd:complexType>
+                
+      <xsd:sequence>
+                  	
+        <xsd:element name="n1" type="xsd:int"/>
+                  	
+        <xsd:element name="n2" type="xsd:int"/>
+                  
+      </xsd:sequence>
+              
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="AdditionResponse">
+            
+    <xsd:complexType>
+                
+      <xsd:sequence>
+                    
+        <xsd:element name="out" type="xsd:string"/>
+                  
+      </xsd:sequence>
+              
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="Subtraction">
+          	
+    <xsd:complexType>
+            		
+      <xsd:sequence>
+              			
+        <xsd:element name="n1" type="xsd:int"/>
+              			
+        <xsd:element name="n2" type="xsd:int"/>
+              		
+      </xsd:sequence>
+            	
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="SubtractionResponse">
+          	
+    <xsd:complexType>
+            		
+      <xsd:sequence>
+              			
+        <xsd:element name="sub" type="xsd:int"/>
+              		
+      </xsd:sequence>
+            	
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="Multiplication">
+          	
+    <xsd:complexType>
+            		
+      <xsd:sequence>
+              			
+        <xsd:element name="n1" type="xsd:int"/>
+              			
+        <xsd:element name="n2" type="xsd:int"/>
+              		
+      </xsd:sequence>
+            	
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="MultiplicationResponse">
+          	
+    <xsd:complexType>
+            		
+      <xsd:sequence>
+              			
+        <xsd:element name="mult" type="xsd:int"/>
+              		
+      </xsd:sequence>
+            	
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="Division">
+          	
+    <xsd:complexType>
+            		
+      <xsd:sequence>
+              			
+        <xsd:element name="n1" type="xsd:int"/>
+              			
+        <xsd:element name="n2" type="xsd:int"/>
+              		
+      </xsd:sequence>
+            	
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="DivisionResponse">
+          	
+    <xsd:complexType>
+            		
+      <xsd:sequence>
+              			
+        <xsd:element name="div" type="xsd:int"/>
+              		
+      </xsd:sequence>
+            	
+    </xsd:complexType>
+          
+  </xsd:element>
+      
+</xsd:schema>

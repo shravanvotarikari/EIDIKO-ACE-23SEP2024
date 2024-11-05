@@ -1,0 +1,37 @@
+
+CREATE COMPUTE MODULE MF_String_Overlay_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE originalString CHARACTER InputRoot.XMLNSC.data.s;
+		DECLARE modifiedString CHARACTER;
+		
+--		Overlay()
+--		SET modifiedString = OVERLAY(originalString placing 'DB' from 6 for 4);
+
+--		Substring before
+		SET modifiedString = SUBSTRING(originalString before 'Exception');
+
+--		Substring after
+--		SET modifiedString = SUBSTRING(originalString after 'Recoverable');
+
+--		Use of Trim() to remove extra leading and trailing spaces
+		DECLARE simple CHARACTER '    hello    ';
+--		SET modifiedString = TRIM(simple);
+
+
+--		Use of Contains()
+
+--		DECLARE originalString CHARACTER InputRoot.XMLNSC.data.s;
+--		DECLARE value BOOLEAN;		
+--		SET value = CONTAINS(originalString, '');
+--		SET OutputLocalEnvironment.value = value;
+--		SET OutputRoot = InputRoot;
+
+		SET OutputRoot.XMLNSC.data.s = modifiedString;
+	END;
+END MODULE;

@@ -1,0 +1,36 @@
+
+
+CREATE COMPUTE MODULE MF_Database_status_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot = InputRoot;
+--		
+--		INSERT INTO Database.COMPANY (Name,ID,Status ) VALUES ('Mohit','1','Active');
+--		INSERT INTO Database.COMPANY (Name,ID,Status ) VALUES ('Hrishi','2','Active');
+--		INSERT INTO Database.COMPANY (Name,ID,Status ) VALUES ('Ashar','3','Active');
+--		INSERT INTO Database.COMPANY (Name,ID,Status ) VALUES ('Tawade','4','Active');
+--		INSERT INTO Database.COMPANY (Name,ID,Status ) VALUES ('Manthan','5','Inactive');
+--		INSERT INTO Database.COMPANY (Name,ID,Status ) VALUES ('Pratham','6','Inactive');
+		
+		
+		SET Environment.Variable.Active[]= SELECT C.ID  FROM Database.COMPANY  AS C WHERE C.STATUS = 'Active' ;
+		SET Environment.Variable.Inactive[] = SELECT C.ID  FROM Database.COMPANY  AS C WHERE C.STATUS = 'Inactive';
+		
+	END;
+END MODULE;

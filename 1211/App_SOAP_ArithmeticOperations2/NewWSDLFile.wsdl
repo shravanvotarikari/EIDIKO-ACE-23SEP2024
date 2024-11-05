@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/NewWSDLFile/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="NewWSDLFile" targetNamespace="http://www.example.org/NewWSDLFile/">
+  <wsdl:documentation>
+    <wsdl:appinfo source="WMQI_APPINFO">
+      <MRWSDLAppInfo imported="true">
+        <generatedXSD location="NewWSDLFile_InlineSchema1.xsd"/>
+        <binding hasEncoding="false" imported="true" name="NewWSDLFileSOAP" originalBindingStyle="document"/>
+      </MRWSDLAppInfo>
+    </wsdl:appinfo>
+  </wsdl:documentation>
+    
+  <wsdl:types>
+        
+          
+    <xsd:schema xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" targetNamespace="http://www.example.org/NewWSDLFile/">
+      
+      <xsd:include schemaLocation="NewWSDLFile_InlineSchema1.xsd"/>
+    </xsd:schema>
+        
+  </wsdl:types>
+    
+  <wsdl:message name="AddRequest">
+        
+    <wsdl:part element="tns:Add" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="AddResponse">
+        
+    <wsdl:part element="tns:AddResponse" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="SubRequest">
+      	
+    <wsdl:part element="tns:Sub" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="SubResponse">
+      	
+    <wsdl:part element="tns:SubResponse" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="MultRequest">
+      	
+    <wsdl:part element="tns:Mult" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="MultResponse">
+      	
+    <wsdl:part element="tns:MultResponse" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="DivRequest">
+      	
+    <wsdl:part element="tns:Div" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="DivResponse">
+      	
+    <wsdl:part element="tns:DivResponse" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:portType name="NewWSDLFile">
+        
+    <wsdl:operation name="Add">
+            
+      <wsdl:input message="tns:AddRequest"/>
+            
+      <wsdl:output message="tns:AddResponse"/>
+          
+    </wsdl:operation>
+        
+    <wsdl:operation name="Sub">
+          	
+      <wsdl:input message="tns:SubRequest"/>
+          	
+      <wsdl:output message="tns:SubResponse"/>
+          
+    </wsdl:operation>
+        
+    <wsdl:operation name="Mult">
+          	
+      <wsdl:input message="tns:MultRequest"/>
+          	
+      <wsdl:output message="tns:MultResponse"/>
+          
+    </wsdl:operation>
+        
+    <wsdl:operation name="Div">
+          	
+      <wsdl:input message="tns:DivRequest"/>
+          	
+      <wsdl:output message="tns:DivResponse"/>
+          
+    </wsdl:operation>
+      
+  </wsdl:portType>
+    
+  <wsdl:binding name="NewWSDLFileSOAP" type="tns:NewWSDLFile">
+        
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        
+    <wsdl:operation name="Add">
+            
+      <soap:operation soapAction="http://www.example.org/NewWSDLFile/Add"/>
+            
+      <wsdl:input>
+                
+        <soap:body use="literal"/>
+              
+      </wsdl:input>
+            
+      <wsdl:output>
+                
+        <soap:body use="literal"/>
+              
+      </wsdl:output>
+          
+    </wsdl:operation>
+        
+    <wsdl:operation name="Sub">
+            
+      <soap:operation soapAction="http://www.example.org/NewWSDLFile/Sub"/>
+            
+      <wsdl:input>
+                
+        <soap:body use="literal"/>
+              
+      </wsdl:input>
+            
+      <wsdl:output>
+                
+        <soap:body use="literal"/>
+              
+      </wsdl:output>
+          
+    </wsdl:operation>
+        
+    <wsdl:operation name="Mult">
+            
+      <soap:operation soapAction="http://www.example.org/NewWSDLFile/Mult"/>
+            
+      <wsdl:input>
+                
+        <soap:body use="literal"/>
+              
+      </wsdl:input>
+            
+      <wsdl:output>
+                
+        <soap:body use="literal"/>
+              
+      </wsdl:output>
+          
+    </wsdl:operation>
+        
+    <wsdl:operation name="Div">
+            
+      <soap:operation soapAction="http://www.example.org/NewWSDLFile/Div"/>
+            
+      <wsdl:input>
+                
+        <soap:body use="literal"/>
+              
+      </wsdl:input>
+            
+      <wsdl:output>
+                
+        <soap:body use="literal"/>
+              
+      </wsdl:output>
+          
+    </wsdl:operation>
+      
+  </wsdl:binding>
+    
+  <wsdl:service name="NewWSDLFile">
+        
+    <wsdl:port binding="tns:NewWSDLFileSOAP" name="NewWSDLFileSOAP">
+            
+      <soap:address location="http://localhost:7800/"/>
+          
+    </wsdl:port>
+      
+  </wsdl:service>
+  
+</wsdl:definitions>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/Arithmetic/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Arithmetic" targetNamespace="http://www.example.org/Arithmetic/">
+  <wsdl:documentation>
+    <wsdl:appinfo source="WMQI_APPINFO">
+      <MRWSDLAppInfo imported="true">
+        <generatedXSD location="Arithmetic_InlineSchema1.xsd"/>
+        <binding hasEncoding="false" imported="true" name="ArithmeticSOAP" originalBindingStyle="document"/>
+      </MRWSDLAppInfo>
+    </wsdl:appinfo>
+  </wsdl:documentation>
+    
+  <wsdl:types>
+        
+          
+    <xsd:schema xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" targetNamespace="http://www.example.org/Arithmetic/">
+      
+      <xsd:include schemaLocation="Arithmetic_InlineSchema1.xsd"/>
+    </xsd:schema>
+        
+  </wsdl:types>
+    
+  <wsdl:message name="AddRequest">
+        
+    <wsdl:part element="tns:Add" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="AddResponse">
+        
+    <wsdl:part element="tns:AddResponse" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="SubRequest">
+      	
+    <wsdl:part element="tns:Sub" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="SubResponse">
+      	
+    <wsdl:part element="tns:SubResponse" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="MulRequest">
+      	
+    <wsdl:part element="tns:Mul" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="MulResponse">
+      	
+    <wsdl:part element="tns:MulResponse" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="DivRequest">
+      	
+    <wsdl:part element="tns:Div" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="DivResponse">
+      	
+    <wsdl:part element="tns:DivResponse" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:portType name="Arithmetic">
+        
+    <wsdl:operation name="Add">
+            
+      <wsdl:input message="tns:AddRequest"/>
+            
+      <wsdl:output message="tns:AddResponse"/>
+          
+    </wsdl:operation>
+        
+    <wsdl:operation name="Sub">
+          	
+      <wsdl:input message="tns:SubRequest"/>
+          	
+      <wsdl:output message="tns:SubResponse"/>
+          
+    </wsdl:operation>
+        
+    <wsdl:operation name="Mul">
+          	
+      <wsdl:input message="tns:MulRequest"/>
+          	
+      <wsdl:output message="tns:MulResponse"/>
+          
+    </wsdl:operation>
+        
+    <wsdl:operation name="Div">
+          	
+      <wsdl:input message="tns:DivRequest"/>
+          	
+      <wsdl:output message="tns:DivResponse"/>
+          
+    </wsdl:operation>
+      
+  </wsdl:portType>
+    
+  <wsdl:binding name="ArithmeticSOAP" type="tns:Arithmetic">
+
+  	<soap:binding style="document"
+  		transport="http://schemas.xmlsoap.org/soap/http" />
+
+  	<wsdl:operation name="Add">
+
+  		<soap:operation
+  			soapAction="http://www.example.org/Arithmetic/Add" />
+
+  		<wsdl:input>
+
+  			<soap:body use="literal" />
+
+  		</wsdl:input>
+
+  		<wsdl:output>
+
+  			<soap:body use="literal" />
+
+  		</wsdl:output>
+
+  	</wsdl:operation>
+
+  	<wsdl:operation name="Sub">
+
+  		<soap:operation
+  			soapAction="http://www.example.org/Arithmetic/Sub" />
+
+  		<wsdl:input>
+
+  			<soap:body use="literal" />
+
+  		</wsdl:input>
+
+  		<wsdl:output>
+
+  			<soap:body use="literal" />
+
+  		</wsdl:output>
+
+  	</wsdl:operation>
+
+  	<wsdl:operation name="Mul">
+
+  		<soap:operation
+  			soapAction="http://www.example.org/Arithmetic/Mul" />
+
+  		<wsdl:input>
+
+  			<soap:body use="literal" />
+
+  		</wsdl:input>
+
+  		<wsdl:output>
+
+  			<soap:body use="literal" />
+
+  		</wsdl:output>
+
+  	</wsdl:operation>
+
+  	<wsdl:operation name="Div">
+
+  		<soap:operation
+  			soapAction="http://www.example.org/Arithmetic/Div" />
+
+  		<wsdl:input>
+
+  			<soap:body use="literal" />
+
+  		</wsdl:input>
+
+  		<wsdl:output>
+
+  			<soap:body use="literal" />
+
+  		</wsdl:output>
+
+  	</wsdl:operation>
+
+  </wsdl:binding>
+
+  <wsdl:service name="Arithmetic">
+        
+    <wsdl:port binding="tns:ArithmeticSOAP" name="ArithmeticSOAP">
+            
+      <soap:address location="http://localhost:7800/arithmetic/"/>
+          
+    </wsdl:port>
+      
+  </wsdl:service>
+  
+</wsdl:definitions>

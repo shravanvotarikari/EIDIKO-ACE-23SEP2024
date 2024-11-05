@@ -1,0 +1,20 @@
+
+
+CREATE COMPUTE MODULE mf_replace_E_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE str CHARACTER InputRoot.XMLNSC.d;
+		WHILE POSITION('E' IN str)>0  DO
+			SET str = REPLACE(str ,'E','F');
+		END WHILE;
+		WHILE  POSITION('e' IN str)>0 DO
+			SET str = REPLACE(str ,'e','F');
+		END WHILE;
+		set OutputRoot.XMLNSC.d = str;
+	END;
+END MODULE;

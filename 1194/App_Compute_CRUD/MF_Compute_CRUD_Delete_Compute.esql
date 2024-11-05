@@ -1,0 +1,13 @@
+
+
+CREATE COMPUTE MODULE MF_Compute_CRUD_Delete_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DELETE FROM Database.Employees where Employees.id = 1212;
+	END;
+END MODULE;

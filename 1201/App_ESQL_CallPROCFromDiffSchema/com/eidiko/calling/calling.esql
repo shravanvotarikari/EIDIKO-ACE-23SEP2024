@@ -1,0 +1,15 @@
+BROKER SCHEMA com.eidiko.calling
+
+CREATE PROCEDURE IntegerProc(in num1 character, in num2 character, out result1 character)
+		BEGIN
+		
+		Set result1 = num1 || num2;
+		END;
+		
+CREATE PROCEDURE CharProc(IN CHAR1 CHARACTER, IN CHAR2 CHARACTER, OUT result2 CHARACTER)
+BEGIN
+		SET result2 = CHAR1 || CHAR2;
+END;
+	
+
+	

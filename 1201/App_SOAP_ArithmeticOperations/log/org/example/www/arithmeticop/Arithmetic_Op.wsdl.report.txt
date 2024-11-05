@@ -1,0 +1,29 @@
+
+
+Importing file: C:\Users\Sreenivas Bandaru\IBM\ACET12\workspace\App_SOAP_ArithmeticOperations\Arithmetic_Op.wsdl
+
+
+The following is a list of WS-I warning messages found when importing:
+WS-I BP 1.1: (BP2118) The binding does not have the same list of operations as the Arithmetic_Op port type to which it refers., Line: 111, Column: 4
+WS-I BP 1.1: (BP2118) The binding does not have the same list of operations as the Arithmetic_Op port type to which it refers., Line: 111, Column: 4
+WS-I BP 1.1: (BP2118) The binding does not have the same list of operations as the Arithmetic_Op port type to which it refers., Line: 111, Column: 4
+
+
+The WSDL import will proceed with bindings Arithmetic_OpSOAP.
+Creating wsdl schema document for file:///C:/Users/Sreenivas Bandaru/IBM/ACET12/workspace/App_SOAP_ArithmeticOperations/Arithmetic_Op.wsdl.
+Parsing wsdl binding {http://www.example.org/Arithmetic_Op/}Arithmetic_OpSOAP.
+Parsing wsdl binding input Addition.
+Parsing wsdl binding output Addition.
+Processing doc style for operation Addition.
+Populating WSDL schema Arithmetic_soap.xsd.
+Creating file Arithmetic_soap.xsd in the workspace.
+Creating file Arithmetic_soap_InlineSchema1.xsd in the workspace.
+Copying source WSDL Arithmetic_Op.wsdl to Arithmetic_Op.wsdl.
+
+Elapsed time processing this message definition file: 0.362 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+

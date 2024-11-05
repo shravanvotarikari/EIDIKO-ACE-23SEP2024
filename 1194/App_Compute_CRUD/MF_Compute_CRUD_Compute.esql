@@ -1,0 +1,18 @@
+
+
+CREATE COMPUTE MODULE MF_Compute_CRUD_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		INSERT INTO Database.Employees VALUES (1212, 'Abhishek', 'IIB');
+		
+		
+--		To insert data (Another approach using PASSTHRU function)
+--		SET OutputRoot.XMLNSC.insert.table[] = PASSTHRU('INSERT INTO Employees VALUES(1176, ''Abhijeet'',''IIB'')');
+		
+	END;
+END MODULE;

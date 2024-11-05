@@ -1,0 +1,36 @@
+
+
+CREATE COMPUTE MODULE MF_dataSplit_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyMessageHeaders();
+		--CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+	DECLARE temp ROW;
+DECLARE i INTEGER 1;
+
+-- Fetch active employee IDs and store them in Environment.Active
+SET temp.id[] = SELECT t.ID FROM Database.Employee05 AS t WHERE t.STATUS = 'Active';
+
+WHILE i <= CARDINALITY(temp.id[]) DO
+    SET Environment.Active.ID[i] = temp.id[i].ID;
+    SET i = i + 1;
+END WHILE;
+
+-- Fetch inactive employee IDs and store them in Environment.Inactive
+SET temp.id[] = SELECT t.ID FROM Database.Employee05 AS t WHERE t.STATUS = 'Inactive';
+
+SET i = 1;
+WHILE i <= CARDINALITY(temp.id[]) DO
+    SET Environment.Inactive.ID[i] = temp.id[i].ID;
+    SET i = i + 1;
+END WHILE;
+
+-- Indicate successful completion of the compute module
+
+	
+	END;
+END MODULE;

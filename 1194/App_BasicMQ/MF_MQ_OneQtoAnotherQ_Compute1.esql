@@ -1,0 +1,16 @@
+
+
+CREATE COMPUTE MODULE MF_MQ_OneQtoAnotherQ_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		
+--		Using InputLocalEnvironment to set value of OutputLocalEnvironment
+		SET OutputLocalEnvironment.data = InputLocalEnvironment.data;
+	END;
+END MODULE;

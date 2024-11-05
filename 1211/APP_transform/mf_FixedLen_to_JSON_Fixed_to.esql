@@ -1,0 +1,34 @@
+
+
+CREATE COMPUTE MODULE mf_FixedLen_to_JSON_Fixed_to
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL fixedToJson();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE fixedToJson() BEGIN
+	
+		CREATE FIELD OutputRoot.JSON.Data.employees IDENTITY(JSON.Array)employees;
+		
+		DECLARE outputRef REFERENCE TO OutputRoot.JSON.Data.employees;
+		DECLARE InputRef REFERENCE TO InputRoot.DFDL.fixed_to_json;
+		
+		
+		DECLARE count INTEGER;
+		DECLARE i INTEGER 1;
+		
+		SET count = CARDINALITY(InputRef.employee[]);		
+		
+		WHILE(i <= count) DO
+			
+			SET outputRef.Item[i].employee_id = InputRef.employee[i].employee_id;
+			SET outputRef.Item[i].first_name = InputRef.employee[i].first_name;
+			SET outputRef.Item[i].last_name = InputRef.employee[i].last_name;
+			SET outputRef.Item[i].department = InputRef.employee[i].department;
+			SET outputRef.Item[i].salary = InputRef.employee[i].salary;
+			SET i = i + 1;
+			
+	END WHILE;
+	END;
+END MODULE;

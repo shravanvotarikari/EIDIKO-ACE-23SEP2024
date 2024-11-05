@@ -1,0 +1,13 @@
+
+
+CREATE COMPUTE MODULE MF_Routing_Filter_false
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.JSON.Data.status = 'false';
+	END;
+END MODULE;

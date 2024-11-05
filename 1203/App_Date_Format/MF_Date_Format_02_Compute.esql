@@ -1,0 +1,16 @@
+CREATE COMPUTE MODULE MF_Date_Format_02_Compute
+    CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+        -- Call the procedure to copy the formatted date to the output
+        CALL CopyEntireMessage();
+        RETURN TRUE;
+    END;
+
+    CREATE PROCEDURE CopyEntireMessage() BEGIN
+        DECLARE currentDate CHAR;
+
+        -- Get the current date and format it as YYYY|MM|DD
+        SET currentDate = CAST(CURRENT_DATE AS CHAR FORMAT 'yyyy|MM|dd');
+ 	    SET OutputRoot.XMLNSC.Date = currentDate;
+    END;
+END MODULE;

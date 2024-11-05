@@ -1,0 +1,18 @@
+CREATE COMPUTE MODULE MF_MQ_Replace_EToF_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CapitalReplace();
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE CapitalReplace() BEGIN
+		DECLARE original CHARACTER;
+		SET original =  InputRoot.XMLNSC.emp.name;
+		DECLARE modified CHARACTER;
+		
+		SET modified = REPLACE(original, 'e', 'F');
+		SET modified = REPLACE(modified, 'E', 'F');
+		
+		SET OutputRoot.XMLNSC.emp.name = modified;
+	END;
+END MODULE;

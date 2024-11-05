@@ -1,0 +1,36 @@
+BROKER SCHEMA SubFlows
+
+
+CREATE COMPUTE MODULE SF_Count_Tags_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+	
+		DECLARE ref REFERENCE TO InputRoot.XMLNSC.root.*[1];
+		DECLARE i INTEGER 0;
+		WHILE LASTMOVE(ref) DO
+			
+			SET i=i+1;
+			
+			MOVE ref NEXTSIBLING;
+		END WHILE;
+		
+		SET OutputRoot.XMLNSC.ChildsInRoot = i;
+		
+	END;
+END MODULE;

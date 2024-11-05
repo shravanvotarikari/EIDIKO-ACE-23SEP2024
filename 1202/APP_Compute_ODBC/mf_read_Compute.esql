@@ -1,0 +1,12 @@
+
+
+CREATE COMPUTE MODULE mf_read_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		create field OutputRoot.XMLNSC.root.d;
+		Set OutputRoot.XMLNSC.root.d[] = select * from Database.table1 as t where t.COL1 = 'hello';
+		RETURN TRUE;
+	END;
+
+	
+END MODULE;

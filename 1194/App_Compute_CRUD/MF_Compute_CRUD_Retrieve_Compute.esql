@@ -1,0 +1,13 @@
+
+
+CREATE COMPUTE MODULE MF_Compute_CRUD_Retrieve_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		PASSTHRU 'Create table employees(id NUMBER(4), empName VARCHAR2(10), dept VARCHAR2(10))';
+	END;
+END MODULE;

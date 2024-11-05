@@ -1,0 +1,24 @@
+CREATE COMPUTE MODULE MF_SOAP_Arithmetic_ops_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE new NAMESPACE 'http://www.example.org/NewWSDLFile/';
+		IF InputRoot.SOAP.Context.operation ='Add' THEN
+		SET OutputRoot.SOAP.Body.new:AddResponse.out = InputRoot.SOAP.Body.new:Add.in +InputRoot.SOAP.Body.new:Add.in1;
+		
+		ELSEIF InputRoot.SOAP.Context.operation ='Subtract' THEN
+		SET OutputRoot.SOAP.Body.new:SubtractResponse.out = InputRoot.SOAP.Body.new:Subtract.in - InputRoot.SOAP.Body.new:Subtract.in1;
+		
+		ELSEIF InputRoot.SOAP.Context.operation ='Multiply' THEN
+		SET OutputRoot.SOAP.Body.new:MultiplyResponse.out = InputRoot.SOAP.Body.new:Multiply.in * InputRoot.SOAP.Body.new:Multiply.in1;
+		 
+		ELSEIF InputRoot.SOAP.Context.operation ='Divide' THEN
+		SET OutputRoot.SOAP.Body.new:DivideResponse.out = InputRoot.SOAP.Body.new:Divide.in /InputRoot.SOAP.Body.new:Divide.in1;
+		END IF;
+	END;
+END MODULE;
