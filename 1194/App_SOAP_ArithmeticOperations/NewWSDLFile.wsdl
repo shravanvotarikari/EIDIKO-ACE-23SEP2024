@@ -3,247 +3,171 @@
   <wsdl:documentation>
     <wsdl:appinfo source="WMQI_APPINFO">
       <MRWSDLAppInfo imported="true">
-        <generatedXSD location="NewWSDLFile_InlineSchema2.xsd"/>
         <binding hasEncoding="false" imported="true" name="NewWSDLFileSOAP" originalBindingStyle="document"/>
       </MRWSDLAppInfo>
     </wsdl:appinfo>
   </wsdl:documentation>
     
+    
+  
   <wsdl:types>
-        
+            
           
+    
     <xsd:schema xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" targetNamespace="http://www.example.org/NewWSDLFile/">
       
-      <xsd:include schemaLocation="NewWSDLFile_InlineSchema2.xsd"/>
+      <xsd:include schemaLocation="NewWSDLFile_InlineSchema1.xsd"/>
+      
     </xsd:schema>
-        
+            
+  
   </wsdl:types>
-    
-  <wsdl:message name="AdditionRequest">
-        
-    <wsdl:part element="tns:Addition" name="parameters"/>
       
-  </wsdl:message>
+  
+  <wsdl:message name="NewOperationRequest">
+            
     
-  <wsdl:message name="AdditionResponse">
-        
-    <wsdl:part element="tns:AdditionResponse" name="parameters"/>
+    <wsdl:part element="tns:NewOperation" name="parameters"/>
+          
+  
+  </wsdl:message>
       
-  </wsdl:message>
+  
+  <wsdl:message name="NewOperationResponse">
+            
     
-  <wsdl:message name="SubtractionRequest">
-      	
-    <wsdl:part element="tns:Subtraction" name="parameters"/>
+    <wsdl:part element="tns:NewOperationResponse" name="parameters"/>
+          
+  
+  </wsdl:message>
       
-  </wsdl:message>
+  
+  <wsdl:message name="NewOperation1Request">
+          	
     
-  <wsdl:message name="SubtractionResponse">
-      	
-    <wsdl:part element="tns:SubtractionResponse" name="parameters"/>
+    <wsdl:part element="tns:NewOperation1" name="parameters"/>
+          
+  
+  </wsdl:message>
       
-  </wsdl:message>
+  
+  <wsdl:message name="NewOperation1Response">
+          	
     
-  <wsdl:message name="MultiplicationRequest">
-      	
-    <wsdl:part element="tns:Multiplication" name="parameters"/>
+    <wsdl:part element="tns:NewOperation1Response" name="parameters"/>
+          
+  
+  </wsdl:message>
       
-  </wsdl:message>
-    
-  <wsdl:message name="MultiplicationResponse">
-      	
-    <wsdl:part element="tns:MultiplicationResponse" name="parameters"/>
-      
-  </wsdl:message>
-    
-  <wsdl:message name="DivisionRequest">
-      	
-    <wsdl:part element="tns:Division" name="parameters"/>
-      
-  </wsdl:message>
-    
-  <wsdl:message name="DivisionResponse">
-      	
-    <wsdl:part element="tns:DivisionResponse" name="parameters"/>
-      
-  </wsdl:message>
-    
+  
   <wsdl:portType name="NewWSDLFile">
-        
-    <wsdl:operation name="Addition">
             
-      <wsdl:input message="tns:AdditionRequest"/>
-            
-      <wsdl:output message="tns:AdditionResponse"/>
-          
-    </wsdl:operation>
-        
-    <wsdl:operation name="Subtraction">
-          	
-      <wsdl:input message="tns:SubtractionRequest"/>
-          	
-      <wsdl:output message="tns:SubtractionResponse"/>
-          
-    </wsdl:operation>
-        
-    <wsdl:operation name="Multiplication">
-          	
-      <wsdl:input message="tns:MultiplicationRequest"/>
-          	
-      <wsdl:output message="tns:MultiplicationResponse"/>
-          
-    </wsdl:operation>
-        
-    <wsdl:operation name="Division">
-          	
-      <wsdl:input message="tns:DivisionRequest"/>
-          	
-      <wsdl:output message="tns:DivisionResponse"/>
-          
-    </wsdl:operation>
-      
-  </wsdl:portType>
     
+    <wsdl:operation name="NewOperation">
+                  
+      
+      <wsdl:input message="tns:NewOperationRequest"/>
+                  
+      
+      <wsdl:output message="tns:NewOperationResponse"/>
+                
+    
+    </wsdl:operation>
+            
+    
+    <wsdl:operation name="NewOperation1">
+                	
+      
+      <wsdl:input message="tns:NewOperation1Request"/>
+                	
+      
+      <wsdl:output message="tns:NewOperation1Response"/>
+                
+    
+    </wsdl:operation>
+          
   
-  
-  
-  
-  
-  
-  
-  
+  </wsdl:portType>
+      
   
   <wsdl:binding name="NewWSDLFileSOAP" type="tns:NewWSDLFile">
-        
+            
+    
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        
-    
-    
-    
-    
-    
-    
-    
-    <wsdl:operation name="Addition">
             
-      <soap:operation soapAction="http://www.example.org/NewWSDLFile/Addition"/>
-            
+    
+    <wsdl:operation name="NewOperation">
+                  
+      
+      <soap:operation soapAction="http://www.example.org/NewWSDLFile/NewOperation"/>
+                  
+      
       <wsdl:input>
-                
-        <soap:body use="literal"/>
-              
-      </wsdl:input>
-            
-      <wsdl:output>
-                
-        <soap:body use="literal"/>
-              
-      </wsdl:output>
-          
-    </wsdl:operation>
+                        
         
+        <soap:body use="literal"/>
+                      
+      
+      </wsdl:input>
+                  
+      
+      <wsdl:output>
+                        
+        
+        <soap:body use="literal"/>
+                      
+      
+      </wsdl:output>
+                
     
-    
-    
-    
-    
-    <wsdl:operation name="Subtraction">
+    </wsdl:operation>
             
-      <soap:operation soapAction="http://www.example.org/NewWSDLFile/Subtraction"/>
-            
+     
+    
+    <wsdl:operation name="NewOperation1">
+                  
+      
+      <soap:operation soapAction="http://www.example.org/NewWSDLFile/NewOperation1"/>
+                  
+      
       <wsdl:input>
-                
-        <soap:body use="literal"/>
-              
-      </wsdl:input>
-            
-      <wsdl:output>
-                
-        <soap:body use="literal"/>
-              
-      </wsdl:output>
-          
-    </wsdl:operation>
+                        
         
-    
-    
-    
-    
-    
-    
-    
-    
-    <wsdl:operation name="Multiplication">
-            
-      <soap:operation soapAction="http://www.example.org/NewWSDLFile/Multiplication"/>
-            
-      <wsdl:input>
-                
         <soap:body use="literal"/>
-              
+                      
+      
       </wsdl:input>
-            
+                  
+      
       <wsdl:output>
-                
-        <soap:body use="literal"/>
-              
-      </wsdl:output>
-          
-    </wsdl:operation>
+                        
         
-    
-    
-    
-    
-    
-    
-    
-    <wsdl:operation name="Division">
-            
-      <soap:operation soapAction="http://www.example.org/NewWSDLFile/Division"/>
-            
-      <wsdl:input>
-                
         <soap:body use="literal"/>
-              
-      </wsdl:input>
-            
-      <wsdl:output>
-                
-        <soap:body use="literal"/>
-              
+                      
+      
       </wsdl:output>
-          
+                
+    
     </wsdl:operation>
-        
-    
-    
-    
-    
-    
+            
+  
   
   </wsdl:binding>
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+      
   
   <wsdl:service name="NewWSDLFile">
-        
-    <wsdl:port binding="tns:NewWSDLFileSOAP" name="NewWSDLFileSOAP">
             
-      <soap:address location="http://localhost:7800/"/>
-          
-    </wsdl:port>
+    
+    <wsdl:port binding="tns:NewWSDLFileSOAP" name="NewWSDLFileSOAP">
+                  
       
-  </wsdl:service>
+      <soap:address location="http://localhost:7800/"/>
+                
+    
+    </wsdl:port>
+          
   
+  </wsdl:service>
+    
+
 </wsdl:definitions>
