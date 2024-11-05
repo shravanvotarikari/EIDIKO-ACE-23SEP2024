@@ -1,0 +1,24 @@
+
+
+CREATE COMPUTE MODULE Mf_arithmetic_Compute
+		CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		declare new NAMESPACE 'http://www.example.org/NewWSDLFile/' ;
+		
+		IF InputRoot.SOAP.Context.operation = 'add' THEN
+			set OutputRoot.SOAP.Body.new:addResponse.out1 = InputRoot.SOAP.Body.new:add.in1 +  InputRoot.SOAP.Body.new:add.in2;
+		ELSEIF InputRoot.SOAP.Context.operation = 'sub' THEN
+			set OutputRoot.SOAP.Body.new:subResponse.out2 = InputRoot.SOAP.Body.new:sub.in3 -  InputRoot.SOAP.Body.new:sub.in4;
+		ELSEIF InputRoot.SOAP.Context.operation = 'mul' THEN
+			set OutputRoot.SOAP.Body.new:mulResponse.out3 = InputRoot.SOAP.Body.new:mul.in5 * InputRoot.SOAP.Body.new:mul.in6;
+		ELSEIF InputRoot.SOAP.Context.operation = 'div' THEN
+			set OutputRoot.SOAP.Body.new:divResponse.out4 = InputRoot.SOAP.Body.new:div.in7 / InputRoot.SOAP.Body.new:div.in8;
+		END IF;
+
+
+
+
+		RETURN TRUE;
+	END;
+
+END MODULE;
