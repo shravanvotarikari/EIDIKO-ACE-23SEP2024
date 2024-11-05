@@ -1,0 +1,34 @@
+
+
+CREATE COMPUTE MODULE MF_SOAP_CRUD_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE new NAMESPACE 'http://www.example.org/NewWSDLFile/';
+	
+		IF InputRoot.SOAP.Context.operation = 'Insert' THEN
+			DECLARE id INTEGER InputRoot.SOAP.Body.new:Insert.id;
+			DECLARE name CHARACTER InputRoot.SOAP.Body.new:Insert.name;
+			INSERT INTO Database.SOAP_CRUD VALUES(id, name);
+			
+		ELSEIF InputRoot.SOAP.Context.operation = 'Read' THEN
+			DECLARE data ROW;
+			SET data.values[] = SELECT * FROM Database.SOAP_CRUD WHERE SOAP_CRUD.id = 103;
+			SET OutputRoot.SOAP.Body.new:ReadResponse.result = data;
+			
+		ELSEIF InputRoot.SOAP.Context.operation = 'Update' THEN
+			PASSTHRU 'UPDATE SOAP_CRUD SET name = ''Veda'' WHERE id = 102';
+			
+		ELSEIF InputRoot.SOAP.Context.operation = 'Delete' THEN
+			DELETE FROM Database.SOAP_CRUD WHERE SOAP_CRUD.id = 101;
+		END IF;
+
+
+
+	END;
+END MODULE;
