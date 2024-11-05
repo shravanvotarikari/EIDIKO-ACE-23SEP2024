@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/NewWSDLFile/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/NewWSDLFile/">
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="add">
+            
+    <xsd:complexType>
+                
+      <xsd:sequence>
+                  	
+        <xsd:element name="in1" type="xsd:int"/>
+                  	
+        <xsd:element name="in2" type="xsd:int"/>
+                  
+      </xsd:sequence>
+              
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="addResponse">
+            
+    <xsd:complexType>
+                
+      <xsd:sequence>
+                    
+        <xsd:element name="out1" type="xsd:int"/>
+                  
+      </xsd:sequence>
+              
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="sub">
+          	
+    <xsd:complexType>
+            		
+      <xsd:sequence>
+              			
+        <xsd:element name="in3" type="xsd:int"/>
+              			
+        <xsd:element name="in4" type="xsd:int"/>
+              		
+      </xsd:sequence>
+            	
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="subResponse">
+          	
+    <xsd:complexType>
+            		
+      <xsd:sequence>
+              			
+        <xsd:element name="out2" type="xsd:int"/>
+              		
+      </xsd:sequence>
+            	
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="mul">
+          	
+    <xsd:complexType>
+            		
+      <xsd:sequence>
+              			
+        <xsd:element name="in5" type="xsd:int"/>
+              			
+        <xsd:element name="in6" type="xsd:int"/>
+              		
+      </xsd:sequence>
+            	
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="mulResponse">
+          	
+    <xsd:complexType>
+            		
+      <xsd:sequence>
+              			
+        <xsd:element name="out3" type="xsd:int"/>
+              		
+      </xsd:sequence>
+            	
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+        
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="div">
+          	
+    <xsd:complexType>
+            		
+      <xsd:sequence>
+              			
+        <xsd:element name="in7" type="xsd:int"/>
+              			
+        <xsd:element name="in8" type="xsd:int"/>
+              		
+      </xsd:sequence>
+            	
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="divResponse">
+          	
+    <xsd:complexType>
+            		
+      <xsd:sequence>
+              			
+        <xsd:element name="out" type="xsd:string"/>
+              		
+      </xsd:sequence>
+            	
+    </xsd:complexType>
+          
+  </xsd:element>
+      
+</xsd:schema>
