@@ -1,0 +1,13 @@
+
+
+CREATE COMPUTE MODULE deleteId_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		DELETE FROM Database.COMPANY AS C  WHERE C.ID = InputLocalEnvironment.REST.Input.Parameters.id ;
+		
+		
+			RETURN TRUE;
+	END;
+
+	END MODULE;
