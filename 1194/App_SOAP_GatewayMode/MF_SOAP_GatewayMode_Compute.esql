@@ -1,0 +1,17 @@
+
+
+CREATE COMPUTE MODULE MF_SOAP_GatewayMode_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE new NAMESPACE 'http://www.example.org/NewWSDLFile/';
+		
+		DECLARE rowVar ROW;
+		SET rowVar.data[] = SELECT * FROM Database.AVISHKAR WHERE AVISHKAR.id = 1194;
+		SET OutputRoot.SOAP.Body.new:ReadResponse.result = rowVar;
+	END;
+END MODULE;
