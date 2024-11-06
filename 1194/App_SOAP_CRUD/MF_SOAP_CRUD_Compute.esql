@@ -10,19 +10,33 @@ CREATE COMPUTE MODULE MF_SOAP_CRUD_Compute
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		DECLARE new NAMESPACE 'http://www.example.org/NewWSDLFile/';
-	
+		
+
+--		For CRUD operations
 		IF InputRoot.SOAP.Context.operation = 'Insert' THEN
 			DECLARE id INTEGER InputRoot.SOAP.Body.new:Insert.id;
 			DECLARE empName CHARACTER InputRoot.SOAP.Body.new:Insert.name;
 			INSERT INTO Database.AVISHKAR VALUES(id, empName);
+			SET OutputRoot.SOAP.Body.new:InsertResponse.out = 'Data Inserted Successfully';
 		ELSEIF InputRoot.SOAP.Context.operation = 'Read' THEN
 			DECLARE data ROW;
 			SET data.values[] = SELECT * FROM Database.AVISHKAR WHERE AVISHKAR.id = 1194;
 			SET OutputRoot.SOAP.Body.new:ReadResponse.result = data;
 		ELSEIF InputRoot.SOAP.Context.operation = 'Update' THEN
-			PASSTHRU 'UPDATE AVISHKAR SET name = ''Avi'' WHERE id = 1194';
+			DECLARE empName CHARACTER InputRoot.SOAP.Body.new:Update.name;
+			UPDATE Database.AVISHKAR SET name = empName WHERE AVISHKAR.id = 1194;
+			SET OutputRoot.SOAP.Body.new:UpdateResponse.out = 'Data Updated successfully';
 		ELSEIF InputRoot.SOAP.Context.operation = 'Delete' THEN
-			DELETE FROM Database.AVISHKAR WHERE AVISHKAR.id = 1200;
+			DECLARE eid INTEGER InputRoot.SOAP.Body.new:Delete.id;
+			DELETE FROM Database.AVISHKAR WHERE AVISHKAR.id = eid;
+			SET OutputRoot.SOAP.Body.new:DeleteResponse.out = 'Record Deleted Successfully';
 		END IF;
+		
+		
+--		For overriding operation using localEnvironment (Intial operation = Insert, Overridden operation = Read)
+--		DECLARE data ROW;
+--		SET data.values[] = SELECT * FROM Database.AVISHKAR WHERE AVISHKAR.id = 1194;
+--		SET OutputRoot.SOAP.Body.new:ReadResponse.result = data;
+		
 	END;
 END MODULE;
