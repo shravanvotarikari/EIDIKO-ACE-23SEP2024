@@ -1,0 +1,21 @@
+
+
+CREATE COMPUTE MODULE MF_SOAP_LocEnvOverride_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE new NAMESPACE 'http://www.example.org/NewWSDLFile/';
+		
+--		Operation Override
+		SET OutputLocalEnvironment.Destination.SOAP.Request.Operation = 'Read';
+		
+		DECLARE res ROW;
+		SET res.values[] = SELECT * FROM Database.AVISHKAR WHERE AVISHKAR.id = 1194;
+		SET OutputRoot.SOAP.Body.new:ReadResponse.result = res;
+		
+	END;
+END MODULE;
