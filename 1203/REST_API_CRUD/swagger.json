@@ -1,0 +1,115 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "REST_API_CRUD",
+    "version" : "1.0.0",
+    "description" : "REST_API_CRUD"
+  },
+  "paths" : {
+    "/empDetails" : {
+      "post" : {
+        "operationId" : "postEmpDetails",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Insert a empDetails",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "$ref" : "#/definitions/Insert"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        }, {
+          "name" : "id",
+          "in" : "query",
+          "type" : "integer"
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "type" : "boolean"
+        } ]
+      },
+      "get" : {
+        "operationId" : "getEmpDetails",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/Insert"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve empDetails",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "type" : "integer"
+        } ]
+      },
+      "put" : {
+        "operationId" : "putEmpDetails",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Update empDetails",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "$ref" : "#/definitions/Insert"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        }, {
+          "name" : "id",
+          "in" : "query",
+          "type" : "integer"
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "type" : "number"
+        } ]
+      },
+      "delete" : {
+        "operationId" : "deleteEmpDetails",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Remove from empDetails",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "type" : "integer"
+        } ]
+      }
+    }
+  },
+  "basePath" : "/rest_api_crud/v1",
+  "definitions" : {
+    "Insert" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "name" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
