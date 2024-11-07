@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:restapiDescriptor xmlns="http://com.ibm.etools.mft.descriptor.base" xmlns:ns2="http://com.ibm.etools.mft.descriptor.restapi" definitionType="swagger_20" definitionFile="swagger.json" implementation="gen/Rest_CRUD.msgflow" https="false" definitionWithExtRef="false" faultFormat="JSON">
+    <ns2:operations>
+        <ns2:operation name="deleteCrud" implementation="deleteCrud.subflow"/>
+        <ns2:operation name="getCrud" implementation="getCrud.subflow"/>
+        <ns2:operation name="postCrud" implementation="postCrud.subflow"/>
+        <ns2:operation name="putCrud" implementation="putCrud.subflow"/>
+    </ns2:operations>
+    <ns2:errorHandlers/>
+</ns2:restapiDescriptor>
