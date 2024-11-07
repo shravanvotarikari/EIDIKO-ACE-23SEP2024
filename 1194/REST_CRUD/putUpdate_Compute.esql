@@ -1,0 +1,31 @@
+
+
+CREATE COMPUTE MODULE putUpdate_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		Using query/path params of REST
+--		DECLARE eid INTEGER InputLocalEnvironment.REST.Input.Parameters.id;
+		
+--		To access query params from http
+--		DECLARE eid INTEGER InputLocalEnvironment.HTTP.Input.QueryString.id;
+
+--		To access path params from http
+--		DECLARE eid INTEGER InputLocalEnvironment.HTTP.Input.Path.[4];	-- will not work as path param is not created in rest api
+
+--		Using body
+		DECLARE eid INTEGER InputRoot.JSON.Data.id;
+		
+--		Using header
+--		DECLARE eid INTEGER InputRoot.HTTPInputHeader.Id;
+		
+		
+		UPDATE Database.AVISHKAR SET name = 'Uday' WHERE AVISHKAR.id = eid;
+		SET OutputRoot.JSON.Data.response = 'Data Updated succesfully';
+	END;
+END MODULE;
