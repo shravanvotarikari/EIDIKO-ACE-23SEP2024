@@ -1,0 +1,47 @@
+DECLARE ns NAMESPACE 'http://www.example.org/Crud/';
+
+
+CREATE COMPUTE MODULE MF_SOAP_CRUD_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		IF InputRoot.SOAP.Context.operation = 'Insert' THEN
+			INSERT INTO Database.ACE_TASKS (EMP_ID, EMP_NAME, STATUS ) VALUES (InputRoot.SOAP.Body.ns:Insert.id, InputRoot.SOAP.Body.ns:Insert.name, InputRoot.SOAP.Body.ns:Insert.status);
+			SET OutputRoot.SOAP.Body.ns:InsertResponse.out = 'Success';
+			
+		ELSEIF InputRoot.SOAP.Context.operation = 'Read' THEN
+			DECLARE r ROW;
+			SET r.emp[] = SELECT * FROM Database.ACE_TASKS ;
+			
+			SET OutputRoot.SOAP.Body.ns:ReadResponse.out = r.emp[1];
+		
+		
+		ELSEIF InputRoot.SOAP.Context.operation = 'Update' THEN
+			UPDATE Database.ACE_TASKS SET EMP_NAME = InputRoot.SOAP.Body.ns:Update.in WHERE ACE_TASKS.EMP_ID = InputRoot.SOAP.Body.ns:Update.id;
+			
+			
+		ELSEIF InputRoot.SOAP.Context.operation = 'Delete' THEN
+			DELETE FROM Database.ACE_TASKS WHERE ACE_TASKS.EMP_ID = InputRoot.SOAP.Body.ns:Delete.in;
+			SET OutputRoot.SOAP.Body.ns:DeleteResponse.out = 'Success';
+		ELSE
+			SET OutputRoot.SOAP.Body.ns:Fault = 'invalid operation';
+		END IF;
+		
+	END;
+END MODULE;
