@@ -1,0 +1,118 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "APP_REST_CRUD",
+    "version" : "1.0.0",
+    "description" : "APP_REST_CRUD"
+  },
+  "paths" : {
+    "/getDetails" : {
+      "get" : {
+        "operationId" : "getGetDetails",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "type" : "integer"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve getDetails",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "type" : "integer",
+          "required" : true
+        } ]
+      }
+    },
+    "/postDetails" : {
+      "post" : {
+        "operationId" : "postPostDetails",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Insert a postDetails",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "type" : "string"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "type" : "string",
+          "required" : true
+        }, {
+          "name" : "dept",
+          "in" : "query",
+          "type" : "string",
+          "required" : true
+        } ]
+      }
+    },
+    "/putDetails" : {
+      "put" : {
+        "operationId" : "putPutDetails",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Update putDetails",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "type" : "string"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        }, {
+          "name" : "id",
+          "in" : "query",
+          "type" : "integer",
+          "required" : true
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "type" : "string"
+        } ]
+      }
+    },
+    "/deleteDetails" : {
+      "delete" : {
+        "operationId" : "deleteDeleteDetails",
+        "responses" : {
+          "200" : {
+            "description" : "Deleted successfully"
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Remove from deleteDetails",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "type" : "integer",
+          "required" : true
+        } ]
+      }
+    }
+  },
+  "basePath" : "/rest"
+}
