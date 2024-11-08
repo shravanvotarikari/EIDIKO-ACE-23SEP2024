@@ -1,0 +1,29 @@
+
+
+CREATE COMPUTE MODULE getGetDetails_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+	 DECLARE r ROW;
+	 
+	 SET r.data[] = SELECT t.name,t.id FROM Database.table1 AS t WHERE t.id = InputLocalEnvironment.HTTP.Input.QueryString.id ;
+	 
+	 
+--	 IF r.name[1] LIKE '%' THEN
+	 	SET OutputRoot.JSON.Data = r.data[1];
+--	
+--	 ELSE 
+--	 	SET OutputRoot.JSON.Data.null = 'null';
+--	 	
+--	 END IF;
+		
+	END;
+END MODULE;

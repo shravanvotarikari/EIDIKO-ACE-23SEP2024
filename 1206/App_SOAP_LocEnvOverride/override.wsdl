@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/FaultMsg/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="FaultMsg" targetNamespace="http://www.example.org/FaultMsg/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/override/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="override" targetNamespace="http://www.example.org/override/">
   <wsdl:documentation>
     <wsdl:appinfo source="WMQI_APPINFO">
       <MRWSDLAppInfo imported="true">
-        <generatedXSD location="FaultMsg_InlineSchema1.xsd"/>
-        <binding hasEncoding="false" imported="true" name="FaultMsgSOAP" originalBindingStyle="document"/>
+        <generatedXSD location="override_InlineSchema1.xsd"/>
+        <binding hasEncoding="false" imported="true" name="overrideSOAP" originalBindingStyle="document"/>
       </MRWSDLAppInfo>
     </wsdl:appinfo>
   </wsdl:documentation>
@@ -12,9 +12,9 @@
   <wsdl:types>
         
           
-    <xsd:schema xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" targetNamespace="http://www.example.org/FaultMsg/">
+    <xsd:schema xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" targetNamespace="http://www.example.org/override/">
       
-      <xsd:include schemaLocation="FaultMsg_InlineSchema1.xsd"/>
+      <xsd:include schemaLocation="override_InlineSchema1.xsd"/>
     </xsd:schema>
         
   </wsdl:types>
@@ -31,7 +31,7 @@
       
   </wsdl:message>
     
-  <wsdl:portType name="FaultMsg">
+  <wsdl:portType name="override">
         
     <wsdl:operation name="NewOperation">
             
@@ -43,35 +43,35 @@
       
   </wsdl:portType>
     
-  <wsdl:binding name="FaultMsgSOAP" type="tns:FaultMsg">
-      	
+  <wsdl:binding name="overrideSOAP" type="tns:override">
+        
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-      	
+        
     <wsdl:operation name="NewOperation">
-        		
-      <soap:operation soapAction="http://www.example.org/FaultMsg/NewOperation"/>
-        		
+            
+      <soap:operation soapAction="http://www.example.org/override/NewOperation"/>
+            
       <wsdl:input>
-          			
+                
         <soap:body use="literal"/>
-          		
+              
       </wsdl:input>
-        		
+            
       <wsdl:output>
-          			
+                
         <soap:body use="literal"/>
-          		
+              
       </wsdl:output>
-        	
+          
     </wsdl:operation>
       
   </wsdl:binding>
     
-  <wsdl:service name="FaultMsg">
+  <wsdl:service name="override">
         
-    <wsdl:port binding="tns:FaultMsgSOAP" name="FaultMsgSOAP">
+    <wsdl:port binding="tns:overrideSOAP" name="overrideSOAP">
             
-      <soap:address location="http://localhost:7800/fault"/>
+      <soap:address location="http://www.example.org/"/>
           
     </wsdl:port>
       
