@@ -44,25 +44,25 @@
   </wsdl:portType>
     
   <wsdl:binding name="FaultMsgSOAP" type="tns:FaultMsg">
-        
+      	
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        
+      	
     <wsdl:operation name="NewOperation">
-            
+        		
       <soap:operation soapAction="http://www.example.org/FaultMsg/NewOperation"/>
-            
+        		
       <wsdl:input>
-                
+          			
         <soap:body use="literal"/>
-              
+          		
       </wsdl:input>
-            
+        		
       <wsdl:output>
-                
+          			
         <soap:body use="literal"/>
-              
+          		
       </wsdl:output>
-          
+        	
     </wsdl:operation>
       
   </wsdl:binding>

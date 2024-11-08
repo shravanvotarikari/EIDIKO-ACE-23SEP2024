@@ -1,0 +1,29 @@
+
+
+Importing file: C:\temp\App_SOAP_CRUD\NewWSDLFile.wsdl
+
+
+The following is a list of WS-I warning messages found when importing:
+WS-I BP 1.1: (BP2118) The binding does not have the same list of operations as the NewWSDLFile port type to which it refers., Line: 113, Column: 4
+WS-I BP 1.1: (BP2118) The binding does not have the same list of operations as the NewWSDLFile port type to which it refers., Line: 113, Column: 4
+WS-I BP 1.1: (BP2118) The binding does not have the same list of operations as the NewWSDLFile port type to which it refers., Line: 113, Column: 4
+
+
+The WSDL import will proceed with bindings NewWSDLFileSOAP.
+Creating wsdl schema document for file:///C:/temp/App_SOAP_CRUD/NewWSDLFile.wsdl.
+Parsing wsdl binding {http://www.example.org/NewWSDLFile/}NewWSDLFileSOAP.
+Parsing wsdl binding input Insert.
+Parsing wsdl binding output Insert.
+Processing doc style for operation Insert.
+Populating WSDL schema NewWSDLFile.xsd.
+Creating file NewWSDLFile.xsd in the workspace.
+Creating file NewWSDLFile_InlineSchema2.xsd in the workspace.
+Copying source WSDL NewWSDLFile.wsdl to NewWSDLFile.wsdl.
+
+Elapsed time processing this message definition file: 0.223 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+

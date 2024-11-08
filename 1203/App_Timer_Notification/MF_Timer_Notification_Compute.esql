@@ -1,4 +1,5 @@
-CREATE COMPUTE MODULE MF_SOAP_GatewayMode_Compute
+
+CREATE COMPUTE MODULE MF_Timer_Notification_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
@@ -6,8 +7,9 @@ CREATE COMPUTE MODULE MF_SOAP_GatewayMode_Compute
 		RETURN TRUE;
 	END;
 
-
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-	SET OutputRoot.SOAP.Body.new:AddResponse.out = InputRoot.SOAP.Body.new:Add.in +InputRoot.SOAP.Body.new:Add.in1;
+		INSERT INTO Database.Timer VALUES(CAST(CURRENT_TIMESTAMP AS CHARACTER FORMAT 'yyyy-MM-dd HH:mm:ss'));
+		
+	--	SET OutputRoot = InputRoot;
 	END;
 END MODULE;

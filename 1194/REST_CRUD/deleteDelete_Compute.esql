@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE deleteDelete_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE eid INTEGER InputLocalEnvironment.REST.Input.Parameters.id;
+		DELETE FROM Database.AVISHKAR WHERE AVISHKAR.id = eid;
+		SET OutputRoot.JSON.Data.response = 'Data Deleted Succesfully';
+	END;
+END MODULE;

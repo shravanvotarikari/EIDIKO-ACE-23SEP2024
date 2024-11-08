@@ -23,7 +23,9 @@ CREATE COMPUTE MODULE MF_Retrieve_Compute
 		
 		DECLARE get_data ROW;
 		
-		SET get_data.box[] = SELECT * FROM Database.SPORT;
+--		SET get_data.box[] = SELECT C.NAME FROM Database.COMPANY AS C WHERE C.ID IS 66;
+		SET get_data.box[] = (SELECT C.NAME FROM Database.COMPANY AS C WHERE C.ID = 66);
+
 		
 		SET OutputRoot.XMLNSC.data = get_data;
 	END;

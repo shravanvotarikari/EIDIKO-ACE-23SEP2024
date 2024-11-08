@@ -1,0 +1,14 @@
+
+
+CREATE COMPUTE MODULE MF_Timer_Notification_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputLocalEnvironment.date = CURRENT_TIMESTAMP;
+		INSERT INTO Database.TIMERNOTIFICATIONDATA VALUES (OutputLocalEnvironment.date);
+	END;
+END MODULE;
