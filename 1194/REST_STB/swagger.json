@@ -1,0 +1,132 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "REST_STB",
+    "version" : "1.0.0",
+    "description" : "REST_STB"
+  },
+  "paths" : {
+    "/post" : {
+      "post" : {
+        "operationId" : "postPost",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/responseBody"
+            }
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Insert a post",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "$ref" : "#/definitions/requestBody"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        } ]
+      }
+    }
+  },
+  "basePath" : "/rest_stb/v1",
+  "definitions" : {
+    "requestBody" : {
+      "type" : "object",
+      "properties" : {
+        "clientTransactionId" : {
+          "type" : "string",
+          "format" : "password"
+        },
+        "transactionType" : {
+          "type" : "string"
+        },
+        "requestDate" : {
+          "type" : "boolean"
+        },
+        "creditAccount" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creditCardAccount" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "amount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "channel" : {
+          "type" : "integer"
+        },
+        "description" : {
+          "type" : "integer"
+        },
+        "username" : {
+          "type" : "string"
+        }
+      }
+    },
+    "responseBody" : {
+      "type" : "object",
+      "properties" : {
+        "statusCode" : {
+          "type" : "integer"
+        },
+        "message" : {
+          "type" : "string"
+        },
+        "data" : {
+          "type" : "object",
+          "properties" : {
+            "transactionId" : {
+              "type" : "string",
+              "format" : "password"
+            },
+            "clientTransactionId" : {
+              "type" : "string",
+              "format" : "password"
+            },
+            "transactionType" : {
+              "type" : "string"
+            },
+            "creditAccount" : {
+              "type" : "integer",
+              "format" : "int64"
+            },
+            "amount" : {
+              "type" : "integer"
+            },
+            "creditCardAccount" : {
+              "type" : "integer",
+              "format" : "int64"
+            },
+            "valueDate" : {
+              "type" : "string",
+              "format" : "date"
+            },
+            "requestDate" : {
+              "type" : "string",
+              "format" : "date"
+            },
+            "currency" : {
+              "type" : "string"
+            },
+            "channel" : {
+              "type" : "integer"
+            },
+            "username" : {
+              "type" : "string"
+            },
+            "description" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

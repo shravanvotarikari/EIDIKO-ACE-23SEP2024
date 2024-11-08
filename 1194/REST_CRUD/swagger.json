@@ -75,6 +75,9 @@
         "responses" : {
           "200" : {
             "description" : "The operation was successful."
+          },
+          "404" : {
+            "description" : "The operation was unsuccessful."
           }
         },
         "consumes" : [ "application/json" ],
