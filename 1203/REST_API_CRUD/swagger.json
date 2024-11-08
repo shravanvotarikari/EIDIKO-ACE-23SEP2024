@@ -49,7 +49,7 @@
         "description" : "Retrieve empDetails",
         "parameters" : [ {
           "name" : "id",
-          "in" : "query",
+          "in" : "header",
           "type" : "integer"
         } ]
       },
@@ -78,7 +78,7 @@
         }, {
           "name" : "name",
           "in" : "query",
-          "type" : "number"
+          "type" : "boolean"
         } ]
       },
       "delete" : {
@@ -93,7 +93,7 @@
         "parameters" : [ {
           "name" : "id",
           "in" : "query",
-          "type" : "integer"
+          "type" : "boolean"
         } ]
       }
     }
