@@ -1,0 +1,18 @@
+
+
+CREATE COMPUTE MODULE "getEmp.subflow_get"
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+	DECLARE emp ROW;
+	SET emp.i[] = SELECT r.emp_id,r.emp_name,r.department,r.address,r.salary FROM Database.REST_CRUD_EMP AS r WHERE r.emp_id = InputLocalEnvironment.HTTP.Input.QueryString.emp_id;
+	
+	SET OutputRoot.JSON.Data = emp.i[1];
+	END;
+END MODULE;

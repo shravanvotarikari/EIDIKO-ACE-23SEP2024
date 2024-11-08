@@ -1,0 +1,26 @@
+
+
+CREATE COMPUTE MODULE postEmp_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		DECLARE emp_id INTEGER;
+		DECLARE emp_name CHARACTER;
+		DECLARE department CHARACTER;
+		DECLARE address CHARACTER;
+		DECLARE salary INTEGER;
+		
+		SET emp_id = InputRoot.JSON.Data.emp_id;
+		SET emp_name = InputRoot.JSON.Data.emp_name;
+		SET department = InputRoot.JSON.Data.department;
+		SET address = InputRoot.JSON.Data.address;
+		SET salary = InputRoot.JSON.Data.salary;
+		
+	INSERT INTO Database.REST_CRUD_EMP (emp_id,emp_name,department,address,salary) VALUES (emp_id,emp_name,department,address,salary);
+	END;
+END MODULE;
