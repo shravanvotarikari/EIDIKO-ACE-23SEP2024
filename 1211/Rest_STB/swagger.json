@@ -74,7 +74,7 @@
           "pattern" : "^[A-Za-z]+$"
         }
       },
-      "required" : [ "clientTransactionId", "transactionType", "requestDate", "creditAccount", "creditCardAccount", "amount", "channel", "description", "username" ]
+      "required" : [ ]
     },
     "response_msg_model" : {
       "type" : "object",
