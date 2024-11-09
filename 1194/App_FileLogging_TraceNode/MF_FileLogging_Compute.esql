@@ -1,0 +1,14 @@
+
+
+CREATE COMPUTE MODULE MF_FileLogging_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		INSERT INTO 
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
