@@ -1,0 +1,77 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "REST_CRUD_msg_model",
+    "version" : "1.0.0",
+    "description" : "REST_CRUD_msg_model"
+  },
+  "paths" : {
+    "/emp" : {
+      "get" : {
+        "operationId" : "getEmp",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/emp_model"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve emp",
+        "parameters" : [ {
+          "name" : "emp_id",
+          "in" : "query",
+          "type" : "number"
+        } ]
+      },
+      "post" : {
+        "operationId" : "postEmp",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/emp_model"
+            }
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Insert a emp",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "$ref" : "#/definitions/emp_model"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        } ]
+      }
+    }
+  },
+  "basePath" : "/rest_crud_msg_model/v1",
+  "definitions" : {
+    "emp_model" : {
+      "type" : "object",
+      "properties" : {
+        "emp_id" : {
+          "type" : "integer"
+        },
+        "emp_name" : {
+          "type" : "string"
+        },
+        "department" : {
+          "type" : "string"
+        },
+        "address" : {
+          "type" : "string"
+        },
+        "salary" : {
+          "type" : "number"
+        }
+      },
+      "required" : [ "emp_id", "emp_name", "department", "address", "salary" ]
+    }
+  }
+}
