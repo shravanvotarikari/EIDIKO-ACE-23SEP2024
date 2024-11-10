@@ -1,0 +1,72 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Rest_STB",
+    "version" : "1.0.0",
+    "description" : "Rest_STB"
+  },
+  "paths" : {
+    "/pos" : {
+      "post" : {
+        "operationId" : "postPos",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/json"
+            }
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Insert a pos",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "$ref" : "#/definitions/json"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        } ]
+      }
+    }
+  },
+  "basePath" : "/rest_stb",
+  "definitions" : {
+    "json" : {
+      "type" : "object",
+      "properties" : {
+        "clientTransactionId" : {
+          "type" : "string",
+          "pattern" : "^FT\\d{14}$"
+        },
+        "transactionType" : {
+          "type" : "string",
+          "pattern" : "^(CASH_ADVANCE|ADVANCE_PAYMENT)$"
+        },
+        "requestDate" : {
+          "type" : "string",
+          "format" : "",
+          "pattern" : "^\\d{4}(0[1-9]|1[0-2])([0-2][1-9]|3[01])$"
+        },
+        "creditAccount" : {
+          "type" : "string",
+          "format" : "",
+          "pattern" : "^\\d{12,16}$"
+        },
+        "amount" : {
+          "type" : "integer"
+        },
+        "channel" : {
+          "type" : "string",
+          "pattern":"^1$"
+        },
+        "username" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "clientTransactionId", "transactionType", "requestDate", "creditAccount", "amount", "channel", "username" ]
+    }
+  }
+}
