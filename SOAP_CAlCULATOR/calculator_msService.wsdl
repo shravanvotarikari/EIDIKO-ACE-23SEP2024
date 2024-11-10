@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns="http://tempuri.org/calculator_ms" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://tempuri.org/calculator_ms" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="calculator_ms" targetNamespace="http://tempuri.org/calculator_ms">
+  <wsdl:documentation>
+    <wsdl:appinfo source="WMQI_APPINFO">
+      <MRWSDLAppInfo imported="true">
+        <generatedXSD location="calculator_msService_InlineSchema1.xsd"/>
+        <binding hasEncoding="false" imported="true" name="calculator_msSOAP_HTTP_Binding" originalBindingStyle="document"/>
+      </MRWSDLAppInfo>
+    </wsdl:appinfo>
+  </wsdl:documentation>
+    
+  <wsdl:types>
+        
+    <xsd:schema xmlns:mrm="http://tempuri.org/calculator_ms" targetNamespace="http://tempuri.org/calculator_ms">
+      
+      <xsd:include schemaLocation="calculator_msService_InlineSchema1.xsd"/>
+    </xsd:schema>
+      
+  </wsdl:types>
+    
+  <wsdl:message name="Multiply_in">
+        
+    <wsdl:part element="ReqMul" name="ReqMul"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="Multiply_out">
+        
+    <wsdl:part element="ResMul" name="ResMul"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="Multiply_fault1">
+        
+    <wsdl:part element="Errormsg" name="Errormsg"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="Substraction_in">
+        
+    <wsdl:part element="ReqSub" name="ReqSub"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="Substraction_out">
+        
+    <wsdl:part element="ResSub" name="ResSub"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="Substraction_fault1">
+        
+    <wsdl:part element="Errormsg" name="Errormsg"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="Addition_in">
+        
+    <wsdl:part element="ReqAdd" name="ReqAdd"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="Addition_out">
+        
+    <wsdl:part element="ResAdd" name="ResAdd"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="Addition_fault1">
+        
+    <wsdl:part element="Errormsg" name="Errormsg"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="Division_in">
+        
+    <wsdl:part element="ReqDiv" name="ReqDiv"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="Division_out">
+        
+    <wsdl:part element="ResDiv" name="ResDiv"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="Division_fault1">
+        
+    <wsdl:part element="Errormsg" name="Errormsg"/>
+      
+  </wsdl:message>
+    
+  <wsdl:portType name="calculator_msPortType">
+        
+    <wsdl:operation name="Multiply">
+            
+      <wsdl:input message="Multiply_in" name="Multiply_Input"/>
+            
+      <wsdl:output message="Multiply_out" name="Multiply_Output"/>
+            
+      <wsdl:fault message="Multiply_fault1" name="Multiply_Fault"/>
+          
+    </wsdl:operation>
+        
+    <wsdl:operation name="Substraction">
+            
+      <wsdl:input message="Substraction_in" name="Substraction_Input"/>
+            
+      <wsdl:output message="Substraction_out" name="Substraction_Output"/>
+            
+      <wsdl:fault message="Substraction_fault1" name="Substraction_Fault"/>
+          
+    </wsdl:operation>
+        
+    <wsdl:operation name="Addition">
+            
+      <wsdl:input message="Addition_in" name="Addition_Input"/>
+            
+      <wsdl:output message="Addition_out" name="Addition_Output"/>
+            
+      <wsdl:fault message="Addition_fault1" name="Addition_Fault"/>
+          
+    </wsdl:operation>
+        
+    <wsdl:operation name="Division">
+            
+      <wsdl:input message="Division_in" name="Division_Input"/>
+            
+      <wsdl:output message="Division_out" name="Division_Output"/>
+            
+      <wsdl:fault message="Division_fault1" name="Division_Fault"/>
+          
+    </wsdl:operation>
+      
+  </wsdl:portType>
+    
+  <wsdl:binding name="calculator_msSOAP_HTTP_Binding" type="calculator_msPortType">
+        
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        
+    <wsdl:operation name="Multiply">
+            
+      <soap:operation soapAction="Addition_Cal"/>
+            
+      <wsdl:input name="Multiply_Input">
+                
+        <soap:body parts="ReqMul" use="literal"/>
+              
+      </wsdl:input>
+            
+      <wsdl:output name="Multiply_Output">
+                
+        <soap:body parts="ResMul" use="literal"/>
+              
+      </wsdl:output>
+            
+      <wsdl:fault name="Multiply_Fault">
+                
+        <soap:fault name="Multiply_Fault" use="literal"/>
+              
+      </wsdl:fault>
+          
+    </wsdl:operation>
+        
+    <wsdl:operation name="Substraction">
+            
+      <soap:operation soapAction="Addition_Cal"/>
+            
+      <wsdl:input name="Substraction_Input">
+                
+        <soap:body parts="ReqSub" use="literal"/>
+              
+      </wsdl:input>
+            
+      <wsdl:output name="Substraction_Output">
+                
+        <soap:body parts="ResSub" use="literal"/>
+              
+      </wsdl:output>
+            
+      <wsdl:fault name="Substraction_Fault">
+                
+        <soap:fault name="Substraction_Fault" use="literal"/>
+              
+      </wsdl:fault>
+          
+    </wsdl:operation>
+        
+    <wsdl:operation name="Addition">
+            
+      <soap:operation soapAction="Addition_Cal"/>
+            
+      <wsdl:input name="Addition_Input">
+                
+        <soap:body parts="ReqAdd" use="literal"/>
+              
+      </wsdl:input>
+            
+      <wsdl:output name="Addition_Output">
+                
+        <soap:body parts="ResAdd" use="literal"/>
+              
+      </wsdl:output>
+            
+      <wsdl:fault name="Addition_Fault">
+                
+        <soap:fault name="Addition_Fault" use="literal"/>
+              
+      </wsdl:fault>
+          
+    </wsdl:operation>
+        
+    <wsdl:operation name="Division">
+            
+      <soap:operation soapAction="Addition_Cal"/>
+            
+      <wsdl:input name="Division_Input">
+                
+        <soap:body parts="ReqDiv" use="literal"/>
+              
+      </wsdl:input>
+            
+      <wsdl:output name="Division_Output">
+                
+        <soap:body parts="ResDiv" use="literal"/>
+              
+      </wsdl:output>
+            
+      <wsdl:fault name="Division_Fault">
+                
+        <soap:fault name="Division_Fault" use="literal"/>
+              
+      </wsdl:fault>
+          
+    </wsdl:operation>
+      
+  </wsdl:binding>
+    
+  <wsdl:service name="calculator_msSOAP_HTTP_Service">
+        
+    <wsdl:port binding="calculator_msSOAP_HTTP_Binding" name="calculator_msSOAP_HTTP_Port">
+            
+      <soap:address location="http://localhost:7800/calculator_msSOAP_HTTP_Service"/>
+          
+    </wsdl:port>
+      
+  </wsdl:service>
+  
+</wsdl:definitions>

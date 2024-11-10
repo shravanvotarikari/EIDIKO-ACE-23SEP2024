@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://tempuri.org/calculator_ms" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:mrm="http://tempuri.org/calculator_ms" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://tempuri.org/calculator_ms" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://tempuri.org/calculator_ms">
+                                                                                                                                                                              
+  <xsd:element name="intA" type="xsd:int"/>
+              
+  <xsd:element name="intB" type="xsd:int"/>
+              
+  <xsd:element name="AddC" type="xsd:int"/>
+              
+  <xsd:element name="SubD" type="xsd:int"/>
+              
+  <xsd:element name="MulE" type="xsd:int"/>
+              
+  <xsd:element name="DivF" type="xsd:int"/>
+              
+  <xsd:element name="fcode" type="xsd:int"/>
+              
+  <xsd:element name="fmessage" type="xsd:string"/>
+              
+  <xsd:complexType name="ReqAdd">
+            
+    <xsd:sequence>
+                
+      <xsd:element ref="mrm:intA"/>
+                
+      <xsd:element ref="mrm:intB"/>
+              
+    </xsd:sequence>
+          
+  </xsd:complexType>
+              
+  <xsd:complexType name="ResAdd">
+            
+    <xsd:sequence>
+                
+      <xsd:element ref="mrm:AddC"/>
+              
+    </xsd:sequence>
+          
+  </xsd:complexType>
+              
+  <xsd:complexType name="ReqSub">
+            
+    <xsd:sequence>
+                
+      <xsd:element ref="mrm:intA"/>
+                
+      <xsd:element ref="mrm:intB"/>
+              
+    </xsd:sequence>
+          
+  </xsd:complexType>
+              
+  <xsd:complexType name="ResSub">
+            
+    <xsd:sequence>
+                
+      <xsd:element ref="mrm:SubD"/>
+              
+    </xsd:sequence>
+          
+  </xsd:complexType>
+              
+  <xsd:complexType name="ReqMul">
+            
+    <xsd:sequence>
+                
+      <xsd:element ref="mrm:intA"/>
+                
+      <xsd:element ref="mrm:intB"/>
+              
+    </xsd:sequence>
+          
+  </xsd:complexType>
+              
+  <xsd:complexType name="ResMul">
+            
+    <xsd:sequence>
+                
+      <xsd:element ref="mrm:MulE"/>
+              
+    </xsd:sequence>
+          
+  </xsd:complexType>
+              
+  <xsd:complexType name="ReqDiv">
+            
+    <xsd:sequence>
+                
+      <xsd:element ref="mrm:intA"/>
+                
+      <xsd:element ref="mrm:intB"/>
+              
+    </xsd:sequence>
+          
+  </xsd:complexType>
+              
+  <xsd:complexType name="ResDiv">
+            
+    <xsd:sequence>
+                
+      <xsd:element ref="mrm:DivF"/>
+              
+    </xsd:sequence>
+          
+  </xsd:complexType>
+              
+  <xsd:complexType name="Errormsg">
+            
+    <xsd:sequence>
+                
+      <xsd:element ref="mrm:fcode"/>
+                
+      <xsd:element ref="mrm:fmessage"/>
+              
+    </xsd:sequence>
+          
+  </xsd:complexType>
+              
+  <xsd:element ibmSchExtn:docRoot="true" name="ReqAdd" type="mrm:ReqAdd"/>
+              
+  <xsd:element ibmSchExtn:docRoot="true" name="ResAdd" type="mrm:ResAdd"/>
+              
+  <xsd:element ibmSchExtn:docRoot="true" name="ReqSub" type="mrm:ReqSub"/>
+              
+  <xsd:element ibmSchExtn:docRoot="true" name="ResSub" type="mrm:ResSub"/>
+              
+  <xsd:element ibmSchExtn:docRoot="true" name="ReqMul" type="mrm:ReqMul"/>
+              
+  <xsd:element ibmSchExtn:docRoot="true" name="ResMul" type="mrm:ResMul"/>
+              
+  <xsd:element ibmSchExtn:docRoot="true" name="ReqDiv" type="mrm:ReqDiv"/>
+              
+  <xsd:element ibmSchExtn:docRoot="true" name="ResDiv" type="mrm:ResDiv"/>
+              
+  <xsd:element ibmSchExtn:docRoot="true" name="Errormsg" type="mrm:Errormsg"/>
+          
+</xsd:schema>
