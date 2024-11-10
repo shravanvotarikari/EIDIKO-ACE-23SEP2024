@@ -1,0 +1,17 @@
+
+
+CREATE COMPUTE MODULE putId_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		--SET C.NAME FROM Database.COMPANY AS C WHERE C.ID = 66;
+		
+		UPDATE Database.COMPANY
+     SET NAME = 'SACHIVJI'
+	 WHERE COMPANY.ID = InputLocalEnvironment.REST.Input.Parameters.id;
+		
+		
+		RETURN TRUE;
+	END;
+
+	END MODULE;

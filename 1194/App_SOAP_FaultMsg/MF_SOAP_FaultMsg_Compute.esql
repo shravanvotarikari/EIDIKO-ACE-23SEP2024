@@ -1,0 +1,17 @@
+
+
+CREATE COMPUTE MODULE MF_SOAP_FaultMsg_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE env NAMESPACE 'http://schemas.xmlsoap.org/soap/envelope/';
+		SET OutputRoot.SOAP.Body.Fault.faultCode = 'soapenv:Client';
+		SET OutputRoot.SOAP.Body.Fault.faultString = 'Invalid request';
+		SET OutputRoot.SOAP.Body.Fault.detail = '<ns1:CustomFault><ns1:errorCode>123</ns1:errorCode><ns1:errorMessage>The request is missing a required parameter.</ns1:errorMessage></ns1:CustomFault>';
+		
+	END;
+END MODULE;

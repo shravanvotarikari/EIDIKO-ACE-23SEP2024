@@ -1,0 +1,22 @@
+
+
+Importing file: C:\Users\Sreenivas Bandaru\IBM\ACET12\workspace\App_SOAP_LocEnvOverride\override.wsdl
+
+The WSDL import will proceed with bindings overrideSOAP.
+Creating wsdl schema document for file:///C:/Users/Sreenivas Bandaru/IBM/ACET12/workspace/App_SOAP_LocEnvOverride/override.wsdl.
+Parsing wsdl binding {http://www.example.org/override/}overrideSOAP.
+Parsing wsdl binding input NewOperation.
+Parsing wsdl binding output NewOperation.
+Processing doc style for operation NewOperation.
+Populating WSDL schema override.xsd.
+Creating file override.xsd in the workspace.
+Creating file override_InlineSchema1.xsd in the workspace.
+Copying source WSDL override.wsdl to override.wsdl.
+
+Elapsed time processing this message definition file: 0.151 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+

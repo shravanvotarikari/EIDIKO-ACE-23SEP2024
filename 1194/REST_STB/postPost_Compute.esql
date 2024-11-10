@@ -1,0 +1,27 @@
+
+
+CREATE COMPUTE MODULE postPost_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.JSON.Data.statusCode = 200;
+		SET OutputRoot.JSON.Data.message = 'Operation performed successfully';
+		SET OutputRoot.JSON.Data.data.transactionId = 'FT2429887723';
+		SET OutputRoot.JSON.Data.data.clientTransactionId = 'FT10123532789510';
+		SET OutputRoot.JSON.Data.data.transactionType = 'CASH_ADVANCE';
+		SET OutputRoot.JSON.Data.data.creditAccount = 1965124001004;
+		SET OutputRoot.JSON.Data.data.amount = 450.00;
+		SET OutputRoot.JSON.Data.data.creditCardAccount = 4289610001051085;
+		SET OutputRoot.JSON.Data.data.valueDate = 20241024;
+		SET OutputRoot.JSON.Data.data.requestDate = 20240203;
+		SET OutputRoot.JSON.Data.data.currency = 'MZN';
+		SET OutputRoot.JSON.Data.data.channel = 1;
+		SET OutputRoot.JSON.Data.data.username = 'JOSE';
+		SET OutputRoot.JSON.Data.data.description = 'Cash Advance';
+		
+	END;
+END MODULE;

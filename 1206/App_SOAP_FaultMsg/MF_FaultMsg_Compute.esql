@@ -1,4 +1,5 @@
-DECLARE ns NAMESPACE 'http://schemas.xmlsoap.org/wsdl/';
+DECLARE ns5 NAMESPACE 'http://schemas.xmlsoap.org/soap/envelope/';
+DECLARE ns NAMESPACE 'http://www.example.org/FaultMsg/';
 
 
 CREATE COMPUTE MODULE MF_FaultMsg_Compute
@@ -12,8 +13,9 @@ CREATE COMPUTE MODULE MF_FaultMsg_Compute
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		
-		SET OutputRoot.SOAP.Body.ns:Fault.faultcode = 'Client';
-		SET OutputRoot.SOAP.Body.ns:Fault.faultstring = 'Invalid Request';
+		SET OutputRoot.SOAP.Body.ns5:Fault.faultcode = 'Client';
+		SET OutputRoot.SOAP.Body.ns5:Fault.faultstring = 'Invalid Request';
+		SET OutputRoot.SOAP.Body.ns5:Fault.detail.text = 'details...';
 		
 	END;
 END MODULE;

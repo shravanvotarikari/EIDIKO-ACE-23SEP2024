@@ -1,0 +1,15 @@
+
+CREATE COMPUTE MODULE MF_Timer_Notification_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		INSERT INTO Database.Timer VALUES(CAST(CURRENT_TIMESTAMP AS CHARACTER FORMAT 'yyyy-MM-dd HH:mm:ss'));
+		
+	--	SET OutputRoot = InputRoot;
+	END;
+END MODULE;

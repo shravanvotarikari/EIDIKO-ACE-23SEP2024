@@ -1,0 +1,21 @@
+
+
+CREATE COMPUTE MODULE postPostDetails_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL InsertData();
+		
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE InsertData ()
+	BEGIN
+		
+		INSERT INTO Database.table1 (id, name, dept) VALUES (InputLocalEnvironment.HTTP.Input.QueryString.id, InputLocalEnvironment.HTTP.Input.QueryString.name, InputLocalEnvironment.HTTP.Input.QueryString.dept );
+		
+		SET OutputRoot.JSON.Data.status = 'success';
+		
+	END;
+
+	
+END MODULE;

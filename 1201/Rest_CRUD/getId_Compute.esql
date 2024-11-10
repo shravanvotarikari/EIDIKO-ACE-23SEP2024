@@ -1,0 +1,18 @@
+
+
+CREATE COMPUTE MODULE getId_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		
+		DECLARE get_data ROW;
+		
+		SET get_data.box[] = (SELECT C.NAME FROM Database.COMPANY AS C WHERE C.ID = InputLocalEnvironment.REST.Input.Parameters.id);
+		
+		SET OutputRoot.JSON.Data = get_data;
+				
+	RETURN TRUE;
+	
+	END;
+
+	END MODULE;

@@ -1,0 +1,22 @@
+
+
+CREATE COMPUTE MODULE MF_faultmsg_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		
+			DECLARE soapenv NAMESPACE 'http://schemas.xmlsoap.org/soap/envelope/';
+		SET OutputRoot.SOAP.Context.Namespace.(SOAP.NamespaceDecl)xmlns:soapenv = soapenv;
+		
+		SET OutputRoot.SOAP.Body.soapenv:Fault.faultcode = 'soapenv:Client';
+		SET OutputRoot.SOAP.Body.soapenv:Fault.faultstring = 'Invalid Request';
+		SET OutputRoot.SOAP.Body.soapenv:Fault.faultactor = 'my fault actor';
+		SET OutputRoot.SOAP.Body.soapenv:Fault.detail.Text = 'my detail string';
+				
+	END;
+END MODULE;

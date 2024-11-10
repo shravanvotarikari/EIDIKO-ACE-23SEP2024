@@ -8,10 +8,8 @@ CREATE COMPUTE MODULE MF_Routing_Route_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		--PASSTHRU 'CREATE TABLE Branch_01 (customerid INTEGER,accountno VARCHAR2(20),branch VARCHAR2(20)amount INTEGER)' TO Database.ORADSN;
-		  INSERT INTO Database.Branch_01 
-		  VALUES(InputRoot.JSON.Data.customerid, InputRoot.JSON.Data.accountno,
-		  InputRoot.JSON.Data.branch, InputRoot.JSON.Data.amount);
+		--PASSTHRU 'CREATE TABLE Branch_01(customerid INTEGER,accountno VARCHAR2(20),branch VARCHAR2(20),amount INTEGER)' TO Database.ORADSN;
+		  INSERT INTO Database.Branch_01 VALUES(InputRoot.JSON.Data.customerid,InputRoot.JSON.Data.accountno,InputRoot.JSON.Data.branch,InputRoot.JSON.Data.amount);
 		
 		SET OutputRoot.JSON.Data.status = 'success';
         SET OutputRoot.JSON.Data.description = 'Amount Credited for your account';

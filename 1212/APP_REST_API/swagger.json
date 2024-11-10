@@ -1,0 +1,115 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "APP_REST_API",
+    "version" : "1.0.0",
+    "description" : "APP_REST_API"
+  },
+  "paths" : {
+    "/rest" : {
+      "get" : {
+        "operationId" : "getRest",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve rest",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "type" : "integer"
+        } ]
+      },
+      "post" : {
+        "operationId" : "postRest",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Insert a rest",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "type" : "string"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        }, {
+          "name" : "id",
+          "in" : "query",
+          "type" : "integer"
+        }, {
+          "name" : "name",
+          "in" : "header",
+          "type" : "string"
+        } ]
+      },
+      "put" : {
+        "operationId" : "putRest",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Update rest",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "type" : "string"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        }, {
+          "name" : "id",
+          "in" : "query",
+          "type" : "integer"
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "type" : "string"
+        } ]
+      },
+      "delete" : {
+        "operationId" : "deleteRest",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Remove from rest",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "type" : "integer"
+        } ]
+      }
+    }
+  },
+  "basePath" : "/app_rest_api/v1",
+  "definitions" : {
+    "Insert" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "name" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}

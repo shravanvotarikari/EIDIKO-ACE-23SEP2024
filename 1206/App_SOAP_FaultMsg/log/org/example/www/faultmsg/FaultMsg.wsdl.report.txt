@@ -1,9 +1,9 @@
 
 
-Importing file: C:\Users\Sreenivas Bandaru\IBM\ACET12\workspace\App_SOAP_FaultMsg\FaultMsg.wsdl
+Importing file: C:\Users\Sreenivas Bandaru\git\EIDIKO-ACE-23SEP2024\1206\App_SOAP_FaultMsg\FaultMsg.wsdl
 
 The WSDL import will proceed with bindings FaultMsgSOAP.
-Creating wsdl schema document for file:///C:/Users/Sreenivas Bandaru/IBM/ACET12/workspace/App_SOAP_FaultMsg/FaultMsg.wsdl.
+Creating wsdl schema document for file:///C:/Users/Sreenivas Bandaru/git/EIDIKO-ACE-23SEP2024/1206/App_SOAP_FaultMsg/FaultMsg.wsdl.
 Parsing wsdl binding {http://www.example.org/FaultMsg/}FaultMsgSOAP.
 Parsing wsdl binding input NewOperation.
 Parsing wsdl binding output NewOperation.
@@ -13,7 +13,7 @@ Creating file FaultMsg.xsd in the workspace.
 Creating file FaultMsg_InlineSchema1.xsd in the workspace.
 Copying source WSDL FaultMsg.wsdl to FaultMsg.wsdl.
 
-Elapsed time processing this message definition file: 0.242 seconds
+Elapsed time processing this message definition file: 0.228 seconds
 Number of warnings for this message definition file: 0
 
 

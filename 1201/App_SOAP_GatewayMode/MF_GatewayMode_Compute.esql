@@ -1,0 +1,34 @@
+
+
+CREATE COMPUTE MODULE MF_GatewayMode_Compute
+    CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+        -- Define the input values for the addition
+--        DECLARE operand1 INTEGER;
+--        DECLARE operand2 INTEGER;
+--        
+--        -- Assign example values to these variables or use actual input values
+--        SET operand1 = 5;
+--        SET operand2 = 10;
+--
+--        -- Perform the addition
+--        DECLARE result INTEGER;
+--        SET result = operand1 + operand2;
+--
+--        -- Set up the OutputRoot as a SOAP response message structure
+--        DECLARE soapNs NAMESPACE 'http://schemas.xmlsoap.org/soap/envelope/';
+--        DECLARE ns NAMESPACE 'http://www.example.org/NewWSDLFile/';
+--
+--        -- Create the SOAP Envelope and Body
+--        CREATE LASTCHILD OF OutputRoot DOMAIN('SOAP');
+--        SET OutputRoot.SOAP.Envelope.soapNs:Header = NULL;
+--        SET OutputRoot.SOAP.Envelope.soapNs:Body.ns:AdditionResponse.ns:parameters.ns:result = result;
+--
+		SET OutputRoot = InputRoot;
+
+
+
+        RETURN TRUE;
+    END;
+END MODULE;
+	
