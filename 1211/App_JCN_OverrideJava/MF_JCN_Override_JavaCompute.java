@@ -5,9 +5,8 @@ import com.ibm.broker.plugin.MbMessage;
 import com.ibm.broker.plugin.MbMessageAssembly;
 import com.ibm.broker.plugin.MbOutputTerminal;
 import com.ibm.broker.plugin.MbUserException;
-import com.ibm.broker.plugin.MbXMLNSC;
 
-public class MF_JCN_CSVToXML_JavaCompute extends MbJavaComputeNode {
+public class MF_JCN_Override_JavaCompute extends MbJavaComputeNode {
 
 	public void evaluate(MbMessageAssembly inAssembly) throws MbException {
 		MbOutputTerminal out = getOutputTerminal("out");
@@ -17,46 +16,18 @@ public class MF_JCN_CSVToXML_JavaCompute extends MbJavaComputeNode {
 		MbMessageAssembly outAssembly = null;
 		try {
 			// create new message as a copy of the input
-			MbMessage outMessage = new MbMessage();
-			
-			outAssembly = new MbMessageAssembly(inAssembly, outMessage);
+			MbMessage outMessage = new MbMessage(inMessage);
+			MbMessage localEnvironment = new MbMessage();
+			outAssembly = new MbMessageAssembly(inAssembly, localEnvironment, inAssembly.getExceptionList(), outMessage);
 			// ----------------------------------------------------------
 			// Add user code below
 			
 			
-			
-			
-			//MbElement dfdlbody = inMessage.getRootElement().getFirstElementByPath("DFDL/csvtoxml/");
-			MbElement dfdlbody = inMessage.getRootElement().getLastChild().getLastChild().getFirstChild();
-			String dfdlbody_str = dfdlbody.getName();
-			MbElement xmlparser = outMessage.getRootElement().createElementAsLastChild(MbXMLNSC.PARSER_NAME);
-			MbElement xml_first_tag = xmlparser.createElementAsLastChild(MbElement.TYPE_NAME,"employees",null);
-			
-			
-			while(dfdlbody != null) {
-				
-				
-				MbElement emp_id = dfdlbody.getFirstChild();
-				String emp_id_str = dfdlbody.getName();
-
-				MbElement first_name = emp_id.getNextSibling();
-				String first_name_str = dfdlbody.getName();
-				MbElement last_name = first_name.getNextSibling();
-				MbElement department = last_name.getNextSibling();
-				MbElement salary = department.getNextSibling();
-
-				MbElement employee = xml_first_tag.createElementAsLastChild(MbElement.TYPE_NAME,"Employee",null);
-				
-				employee.createElementAsLastChild(MbElement.TYPE_NAME_VALUE,emp_id.getName(),emp_id.getValue());
-				employee.createElementAsLastChild(MbElement.TYPE_NAME_VALUE,first_name.getName(),first_name.getValue());
-				employee.createElementAsLastChild(MbElement.TYPE_NAME_VALUE,last_name.getName(),last_name.getValue());
-				employee.createElementAsLastChild(MbElement.TYPE_NAME_VALUE,department.getName(),department.getValue());
-				employee.createElementAsLastChild(MbElement.TYPE_NAME_VALUE,salary.getName(),salary.getValue());
-				
-				dfdlbody = dfdlbody.getNextSibling();
-				
-			}
-			
+			MbElement localEnvironment_Destination = localEnvironment.getRootElement().createElementAsLastChild(MbElement.TYPE_NAME,"Destination",null);
+			MbElement localEnvironment_Destination_HTTP = localEnvironment_Destination.createElementAsLastChild(MbElement.TYPE_NAME,"HTTP",null);
+			//localEnvironment_Destination_HTTP.createElementAsLastChild(MbElement.TYPE_NAME_VALUE,"RequestURL","http://echo.jsontest.com/key/value/one/two");
+			//localEnvironment_Destination_HTTP.createElementAsLastChild(MbElement.TYPE_NAME_VALUE,"RequestURL","http://fake-json-api.mock.beeceptor.com/user/1");
+			localEnvironment_Destination_HTTP.createElementAsLastChild(MbElement.TYPE_NAME_VALUE,"RequestURL","http://postman-echo.com/get?test=123");
 			
 			
 			// End of user code
