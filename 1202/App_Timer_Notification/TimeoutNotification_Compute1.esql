@@ -1,0 +1,13 @@
+
+
+CREATE COMPUTE MODULE TimeoutNotification_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot = InputRoot;
+		set OutputLocalEnvironment.TimeoutRequest.Action = 'SET';
+		set OutputLocalEnvironment.TimeoutRequest.Identifier = 'ID1';
+		RETURN TRUE;
+	END;
+
+END MODULE;
+
