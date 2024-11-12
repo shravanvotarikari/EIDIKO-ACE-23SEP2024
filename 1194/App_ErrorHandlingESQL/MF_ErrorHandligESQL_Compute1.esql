@@ -1,0 +1,14 @@
+
+
+CREATE COMPUTE MODULE MF_ErrorHandligESQL_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputExceptionList;
+--		Fetch last Text field from ExceptionList and give it as output, that is called Error Handling in ESQL.
+	END;
+END MODULE;
