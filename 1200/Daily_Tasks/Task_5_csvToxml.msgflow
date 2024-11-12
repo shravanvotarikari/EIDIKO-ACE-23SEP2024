@@ -9,7 +9,7 @@
       <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="575,89" queueName="task5_xml" destinationQueueManagerName="newManager">
         <translation xmi:type="utility:ConstantString" string="MQ Output"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="341,88" computeExpression="esql://routine/#Task_5_csvToxml_Compute.Main">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="341,88" transaction="commit" computeExpression="esql://routine/#Task_5_csvToxml_Compute.Main">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
       <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="115,86" queueName="task5_csv" destinationQueueManagerName="newManager" messageDomainProperty="DFDL" messageTypeProperty="{}:Task5_csvToxml" validateTiming="immediate">
