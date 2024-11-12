@@ -1,0 +1,20 @@
+
+
+CREATE COMPUTE MODULE postPostrest_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 
+		 
+		 declare inref REFERENCE To InputRoot.JSON.Data.clientTransactionId;
+		 
+		 IF inref = 'FT10123532789510' then
+		 
+		 Set OutputRoot.JSON.Data.Status = 'success';
+		 end if;
+		 
+		 
+		RETURN TRUE;
+	END;
+END MODULE;
+
+
