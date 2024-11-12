@@ -1,0 +1,12 @@
+
+
+CREATE COMPUTE MODULE getRead_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		DECLARE REF ROW;
+		SET REF.data[] = SELECT S.EMP_ID,S.EMP_NAME FROM Database.SOAP_CRUD AS S WHERE S.EMP_ID = InputLocalEnvironment.REST.Input.Parameters.EMP_ID;
+		Set OutputRoot.JSON.Data.value = REF;
+		RETURN TRUE;
+	END;
+END MODULE;
