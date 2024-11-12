@@ -6,13 +6,13 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/APP_DB_Logging/icons/full/obj16/MF_DB_Logging.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/APP_DB_Logging/icons/full/obj30/MF_DB_Logging.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="126,81" URLSpecifier="/path1" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="78,70" URLSpecifier="/path1" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="550,66">
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="557,55">
         <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="336,119" dataSource="APURVADSN" computeExpression="esql://routine/#MF_DB_Logging_Compute.Main">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="320,184" dataSource="ORADSN" computeExpression="esql://routine/#MF_DB_Logging_Compute.Main">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
