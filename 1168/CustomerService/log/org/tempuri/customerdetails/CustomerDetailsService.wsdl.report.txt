@@ -1,0 +1,27 @@
+
+
+Importing file: C:\Users\MORYA\Downloads\SOAPINPUT\CustomerDetailsService.wsdl
+
+The WSDL import will proceed with bindings CustomerDetailsSOAP_HTTP_Binding.
+Creating wsdl schema document for file:///C:/Users/MORYA/Downloads/SOAPINPUT/CustomerDetailsService.wsdl.
+Parsing wsdl binding {http://tempuri.org/CustomerDetails}CustomerDetailsSOAP_HTTP_Binding.
+Parsing wsdl binding input GetCustomer.
+Parsing wsdl binding output GetCustomer.
+Parsing wsdl binding fault GetCustomer_Fault.
+Parsing wsdl binding input AddCustomer.
+Parsing wsdl binding output AddCustomer.
+Parsing wsdl binding fault AddCustomer_Fault.
+Processing doc style for operation GetCustomer.
+Processing doc style for operation AddCustomer.
+Populating WSDL schema CustomerDetailsService.xsd.
+Creating file CustomerDetailsService.xsd in the workspace.
+Creating file CustomerDetailsService_InlineSchema1.xsd in the workspace.
+Copying source WSDL CustomerDetailsService.wsdl to CustomerDetailsService.wsdl.
+
+Elapsed time processing this message definition file: 0.122 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+

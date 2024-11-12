@@ -1,0 +1,107 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "CRUD_Operations",
+    "version" : "1.0.0",
+    "description" : "CRUD_Operations"
+  },
+  "paths" : {
+    "/adddetails" : {
+      "post" : {
+        "operationId" : "postdetails",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Insert a adddetails",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "type" : "number"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        }, {
+          "name" : "Cust_Id",
+          "in" : "query",
+          "type" : "boolean"
+        }, {
+          "name" : "Cust_name",
+          "in" : "query",
+          "type" : "number"
+        }, {
+          "name" : "Cust_address",
+          "in" : "query",
+          "type" : "string"
+        }, {
+          "name" : "Cust_balance",
+          "in" : "query",
+          "type" : "boolean"
+        } ]
+      },
+      "get" : {
+        "operationId" : "getdetails",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve adddetails",
+        "parameters" : [ {
+          "name" : "Cust_Id",
+          "in" : "query",
+          "type" : "string"
+        } ]
+      },
+      "put" : {
+        "operationId" : "putAdddetails",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Update adddetails",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "type" : "string"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        }, {
+          "name" : "Cust_balance",
+          "in" : "query",
+          "type" : "string"
+        } ]
+      },
+      "delete" : {
+        "operationId" : "deleteAdddetails",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Remove from adddetails",
+        "parameters" : [ {
+          "name" : "Cust_Id",
+          "in" : "query",
+          "type" : "boolean",
+          "required" : false
+        } ]
+      }
+    }
+  },
+  "basePath" : "/crud_operations/v1"
+}

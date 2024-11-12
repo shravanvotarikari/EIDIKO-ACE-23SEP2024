@@ -1,0 +1,17 @@
+
+
+CREATE COMPUTE MODULE TimeoutNotification_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		-- CALL CopyEntireMessage();
+		
+		insert into Database.TIMER VALUES (cast(CURRENT_TIMESTAMP as character format 'dd/MM/yyyy-hh-mm-sss'));
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;

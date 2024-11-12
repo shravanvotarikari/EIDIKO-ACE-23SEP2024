@@ -1,0 +1,36 @@
+BROKER SCHEMA GetCustomer.Subflow
+
+DECLARE soapenv NAMESPACE 'http://schemas.xmlsoap.org/soap/envelope/';
+DECLARE cus NAMESPACE 'http://tempuri.org/CustomerDetails';
+
+CREATE COMPUTE MODULE GetCustomer_Subflow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE inRef reference to InputRoot.SOAP.BODY.*:GetCustomerRequest;
+		
+		DECLARE Sakshi ROW;
+		
+		SET Sakshi.res[] = select R from Database.SYSTEM.CUST_DETAILS as R where R.Cust_ID = 135;
+		
+		--IF not exists(DBFetch.Results[]) then
+			--throw user exception message 9873 values('No record found in Database');
+			
+		--End if;
+		
+		SET OutputRoot.SOAP.Context.SOAP.Namespace.(XMLNSC.NamespaceDecl)xmlns:soapenv = soapenv;
+		SET OutputRoot.SOAP.Context.SOAP.Namespace.(XMLNSC.NamespaceDecl)xmlns:cus = cus;
+
+			
+		CREATE FIELD OutputRoot.SOAP.Body.cus:GetCustomerResponse;
+		DECLARE outRef reference to OutputRoot.SOAP.Body.cus:GetCustomerResponse;
+		
+		SET outRef.cus:CustId = Sakshi.res[1].CUST_ID;
+		SET outRef.cus:CustName = Sakshi.res[1].CUST_NAME;
+		SET outRef.cus:CustType = Sakshi.res[1].CUST_TYPE;
+		SET outRef.cus:CustTel = Sakshi.res[1].CUST_TEL;
+		SET outRef.cus:CustEmail = Sakshi.res[1].CUST_EMAIL;
+		
+		
+		RETURN TRUE;
+	END;
+END MODULE;

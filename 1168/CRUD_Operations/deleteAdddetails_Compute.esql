@@ -1,0 +1,22 @@
+
+
+CREATE COMPUTE MODULE deleteAdddetails_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+				--DECLARE ref REFERENCE TO InputRoot.JSON.Data.Res;
+		
+		--DELETE FROM Database.CUST_DETAIL AS a WHERE a.Cust_Id = ref.Cust_Id;
+		
+		--SET OutputRoot.JSON.Data.Result[] = SELECT * FROM Database.CUST_DETAIL;
+		
+		DELETE FROM Database.CUST_DETAIL AS R WHERE R.Cust_Id = InputLocalEnvironment.REST.Input.Parameters.Cust_Id;
+	END;
+END MODULE;

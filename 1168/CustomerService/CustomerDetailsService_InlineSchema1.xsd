@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://tempuri.org/CustomerDetails" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:mrm="http://tempuri.org/CustomerDetails" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://tempuri.org/CustomerDetails" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://tempuri.org/CustomerDetails">
+        
+  <xsd:complexType name="GetCustomerRequest">
+            
+    <xsd:sequence>
+                
+      <xsd:element ref="mrm:CustId"/>
+              
+    </xsd:sequence>
+          
+  </xsd:complexType>
+        
+  <xsd:complexType name="GetCustomerResponse">
+            
+    <xsd:sequence>
+                
+      <xsd:element ref="mrm:CustId"/>
+                
+      <xsd:element ref="mrm:CustName"/>
+                
+      <xsd:element ref="mrm:CustType"/>
+                
+      <xsd:element ref="mrm:CustTel"/>
+                
+      <xsd:element ref="mrm:CustEmail"/>
+              
+    </xsd:sequence>
+          
+  </xsd:complexType>
+        
+  <xsd:element name="CustId" type="xsd:int"/>
+        
+  <xsd:element name="CustName" type="xsd:string"/>
+        
+  <xsd:element name="CustType" type="xsd:string"/>
+        
+  <xsd:element name="CustTel" type="xsd:string"/>
+        
+  <xsd:element name="CustEmail" type="xsd:string"/>
+        
+  <xsd:element name="Message" type="xsd:string"/>
+        
+  <xsd:element name="Fcode" type="xsd:string"/>
+        
+  <xsd:element name="Fstring" type="xsd:string"/>
+        
+  <xsd:complexType name="AddCustomerRequest">
+            
+    <xsd:sequence>
+                
+      <xsd:element ref="mrm:CustId"/>
+                
+      <xsd:element ref="mrm:CustName"/>
+                
+      <xsd:element ref="mrm:CustType"/>
+                
+      <xsd:element ref="mrm:CustTel"/>
+                
+      <xsd:element ref="mrm:CustEmail"/>
+              
+    </xsd:sequence>
+          
+  </xsd:complexType>
+        
+  <xsd:complexType name="AddCustomerResponse">
+            
+    <xsd:sequence>
+                
+      <xsd:element ref="mrm:Message"/>
+              
+    </xsd:sequence>
+          
+  </xsd:complexType>
+        
+  <xsd:complexType name="Fault">
+            
+    <xsd:sequence>
+                
+      <xsd:element ref="mrm:Fcode"/>
+                
+      <xsd:element ref="mrm:Fstring"/>
+              
+    </xsd:sequence>
+          
+  </xsd:complexType>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="GetCustomerRequest" type="mrm:GetCustomerRequest"/>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="GetCustomerResponse" type="mrm:GetCustomerResponse"/>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="AddCustomerRequest" type="mrm:AddCustomerRequest"/>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="AddCustomerResponse" type="mrm:AddCustomerResponse"/>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="Fault" type="mrm:Fault"/>
+      
+</xsd:schema>
