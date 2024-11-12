@@ -1,31 +1,33 @@
-DECLARE var12 EXTERNAL CHARACTER 'C:\Users\Sreenivas Bandaru\Documents\FileLoggingUsingLog4j\Log4jConfigurationFile.xml';
-DECLARE var1 Boolean; 
+DECLARE configurationFilePath EXTERNAL CHARACTER 'C:\Users\Sreenivas Bandaru\Documents\FileLoggingUsingLog4j\Log4jConfigurationFile.xml';
+DECLARE bool BOOLEAN;
 
 CREATE COMPUTE MODULE MF_FileLoggingLog4j_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		call log(var12) into var1;
+		CALL log(configurationFilePath) INTO bool;
 		CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		DECLARE inreq,inres CHARACTER;
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
 		
-		set OutputRoot.JSON.Data=InputRoot.XMLNSC;
-		set inreq=CAST(ASBITSTREAM(InputRoot.XMLNSC) as character ccsid  InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
-		set inres=CAST(ASBITSTREAM(OutputRoot.JSON.Data) as character ccsid  InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
-	    call writing(MessageFlowLabel,'dco_debug','debug', 'Application_data: ' || inreq) into var1;
-		call writing(MessageFlowLabel,'dco_info','info', 'Application_data: ' || inres) into var1;
+		DECLARE inData, outData CHARACTER;
+		
+		SET inData = CAST(ASBITSTREAM(InputRoot.XMLNSC) AS CHARACTER CCSID 1208 ENCODING 546);
+		CALL logging(MessageFlowLabel, 'dco_debug', 'DEBUG', inData) into bool;
+		
+		SET outData = CAST(ASBITSTREAM(OutputRoot.JSON.Data) AS CHARACTER CCSID 1208 ENCODING 546);
+		CALL logging(MessageFlowLabel, 'dco_info', 'INFO', outData) into bool;
 	END;
 END MODULE;
 
-create FUNCTION writing(in mfname CHARACTER, in logger_name CHARACTER, in level CHARACTER , in data CHARACTER)
-RETURNS boolean
+CREATE FUNCTION logging(IN msgFlowLabel CHARACTER, IN loggerName CHARACTER, IN loggerLevel CHARACTER, IN data CHARACTER)
+RETURNS BOOLEAN
 LANGUAGE JAVA
 EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
 
-create FUNCTION log(in configure CHARACTER) 
+CREATE FUNCTION log(IN configurationFilePath CHARACTER)
 RETURNS BOOLEAN
-language JAVA
+LANGUAGE JAVA
 EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
