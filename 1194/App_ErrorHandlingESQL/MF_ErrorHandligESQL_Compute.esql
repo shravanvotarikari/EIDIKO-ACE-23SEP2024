@@ -1,0 +1,16 @@
+
+
+CREATE COMPUTE MODULE MF_ErrorHandligESQL_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		To activate failure terminal, generate exception at input node by giving wrong xml data as input.
+--		To activate catch terminal, generate exception after input node by using throw node.
+		PROPAGATE TO TERMINAL 'out1';
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;

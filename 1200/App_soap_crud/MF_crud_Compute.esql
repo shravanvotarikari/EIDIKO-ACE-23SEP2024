@@ -1,0 +1,39 @@
+Declare ns NAMESPACE 'http://www.example.org/NewWSDLFile/';
+CREATE COMPUTE MODULE MF_crud_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		  
+	IF InputRoot.SOAP.Context.operation = 'create' THEN
+		
+		INSERT INTO Database.soap_crud (emp_id,emp_name) VALUES (InputRoot.SOAP.Body.ns:create.emp_id,InputRoot.SOAP.Body.ns:create.emp_name);		
+	
+		SET OutputRoot.SOAP.Body.ns:createResponse.out = 'Success';
+		
+	ELSEIF  InputRoot.SOAP.Context.operation = 'read' THEN
+		
+				DECLARE rec ROW;
+			SET rec.i[] = SELECT s.emp_name FROM Database.SOAP_CRUD AS s WHERE s.emp_id = InputRoot.SOAP.Body.ns:read.emp_id;
+			SET OutputRoot.SOAP.Body.ns:readResponse.out = rec.i[1];
+		
+		
+	ELSEIF  InputRoot.SOAP.Context.operation = 'update' THEN
+		
+		
+		update Database.SOAP_CRUD AS s SET emp_name = InputRoot.SOAP.Body.ns:update.emp_name WHERE s.emp_id = InputRoot.SOAP.Body.ns:update.emp_id;
+			SET OutputRoot.SOAP.Body.ns:updateResponse.out = 'Success';
+			
+			
+	ELSEif  InputRoot.SOAP.Context.operation = 'delete' THEN
+		
+		
+			DELETE FROM Database.SOAP_CRUD AS s WHERE s.emp_id =  InputRoot.SOAP.Body.ns:delete.emp_id;			
+			SET OutputRoot.SOAP.Body.ns:deleteResponse.out = 'Success';
+			
+	END IF;
+	END;
+END MODULE;

@@ -1,0 +1,31 @@
+
+
+Importing file: C:\workspaces\message_model\App_soap_crud\NewWSDLFile.wsdl
+
+The WSDL import will proceed with bindings NewWSDLFileSOAP.
+Creating wsdl schema document for file:///C:/workspaces/message_model/App_soap_crud/NewWSDLFile.wsdl.
+Parsing wsdl binding {http://www.example.org/NewWSDLFile/}NewWSDLFileSOAP.
+Parsing wsdl binding input create.
+Parsing wsdl binding output create.
+Parsing wsdl binding input read.
+Parsing wsdl binding output read.
+Parsing wsdl binding input update.
+Parsing wsdl binding output update.
+Parsing wsdl binding input delete.
+Parsing wsdl binding output delete.
+Processing doc style for operation create.
+Processing doc style for operation read.
+Processing doc style for operation update.
+Processing doc style for operation delete.
+Populating WSDL schema NewWSDLFile.xsd.
+Creating file NewWSDLFile.xsd in the workspace.
+Creating file NewWSDLFile_InlineSchema1.xsd in the workspace.
+Copying source WSDL NewWSDLFile.wsdl to NewWSDLFile.wsdl.
+
+Elapsed time processing this message definition file: 1.159 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+
