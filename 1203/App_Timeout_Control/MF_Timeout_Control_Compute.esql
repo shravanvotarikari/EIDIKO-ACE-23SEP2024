@@ -1,6 +1,6 @@
 
 
-CREATE COMPUTE MODULE MF_timer_control_Compute
+CREATE COMPUTE MODULE MF_Timeout_Control_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();

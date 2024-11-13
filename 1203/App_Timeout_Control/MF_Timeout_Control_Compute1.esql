@@ -1,6 +1,6 @@
 
 
-CREATE COMPUTE MODULE MF_timer_control_Compute1
+CREATE COMPUTE MODULE MF_Timeout_Control_Compute1
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
@@ -8,9 +8,13 @@ CREATE COMPUTE MODULE MF_timer_control_Compute1
 		RETURN TRUE;
 	END;
 
+
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		SET OutputRoot = InputRoot;
 		SET OutputLocalEnvironment.TimeoutRequest.Action = 'SET';
-		SET OutputLocalEnvironment.TimeoutRequest.Identifier = 'a';
+		SET OutputLocalEnvironment.TimeoutRequest.Interval = '1800';
+		SET OutputLocalEnvironment.TimeoutRequest.IgnoreMissed = 'True';
+		SET OutputLocalEnvironment.TimeoutRequest.Identifier = 'ID';
+		
 	END;
 END MODULE;
