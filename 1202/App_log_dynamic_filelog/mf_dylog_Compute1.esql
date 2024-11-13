@@ -1,0 +1,9 @@
+
+
+CREATE COMPUTE MODULE mf_dylog_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		set OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		RETURN TRUE;
+	END;
+END MODULE;

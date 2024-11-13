@@ -1,0 +1,30 @@
+
+
+CREATE COMPUTE MODULE mf_dylog_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE str CHARACTER;
+		
+		--set OutputLocalEnvironment.var = FIELDNAME(InputRoot.*[<]);
+		IF FIELDNAME(InputRoot.*[<]) = 'XMLNSC' THEN
+			set str = 'Input  --  '||cast(ASBITSTREAM(InputRoot.XMLNSC) as CHARACTER CCSID 1208 encoding 546);
+			--declare outstr CHARACTER ;
+			--set outstr = 'Time - '||cast(CURRENT_TIMESTAMP as CHARACTER ccsid 1208 ENCODING 546)||'  Log Data--  '||str;
+			--declare nline BLOB '0a';
+			set OutputRoot.DFDL.csvlog.record.time = cast(CURRENT_TIMESTAMP as CHARACTER ccsid 1208 ENCODING 546);
+			set OutputRoot.DFDL.csvlog.record.data = str;
+		
+		elseif FIELDNAME(InputRoot.*[<]) = 'JSON' then
+			set str = 'Output  --  '||cast(ASBITSTREAM(InputRoot.JSON.Data) as CHARACTER CCSID 1208 encoding 546);
+			set OutputRoot.DFDL.csvlog.record.time = cast(CURRENT_TIMESTAMP as CHARACTER ccsid 1208 ENCODING 546);
+			set OutputRoot.DFDL.csvlog.record.data = str;
+		END IF;
+		
+		
+		
+	--	set OutputLocalEnvironment.in = InputRoot;
+		RETURN TRUE;
+	END;
+
+	
+END MODULE;
