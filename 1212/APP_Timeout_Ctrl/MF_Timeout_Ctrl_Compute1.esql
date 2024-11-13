@@ -1,10 +1,10 @@
 
 
-CREATE COMPUTE MODULE MF_Timer_Notification_Compute
+CREATE COMPUTE MODULE MF_Timeout_Ctrl_Compute1
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
-		CALL CopyEntireMessage();
+		 CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
 
@@ -19,6 +19,11 @@ CREATE COMPUTE MODULE MF_Timer_Notification_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		INSERT INTO Database.Timer VALUES(CAST(CURRENT_TIMESTAMP AS CHARACTER FORMAT 'yyyy-mm-dd:hh:mm:ss'));
+		SET OutputRoot = InputRoot;
+		SET OutputLocalEnvironment.TimeoutRequest.Action = 'SET';
+		SET OutputLocalEnvironment.TimeoutRequest.Interval = '1800';
+		SET OutputLocalEnvironment.TimeoutRequest.IgnoreMissed = 'True';
+		SET OutputLocalEnvironment.TimeoutRequest.Identifier = 'T1';
+		
 	END;
 END MODULE;
