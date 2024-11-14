@@ -19,6 +19,7 @@ CREATE COMPUTE MODULE MF_FileLoggingLog4j_Compute
 		
 		SET outData = CAST(ASBITSTREAM(OutputRoot.JSON.Data) AS CHARACTER CCSID 1208 ENCODING 546);
 		CALL logging(MessageFlowLabel, 'dco_info', 'INFO', outData) into bool;
+		
 	END;
 END MODULE;
 
