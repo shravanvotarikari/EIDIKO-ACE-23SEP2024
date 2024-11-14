@@ -11,10 +11,30 @@ CREATE COMPUTE MODULE MF_Timeout_Control_Compute1
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		SET OutputRoot = InputRoot;
-		SET OutputLocalEnvironment.TimeoutRequest.Action = 'SET';
-		SET OutputLocalEnvironment.TimeoutRequest.Interval = '1800';
-		SET OutputLocalEnvironment.TimeoutRequest.IgnoreMissed = 'True';
+		--overriding properties from XMLNSC 
+		--In TimeoutControl Node Specify : Request Location : InputRoot.XMLNSC.RequestTimeout
+		
+--		SET OutputRoot.XMLNSC.TimeoutRequest.Action = 'SET';
+--		SET OutputRoot.XMLNSC.TimeoutRequest.StartTime = CURRENT_TIME;
+--		SET OutputRoot.XMLNSC.TimeoutRequest.StartDate = CURRENT_DATE;
+--		SET OutputRoot.XMLNSC.TimeoutRequest.Interval = '20';
+--		SET OutputRoot.XMLNSC.TimeoutRequest.Count = '2';
+--		SET OutputRoot.XMLNSC.TimeoutRequest.IgnoreMissed = 'True';
+--		SET OutputRoot.XMLNSC.TimeoutRequest.AllowOverwrite = 'True';
+--		SET OutputRoot.XMLNSC.TimeoutRequest.Identifier = 'ID';
+--		
+		 --using local environment no need to specify Request Location
+        SET OutputLocalEnvironment.TimeoutRequest.Action = 'SET';
+		SET OutputLocalEnvironment.TimeoutRequest.StartTime = CURRENT_TIME;
+		SET OutputLocalEnvironment.TimeoutRequest.StartDate = CURRENT_DATE;
+		SET OutputLocalEnvironment.TimeoutRequest.Interval = '60';
+		SET OutputLocalEnvironment.TimeoutRequest.Count = '2';
+		SET OutputLocalEnvironment.TimeoutRequest.IgnoreMissed = 'False';
+		SET OutputLocalEnvironment.TimeoutRequest.AllowOverwrite = 'True';
 		SET OutputLocalEnvironment.TimeoutRequest.Identifier = 'ID';
 		
+
+
+		 
 	END;
 END MODULE;
