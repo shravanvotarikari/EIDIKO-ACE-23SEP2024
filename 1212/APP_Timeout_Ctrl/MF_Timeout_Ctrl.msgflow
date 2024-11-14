@@ -10,19 +10,19 @@
       <nodes xmi:type="ComIbmTimeoutNotification.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="62,49" uniqueIdentifier="T1" transactionMode="automatic" operationMode="controlled">
         <translation xmi:type="utility:ConstantString" string="Timeout Notification"/>
       </nodes>
-      <nodes xmi:type="ComIbmTimeoutControl.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="481,136" uniqueIdentifier="T1" requestPersistence="yes" messageDomain="XMLNSC">
+      <nodes xmi:type="ComIbmTimeoutControl.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="509,137" uniqueIdentifier="T1" requestPersistence="yes" messageDomain="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="Timeout Control"/>
       </nodes>
       <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="59,135" queueName="q1" destinationQueueManagerName="QM1">
         <translation xmi:type="utility:ConstantString" string="MQ Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="269,135" transaction="commit" computeExpression="esql://routine/#MF_Timeout_Ctrl_Compute1.Main" computeMode="destinationAndMessage">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="289,134" transaction="commit" computeExpression="esql://routine/#MF_Timeout_Ctrl_Compute1.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="Compute1"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="284,48" computeExpression="esql://routine/#MF_Timeout_Ctrl_Compute.Main">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="512,67" queueName="q2" destinationQueueManagerName="QM1">
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="522,47" queueName="q2" destinationQueueManagerName="QM1">
         <translation xmi:type="utility:ConstantString" string="MQ Output"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
