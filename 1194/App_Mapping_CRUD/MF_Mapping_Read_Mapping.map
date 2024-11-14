@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <inlinedXMLSchema>
+        <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+    
+     
+         
+    
+       
+         
+    
+       
+         
+    
+       
+     
+  
+     
+  <xsd:element name="Employee" nillable="true"> 
+    <xsd:complexType> 
+      <xsd:sequence> 
+        <xsd:element name="name" nillable="true" type="xsd:string"/> 
+        <xsd:element name="id" nillable="true" type="xsd:integer"/> 
+        <xsd:element name="city" nillable="true" type="xsd:string"/> 
+      </xsd:sequence> 
+    </xsd:complexType> 
+  </xsd:element> 
+   
+</xsd:schema> 
+]]>
+    </inlinedXMLSchema>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var2"/>
+    <input path="db:database(/xe.dbm,xe,db:schema-tables(SYSTEM,AVISHKAR))" var="xe1"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="out" uri="http://www.ibm.com/iib/msl/json"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="MF_Mapping_Read_Mapping">
+        <input path="$xe1/db:select(fn:false(),ResultSet(SYSTEM/AVISHKAR/NAME,SYSTEM/AVISHKAR/ID,SYSTEM/AVISHKAR/CITY),db:where('1=1'))" var="dbselect1"/>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var/mb:msg(JSON,assembly,JSON,Properties)">
+            <cast castType="userDefined" path="JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var"/>
+            <cast castType="userDefined" path="JSON/spath('Data',2)/any" qualifier="Employee" ref="var2"/>
+        </output>
+        <move>
+            <input path="$dbselect1/ResultSet[1]/SYSTEM/AVISHKAR/NAME"/>
+            <output path="JSON/spath('Data',2)/Employee/name"/>
+        </move>
+        <move>
+            <input path="$dbselect1/ResultSet[1]/SYSTEM/AVISHKAR/ID"/>
+            <output path="JSON/spath('Data',2)/Employee/id"/>
+        </move>
+        <move>
+            <input path="$dbselect1/ResultSet[1]/SYSTEM/AVISHKAR/CITY"/>
+            <output path="JSON/spath('Data',2)/Employee/city"/>
+        </move>
+    </mappingDeclaration>
+</mappingRoot>
