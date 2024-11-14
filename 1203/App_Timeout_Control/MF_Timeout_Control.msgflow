@@ -10,7 +10,7 @@
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="235,133" computeExpression="esql://routine/#MF_Timeout_Control_Compute1.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="Compute1"/>
       </nodes>
-      <nodes xmi:type="ComIbmTimeoutControl.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="445,140" uniqueIdentifier="ID">
+      <nodes xmi:type="ComIbmTimeoutControl.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="445,140" uniqueIdentifier="ID" requestPersistence="yes">
         <translation xmi:type="utility:ConstantString" string="Timeout Control"/>
       </nodes>
       <nodes xmi:type="ComIbmTimeoutNotification.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="154,20" uniqueIdentifier="ID" operationMode="controlled">
