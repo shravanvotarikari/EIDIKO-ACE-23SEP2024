@@ -20,6 +20,8 @@ CREATE COMPUTE MODULE MF_Timeout_Ctrl_Compute1
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		--SET OutputRoot = InputRoot;
+		
+
 --		
 --		SET OutputRoot.XMLNSC.TimeoutRequest.Action = 'SET';
 --		SET OutputRoot.XMLNSC.TimeoutRequest.StartTime = CURRENT_TIME;
@@ -35,7 +37,7 @@ CREATE COMPUTE MODULE MF_Timeout_Ctrl_Compute1
 		SET OutputLocalEnvironment.TimeoutRequest.StartDate = CURRENT_DATE;
 		SET OutputLocalEnvironment.TimeoutRequest.Interval = '60';
 		SET OutputLocalEnvironment.TimeoutRequest.Count = '4';
-		SET OutputLocalEnvironment.TimeoutRequest.IgnoreMissed = 'True';
+		SET OutputLocalEnvironment.TimeoutRequest.IgnoreMissed = 'False';
 		SET OutputLocalEnvironment.TimeoutRequest.AllowOverwrite = 'True';
 		SET OutputLocalEnvironment.TimeoutRequest.Identifier = 'T1';
 		

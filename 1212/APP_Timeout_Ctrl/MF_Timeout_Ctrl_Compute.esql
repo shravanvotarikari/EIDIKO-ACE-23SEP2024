@@ -4,7 +4,7 @@ CREATE COMPUTE MODULE MF_Timeout_Ctrl_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
-		-- CALL CopyEntireMessage();
+		 CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
 
@@ -19,6 +19,6 @@ CREATE COMPUTE MODULE MF_Timeout_Ctrl_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputRoot = InputRoot;
+		SET OutputRoot.XMLNSC.data  =  'hello';
 	END;
 END MODULE;
