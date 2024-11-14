@@ -1,0 +1,28 @@
+
+
+CREATE COMPUTE MODULE postGetStudentEligibility_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		
+		IF InputRoot.JSON.Data.studentDetails.Student_name <> '' THEN
+			
+			IF InputRoot.JSON.Data.studentDetails.Student_class = 'Senior' THEN
+				
+				SET OutputRoot.JSON.Data.Outputdetail.EligibiltyStatus = 'Student' || InputRoot.JSON.Data.studentDetails.Student_id || 'is_eligible';
+			
+			END IF;
+		
+		ELSE
+			
+			SET OutputRoot.JSON.Data.Outputdetail.EligibiltyStatus = 'Student name is empty';
+			
+		END IF;
+		
+		
+		
+		
+		RETURN TRUE;
+	END;
+
+	END MODULE;

@@ -1,0 +1,35 @@
+
+
+CREATE COMPUTE MODULE MF_dynamic_file_log_Compute_dfdl
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		SET OutputLocalEnvironment.Destination.File.Name = 'AuditLog_' || CAST(CURRENT_DATE AS CHARACTER FORMAT 'DD-MM-yyyy');
+		
+		Set OutputRoot.DFDL.log.body.Application_name = ApplicationLabel;
+		Set OutputRoot.DFDL.log.body.Messageflow_name = MessageFlowLabel;
+		Set OutputRoot.DFDL.log.body.Node_name = BrokerName;
+		Set OutputRoot.DFDL.log.body.EG_name = ExecutionGroupLabel;
+		Set OutputRoot.DFDL.log.body.ChannelId = '1211';
+		Set OutputRoot.DFDL.log.body.RequestId = InputLocalEnvironment.Destination.HTTP.RequestIdentifier;
+		Set OutputRoot.DFDL.log.body.Request_time = CAST( CURRENT_TIMESTAMP as CHARACTER);
+		Set OutputRoot.DFDL.log.body.Request_message = CAST(ASBITSTREAM(InputRoot.XMLNSC) AS CHARACTER CCSID 1208);
+		DECLARE returnValue BOOLEAN;
+		SET returnValue = SLEEP(1000); 
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		Set OutputRoot.DFDL.log.body.Responsee_Time = CAST( CURRENT_TIMESTAMP as CHARACTER);
+		Set OutputRoot.DFDL.log.body.Response_message = CAST(ASBITSTREAM(OutputRoot.JSON.Data) AS CHARACTER CCSID 1208);
+		SET OutputRoot.JSON = null;
+		propagate TO TERMINAL 'out1';
+
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		SET OutputRoot.DFDL = null;
+		propagate TO TERMINAL 'out';
+		
+	END;
+END MODULE;

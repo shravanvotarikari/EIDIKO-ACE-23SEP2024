@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <input path="db:database(/xe.dbm,xe,db:schema-tables(SYSTEM,MAP_CRUD))" var="xe"/>
+    <input path="/data%20(2).xsd" var="var"/>
+    <output path="/data%20(2).xsd"/>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="MF_Select_Mapping">
+        <input path="$xe/db:select(fn:false(),ResultSet(SYSTEM/MAP_CRUD/ID,SYSTEM/MAP_CRUD/FNAME,SYSTEM/MAP_CRUD/LNAME,SYSTEM/MAP_CRUD/DEPT,SYSTEM/MAP_CRUD/SAL),db:where('SYSTEM.MAP_CRUD.ID =  ?','?'=$MessageAssembly/employee/employee_id))" var="dbselect"/>
+        <input path="$var/mb:msg(employee,assembly,XMLNSC,Properties)" var="MessageAssembly"/>
+        <output path="mb:msg(employee,assembly,XMLNSC,Properties)" var="MessageAssembly1"/>
+        <move>
+            <input path="$dbselect/ResultSet/SYSTEM/MAP_CRUD/ID"/>
+            <output path="$MessageAssembly1/employee/employee_id"/>
+        </move>
+        <move>
+            <input path="$dbselect/ResultSet/SYSTEM/MAP_CRUD/FNAME"/>
+            <output path="$MessageAssembly1/employee/first_name"/>
+        </move>
+        <move>
+            <input path="$dbselect/ResultSet/SYSTEM/MAP_CRUD/LNAME"/>
+            <output path="$MessageAssembly1/employee/last_name"/>
+        </move>
+        <move>
+            <input path="$dbselect/ResultSet/SYSTEM/MAP_CRUD/DEPT"/>
+            <output path="$MessageAssembly1/employee/department"/>
+        </move>
+        <move>
+            <input path="$dbselect/ResultSet/SYSTEM/MAP_CRUD/SAL"/>
+            <output path="$MessageAssembly1/employee/salary"/>
+        </move>
+    </mappingDeclaration>
+</mappingRoot>

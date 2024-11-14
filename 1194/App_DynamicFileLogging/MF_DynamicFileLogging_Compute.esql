@@ -1,0 +1,33 @@
+DECLARE reqId SHARED INTEGER 1;
+
+CREATE COMPUTE MODULE MF_DynamicFileLogging_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		SET OutputRoot.DFDL.csvSchemaLogging.record.appName = CAST(ApplicationLabel AS CHARACTER CCSID 1208 ENCODING 546);
+		SET OutputRoot.DFDL.csvSchemaLogging.record.mfName = CAST(MessageFlowLabel AS CHARACTER CCSID 1208 ENCODING 546);
+		SET OutputRoot.DFDL.csvSchemaLogging.record.nodeName = CAST(BrokerName AS CHARACTER CCSID 1208 ENCODING 546);
+		SET OutputRoot.DFDL.csvSchemaLogging.record.serverName = CAST(ExecutionGroupLabel AS CHARACTER CCSID 1208 ENCODING 546);
+		SET OutputRoot.DFDL.csvSchemaLogging.record.channelId = 'NULL';
+		SET OutputRoot.DFDL.csvSchemaLogging.record.requestId = CAST(reqId AS CHARACTER CCSID 1208 ENCODING 546);
+		SET OutputRoot.DFDL.csvSchemaLogging.record.requestTime = CAST(CURRENT_TIMESTAMP AS CHARACTER CCSID 1208 ENCODING 546);
+		SET OutputRoot.DFDL.csvSchemaLogging.record.requestMsg = CAST(ASBITSTREAM(InputRoot.XMLNSC) AS CHARACTER CCSID 1208 ENCODING 546);
+		SET OutputRoot.DFDL.csvSchemaLogging.record.responseTime = CAST(CURRENT_TIMESTAMP AS CHARACTER CCSID 1208 ENCODING 546);
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		SET OutputRoot.DFDL.csvSchemaLogging.record.responseMsg = CAST(ASBITSTREAM(OutputRoot.JSON.Data) AS CHARACTER CCSID 1208 ENCODING 546);
+				
+		SET OutputRoot.JSON = NULL;
+		SET OutputLocalEnvironment.Destination.File.Name = 'AuditLog_' || CAST(CURRENT_DATE AS CHARACTER FORMAT 'dd-MM-yyyy') || '.txt';
+		propagate TO TERMINAL 'out1';
+		SET reqId = reqId + 1;
+		
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		PROPAGATE TO TERMINAL 'out';
+		
+	END;
+END MODULE;

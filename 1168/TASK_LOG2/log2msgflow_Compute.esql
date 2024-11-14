@@ -1,0 +1,79 @@
+DECLARE bool Boolean;
+DECLARE config CHAR;
+
+CREATE COMPUTE MODULE log2msgflow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	--DECLARE MessageFlowLabel CHARACTER 'MyLogger1'; 
+   		 DECLARE backend_request CHARACTER;
+    	DECLARE backend_response CHARACTER;
+    	DECLARE channel_response CHARACTER;
+   		 DECLARE id CHARACTER;
+		--CALL CopyEntireMessage();
+		
+	SET config = 'C:\Users\syste\Music\LOGF\Log4jConfigurationFile (1).xml';
+	
+	CALL log(config) into bool;
+	Declare request CHARACTER;
+		
+	 SET request = CAST(ASBITSTREAM(InputRoot.JSON.Data.Request CCSID InputRoot.Properties.CodedCharSetId) 
+                       AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId);
+                       
+    CALL writing(MessageFlowLabel,'RakeshLogger1','INFO','Channel Request:'||request) INTO bool;
+
+   
+    SET id = CAST(ASBITSTREAM(InputRoot.JSON.Data.Request CCSID InputRoot.Properties.CodedCharSetId)
+    AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId);
+   
+    SET backend_request = request;
+    
+    --CALL writing(MessageFlowLabel,'RakeshLogger1' ,'INFO', 'Backend Request:'||id) INTO bool;
+
+   
+    DECLARE result ROW;
+    DECLARE backend_response_data CHARACTER;
+    
+    DECLARE b CHARACTER;
+    --set b = SUBSTRING(request BEFORE ‘"’ for 3);
+	SET b = SUBSTRING(request AFTER '{"id":"' FOR 3);
+    SET Environment.XMLNSC.data.a[] =PASSTHRU('SELECT * FROM LOG_CHECK WHERE id ='||b);
+    
+    --DECLARE mydata BLOB;
+    --SET mydata=ASBITSTREAM(result CCSID 1208 ENCODING 546);
+    
+    
+    
+    set OutputRoot.XMLNSC.Data.c = Environment.XMLNSC.data.a;
+    
+    CALL writing(MessageFlowLabel,'RakeshLogger1' ,'INFO', 'Backend Request:'||id) INTO bool;
+    
+    SET backend_response_data = CAST(ASBITSTREAM(OutputRoot.XMLNSC.Data CCSID 1208 ENCODING 546) 
+                                     AS CHARACTER CCSID 1208 ENCODING 546);
+
+   
+    CALL writing(MessageFlowLabel,'RakeshLogger1','INFO' , 'backend_response_data'||backend_response_data) INTO bool;
+
+    
+    SET channel_response = '{ "status": "success", "data": ' || backend_response_data || ' }';
+    
+    CALL writing(MessageFlowLabel, 'RakeshLogger1','INFO', 'ChannelResponse:'||channel_response)  INTO bool;
+    
+    
+		RETURN TRUE;
+	END;
+
+	
+	--CREATE PROCEDURE CopyEntireMessage() BEGIN
+	
+	--END;
+END MODULE;
+
+CREATE FUNCTION writing(in mfname CHARACTER, in logger_name CHARACTER, in level CHARACTER, in data CHARACTER)
+RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+
+CREATE FUNCTION log(in CONFIG_FILE_NAME CHARACTER)
+RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";

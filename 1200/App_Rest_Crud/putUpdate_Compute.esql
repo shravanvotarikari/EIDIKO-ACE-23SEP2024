@@ -1,0 +1,13 @@
+
+
+CREATE COMPUTE MODULE putUpdate_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		UPDATE Database.SOAP_CRUD AS S Set EMP_ID = InputLocalEnvironment.REST.Input.Parameters.EMP_ID
+		WHERE S.EMP_NAME = InputLocalEnvironment.REST.Input.Parameters.EMP_NAME;
+		
+		
+		RETURN TRUE;
+	END;
+END MODULE;

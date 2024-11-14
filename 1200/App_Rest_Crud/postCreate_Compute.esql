@@ -1,0 +1,12 @@
+
+
+CREATE COMPUTE MODULE postCreate_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	
+	INSERT INTO Database.soap_crud (emp_id, emp_name ) VALUES (InputLocalEnvironment.REST.Input.Parameters.emp_id, InputLocalEnvironment.REST.Input.Parameters.emp_name);
+	
+		RETURN TRUE;
+	END;
+
+END MODULE;

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/NewWSDLFile/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="NewWSDLFile" targetNamespace="http://www.example.org/NewWSDLFile/">
+  <wsdl:documentation>
+    <wsdl:appinfo source="WMQI_APPINFO">
+      <MRWSDLAppInfo imported="true">
+        <generatedXSD location="NewWSDLFile_InlineSchema1.xsd"/>
+        <binding hasEncoding="false" imported="true" name="NewWSDLFileSOAP" originalBindingStyle="document"/>
+      </MRWSDLAppInfo>
+    </wsdl:appinfo>
+  </wsdl:documentation>
+    
+  <wsdl:types>
+        
+          
+    <xsd:schema xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" targetNamespace="http://www.example.org/NewWSDLFile/">
+      
+      <xsd:include schemaLocation="NewWSDLFile_InlineSchema1.xsd"/>
+    </xsd:schema>
+        
+  </wsdl:types>
+    
+  <wsdl:message name="createRequest">
+        
+    <wsdl:part element="tns:create" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="createResponse">
+        
+    <wsdl:part element="tns:createResponse" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="readRequest">
+      	
+    <wsdl:part element="tns:read" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="readResponse">
+      	
+    <wsdl:part element="tns:readResponse" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="updateRequest">
+      	
+    <wsdl:part element="tns:update" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="updateResponse">
+      	
+    <wsdl:part element="tns:updateResponse" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="deleteRequest">
+      	
+    <wsdl:part element="tns:delete" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:message name="deleteResponse">
+      	
+    <wsdl:part element="tns:deleteResponse" name="parameters"/>
+      
+  </wsdl:message>
+    
+  <wsdl:portType name="NewWSDLFile">
+        
+    <wsdl:operation name="create">
+            
+      <wsdl:input message="tns:createRequest"/>
+            
+      <wsdl:output message="tns:createResponse"/>
+          
+    </wsdl:operation>
+        
+    <wsdl:operation name="read">
+          	
+      <wsdl:input message="tns:readRequest"/>
+          	
+      <wsdl:output message="tns:readResponse"/>
+          
+    </wsdl:operation>
+        
+    <wsdl:operation name="update">
+          	
+      <wsdl:input message="tns:updateRequest"/>
+          	
+      <wsdl:output message="tns:updateResponse"/>
+          
+    </wsdl:operation>
+        
+    <wsdl:operation name="delete">
+          	
+      <wsdl:input message="tns:deleteRequest"/>
+          	
+      <wsdl:output message="tns:deleteResponse"/>
+          
+    </wsdl:operation>
+      
+  </wsdl:portType>
+    
+  <wsdl:binding name="NewWSDLFileSOAP" type="tns:NewWSDLFile">
+      	
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+      	
+    <wsdl:operation name="create">
+        		
+      <soap:operation soapAction="http://www.example.org/NewWSDLFile/create"/>
+        		
+      <wsdl:input>
+          			
+        <soap:body use="literal"/>
+          		
+      </wsdl:input>
+        		
+      <wsdl:output>
+          			
+        <soap:body use="literal"/>
+          		
+      </wsdl:output>
+        	
+    </wsdl:operation>
+      	
+    <wsdl:operation name="read">
+        		
+      <soap:operation soapAction="http://www.example.org/NewWSDLFile/read"/>
+        		
+      <wsdl:input>
+          			
+        <soap:body use="literal"/>
+          		
+      </wsdl:input>
+        		
+      <wsdl:output>
+          			
+        <soap:body use="literal"/>
+          		
+      </wsdl:output>
+        	
+    </wsdl:operation>
+      	
+    <wsdl:operation name="update">
+        		
+      <soap:operation soapAction="http://www.example.org/NewWSDLFile/update"/>
+        		
+      <wsdl:input>
+          			
+        <soap:body use="literal"/>
+          		
+      </wsdl:input>
+        		
+      <wsdl:output>
+          			
+        <soap:body use="literal"/>
+          		
+      </wsdl:output>
+        	
+    </wsdl:operation>
+      	
+    <wsdl:operation name="delete">
+        		
+      <soap:operation soapAction="http://www.example.org/NewWSDLFile/delete"/>
+        		
+      <wsdl:input>
+          			
+        <soap:body use="literal"/>
+          		
+      </wsdl:input>
+        		
+      <wsdl:output>
+          			
+        <soap:body use="literal"/>
+          		
+      </wsdl:output>
+        	
+    </wsdl:operation>
+      
+  </wsdl:binding>
+    
+  <wsdl:service name="NewWSDLFile">
+        
+    <wsdl:port binding="tns:NewWSDLFileSOAP" name="NewWSDLFileSOAP">
+            
+      <soap:address location="http://localhost:7800/"/>
+          
+    </wsdl:port>
+      
+  </wsdl:service>
+  
+</wsdl:definitions>
