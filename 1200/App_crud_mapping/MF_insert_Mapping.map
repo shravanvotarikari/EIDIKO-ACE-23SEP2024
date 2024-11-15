@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <input path="/data.xsd" var="var"/>
+    <input path="jar:file://!com/ibm/msl/mapping/rdb/xsds/dbreturn.xsd" var="var2"/>
+    <output path="db:table(/xe.dbm,xe,SYSTEM,EMPLOYEE_DETAIL)" var="EMPLOYEEDETAIL"/>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="MF_insert_Mapping">
+        <input path="$var/mb:msg(employees,assembly,XMLNSC,Properties)"/>
+        <output path="$EMPLOYEEDETAIL/db:insert(fn:false(),EMPLOYEE_ID,FIRST_NAME,LAST_NAME,DEPARTMENT,SALARY)" var="dbinsert"/>
+        <transaction>
+            <insert ref="dbinsert">
+                <input path="."/>
+                <output path="$dbinsert/."/>
+                <move>
+                    <input path="employees/employee/employee_id"/>
+                    <output path="EMPLOYEE_ID"/>
+                </move>
+                <move>
+                    <input path="employees/employee/first_name"/>
+                    <output path="FIRST_NAME"/>
+                </move>
+                <move>
+                    <input path="employees/employee/last_name"/>
+                    <output path="LAST_NAME"/>
+                </move>
+                <move>
+                    <input path="employees/employee/department"/>
+                    <output path="DEPARTMENT"/>
+                </move>
+                <move>
+                    <input path="employees/employee/salary"/>
+                    <output path="SALARY"/>
+                </move>
+            </insert>
+            <return>
+                <input path="$var2/DBInsertReturn"/>
+            </return>
+        </transaction>
+    </mappingDeclaration>
+</mappingRoot>
