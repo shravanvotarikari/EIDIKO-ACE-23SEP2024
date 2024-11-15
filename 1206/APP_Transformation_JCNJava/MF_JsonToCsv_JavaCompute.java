@@ -41,8 +41,8 @@ public class MF_JsonToCsv_JavaCompute extends MbJavaComputeNode {
 //				record.createElementAsLastChild(MbElement.TYPE_NAME_VALUE,"data",id.getValue().toString()+fname.getValue().toString()
 //						+lname.getValue().toString()+dept.getValue().toString()+sal.getValue().toString());
 				
-				str.append( new StringBuffer(id.getValue().toString()+fname.getValue().toString()
-				+lname.getValue().toString()+dept.getValue().toString()+sal.getValue().toString()+"\n"));
+				str.append( new StringBuffer(id.getValue().toString()+","+fname.getValue().toString()+","
+				+lname.getValue().toString()+","+dept.getValue().toString()+","+sal.getValue().toString()+"\n"));
 				
 				item = item.getNextSibling();
 			}

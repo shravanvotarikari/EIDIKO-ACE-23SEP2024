@@ -1,0 +1,42 @@
+DECLARE var SHARED INTEGER 1;
+
+CREATE COMPUTE MODULE MF_dynamic_log_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+	Propagate to Terminal 'out2';
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+	
+	SET OutputRoot.DFDL.csv.record.Application_name = ApplicationLabel;
+	SET OutputRoot.DFDL.csv.record.Messageflow_name = MessageFlowLabel;
+	
+	SET OutputRoot.DFDL.csv.record.Node_name = NodeLabel;
+	SET OutputRoot.DFDL.csv.record.EG_name = ExecutionGroupLabel;
+	
+	SET OutputRoot.DFDL.csv.record.ChannelId = null;
+	SET OutputRoot.DFDL.csv.record.RequestId = var;
+	
+	SET OutputRoot.DFDL.csv.record.RequesttTime =CAST( CURRENT_TIMESTAMP as CHARACTER);
+	SET OutputRoot.DFDL.csv.record.ResponseMessage = InputRoot.XMLNSC.name;
+	
+	SET OutputRoot.DFDL.csv.record.ResponseMessage = InputRoot;
+	SET OutputRoot.DFDL.csv.record.ResponseTime = CAST(CURRENT_TIMESTAMP as CHARACTER);
+	
+	declare inref CHARACTER CAST(CURRENT_DATE as CHARACTER FORMAT 'dd-MM-yy');
+	Set OutputLocalEnvironment.Destination.file.Name = 'Audit_log_' || inref;
+	
+	set var=  var+1;
+	propagate to Terminal 'out1';
+	
+	
+
+	END;
+END MODULE;
+
