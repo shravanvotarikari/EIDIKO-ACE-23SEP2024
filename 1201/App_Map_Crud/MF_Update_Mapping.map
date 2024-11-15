@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <input path="/Transfer.xsd" var="var"/>
+    <input path="jar:file://!com/ibm/msl/mapping/rdb/xsds/dbreturn.xsd" var="var1"/>
+    <output path="db:table(/xe.dbm,xe,SYSTEM,EMP_MAP)" var="EMPMAP"/>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="MF_Update_Mapping">
+        <input path="$var/mb:msg(employees,assembly,XMLNSC,Properties)" var="MessageAssembly"/>
+        <output path="$EMPMAP/db:update(fn:false(),fn:true(),db:where('SYSTEM.EMP_MAP.EMPLOYEE_ID =  ?','?'=$MessageAssembly/employees/employee/employee_id),EMPLOYEE_ID,FIRST_NAME,LAST_NAME,DEPARTMENT,SALARY)" var="dbupdate"/>
+        <transaction>
+            <update ref="dbupdate">
+                <input path="$MessageAssembly/." var="MessageAssembly1"/>
+                <output path="$dbupdate/."/>
+                <move automap="true">
+                    <input path="$MessageAssembly1/employees/employee/employee_id"/>
+                    <output path="EMPLOYEE_ID"/>
+                </move>
+                <move automap="true">
+                    <input path="$MessageAssembly1/employees/employee/first_name"/>
+                    <output path="FIRST_NAME"/>
+                </move>
+                <move automap="true">
+                    <input path="$MessageAssembly1/employees/employee/last_name"/>
+                    <output path="LAST_NAME"/>
+                </move>
+                <move automap="true">
+                    <input path="$MessageAssembly1/employees/employee/department"/>
+                    <output path="DEPARTMENT"/>
+                </move>
+                <move automap="true">
+                    <input path="$MessageAssembly1/employees/employee/salary"/>
+                    <output path="SALARY"/>
+                </move>
+            </update>
+            <return>
+                <input path="$var1/DBUpdateReturn"/>
+            </return>
+        </transaction>
+    </mappingDeclaration>
+</mappingRoot>
