@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>App_DynamicFileLogging</name>
+	<name>App_JCN_Override</name>
 	<comment></comment>
 	<projects>
-		<project>myStaticLibrary</project>
+		<project>App_JCN_OverrideJava</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -108,11 +108,6 @@
 		</buildCommand>
 		<buildCommand>
 			<name>com.ibm.etools.mft.unittest.ui.TestCaseBuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>com.ibm.dfdl.validation.dfdlBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
