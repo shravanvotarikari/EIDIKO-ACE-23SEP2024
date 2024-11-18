@@ -1,0 +1,31 @@
+CREATE COMPUTE MODULE MF_EventLogging_Compute
+	
+    CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+        DECLARE a INT 42;
+        DECLARE b INT 0; 
+        DECLARE result INT;
+
+      
+        BEGIN
+            DECLARE EXIT HANDLER FOR SQLSTATE LIKE 'S22012'
+            BEGIN
+               
+                LOG EVENT SEVERITY 3 CATALOG 'BIPmsgs' MESSAGE 2952 
+                VALUES('Division by zero error', 'Check input values');
+
+                SET result = -1;
+            END;
+
+         
+            SET result = a / b;
+        END;
+
+      
+        SET OutputRoot.JSON.Data.Result = result;
+
+        RETURN TRUE;
+    END;
+END MODULE;
+
+
