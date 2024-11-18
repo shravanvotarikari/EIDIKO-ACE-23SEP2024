@@ -17,8 +17,7 @@ CREATE COMPUTE MODULE caller
 		--SET OutputLocalEnvironment.Variables.sum1 = sum;
 		SET OutputRoot.JSON.Data.sum1=sum;
 		RETURN TRUE;
-		
-
+	
 	
 	END;
 END MODULE;

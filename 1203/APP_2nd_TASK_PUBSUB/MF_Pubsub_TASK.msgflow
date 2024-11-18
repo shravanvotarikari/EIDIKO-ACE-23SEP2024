@@ -6,7 +6,7 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/APP_2nd_TASK_PUBSUB/icons/full/obj16/MF_Pubsub_TASK.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/APP_2nd_TASK_PUBSUB/icons/full/obj30/MF_Pubsub_TASK.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="380,217" computeExpression="esql://routine/#MF_Pubsub_TASK_Compute.Main">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="356,79" computeExpression="esql://routine/#MF_Pubsub_TASK_Compute.Main">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
       <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="44,157" queueName="A1" destinationQueueManagerName="QM1" messageDomainProperty="XMLNSC" validateTiming="immediate" topicProperty="ABC">
