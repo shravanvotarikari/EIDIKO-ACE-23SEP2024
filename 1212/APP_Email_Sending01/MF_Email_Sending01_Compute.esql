@@ -1,0 +1,32 @@
+
+
+CREATE COMPUTE MODULE MF_Email_Sending01_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputLocalEnvironment.Destination.Email.SMTPServer = 'mail.eidiko-india.com:587';
+        SET OutputRoot.EmailOutputHeader.From = 'apurvasomnath.pawar@eidiko-india.com'; 
+        SET OutputRoot.EmailOutputHeader.To = 'vedantianil.fartade@eidiko-india.com';    
+        SET OutputRoot.EmailOutputHeader.Subject = 'Greetings';                        
+
+        DECLARE customMessage CHARACTER 'Hello Vedanti, this is a dynamically updated message!';
+
+        SET OutputRoot.EmailOutputHeader.Message = customMessage;
+
+	END;
+END MODULE;
