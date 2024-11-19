@@ -13,7 +13,7 @@
       <nodes xmi:type="ComIbmHTTPAsyncResponse.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="32,198" asyncRequestCorrelator="second" messageDomainProperty="JSON">
         <translation xmi:type="utility:ConstantString" string="HTTP Async Response1"/>
       </nodes>
-      <nodes xmi:type="ComIbmGroupGather.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="270,152" GroupName="avi" UnknownMessageTimeout="5.0">
+      <nodes xmi:type="ComIbmGroupGather.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="270,152" GroupName="avi" UnknownMessageTimeout="20.0">
         <translation xmi:type="utility:ConstantString" string="Group Gather"/>
       </nodes>
       <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="773,155">

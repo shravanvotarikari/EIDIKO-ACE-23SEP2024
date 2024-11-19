@@ -6,7 +6,7 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_GroupingNodes/icons/full/obj16/MF_GroupingNodes.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_GroupingNodes/icons/full/obj30/MF_GroupingNodes.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmGroupScatter.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="279,115" GroupName="avi" GroupTimeout="5.0">
+      <nodes xmi:type="ComIbmGroupScatter.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="279,115" GroupName="avi" GroupTimeout="20.0">
         <translation xmi:type="utility:ConstantString" string="Group Scatter"/>
       </nodes>
       <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="133,120" URLSpecifier="/group" messageDomainProperty="XMLNSC">
