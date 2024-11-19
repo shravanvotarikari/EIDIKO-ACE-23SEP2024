@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE MF_GroupingResponse_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.XMLNSC = InputRoot.ComIbmGroupCompleteNode.Group.Replies.folder1.Reply.Root.XMLNSC;
+		SET OutputRoot.JSON.Data = InputRoot.ComIbmGroupCompleteNode.Group.Replies.folder2.Reply.Root.JSON.Data;
+		
+	END;
+END MODULE;
