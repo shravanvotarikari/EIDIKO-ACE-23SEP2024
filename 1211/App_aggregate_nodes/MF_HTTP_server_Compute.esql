@@ -1,0 +1,13 @@
+
+
+CREATE COMPUTE MODULE MF_HTTP_server_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.XMLNSC.root.last_name = 'Ghogare';
+	END;
+END MODULE;
