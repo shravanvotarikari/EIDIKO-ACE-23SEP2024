@@ -3,6 +3,7 @@
 	<name>App_TimerNode_IgnoreMissed</name>
 	<comment></comment>
 	<projects>
+		<project>p1</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
