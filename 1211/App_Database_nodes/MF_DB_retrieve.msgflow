@@ -12,11 +12,13 @@
       <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="488,120">
         <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
       </nodes>
-      <nodes xmi:type="ComIbmDatabaseRetrieve.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="271,120" dataSourceName="Oracle" sqlQuery="SELECT Employees.Employee_id&#xA;FROM Employees&#xA;WHERE Employees. first_name = 'John'&#xA;ORDER BY Employees.Employee_id ASC" tableNameComboValues="0,0,0,0,0,0,0~Employees" columnNameComboValues="2,0,2,2,2,2,2~ first_name, name,Employee_id,Employee_id " operatorComboValues="0,2,0,0,0,0,0~=" valueTypeComboValues="0,3,0,0,0,0,0~String" columnValueComboValues="0,0,0~Employees.Employee_id">
+      <nodes xmi:type="ComIbmDatabaseRetrieve.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="271,120" dataSourceName="Oracle" copyMessage="true" allRows="true" sqlQuery="SELECT Employees.Employee_id&#xA;FROM Employees&#xA;WHERE Employees. first_name = 'John'&#xA;ORDER BY Employees.Employee_id ASC" tableNameComboValues="0,0,0,0,0,0,0~Employees" columnNameComboValues="2,0,2,2,2,2,2~ first_name, name,Employee_id,Employee_id " operatorComboValues="0,2,0,0,0,0,0~=" valueTypeComboValues="0,3,0,0,0,0,0~String"
+          columnValueComboValues="0,0,0,0,0,0,0~Employees.Employee_id">
         <translation xmi:type="utility:ConstantString" string="Database Retrieve"/>
         <queryElements tableName="Employees" columnName="Employee_id" operator="ASC" valueType="None" value="None"/>
         <queryElements tableName="Employees" columnName=" first_name" operator="=" valueType="String" value="John"/>
-        <dataElements columnName="Employees.Employee_id" messageElement="$OutputRoot/JSON/Data/res"/>
+        <dataElements columnName="Employees.Employee_id" messageElement="$OutputRoot/XMLNSC/employees/employee/idi"/>
+        <nsMappingTable nsPrefix="xes" namespace="http://xe/system"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
