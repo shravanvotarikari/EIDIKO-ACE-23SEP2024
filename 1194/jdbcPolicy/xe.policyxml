@@ -6,7 +6,7 @@
     <databaseVersion>11g</databaseVersion>
     <type4DriverClassName>oracle.jdbc.OracleDriver</type4DriverClassName>
     <type4DatasourceClassName>oracle.jdbc.xa.client.OracleXADataSource</type4DatasourceClassName>
-    <connectionUrlFormat>jdbc:oracle:thin:[system]/sarasu10@192.168.2.105:1521:xe</connectionUrlFormat>
+    <connectionUrlFormat>jdbc:oracle:thin:system/sarasu10@192.168.2.105:1521:xe</connectionUrlFormat>
     <connectionUrlFormatAttr1>xe</connectionUrlFormatAttr1>
     <connectionUrlFormatAttr2></connectionUrlFormatAttr2>
     <connectionUrlFormatAttr3></connectionUrlFormatAttr3>
