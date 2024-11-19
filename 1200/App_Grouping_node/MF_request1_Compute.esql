@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE MF_request1_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.XMLNSC.firstname = 'Hrishikesh';
+	END;
+END MODULE;
