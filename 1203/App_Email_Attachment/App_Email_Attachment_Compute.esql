@@ -1,0 +1,22 @@
+
+
+CREATE COMPUTE MODULE App_Email_Attachment_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		   DECLARE fileContentBlob BLOB InputRoot.BLOB.BLOB; --text
+
+    DECLARE fileContentText CHARACTER CAST(fileContentBlob AS CHARACTER CCSID 1208);
+
+    SET OutputRoot.XMLNSC.EmailData.To = 'apurvasomnath.pawar@eidiko-india.com';
+    SET OutputRoot.XMLNSC.EmailData.From = 'vedantianil.fartade@eidiko-india.com';
+    SET OutputRoot.XMLNSC.EmailData.AttachmentName = 'attachment.txt';
+    SET OutputRoot.XMLNSC.EmailData.AttachmentContent = fileContentText; 
+		--SET OutputRoot = InputRoot;
+	END;
+END MODULE;
