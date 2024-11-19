@@ -1,0 +1,10 @@
+
+
+CREATE COMPUTE MODULE mf_request1_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		set OutputRoot = InputRoot;
+		RETURN TRUE;
+	END;
+
+END MODULE;

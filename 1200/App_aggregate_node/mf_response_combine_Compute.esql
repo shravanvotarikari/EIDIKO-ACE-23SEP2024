@@ -1,0 +1,10 @@
+
+
+CREATE COMPUTE MODULE mf_response_combine_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		RETURN TRUE;
+	END;
+
+END MODULE;
