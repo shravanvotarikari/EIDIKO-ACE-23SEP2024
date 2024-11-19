@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>App_DatabaseNodes</name>
+	<name>App_AggregationNodes</name>
 	<comment></comment>
 	<projects>
-		<project>DatabaseInput</project>
-		<project>jdbcPolicy</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -109,11 +107,6 @@
 		</buildCommand>
 		<buildCommand>
 			<name>com.ibm.etools.mft.unittest.ui.TestCaseBuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>com.ibm.dfdl.validation.dfdlBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
