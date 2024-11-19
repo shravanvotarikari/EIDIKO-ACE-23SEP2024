@@ -1,0 +1,22 @@
+CREATE COMPUTE MODULE MF_Email_sending_01_Compute
+    CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+        CALL CopyEntireMessage();  -- Call procedure to set email fields
+        RETURN TRUE;
+    END;
+
+    CREATE PROCEDURE CopyEntireMessage() BEGIN
+        -- Set the Email headers
+      --  SET OutputLocalEnvironment.Destination.Email.SecurityIdentity = 'Sec_id';
+      SET OutputLocalEnvironment.Destination.Email.SMTPServer ='mail.eidiko-india.com:587';
+        SET OutputRoot.EmailOutputHeader.From = 'vedantianil.fartade@eidiko-india.com';  -- Sender's email
+        SET OutputRoot.EmailOutputHeader.To = 'apurvasomnath.pawar@eidiko-india.com';    -- Recipient's email
+        SET OutputRoot.EmailOutputHeader.Subject = 'Test Email';                         -- Email subject
+
+        -- Set the Email body (optional, if needed)
+--         SET OutputRoot.Email.Body.ContentType = 'text/plain';  -- MIME type
+      --  SET OutputRoot.Email.Body = 'Hello, this is a test email sent from IIB.';
+
+       
+    END;
+END MODULE;
