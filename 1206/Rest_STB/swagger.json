@@ -1,0 +1,91 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Rest_STB",
+    "version" : "1.0.0",
+    "description" : "Rest_STB"
+  },
+  "paths" : {
+    "/validate" : {
+      "get" : {
+        "operationId" : "getValidate",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve validate"
+      },
+      "post" : {
+        "operationId" : "postValidate",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Insert a validate",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "type" : "string"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        } ]
+      }
+    }
+  },
+  "basePath" : "/rest_stb",
+  "definitions" : {
+    "validateIncomingMsg" : {
+      "type" : "object",
+      "properties" : {
+        "clientTransactionId" : {
+          "type" : "string",
+          "pattern": "^[A-Za-z0-9]{6,25}$"
+        },
+        "transactionType" : {
+          "type" : "string",
+          "pattern": "^(CASH_ADVANCE|ADVANCE_PAYMENT)$"
+        },
+        "requestDate" : {
+          "type" : "string",
+          "pattern": "^(19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$"
+        },
+        "creditAccount" : {
+          "type" : "string",
+          "pattern": "^\\d{12,16}$"
+        },
+        "creditCardAccount" : {
+          "type" : "string",
+          "pattern": "^\\d{12,16}$"
+        },
+        "amount" : {
+          "type" : "string",
+          "pattern": "^[A-Za-z0-9]{6,25}$"
+        },
+        "channel" : {
+          "type" : "string",
+          "pattern": "^[1-9]$"
+          
+        },
+        "description" : {
+          "type" : "string",
+          "pattern": "^[A-Za-z]+$"
+        },
+        "username" : {
+          "type" : "string",
+          "pattern": "^[A-Z]+$"
+        }
+      },
+      "required" : [ "transactionType", "requestDate", "creditAccount", "creditCardAccount", "amount", "channel", "description", "username", "clientTransactionId" ]
+    }
+  }
+}
