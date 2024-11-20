@@ -19,24 +19,17 @@ CREATE COMPUTE MODULE MF_ExceptionList_LastChild_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		  DECLARE ref REFERENCE TO InputExceptionList.[>];
+		 DECLARE ref REFERENCE TO InputExceptionList.[>];
 		
-		DECLARE lastTextMsg CHARACTER '';
+		DECLARE mainText CHARACTER '';
 		WHILE ENDSWITH(FIELDNAME(ref),'Exception') DO
 			
-			DECLARE i INTEGER 1;
-			DECLARE j INTEGER;
-			SET j=CARDINALITY(ref.Insert[]);
-			
-			WHILE i<=j DO
-				
-				SET lastTextMsg=ref.Insert[i].Text;
-				SET i=i+1;
-			END WHILE;
+			SET mainText=ref.Text;
 			MOVE ref LASTCHILD;
+			
 		END WHILE;
 		
-		SET OutputRoot.JSON.Data.res=lastTextMsg;
+		SET OutputRoot.JSON.Data.res=mainText;
 	--	SET OutputRoot = InputRoot;
 	END;
 END MODULE;
