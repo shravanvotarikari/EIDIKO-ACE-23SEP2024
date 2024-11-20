@@ -9,10 +9,10 @@ CREATE COMPUTE MODULE MF_DynamicFileLogging_Compute
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 
-		SET OutputRoot.DFDL.csvSchemaLogging.record.appName = CAST(ApplicationLabel AS CHARACTER CCSID 1208 ENCODING 546);
-		SET OutputRoot.DFDL.csvSchemaLogging.record.mfName = CAST(MessageFlowLabel AS CHARACTER CCSID 1208 ENCODING 546);
-		SET OutputRoot.DFDL.csvSchemaLogging.record.nodeName = CAST(BrokerName AS CHARACTER CCSID 1208 ENCODING 546);
-		SET OutputRoot.DFDL.csvSchemaLogging.record.serverName = CAST(ExecutionGroupLabel AS CHARACTER CCSID 1208 ENCODING 546);
+		SET OutputRoot.DFDL.csvSchemaLogging.record.appName = ApplicationLabel;
+		SET OutputRoot.DFDL.csvSchemaLogging.record.mfName = MessageFlowLabel;
+		SET OutputRoot.DFDL.csvSchemaLogging.record.nodeName = BrokerName;
+		SET OutputRoot.DFDL.csvSchemaLogging.record.serverName = ExecutionGroupLabel;
 		SET OutputRoot.DFDL.csvSchemaLogging.record.channelId = 'NULL';
 		SET OutputRoot.DFDL.csvSchemaLogging.record.requestId = CAST(reqId AS CHARACTER CCSID 1208 ENCODING 546);
 		SET OutputRoot.DFDL.csvSchemaLogging.record.requestTime = CAST(CURRENT_TIMESTAMP AS CHARACTER CCSID 1208 ENCODING 546);

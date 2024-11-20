@@ -1,0 +1,26 @@
+-- Schema Level
+DECLARE externalVar1 EXTERNAL CHARACTER 'Avishkar'; -- (Accessible within Broker Schema i.e. in this application)
+
+CREATE COMPUTE MODULE MF_ESQL_ExternalVariable_Compute
+--	Module Level
+	DECLARE externalVar2 EXTERNAL CHARACTER 'Khude'; -- (Accessible within this Module)
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+--		Function level
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		Function level
+--		DECLARE externalVar3 EXTERNAL CHARACTER 'Khude'; -- We cant declare Shared & External Variables inside function level
+--		SET externalVar1 = 'AK'; -- We cant modify value of external variable directly because it acts like constant variable.
+
+		SET OutputRoot.XMLNSC.emp.name = externalVar1;
+		SET OutputRoot.XMLNSC.emp.sirname = externalVar2;
+	END;
+END MODULE;
+
+-- We must intialise the external variable as soon as we declare it, otherwise it will not get deployed (Design time modification)
+-- This intialisation of external variable is overitten by intialisation using Message Flow Editor (Design time modification)
+-- Intialisation value of Message Flow editor is overritten by Modified value in Bar file. (Deployment time modification)

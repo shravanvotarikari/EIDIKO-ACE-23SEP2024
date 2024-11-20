@@ -3,7 +3,6 @@
 	<name>App_DynamicFileLogging</name>
 	<comment></comment>
 	<projects>
-		<project>Lib_MessageModel</project>
 		<project>myStaticLibrary</project>
 	</projects>
 	<buildSpec>

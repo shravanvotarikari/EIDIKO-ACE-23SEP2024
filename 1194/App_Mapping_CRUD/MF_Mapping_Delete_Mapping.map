@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <inlinedXMLSchema>
+        <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+       
+  <xsd:element name="emp" nillable="true"> 
+    <xsd:complexType> 
+      <xsd:sequence> 
+        <xsd:element name="name" nillable="true" type="xsd:string"/> 
+        <xsd:element name="id" nillable="true" type="xsd:int"/> 
+        <xsd:element name="city" nillable="true" type="xsd:string"/> 
+      </xsd:sequence> 
+    </xsd:complexType> 
+  </xsd:element> 
+   
+</xsd:schema> 
+]]>
+    </inlinedXMLSchema>
+    <input path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var"/>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var1"/>
+    <input path="jar:file://!com/ibm/msl/mapping/rdb/xsds/dbreturn.xsd" var="var2"/>
+    <output path="db:table(/xe.dbm,xe,SYSTEM,AVISHKAR)" var="AVISHKAR2"/>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="MF_Mapping_Delete_Mapping">
+        <input namespace="http://www.ibm.com/iib/msl/json" path="$var/mb:msg(JSON,assembly,JSON,Properties)" var="MessageAssembly">
+            <cast castType="userDefined" path="$MessageAssembly/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var"/>
+            <cast castType="userDefined" path="$MessageAssembly/JSON/spath('Data',2)/any" qualifier="emp" ref="var1"/>
+        </input>
+        <output path="$AVISHKAR2/db:delete(fn:false(),db:where('SYSTEM.AVISHKAR.ID = 1221'))" var="dbdelete2"/>
+        <foreach>
+            <input path="$MessageAssembly/JSON/spath('Data',2)/emp" var="emp4"/>
+            <output path="$dbdelete2/."/>
+            <transaction>
+                <delete ref="dbdelete2">
+                    <input path="$emp4/." var="emp5"/>
+                    <output path="."/>
+                </delete>
+                <return>
+                    <input path="$var2/DBDeleteReturn"/>
+                </return>
+            </transaction>
+        </foreach>
+    </mappingDeclaration>
+</mappingRoot>

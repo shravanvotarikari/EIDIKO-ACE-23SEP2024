@@ -1,0 +1,25 @@
+
+
+CREATE DATABASE MODULE MF_Database_Database
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+--		Database node is used to perform CRUD Operations using esql and also used to call Stored Procedures.
+		
+		SET Environment.name = Root.XMLNSC.Employee.name;
+		SET Environment.id = Root.XMLNSC.Employee.id;
+		SET Environment.city = Root.XMLNSC.Employee.city;
+		
+		INSERT INTO Database.AVISHKAR VALUES (Environment.name, Environment.id, Environment.city);
+		
+		DECLARE data ROW;
+		SET data.values[] = SELECT * FROM Database.AVISHKAR AS t WHERE t.name = Environment.name;
+		
+		SET Environment.tempCity = 'Banglore';
+		UPDATE Database.AVISHKAR SET city = 'Banglore' WHERE AVISHKAR.id = Environment.id;
+		
+		DELETE FROM Database.AVISHKAR AS T WHERE T.NAME = 'Rishi';
+		
+		RETURN TRUE;
+	END;
+
+END MODULE;

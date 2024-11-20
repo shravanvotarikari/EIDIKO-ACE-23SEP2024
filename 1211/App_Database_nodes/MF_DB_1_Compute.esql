@@ -1,0 +1,22 @@
+
+
+CREATE COMPUTE MODULE MF_DB_1_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+	DECLARE inref REFERENCE TO InputRoot.XMLNSC.employee;
+	
+	INSERT INTO Database.EMPLOYEES2 (EMPLOYEE_ID,FIRST_NAME,LAST_NAME,DEPARTMENT,SALARY ) VALUES (inref.emp_id,inref.first_name,inref.last_name,inref.department,inref.salary);
+	
+	IF SQLCODE = 0 THEN
+		set OutputRoot.XMLNSC.result = 'success';
+	END IF;
+		set OutputRoot.XMLNSC.result = 'failure';
+	
+	END;
+END MODULE;

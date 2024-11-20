@@ -1,0 +1,12 @@
+
+
+CREATE COMPUTE MODULE Mf_Timeout_notification_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		INSERT INTO Database.Time (TIME ) VALUES (CURRENT_TIME );
+		
+		RETURN TRUE;
+	END;
+
+END MODULE;
