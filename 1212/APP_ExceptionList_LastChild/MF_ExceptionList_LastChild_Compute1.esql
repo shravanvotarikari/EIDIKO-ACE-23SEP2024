@@ -19,24 +19,94 @@ CREATE COMPUTE MODULE MF_ExceptionList_LastChild_Compute1
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-    DECLARE ref REFERENCE TO InputExceptionList.[>];
 		
-		DECLARE lastTextMsg CHARACTER '';
+		--last child text field value
+		
+--    DECLARE ref REFERENCE TO InputExceptionList.[>];
+--		
+--		DECLARE lastTextMsg CHARACTER '';
+--		WHILE ENDSWITH(FIELDNAME(ref),'Exception') DO
+--			
+--			DECLARE i INTEGER 1;
+--			DECLARE j INTEGER;
+--			SET j=CARDINALITY(ref.Insert[]);
+--			
+--			WHILE i<=j DO
+--				
+--				SET lastTextMsg=ref.Insert[i].Text;
+--				SET i=i+1;
+--			END WHILE;
+--			MOVE ref LASTCHILD;
+--		END WHILE;
+--		
+--		SET OutputRoot.JSON.Data.res=lastTextMsg;
+--		
+		-- ---------------------------------------
+		
+		-- main text 
+		
+--		DECLARE ref REFERENCE TO InputExceptionList.[>];
+--		
+--		DECLARE mainText CHARACTER '';
+--		WHILE ENDSWITH(FIELDNAME(ref),'Exception') DO
+--			
+--			SET mainText=ref.Text;
+--			MOVE ref LASTCHILD;
+--			
+--		END WHILE;
+--		
+--		SET OutputRoot.JSON.Data.res=mainText;
+
+       -- -----------------------------------------
+       
+       --second last child text field value
+    
+--DECLARE ref REFERENCE TO InputExceptionList.[>];
+--DECLARE currentTextMsg CHARACTER '';
+--DECLARE prevTextMsg CHARACTER '';
+--
+--
+--WHILE ENDSWITH(FIELDNAME(ref), 'Exception') DO
+--    DECLARE i INTEGER 1;
+--    DECLARE j INTEGER;
+--    SET j = CARDINALITY(ref.Insert[]);
+--
+--   
+--    WHILE i <= j DO
+--      
+--        SET prevTextMsg = currentTextMsg;
+--        SET currentTextMsg = ref.Insert[i].Text;
+--        SET i = i + 1;
+--    END WHILE;
+--
+--    
+--    MOVE ref LASTCHILD;
+--END WHILE;
+--
+--
+--SET OutputRoot.JSON.Data.res = prevTextMsg;
+
+
+-- -------------------------------------------
+
+       -- conccat
+
+        DECLARE ref REFERENCE TO InputExceptionList.[>];
+		
+		DECLARE mainText CHARACTER '';
 		WHILE ENDSWITH(FIELDNAME(ref),'Exception') DO
 			
-			DECLARE i INTEGER 1;
-			DECLARE j INTEGER;
-			SET j=CARDINALITY(ref.Insert[]);
-			
-			WHILE i<=j DO
-				
-				SET lastTextMsg=ref.Insert[i].Text;
-				SET i=i+1;
-			END WHILE;
+			SET mainText=ref.Text;
+			--For loop is for concatenating
+			FOR insertRef AS ref.Insert[] DO
+				SET mainText=mainText ||','||insertRef.Text||',';
+			END FOR;
 			MOVE ref LASTCHILD;
+			
 		END WHILE;
 		
-		SET OutputRoot.JSON.Data.res=lastTextMsg;
-		
+		SET OutputRoot.JSON.Data.res=mainText;
+       
+
 	END;
 END MODULE;
