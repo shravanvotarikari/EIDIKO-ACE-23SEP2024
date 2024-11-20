@@ -1,0 +1,29 @@
+BROKER SCHEMA AddCustomer.Subflow
+
+DECLARE soapenv NAMESPACE 'http://schemas.xmlsoap.org/soap/envelope/';
+DECLARE cus NAMESPACE 'http://tempuri.org/CustomerDetails';
+
+CREATE COMPUTE MODULE AddCustomer_Subflow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	
+			DECLARE inRef reference to InputRoot.SOAP.Body.*:AddCustomerRequest;
+			
+			INSERT into Database.SYSTEM.CUST_DETAILS values(inRef.*:CustId,inRef.*:CustName,inRef.*:CustType,
+			inRef.*:Tel,inRef.*:CustEmail);
+			
+			SET OutputRoot.SOAP.Context.SOAP.Namespace.(XMLNSC.NamespaceDecl)xmlns:soapenv = soapenv;
+			SET OutputRoot.SOAP.Context.SOAP.Namespace.(XMLNSC.NamespaceDecl)xmlns:cus = cus;
+
+			
+			CREATE FIELD OutputRoot.SOAP.Body.cus:AddCustomerResponse;
+			
+			DECLARE Outref reference to OutputRoot.SOAP.Body.cus:AddCustomerResponse;	
+			
+			SET Outref.cus:Message = 'Inserted Successfully';
+			
+		RETURN TRUE;
+	END;
+
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+END MODULE;

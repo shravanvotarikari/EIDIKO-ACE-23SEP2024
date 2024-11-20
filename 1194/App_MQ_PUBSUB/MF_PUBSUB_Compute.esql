@@ -10,7 +10,6 @@ CREATE COMPUTE MODULE MF_PUBSUB_Compute
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		
-		
 		SET OutputRoot.MQRFH2.Version = 2;
         SET OutputRoot.MQRFH2.Format = MQFMT_NONE;
         SET OutputRoot.MQRFH2.NameValueCCSID = 1208;

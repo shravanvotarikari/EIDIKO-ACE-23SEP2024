@@ -1,0 +1,13 @@
+
+
+CREATE COMPUTE MODULE deleteDelete_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		DELETE FROM Database.SOAP_CRUD AS S  WHERE S.EMP_ID = InputLocalEnvironment.REST.Input.Parameters.EMP_ID ;
+		
+		RETURN TRUE;
+	END;
+
+	
+END MODULE;

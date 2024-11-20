@@ -1,0 +1,104 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "App_Rest_Crud",
+    "version" : "1.0.0",
+    "description" : "App_Rest_Crud"
+  },
+  "paths" : {
+    "/Create" : {
+      "post" : {
+        "operationId" : "postCreate",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Insert a Create",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "type" : "string"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        }, {
+          "name" : "emp_id",
+          "in" : "query",
+          "type" : "integer"
+        }, {
+          "name" : "emp_name",
+          "in" : "query",
+          "type" : "string"
+        } ]
+      }
+    },
+    "/Read" : {
+      "get" : {
+        "operationId" : "getRead",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve Read",
+        "parameters" : [ {
+          "name" : "EMP_ID",
+          "in" : "query",
+          "type" : "integer"
+        } ]
+      }
+    },
+    "/Update" : {
+      "put" : {
+        "operationId" : "putUpdate",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Update Update",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "type" : "string"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        }, {
+          "name" : "EMP_ID",
+          "in" : "query",
+          "type" : "integer"
+        } ]
+      }
+    },
+    "/Delete" : {
+      "delete" : {
+        "operationId" : "deleteDelete",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Remove from Delete",
+        "parameters" : [ {
+          "name" : "EMP_ID",
+          "in" : "query",
+          "type" : "integer"
+        } ]
+      }
+    }
+  },
+  "basePath" : "/app_rest_crud/v1"
+}

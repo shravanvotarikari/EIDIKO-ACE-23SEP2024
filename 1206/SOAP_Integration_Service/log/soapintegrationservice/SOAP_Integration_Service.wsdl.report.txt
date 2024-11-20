@@ -1,0 +1,13 @@
+
+
+Importing file: C:\Users\Sreenivas Bandaru\IBM\ACET12\workspace\SOAP_Integration_Service\SOAP_Integration_Service.wsdl
+
+The WSDL import will proceed with bindings SOAP_Integration_ServiceHttpBinding.
+Creating wsdl schema document for platform:/resource/SOAP_Integration_Service/SOAP_Integration_Service.wsdl.
+Parsing wsdl binding {http://SOAP_Integration_Service}SOAP_Integration_ServiceHttpBinding.
+Parsing wsdl binding input operation1.
+Parsing wsdl binding output operation1.
+Processing doc style for operation operation1.
+Populating WSDL schema SOAP_Integration_Service.xsd.
+Creating file SOAP_Integration_Service.xsd in the workspace.
+Copying source WSDL SOAP_Integration_Service.wsdl to SOAP_Integration_Service.wsdl.

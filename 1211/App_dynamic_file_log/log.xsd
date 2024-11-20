@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ibmDfdlExtn="http://www.ibm.com/dfdl/extensions" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:recSepFieldsFmt="http://www.ibm.com/dfdl/RecordSeparatedFieldFormat" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            
+  
+  
+  
+  <xsd:import namespace="http://www.ibm.com/dfdl/RecordSeparatedFieldFormat" schemaLocation="IBMdefined/RecordSeparatedFieldFormat.xsd"/>
+            
+  
+  
+    
+  <xsd:annotation>
+                		
+    
+    
+    
+    <xsd:appinfo source="http://www.ogf.org/dfdl/">
+                        			
+      
+      
+      
+      <dfdl:format encoding="{$dfdl:encoding}" escapeSchemeRef="" occursCountKind="implicit" ref="recSepFieldsFmt:RecordSeparatedFieldsFormat"/>
+                        		
+    
+    
+    
+    </xsd:appinfo>
+                	
+  
+  
+  
+  </xsd:annotation>
+        	
+  
+  
+  
+  <xsd:element ibmSchExtn:docRoot="true" name="log">
+                		
+    
+    
+    
+    <xsd:complexType>
+                        			
+      
+      
+      
+      <xsd:sequence dfdl:separator="%CR;%LF;%WSP*;" dfdl:separatorSuppressionPolicy="anyEmpty">
+                                				
+        
+        
+                
+        <xsd:element dfdl:initiator="|**|" dfdl:terminator="%CR;%LF;" maxOccurs="unbounded" name="body">
+                                        					
+          
+          
+          
+          <xsd:complexType>
+                                                						
+            
+            
+            
+            <xsd:sequence dfdl:separator="|*|" dfdl:terminator="|**|">
+                                                        							
+              
+              
+              
+              <xsd:element ibmDfdlExtn:sampleValue="body_value1" name="Application_name" type="xsd:string"/>
+                                                        							
+              
+              
+              
+              <xsd:element ibmDfdlExtn:sampleValue="body_value2" name="Messageflow_name" type="xsd:string"/>
+                                                        							
+              
+              
+              
+              <xsd:element ibmDfdlExtn:sampleValue="body_value3" name="Node_name" type="xsd:string"/>
+                                                        						
+            
+            
+                            
+              <xsd:element name="EG_name" type="xsd:string"/>
+                                          
+              <xsd:element name="ChannelId" type="xsd:string"/>
+                                          
+              <xsd:element name="RequestId" type="xsd:string"/>
+                                          
+              <xsd:element name="Request_time" type="xsd:string"/>
+                                          
+              <xsd:element name="Request_message" type="xsd:string"/>
+                                          
+              <xsd:element name="Responsee_Time" type="xsd:string"/>
+                                          
+              <xsd:element name="Response_message" type="xsd:string"/>
+                                      
+            </xsd:sequence>
+                                                					
+          
+          
+          
+          </xsd:complexType>
+                                        				
+        
+        
+        
+        </xsd:element>
+                                			
+      
+      
+            
+      </xsd:sequence>
+                        		
+    
+    
+    
+    </xsd:complexType>
+                	
+  
+  
+  
+  </xsd:element>
+        
+
+
+
+</xsd:schema>

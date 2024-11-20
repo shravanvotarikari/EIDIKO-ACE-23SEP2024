@@ -1,0 +1,76 @@
+
+
+CREATE COMPUTE MODULE stringmsgflolw_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE inref REFERENCE TO InputRoot.XMLNSC.Data;
+		
+	    --Set OutputRoot.JSON.Data.Result =  OVERLAY(inref PLACING '12yu' FROM 3);
+	    
+	    --SET OutputRoot.JSON.Data.Result = SUBSTRING(inref from 3 for 4);
+	    
+	     --SET OutputRoot.JSON.Data.Result = SUBSTRING(inref before 'World');
+	     
+	     
+	    --SET OutputRoot.JSON.Data.Result = SUBSTRING(inref after 'World');
+	    
+	    --SET OutputRoot.JSON.Data.Result = REPLACE(inref , 'hello','hii');
+	    
+	    --SET OutputRoot.JSON.Data.Result = TRANSLATE(inref,'lo','*');
+	    
+	    --SET OutputRoot.JSON.Data.Result = REPLICATE(inref,5);
+	    
+	    --DECLARE inref1 REFERENCE TO InputRoot.XMLNSC.Data1;
+	    
+	      --SET OutputRoot.JSON.Data.Result = COALESCE(inref,'EIDIKO');
+	      
+	      --SET OutputRoot.JSON.Data.Result = CONTAINS(inref,'l');
+	      
+	      --SET OutputRoot.JSON.Data.Result = STARTSWITH(inref,'H');
+	      
+--	      SET OutputRoot.JSON.Data.Result = ENDSWITH(inref,'l');
+--	      
+--	      SET OutputRoot.JSON.Data.Result = LENGTH(inref);
+--	      
+--	        SET OutputRoot.JSON.Data.Result = POSITION('o' IN inref);
+--	        
+--	          SET OutputRoot.JSON.Data.Result = LCASE(inref);
+--	        
+--	     
+--	       SET OutputRoot.JSON.Data.Result = UCASE(inref);
+--	       
+--	         SET OutputRoot.JSON.Data.Result = LTRIM(inref);
+--	         
+--	           SET OutputRoot.JSON.Data.Result = RTRIM(inref);
+--	           
+--	             SET OutputRoot.JSON.Data.Result = LEFT(inref,3);
+--	             
+--	               SET OutputRoot.JSON.Data.Result = RIGHT(inref,5);
+
+				
+				SET OutputRoot.JSON.Data.Result = CAST(inref as BLOB CCSID InputRoot.Properties.CodedCharSetId);
+				
+				declare myblob blob;
+				
+				SET myblob = ASBITSTREAM(inref encoding 546 CCSID 1208);
+				
+				DECLARE mychar char cast(myblob as char CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+				
+				CREATE LASTCHILD of Environment.var DOMAIN 'XMLNSC' PARSE( mychar CCSID 1208);
+				
+				SET OutputRoot.XMLNSC.Result =   Environment.var.XMLNSC.Data;
+	               
+	     
+		
+	END;
+END MODULE;
+
+
+

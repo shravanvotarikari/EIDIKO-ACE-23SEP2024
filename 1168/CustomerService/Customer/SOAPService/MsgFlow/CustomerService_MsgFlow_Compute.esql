@@ -1,0 +1,23 @@
+BROKER SCHEMA Customer.SOAPService.MsgFlow
+
+
+CREATE COMPUTE MODULE CustomerService_MsgFlow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	
+	BEGIN
+		
+		SET OutputRoot = InputRoot;
+		
+		If(InputLocalEnvironment.Destination.RouterList.DestinationData.labelName='GetCustomer')then
+			propagate to terminal 1;
+			
+	    elseif(InputLocalEnvironment.Destination.RouterList.DestinationData.labelName='AddCustomer')then
+	    	propagate;
+	    	
+		END IF;
+	
+		Return False;
+
+	END;
+
+END MODULE;
