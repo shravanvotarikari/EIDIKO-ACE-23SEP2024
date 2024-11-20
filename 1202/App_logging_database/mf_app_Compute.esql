@@ -1,0 +1,24 @@
+
+
+CREATE COMPUTE MODULE mf_app_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		set OutputRoot = InputRoot;
+		
+		CALL logwrite(cast(CURRENT_TIMESTAMP as CHARACTER),'Input',cast(ASBITSTREAM(InputRoot.*[<]) as CHARACTER CCSID 1208 ENCODING 546));
+		
+		declare query CHARACTER 'select * from jaytable where col1 = '||InputRoot.XMLNSC.employees.employee.id;
+
+		CALL logwrite(cast(CURRENT_TIMESTAMP as CHARACTER),'Request',query);
+		
+		set OutputRoot.XMLNSC.employees.res.out[] = PASSTHRU (query TO Database.abhidsn);
+				
+		CALL logwrite(cast(CURRENT_TIMESTAMP as CHARACTER),'Response',cast(ASBITSTREAM(OutputRoot.XMLNSC.employees.res) as CHARACTER CCSID 1208 ENCODING 546));
+		
+		CALL logwrite(cast(CURRENT_TIMESTAMP as CHARACTER),'Output',cast(ASBITSTREAM(OutputRoot.XMLNSC) as CHARACTER CCSID 1208 ENCODING 546));
+		RETURN TRUE;
+	END;
+END MODULE;
+
+CREATE PROCEDURE logwrite (in time_s CHARACTER,in d_type CHARACTER,in data_ CHARACTER )
+EXTERNAL NAME "jay_logproc";
