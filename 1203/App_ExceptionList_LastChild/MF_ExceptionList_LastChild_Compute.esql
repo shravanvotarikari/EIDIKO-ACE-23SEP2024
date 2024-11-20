@@ -1,10 +1,12 @@
 
 
+
+
 CREATE COMPUTE MODULE MF_ExceptionList_LastChild_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
-		 CALL CopyEntireMessage();
+		CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
 
@@ -19,17 +21,23 @@ CREATE COMPUTE MODULE MF_ExceptionList_LastChild_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		 DECLARE ref REFERENCE TO InputExceptionList.[>];
-		
+		DECLARE ref REFERENCE TO InputExceptionList.[>];
+
 		DECLARE mainText CHARACTER '';
 		WHILE ENDSWITH(FIELDNAME(ref),'Exception') DO
-			
+
 			SET mainText=ref.Text;
-			MOVE ref LASTCHILD;
+			--For loop is for concatenating Insert elements text values with main Text error.
 			
+	
+			FOR insertRef AS ref.Insert[] DO
+				SET mainText=mainText ||','||insertRef.Text||',';
+			END FOR;
+
+			MOVE ref LASTCHILD;
 		END WHILE;
-		
+
 		SET OutputRoot.JSON.Data.res=mainText;
-	--	SET OutputRoot = InputRoot;
+		-- SET OutputRoot = InputRoot;
 	END;
 END MODULE;
