@@ -9,7 +9,7 @@
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="308,111" computeExpression="esql://routine/#App_Email_Attachment_Compute.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="58,113" inputDirectory="C:\Users\Sreenivas Bandaru\Desktop\IIB_STORE\Attachment">
+      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="58,113" inputDirectory="D:\Office Stuff\IIB\Attachment">
         <translation xmi:type="utility:ConstantString" string="File Input"/>
       </nodes>
       <nodes xmi:type="ComIbmEmailOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="580,108" smtpServer="eidiko-india.com:587" toAddresses="apurvasomnath.pawar@eidiko-india.com" fromAddress="vedantianil.fartade@eidiko-india.com" subject="Attachment mail" messageText="hello" securityIdentity="Sec_id" attachmentContent="/EmailData/AttachmentContent" attachmentContentName="/EmailData/AttachmentName">
