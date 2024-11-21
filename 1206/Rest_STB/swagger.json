@@ -1,27 +1,14 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "title" : "Rest_STB",
+    "title" : "REST_STB",
     "version" : "1.0.0",
-    "description" : "Rest_STB"
+    "description" : "REST_STB"
   },
   "paths" : {
-    "/validate" : {
-      "get" : {
-        "operationId" : "getValidate",
-        "responses" : {
-          "200" : {
-            "description" : "The operation was successful.",
-            "schema" : {
-              "type" : "string"
-            }
-          }
-        },
-        "produces" : [ "application/json" ],
-        "description" : "Retrieve validate"
-      },
+    "/validate-card" : {
       "post" : {
-        "operationId" : "postValidate",
+        "operationId" : "postValidate-card",
         "responses" : {
           "200" : {
             "description" : "The operation was successful."
@@ -29,12 +16,12 @@
         },
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
-        "description" : "Insert a validate",
+        "description" : "Insert a validate-card",
         "parameters" : [ {
           "name" : "body",
           "in" : "body",
           "schema" : {
-            "type" : "string"
+            "$ref" : "#/definitions/validate-request"
           },
           "description" : "The request body for the operation",
           "required" : true
@@ -42,50 +29,49 @@
       }
     }
   },
-  "basePath" : "/rest_stb",
+  "basePath" : "/rest_stb/v1",
   "definitions" : {
-    "validateIncomingMsg" : {
+    "validate-request" : {
       "type" : "object",
       "properties" : {
         "clientTransactionId" : {
           "type" : "string",
-          "pattern": "^[A-Za-z0-9]{6,25}$"
+          "pattern" : "^[A-Za-z0-9]{6,25}$"
         },
         "transactionType" : {
           "type" : "string",
-          "pattern": "^(CASH_ADVANCE|ADVANCE_PAYMENT)$"
+          "pattern" : "^(CASH_ADVANCE|ADVANCE_PAYMENT)$"
         },
         "requestDate" : {
           "type" : "string",
-          "pattern": "^(19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$"
+          "format" : "date"
         },
         "creditAccount" : {
           "type" : "string",
-          "pattern": "^\\d{12,16}$"
+          "pattern" : "^\\d{12,16}$"
         },
         "creditCardAccount" : {
           "type" : "string",
-          "pattern": "^\\d{12,16}$"
+          "pattern" : "^\\d{12,16}$"
         },
         "amount" : {
-          "type" : "string",
-          "pattern": "^[A-Za-z0-9]{6,25}$"
+          "type" : "number",
+          "pattern" : "^\\d+$"
         },
         "channel" : {
           "type" : "string",
-          "pattern": "^[1-9]$"
-          
+          "pattern" : "^\\d{1}$"
         },
         "description" : {
           "type" : "string",
-          "pattern": "^[A-Za-z]+$"
+          "pattern" : "^[A-Za-z0-9]{12,16}$"
         },
         "username" : {
           "type" : "string",
-          "pattern": "^[A-Z]+$"
+          "pattern" : "^[A-Za-z]+$"
         }
       },
-      "required" : [ "transactionType", "requestDate", "creditAccount", "creditCardAccount", "amount", "channel", "description", "username", "clientTransactionId" ]
+      "required" : [ "clientTransactionId", "transactionType", "requestDate", "creditAccount", "creditCardAccount", "amount", "channel", "description", "username" ]
     }
   }
 }
