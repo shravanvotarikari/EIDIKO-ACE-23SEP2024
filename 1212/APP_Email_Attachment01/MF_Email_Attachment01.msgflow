@@ -6,7 +6,7 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/APP_Email_Attachment01/icons/full/obj16/MF_Email_Attachment01.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/APP_Email_Attachment01/icons/full/obj30/MF_Email_Attachment01.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="106,129" inputDirectory="C:\Users\Apurva Pawar\Documents\EmailNodes" recursiveDirectories="true">
+      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="106,129" inputDirectory="C:\Users\Sreenivas Bandaru\Documents\EmailNodes" recursiveDirectories="true">
         <translation xmi:type="utility:ConstantString" string="File Input"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="381,146" computeExpression="esql://routine/#MF_Email_Attachment01_Compute.Main" computeMode="all">
