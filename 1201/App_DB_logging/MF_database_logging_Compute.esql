@@ -1,0 +1,25 @@
+CREATE COMPUTE MODULE MF_database_logging_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	
+		CALL CopyEntireMessage();
+		
+		RETURN TRUE;
+	END;
+
+	
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		SET OutputRoot = InputRoot;
+		--DECLARE inref CHARACTER InputRoot.XMLNSC.data;
+		CALL Logg(CURRENT_TIMESTAMP,ApplicationLabel,MessageFlowLabel);
+			
+		
+	END;
+END MODULE;
+
+CREATE PROCEDURE Logg (in id TIMESTAMP, in name CHARACTER, in type CHARACTER )
+LANGUAGE DATABASE
+EXTERNAL NAME DATA_LOGGING;
+
