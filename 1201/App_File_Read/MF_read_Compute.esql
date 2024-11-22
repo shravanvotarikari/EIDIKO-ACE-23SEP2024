@@ -1,0 +1,19 @@
+
+
+CREATE COMPUTE MODULE MF_read_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		SET InputLocalEnvironment.Destination.File.Directory = 'C:\Users\Sreenivas Bandaru\Documents\Task Input\m2.txt';
+		SET InputLocalEnvironment.Destination.File.Name = 'm2.txt';
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
