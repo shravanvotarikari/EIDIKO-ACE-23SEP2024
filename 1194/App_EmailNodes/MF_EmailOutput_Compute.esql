@@ -1,0 +1,18 @@
+
+
+CREATE COMPUTE MODULE MF_EmailOutput_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		
+--		To set properties of Email Output Node using ESQL
+		--SET OutputRoot.EmailOutputHeader.From = 'avishkarchhaban.khude@eidiko-india.com';
+		--SET OutputRoot.EmailOutputHeader.To = 'hrishikesh.landge@eidiko-india.com';
+		--SET OutputRoot.EmailOutputHeader.Subject = 'Sending Mail using Email Output Node';
+	END;
+END MODULE;
