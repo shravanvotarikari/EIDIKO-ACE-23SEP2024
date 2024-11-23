@@ -17,5 +17,6 @@ CREATE COMPUTE MODULE MF_DatabaseInput_Insert_Compute
 		ELSE
 			SET OutputRoot.XMLNSC.Result = 'Failed to insert row';
 		END IF;
+		
 	END;
 END MODULE;

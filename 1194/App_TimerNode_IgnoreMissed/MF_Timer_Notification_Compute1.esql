@@ -1,0 +1,22 @@
+
+
+CREATE COMPUTE MODULE MF_Timer_Notification_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		SET OutputLocalEnvironment.TimeoutRequest.Action = 'SET';
+		
+--		SET OutputLocalEnvironment.TimeoutRequest.IgnoreMissed = true; 
+-- 		In case of true, your message will reach upto timeout queue but will never reach to output queue
+
+--		In case ot false, msg will go to output queue from timeout queue as soon as you start timeoutNotification flow
+		SET OutputLocalEnvironment.TimeoutRequest.IgnoreMissed = false;
+		
+		SET OutputLocalEnvironment.TimeoutRequest.Identifier = 'Request_' || CAST(CURRENT_TIMESTAMP AS CHARACTER);
+	END;
+END MODULE;
