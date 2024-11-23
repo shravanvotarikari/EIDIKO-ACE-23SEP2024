@@ -1,0 +1,24 @@
+DECLARE SharedVar1 SHARED CHARACTER 'shared_var_Schema'; -- (Accessible within Broker Schema i.e. within application)
+
+
+CREATE COMPUTE MODULE sharedvariablemsflow_Compute
+	DECLARE SharedVar2 SHARED CHARACTER 'shared_var_Module';  -- (Accessible within this module)
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--		DECLARE SharedVar3 SHARED CHARACTER 'xyz'; -- We cant declare shared variable inside function or procedure
+		SET SharedVar1 = 'shared_var_Module_Upadatedvalue'; -- We can update the value of shared variable unlike External variable
+		SET OutputRoot.XMLNSC.emp.name = SharedVar1;
+		SET OutputRoot.XMLNSC.emp.sirname = SharedVar2;
+	END;
+END MODULE;
+
+
+
