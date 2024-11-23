@@ -8,7 +8,7 @@ CREATE COMPUTE MODULE MF_Timer_Notification_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputLocalEnvironment.date = CURRENT_TIMESTAMP;
+		SET OutputLocalEnvironment.date = CAST(CURRENT_TIMESTAMP AS CHARACTER);
 		INSERT INTO Database.TIMERNOTIFICATIONDATA VALUES (OutputLocalEnvironment.date);
 	END;
 END MODULE;

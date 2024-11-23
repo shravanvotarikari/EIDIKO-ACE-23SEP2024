@@ -1,0 +1,10 @@
+
+
+CREATE COMPUTE MODULE MF_HTTP_server_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot.XMLNSC.root.first_name = 'Abhishek';
+		
+		RETURN TRUE;
+	END;
+END MODULE;

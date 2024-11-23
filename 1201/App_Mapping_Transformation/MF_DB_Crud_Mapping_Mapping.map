@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <input path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var"/>
+    <input path="/XML_file_To_JSONfile.xsd" var="var2"/>
+    <output path="/XML_file_To_JSONfile.xsd"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="in" uri="http://www.ibm.com/iib/msl/json"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="MF_DB_Crud_Mapping_Mapping">
+        <input namespace="http://www.ibm.com/iib/msl/json" path="$var/mb:msg(JSON,assembly,JSON,Properties)" var="MessageAssembly">
+            <cast castType="userDefined" path="$MessageAssembly/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var"/>
+            <cast path="$MessageAssembly/JSON/spath('Data',2)/any" qualifier="employees" ref="var2"/>
+        </input>
+        <output path="mb:msg(employees,assembly,XMLNSC,Properties)" var="MessageAssembly1"/>
+        <move>
+            <input path="$MessageAssembly/Properties"/>
+            <output path="$MessageAssembly1/Properties"/>
+        </move>
+        <move automap="true">
+            <input path="$MessageAssembly/JSON/spath('Data',2)/employees/employee/employee_id"/>
+            <output path="$MessageAssembly1/employees/employee/employee_id"/>
+        </move>
+        <move automap="true">
+            <input path="$MessageAssembly/JSON/spath('Data',2)/employees/employee/first_name"/>
+            <output path="$MessageAssembly1/employees/employee/first_name"/>
+        </move>
+        <move automap="true">
+            <input path="$MessageAssembly/JSON/spath('Data',2)/employees/employee/last_name"/>
+            <output path="$MessageAssembly1/employees/employee/last_name"/>
+        </move>
+        <move automap="true">
+            <input path="$MessageAssembly/JSON/spath('Data',2)/employees/employee/department"/>
+            <output path="$MessageAssembly1/employees/employee/department"/>
+        </move>
+        <move automap="true">
+            <input path="$MessageAssembly/JSON/spath('Data',2)/employees/employee/salary"/>
+            <output path="$MessageAssembly1/employees/employee/salary"/>
+        </move>
+    </mappingDeclaration>
+</mappingRoot>

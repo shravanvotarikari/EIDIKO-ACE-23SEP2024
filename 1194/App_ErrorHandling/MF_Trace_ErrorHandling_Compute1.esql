@@ -1,0 +1,14 @@
+
+
+CREATE COMPUTE MODULE MF_Trace_ErrorHandling_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		Handle the exception
+		SET OutputRoot = InputExceptionList;
+	END;
+END MODULE;

@@ -1,0 +1,14 @@
+
+
+CREATE COMPUTE MODULE MF_FileNode_RecordAsFile_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		SET OutputLocalEnvironment.Destination.File.Name = 'Output_' || CAST(CURRENT_TIMESTAMP AS CHARACTER FORMAT 'dd-MM-yyyy_HH-mm-ss');
+	END;
+END MODULE;

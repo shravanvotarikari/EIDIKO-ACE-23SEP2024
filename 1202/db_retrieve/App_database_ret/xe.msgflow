@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmDatabaseRetrieve.msgnode="ComIbmDatabaseRetrieve.msgnode" xmlns:ComIbmWSInput.msgnode="ComIbmWSInput.msgnode" xmlns:ComIbmWSReply.msgnode="ComIbmWSReply.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="xe.msgflow" nsPrefix="xe.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="RECTANGLE">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="xe" bundleName="xe" pluginId="app_dbs_ret"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/app_dbs_ret/icons/full/obj16/xe.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/app_dbs_ret/icons/full/obj30/xe.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmDatabaseRetrieve.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="327,95" dataSourceName="xe" copyMessage="true" sqlQuery="SELECT jaytable.col4&#xA;FROM jaytable&#xA;WHERE jaytable.col1 = 1234&#xA;ORDER BY jaytable.col4 ASC" tableNameComboValues="0,0,0,0,0,0,0,0,0,0,0,0,0~jaytable" columnNameComboValues="0,3,1,1,1,0,0,0,0,0,0,0,0~col1,col2,col3,col4" operatorComboValues="2,0,0,0,0,0,0,0,0,0,0,0,0~=" valueTypeComboValues="3,0,0,0,0,0,0,0,0,0,0,0,0,0~Column" columnValueComboValues="2,0,0,0,0,0,0~jaytable.col4">
+        <translation xmi:type="utility:ConstantString" string="Database Retrieve"/>
+        <queryElements tableName="jaytable" columnName="col1" operator="=" valueType="Column" value="1234"/>
+        <queryElements tableName="jaytable" columnName="col4" operator="ASC" valueType="None" value="None"/>
+        <dataElements columnName="jaytable.col4" messageElement="$OutputRoot/XMLNSC/employee/retrieved_data"/>
+        <nsMappingTable nsPrefix="xes" namespace="http://xe/system"/>
+      </nodes>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="91,98" URLSpecifier="/path" messageDomainProperty="XMLNSC">
+        <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="703,75">
+        <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>

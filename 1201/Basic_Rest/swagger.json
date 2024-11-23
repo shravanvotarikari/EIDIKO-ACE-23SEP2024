@@ -1,0 +1,60 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Basic_Rest",
+    "version" : "1.0.0",
+    "description" : "Basic_Rest"
+  },
+  "paths" : {
+    "/getStudentEligibility" : {
+      "post" : {
+        "operationId" : "postGetStudentEligibility",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "type" : "integer"
+            }
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Insert a getStudentEligibility",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "$ref" : "#/definitions/studentDetails"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        } ]
+      }
+    }
+  },
+  "basePath" : "/basic_rest/v1",
+  "definitions" : {
+    "studentDetails" : {
+      "type" : "object",
+      "properties" : {
+        "Student_name" : {
+          "type" : "string"
+        },
+        "Student_id" : {
+          "type" : "integer"
+        },
+        "Student_class" : {
+          "type" : "string"
+        }
+      }
+    },
+    "OutputDetail" : {
+      "type" : "object",
+      "properties" : {
+        "EligibilityStatus" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+
+
+CREATE COMPUTE MODULE MF_DatabaseInput_Insert_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE inRef REFERENCE TO InputRoot.XMLNSC.Employee;
+		
+		INSERT INTO Database.EMPLOYEESS VALUES (inRef.id, inRef.name, inRef.designation, inRef.address);
+		
+		IF SQLCODE = 0 THEN
+			SET OutputRoot.XMLNSC.Result = 'Row Inserted Successfully';
+		ELSE
+			SET OutputRoot.XMLNSC.Result = 'Failed to insert row';
+		END IF;
+		
+	END;
+END MODULE;

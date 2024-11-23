@@ -1,0 +1,18 @@
+
+
+CREATE COMPUTE MODULE MF_override_webservice_url_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	
+	 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		SET OutputRoot = InputRoot;
+		DECLARE newurl CHARACTER 'http://example.com/service';
+		
+SET OutputLocalEnvironment.Destination.SOAP.Request.Transport.HTTP.WebServiceURL = newurl;
+--SET OutputLocalEnvironment.Destination.SOAP.Request. 
+	END;
+END MODULE;

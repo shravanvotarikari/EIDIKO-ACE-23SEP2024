@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE MF_ESQL_SharedVariable_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.XMLNSC.emp.normal = normalVar1; -- Accessing Normal Variable created at schema level in another message flow
+		SET OutputRoot.XMLNSC.emp.shared = SharedVar1; -- Accessing Shared Variable created at schema level in another module
+		SET OutputRoot.XMLNSC.emp.external = externalVar1; -- Accessing External variable created at schema level in another message flow
+	END;
+END MODULE;

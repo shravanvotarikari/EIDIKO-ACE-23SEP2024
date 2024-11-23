@@ -1,0 +1,25 @@
+
+
+CREATE COMPUTE MODULE MF_Aggr_1_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+	  
+	
+	  	
+	  SET OutputLocalEnvironment.TimeoutRequest.Action = 'SET';
+      SET OutputLocalEnvironment.TimeoutRequest.Identifier = 'time1';
+      SET OutputLocalEnvironment.TimeoutRequest.StartTime = CAST (CURRENT_TIMESTAMP as CHARACTER FORMAT 'HH:mm:ss') ;
+      SET OutputLocalEnvironment.TimeoutRequest.Interval ='00';
+      SET OutputLocalEnvironment.TimeoutRequest.IgnoreMissed = TRUE;
+      SET OutputLocalEnvironment.TimeoutRequest.FireOnce = FALSE;
+		
+		RETURN TRUE;
+	END;
+
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;

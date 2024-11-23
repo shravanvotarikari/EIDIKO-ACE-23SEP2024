@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE MF_MQGet_GenerateMode_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputLocalEnvironment.var = 'Avishkar';
+		SET OutputRoot = InputRoot;
+--		In MQ Get Node ahead, Output Data Location will be overriden by Result Data Location field.
+	END;
+END MODULE;

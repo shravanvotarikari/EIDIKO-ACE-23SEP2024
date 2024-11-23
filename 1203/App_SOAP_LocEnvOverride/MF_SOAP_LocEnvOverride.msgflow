@@ -6,16 +6,16 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_SOAP_LocEnvOverride/icons/full/obj16/MF_SOAP_LocEnvOverride.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_SOAP_LocEnvOverride/icons/full/obj30/MF_SOAP_LocEnvOverride.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmSOAPInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="35,203" wsdlOperationMode="gateway" wsdlFileName="NewWSDLFile.wsdl" selectedPortType="NewWSDLFile" selectedBinding="NewWSDLFileSOAP" selectedPort="NewWSDLFileSOAP" targetNamespace="http://www.example.org/NewWSDLFile/" useHTTPTransport="true" urlSelector="/path" parserXmlnscBuildTreeUsingXMLSchema="false" validateMaster="none">
+      <nodes xmi:type="ComIbmSOAPInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="17,168" wsdlOperationMode="gateway" wsdlFileName="NewWSDLFile.wsdl" selectedPortType="NewWSDLFile" selectedBinding="NewWSDLFileSOAP" selectedPort="NewWSDLFileSOAP" targetNamespace="http://www.example.org/NewWSDLFile/" useHTTPTransport="true" urlSelector="/path" parserXmlnscBuildTreeUsingXMLSchema="false" validateMaster="none">
         <translation xmi:type="utility:ConstantString" string="SOAP Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmSOAPReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="989,214">
+      <nodes xmi:type="ComIbmSOAPReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="732,172">
         <translation xmi:type="utility:ConstantString" string="SOAP Reply"/>
       </nodes>
-      <nodes xmi:type="ComIbmSOAPRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="660,71" wsdlFileName="NewWSDLFile.wsdl" selectedPortType="NewWSDLFile" selectedBinding="NewWSDLFileSOAP" selectedOperation="Add" selectedPort="NewWSDLFileSOAP" targetNamespace="http://www.example.org/NewWSDLFile/" useHTTPTransport="true" webServiceURL="http://localhost:7800/newpath" sslProtocol="TLS">
+      <nodes xmi:type="ComIbmSOAPRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="461,84" wsdlFileName="NewWSDLFile.wsdl" selectedPortType="NewWSDLFile" selectedBinding="NewWSDLFileSOAP" selectedOperation="Add" selectedPort="NewWSDLFileSOAP" targetNamespace="http://www.example.org/NewWSDLFile/" useHTTPTransport="true" webServiceURL="http://localhost:7800/newpath" sslProtocol="TLS">
         <translation xmi:type="utility:ConstantString" string="SOAP Request"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="350,68" computeExpression="esql://routine/#MF_SOAP_LocEnvOverride_Compute.Main" computeMode="destinationAndMessage">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="232,86" computeExpression="esql://routine/#MF_SOAP_LocEnvOverride_Compute.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Policy_p1</name>
+	<comment></comment>
+	<projects>
+		<project>App_database_node</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.ibm.etools.mft.policy.ui.policybuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.ibm.etools.mft.policy.ui.Nature</nature>
+	</natures>
+</projectDescription>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <inlinedXMLSchema>
+        <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+    
+     
+         
+           
+             
+     
+         
+    
+       
+     
+  
+     
+  <xsd:element name="name" nillable="true" type="xsd:string"/> 
+       
+  <xsd:element name="id" nillable="true" type="xsd:string"/> 
+   
+</xsd:schema> 
+]]>
+    </inlinedXMLSchema>
+    <input path="/data.xsd" var="var5"/>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var6"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var4"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="out" uri="http://www.ibm.com/iib/msl/json"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="MF_XMLtoJSON_Mapping">
+        <input path="$var5/mb:msg(data,assembly,XMLNSC,Properties)" var="MessageAssembly"/>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var4/mb:msg(JSON,assembly,JSON,Properties)" var="MessageAssembly1">
+            <cast castType="userDefined" path="$MessageAssembly1/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var4"/>
+            <cast castType="userDefined" path="$MessageAssembly1/JSON/spath('Data',2)/any" qualifier="id" ref="var6"/>
+            <cast castType="userDefined" path="$MessageAssembly1/JSON/spath('Data',2)/any" qualifier="name" ref="var6"/>
+        </output>
+        <move>
+            <input path="$MessageAssembly/Properties"/>
+            <output path="$MessageAssembly1/Properties"/>
+        </move>
+        <move automap="true">
+            <input path="$MessageAssembly/data/id"/>
+            <output path="$MessageAssembly1/JSON/spath('Data',2)/id"/>
+        </move>
+        <move automap="true">
+            <input path="$MessageAssembly/data/name"/>
+            <output path="$MessageAssembly1/JSON/spath('Data',2)/name"/>
+        </move>
+    </mappingDeclaration>
+</mappingRoot>

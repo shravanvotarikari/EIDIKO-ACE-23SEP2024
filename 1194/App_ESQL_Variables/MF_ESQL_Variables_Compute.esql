@@ -1,0 +1,24 @@
+--Schema Level 
+DECLARE normalVar1 CHARACTER 'Avishkar'; -- (Accessible within Broker Schema i.e. in this application)
+
+CREATE COMPUTE MODULE MF_ESQL_Variables_Compute
+--	Module Level
+	DECLARE normalVar2 CHARACTER 'Khude'; -- (Accessible within this module)
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+--		Function Level
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		Function Level
+		DECLARE normalVar3 CHARACTER 'Avi'; -- (Accessible within this function only)
+
+		SET normalVar1 = 'Avi'; -- We can update the value of normal variable unlike External variable
+		SET OutputRoot.XMLNSC.emp.name = normalVar1;
+		SET OutputRoot.XMLNSC.emp.sirname = normalVar2;
+		SET OutputRoot.XMLNSC.emp.nickName = normalVar3;
+	END;
+	
+END MODULE;

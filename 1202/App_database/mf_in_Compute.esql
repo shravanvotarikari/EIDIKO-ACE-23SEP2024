@@ -1,0 +1,16 @@
+
+
+CREATE COMPUTE MODULE mf_in_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE inref REFERENCE TO InputRoot.XMLNSC.employee;
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		insert into Database.JAYEMPLOYEES VALUES (inref.id,inref.first_name,inref.department,inref.salary);
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;

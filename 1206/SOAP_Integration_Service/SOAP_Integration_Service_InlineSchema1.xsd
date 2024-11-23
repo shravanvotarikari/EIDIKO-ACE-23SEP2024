@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://SOAP_Integration_Service" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://SOAP_Integration_Service">
+          
+  
+  <xsd:element ibmSchExtn:docRoot="true" name="operation1">
+                
+    
+    <xsd:complexType>
+                      
+      
+      <xsd:sequence>
+                            
+        
+        <xsd:element name="greet" nillable="true" type="xsd:string"/>
+                          
+            
+      </xsd:sequence>
+                    
+    
+    </xsd:complexType>
+              
+  
+  </xsd:element>
+          
+  
+  <xsd:element ibmSchExtn:docRoot="true" name="operation1Response">
+                
+    
+    <xsd:complexType>
+                      
+      
+      <xsd:sequence>
+                            
+        
+        <xsd:element name="out" nillable="true" type="xsd:string"/>
+                          
+      
+      </xsd:sequence>
+                    
+    
+    </xsd:complexType>
+              
+  
+  </xsd:element>
+        
+
+</xsd:schema>

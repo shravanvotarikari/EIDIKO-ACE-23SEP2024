@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <inlinedXMLSchema>
+        <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+       
+  <xsd:element name="status" nillable="true" type="xsd:string"/> 
+   
+</xsd:schema> 
+]]>
+    </inlinedXMLSchema>
+    <input path="/employees.xsd" var="var1"/>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var6"/>
+    <output path="db:table(/xe.dbm,xe,SYSTEM,EMPLOYEES)" var="EMPLOYEES"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var5"/>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="MF_update_Mapping">
+        <input path="$var1/mb:msg(employees,assembly,XMLNSC,Properties)" var="MessageAssembly"/>
+        <output path="$EMPLOYEES/db:update(fn:false(),fn:true(),db:where('SYSTEM.EMPLOYEES.EMPLOYEE_ID =  ?','?'=$MessageAssembly/employees/employee/employee_id),EMPLOYEE_ID,FIRST_NAME,LAST_NAME,DEPARTMENT,SALARY)" var="dbupdate"/>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var5/mb:msg(JSON,assembly,JSON,Properties)" var="MessageAssembly3">
+            <cast castType="userDefined" path="$MessageAssembly3/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var5" var="anyType2"/>
+            <cast castType="userDefined" path="$MessageAssembly3/JSON/spath('Data',2)/any" qualifier="status" ref="var6" var="any"/>
+        </output>
+        <update ref="dbupdate">
+            <output path="$dbupdate/."/>
+            <move>
+                <input path="$MessageAssembly/employees/employee/employee_id"/>
+                <output path="EMPLOYEE_ID"/>
+            </move>
+            <move>
+                <input path="$MessageAssembly/employees/employee/first_name"/>
+                <output path="FIRST_NAME"/>
+            </move>
+            <move>
+                <input path="$MessageAssembly/employees/employee/last_name"/>
+                <output path="LAST_NAME"/>
+            </move>
+            <move>
+                <input path="$MessageAssembly/employees/employee/department"/>
+                <output path="DEPARTMENT"/>
+            </move>
+        </update>
+        <move>
+            <input path="$MessageAssembly/Properties"/>
+            <output path="$MessageAssembly3/Properties"/>
+        </move>
+        <assign value="Success">
+            <output path="$MessageAssembly3/JSON/spath('Data',2)/status"/>
+        </assign>
+    </mappingDeclaration>
+</mappingRoot>

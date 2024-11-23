@@ -18,6 +18,7 @@ public class MF_JCN_CSVToXML_JavaCompute extends MbJavaComputeNode {
 		try {
 			// create new message as a copy of the input
 			MbMessage outMessage = new MbMessage();
+			
 			outAssembly = new MbMessageAssembly(inAssembly, outMessage);
 			// ----------------------------------------------------------
 			// Add user code below
