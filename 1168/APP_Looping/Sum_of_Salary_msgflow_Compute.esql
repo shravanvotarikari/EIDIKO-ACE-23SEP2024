@@ -1,0 +1,53 @@
+
+
+CREATE COMPUTE MODULE Sum_of_Salary_msgflow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		
+		
+--DECLARE countOfElements INTEGER CARDINALITY(InputRoot.XMLNSC.employees.employee[]);
+--DECLARE sum INTEGER 0;
+--DECLARE i INTEGER 1;
+--
+---- Sum Using Repeat Loop
+--REPEAT
+--	
+--    SET sum = sum + CAST(InputRoot.XMLNSC.employees.employee[i].salary AS INTEGER);
+--    SET i = i + 1;
+--UNTIL i > countOfElements
+--END REPEAT;
+--
+--SET OutputRoot.JSON.Data.sum = sum;
+--		
+		
+--DECLARE sum INTEGER 0;
+--
+---- Sum Using For Loop
+--FOR employee AS InputRoot.XMLNSC.employees.employee[] DO
+--    SET sum = sum + CAST(employee.salary AS INTEGER);
+--END FOR;
+--
+--	SET OutputRoot.JSON.Data.sum = sum;
+		
+				
+				DECLARE sum INTEGER 0;
+				DECLARE i INTEGER 1;
+				
+		declare empref REFERENCE TO InputRoot.XMLNSC.employees.employee;
+		 while lastmove(empref) Do
+		 	set sum=  sum +  CAST(empref.salary AS INTEGER);
+		  move empref nextsibling;
+		  set i = i+1;
+	End while;
+	
+	SET OutputRoot.JSON.Data.sum = sum;
+	
+	END;
+END MODULE;
