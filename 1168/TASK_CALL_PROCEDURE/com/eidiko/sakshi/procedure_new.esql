@@ -1,0 +1,13 @@
+BROKER SCHEMA com.eidiko.sakshi
+
+
+CREATE PROCEDURE Sumproc (IN num1 INTEGER, IN num2 INTEGER, OUT result INTEGER)
+	BEGIN
+	    -- Add the two input parameters and store in the result
+	    SET result = num1 + num2;
+	END;
+	
+CREATE PROCEDURE FULLNAMEPROC (IN firstname CHARACTER, IN lastname CHARACTER, OUT fullname CHARACTER)
+BEGIN
+	SET fullname = firstname || ' ' || lastname;
+END;

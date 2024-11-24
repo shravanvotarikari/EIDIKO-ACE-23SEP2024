@@ -1,0 +1,27 @@
+PATH com.eidiko.sakshi;
+
+CREATE COMPUTE MODULE proceduremsflow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		--CALL CopyEntireMessage();
+		
+				-- Calling Sum Procedure
+		DECLARE sum INTEGER;
+		CALL Sumproc(5,9,sum);
+		SET OutputRoot.JSON.Data.details.sum = sum;
+		
+		-- Calling Character Procedure
+
+		
+		DECLARE fullname CHARACTER;
+		CALL FULLNAMEPROC('Rama', 'Meheta', fullname);
+		SET OutputRoot.JSON.Data.details.name = fullname;
+		
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+	
+			END;
+END MODULE;
