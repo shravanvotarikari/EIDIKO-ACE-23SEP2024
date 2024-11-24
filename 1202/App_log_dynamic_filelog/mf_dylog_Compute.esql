@@ -1,0 +1,37 @@
+
+
+CREATE COMPUTE MODULE mf_dylog_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE str CHARACTER;
+		
+		--set OutputLocalEnvironment.var = FIELDNAME(InputRoot.*[<]);
+		
+			--cast(ASBITSTREAM(InputRoot.XMLNSC) as CHARACTER CCSID 1208 encoding 546);
+			--declare outstr CHARACTER ;
+			--set outstr = 'Time - '||cast(CURRENT_TIMESTAMP as CHARACTER ccsid 1208 ENCODING 546)||'  Log Data--  '||str;
+			--declare nline BLOB '0a';
+			set OutputRoot.DFDL.csvlog.record.field1 = ApplicationLabel;
+			set OutputRoot.DFDL.csvlog.record.field2 = MessageFlowLabel;
+			set OutputRoot.DFDL.csvlog.record.field3 = BrokerName;
+			set OutputRoot.DFDL.csvlog.record.field4 = ExecutionGroupName;
+			set OutputRoot.DFDL.csvlog.record.field5 = 'chid';
+			set OutputRoot.DFDL.csvlog.record.field6 = 'Request time '||cast(CURRENT_TIMESTAMP as CHARACTER ccsid 1208 ENCODING 546);
+			set OutputRoot.DFDL.csvlog.record.field7 = 'Request message '||cast(ASBITSTREAM(InputRoot.XMLNSC) as CHARACTER CCSID 1208 encoding 546);
+			set OutputRoot.DFDL.csvlog.record.field8 = 'Response time '||cast(CURRENT_TIMESTAMP as CHARACTER ccsid 1208 ENCODING 546);
+			set OutputRoot.JSON.Data = InputRoot.XMLNSC;
+			set OutputRoot.DFDL.csvlog.record.field9 =  'Response message '||cast(ASBITSTREAM(OutputRoot.JSON.Data) as CHARACTER CCSID 1208 encoding 546);
+			set OutputRoot.DFDL.csvlog.record.field10 = ' ';
+			SET OutputLocalEnvironment.Destination.File.Name = 'Audit_Log_' || CAST(CURRENT_DATE AS CHARACTER format 'dd-mm-yyyy')||'.txt';
+			set OutputRoot.JSON=null;
+		    propagate to TERMINAL 'out1';
+		    set OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		
+		
+		
+	--	set OutputLocalEnvironment.in = InputRoot;
+		RETURN TRUE;
+	END;
+
+	
+END MODULE;

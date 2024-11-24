@@ -1,0 +1,100 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Rest_CRUD",
+    "version" : "1.0.0",
+    "description" : "Rest_CRUD"
+  },
+  "paths" : {
+    "/crud" : {
+      "post" : {
+        "operationId" : "postCrud",
+        "responses" : { },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Insert a crud",
+        "parameters" : [ ]
+      },
+      "get" : {
+        "operationId" : "getCrud",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/jsonmodel"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve crud",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "type" : "number"
+        } ]
+      },
+      "put" : {
+        "operationId" : "putCrud",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Update crud",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "$ref" : "#/definitions/jsonmodel"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        }, {
+          "name" : "id",
+          "in" : "query",
+          "type" : "number"
+        } ]
+      },
+      "delete" : {
+        "operationId" : "deleteCrud",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Remove from crud",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "type" : "string"
+        } ]
+      }
+    }
+  },
+  "basePath" : "/rest/crud/",
+  "definitions" : {
+    "jsonmodel" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "fname" : {
+          "type" : "string"
+        },
+        "lname" : {
+          "type" : "string"
+        },
+        "salary" : {
+          "type" : "integer"
+        }
+      }
+    }
+  }
+}

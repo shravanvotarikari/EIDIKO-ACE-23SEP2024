@@ -1,0 +1,44 @@
+
+DECLARE xmlconfig external CHARACTER 'C:\Inlog\Log4jConfigurationFile.xml' ;
+declare boolval BOOLEAN;
+CREATE COMPUTE MODULE mf_4j_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		call initconfig(xmlconfig) into boolval ;
+		call CopyEntireMessage();
+		RETURN TRUE;
+	END;
+ 
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		set OutputRoot.XMLNSC.root = InputRoot.XMLNSC.root;
+		declare indata CHARACTER cast(ASBITSTREAM(InputRoot.XMLNSC) as character ccsid InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		--input
+		call writelog(MessageFlowLabel,'dco_info','INFO','Inputdata- '|| indata) into boolval;
+		
+		
+		--request
+		declare redata row;
+		set redata.data[] =  SELECT t.col4 FROM Database.JAYTABLE AS t WHERE t.COL1=InputRoot.XMLNSC.root.id;
+		declare out123 CHARACTER cast(ASBITSTREAM(OutputRoot.XMLNSC.root.out) as CHARACTER CCSID 1208);
+		call writelog(MessageFlowLabel,'dco_info','INFO','Database request query- Where id = '||InputRoot.XMLNSC.root.id) into boolval;
+		
+		--response
+		set OutputRoot.XMLNSC.root.out = redata.data;
+		call writelog(MessageFlowLabel,'dco_info','INFO','Database Response - ' || out123) into boolval;
+		
+		
+		--output
+		call writelog(MessageFlowLabel,'dco_info','INFO','Outputdata- '|| cast(ASBITSTREAM(OutputRoot.XMLNSC) as character ccsid InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding)) into boolval;
+	END;
+	
+	create FUNCTION initconfig (in filename CHARACTER ) 
+	returns BOOLEAN
+	 language java 
+	 external name "com.ibm.broker.IAM3.Log4jNode.initLog4j" ;
+		
+	create FUNCTION writelog (in mf CHARACTER,in logger CHARACTER,in level CHARACTER,in data CHARACTER) 
+	returns BOOLEAN
+	 language java 
+	 external name "com.ibm.broker.IAM3.Log4jNode.log" ;
+
+END MODULE;

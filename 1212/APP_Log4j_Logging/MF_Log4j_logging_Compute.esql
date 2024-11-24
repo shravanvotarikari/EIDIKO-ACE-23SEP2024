@@ -6,7 +6,7 @@ CREATE COMPUTE MODULE MF_Log4j_logging_Compute
 		DECLARE initval BOOLEAN;
 		DECLARE writetolog BOOLEAN;
 		
-		CALL initLog4j('C:\Log4j\Log4jConfigurationFile.xml') INTO initval; 
+		CALL initLog4j('C:\Log4J\Log4jConfigurationFile.xml') INTO initval; 
 		
 		CALL writeToLogFile('Logger','RakeshLogger1','INFO','Apurva') INTO writetolog;
 		

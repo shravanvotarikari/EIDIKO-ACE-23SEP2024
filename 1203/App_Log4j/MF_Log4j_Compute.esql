@@ -4,9 +4,9 @@ CREATE COMPUTE MODULE MF_Log4j_Compute
 		
 		DECLARE initval BOOLEAN;
 		DECLARE writetolog BOOLEAN;
-		CALL initLog4j('D:\Office Stuff\IIB\Log4j_01\L1\Log4jConfigurationFile.xml') INTO initval; 
+		CALL initLog4j('C:\Log4j\L1\Log4jConfigurationFile.xml') INTO initval; 
 		--CALL initLog4j('C:/ProgramData/IBM/MQSI/shared-classes/Log4jConfigurationFile.xml') INTO initval; 
-		CALL writeToLogFile('Logger','RakeshLogger1','INFO','Hello_world') INTO writetolog;
+		CALL writeToLogFile('Logger','RakeshLogger1','INFO','Helloworld') INTO writetolog;
 			
 		RETURN TRUE;
 	END;

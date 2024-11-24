@@ -5,6 +5,7 @@
 	<projects>
 	</projects>
 	<buildSpec>
+<<<<<<< HEAD
 		<buildCommand>
 			<name>com.ibm.etools.mft.applib.applibbuilder</name>
 			<arguments>
@@ -114,5 +115,9 @@
 	<natures>
 		<nature>com.ibm.etools.msgbroker.tooling.applicationNature</nature>
 		<nature>com.ibm.etools.msgbroker.tooling.messageBrokerProjectNature</nature>
+=======
+	</buildSpec>
+	<natures>
+>>>>>>> branch 'training' of https://github.com/shravanvotarikari/EIDIKO-ACE-23SEP2024.git
 	</natures>
 </projectDescription>

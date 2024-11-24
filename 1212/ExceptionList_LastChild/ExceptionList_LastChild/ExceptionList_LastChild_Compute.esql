@@ -1,0 +1,49 @@
+
+
+
+
+BROKER SCHEMA ExceptionList_LastChild
+
+CREATE COMPUTE MODULE ExceptionList_LastChild_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE ref REFERENCE TO InputExceptionList.*[>];
+
+		DECLARE mainText CHARACTER '';
+
+		DECLARE initval BOOLEAN;
+		DECLARE writetolog BOOLEAN;
+		
+		
+	
+
+		WHILE ENDSWITH(FIELDNAME(ref),'Exception') DO
+			
+		
+			SET mainText=ref.Text;
+			--For loop is for concatenating
+			FOR insertRef AS ref.Insert[] DO
+				SET mainText=mainText ||','||insertRef.Text||',';
+			END FOR;
+			MOVE ref LASTCHILD;
+
+		END WHILE;
+
+
+		SET OutputRoot.JSON.Data.res=mainText;		
+
+
+		CALL initLog4j('C:\Log4J\Log4jConfigurationFile.xml') INTO initval;
+
+		CALL writeToLogFile(NodeLabel,'RakeshLogger1','INFO', mainText ) INTO writetolog;
+
+	END;
+END MODULE;
+
+CREATE FUNCTION initLog4j(IN CONFIG_FILE CHARACTER)RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
+
+CREATE FUNCTION writeToLogFile(IN COMPONENT CHARACTER,IN LOGGER CHARACTER,IN LEVEL CHARACTER,IN TEXT CHARACTER)RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
