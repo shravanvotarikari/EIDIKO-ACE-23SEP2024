@@ -20,6 +20,6 @@ CREATE COMPUTE MODULE MF_ExceptionList_LastChild_Logging_Compute
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		
-		SET OutputRoot.JSON.data = InputRoot.XMLNSC;
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
 	END;
 END MODULE;
