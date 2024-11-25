@@ -1,0 +1,14 @@
+CREATE COMPUTE MODULE MF_TryCatch_node_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyEntireMessage();
+		--if we use throw node we dont need this line of code
+		--THROW USER EXCEPTION CATALOG 'UserDefined' MESSAGE 1234 VALUES('Intentional Error');
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
