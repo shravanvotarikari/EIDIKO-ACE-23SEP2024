@@ -1,0 +1,18 @@
+
+
+CREATE COMPUTE MODULE insertquerymsgflow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		INSERT INTO Database.APP1_APP (EID, ENAME, DESIGNATION, ADDRESS) VALUES ('E12378', 'adsf', 'Manager', 'BOSTON');
+		
+		SET OutputRoot.JSON.Data.Sakshi = 'Data inserted';
+	END;
+END MODULE;
