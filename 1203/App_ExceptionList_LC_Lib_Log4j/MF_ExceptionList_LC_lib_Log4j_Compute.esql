@@ -18,6 +18,6 @@ CREATE COMPUTE MODULE MF_ExceptionList_LC_lib_Log4j_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputRoot.JSON.data = InputRoot.XMLNSC;
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
 	END;
 END MODULE;
