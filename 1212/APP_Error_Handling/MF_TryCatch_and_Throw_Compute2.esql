@@ -1,10 +1,10 @@
 
 
-CREATE COMPUTE MODULE MF_TraceNode_Compute
+CREATE COMPUTE MODULE MF_TryCatch_and_Throw_Compute2
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
-	     CALL CopyEntireMessage();
+		 CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
 
