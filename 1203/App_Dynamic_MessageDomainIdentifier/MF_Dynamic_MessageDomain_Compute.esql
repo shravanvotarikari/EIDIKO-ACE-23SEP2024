@@ -1,0 +1,39 @@
+CREATE COMPUTE MODULE MF_Dynamic_MessageDomain_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	--FIRST WAY
+--	 -- Declare variables
+--    DECLARE domainName CHARACTER;
+--    DECLARE inputContent CHARACTER;
+--    -- Get raw message content as a string
+--    SET inputContent = CAST(InputRoot.BLOB.BLOB AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId);
+--    -- Determine the message domain
+--    IF inputContent LIKE '{%' THEN
+--        SET domainName = 'JSON';
+--    ELSEIF inputContent LIKE '<%' THEN
+--        SET domainName = 'XMLNSC';
+--    ELSE
+--        SET domainName = 'Unknown';
+--    END IF;
+--    -- Construct the response
+--    SET OutputRoot.XMLNSC.Response.Message = 'The domain of your message is ' || domainName || '.';
+--    RETURN TRUE;
+-- SECONd WAY
+
+  DECLARE domainName CHARACTER;
+
+    -- Check the Content-Type header to determine the domain
+    CASE InputRoot.Properties.ContentType
+        WHEN 'application/json' THEN
+            SET domainName = 'JSON';
+        WHEN 'application/xml' THEN
+            SET domainName = 'XMLNSC';
+        ELSE
+            SET domainName = 'Unknown';
+    END CASE;
+
+    -- Construct the response
+    SET OutputRoot.XMLNSC.Response.Message = 'The domain of your message is ' || domainName || '.';
+    RETURN TRUE;
+	END;
+END MODULE;

@@ -12,7 +12,7 @@
       <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="614,110" queueName="Q2" destinationQueueManagerName="QM1">
         <translation xmi:type="utility:ConstantString" string="MQ Output"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="318,112" pattern="&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="318,112" filePath="C:\ProgramData\IBM\MQSI\common\log\logRecord.txt" pattern="&#xD;&#xA;message :${Root}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;">
         <translation xmi:type="utility:ConstantString" string="Trace"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
