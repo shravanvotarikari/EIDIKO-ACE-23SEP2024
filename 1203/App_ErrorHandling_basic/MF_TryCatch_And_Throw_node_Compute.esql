@@ -25,6 +25,9 @@ CREATE COMPUTE MODULE MF_TryCatch_And_Throw_node_Compute
 		DECLARE errorDetail CHARACTER InputExceptionList.*[1].Text;
 		-- Create an error response
 		SET OutputRoot.XMLNSC.Data = InputExceptionList;
+--		 SET OutputRoot.JSON.Data.Status = 'Error';
+--    SET OutputRoot.JSON.Data.Message = errorMessage;
+--    SET OutputRoot.JSON.Data.Detail = COALESCE(errorDetail, 'No additional details.');
 
 	END;
 END MODULE;
