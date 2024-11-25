@@ -3,17 +3,20 @@ CREATE COMPUTE MODULE MF_TryCatch_node_Compute1
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
-		-- CALL CopyEntireMessage();
-		DECLARE errorMessage CHARACTER 'An error occurred during processing.';
-		DECLARE errorDetail CHARACTER InputExceptionList.*[1].Text;
-		-- Create an error response
-		SET OutputRoot.JSON.Data.Status = 'Error';
-		SET OutputRoot.JSON.Data.Message = errorMessage;
-		SET OutputRoot.JSON.Data.Detail = COALESCE(errorDetail, 'No additional details.');
+		 CALL CopyEntireMessage();
+
 		RETURN TRUE;
+		
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputRoot = InputRoot;
+		IF InputRoot.JSON.Data.TaskType = 'Process' THEN
+       
+        SET OutputRoot.JSON.Data.Response = 'Processing completed.';
+        
+    ELSE
+    	PROPAGATE TO TERMINAL 'Out';
+	--	SET OutputRoot = InputRoot;
+		END IF;
 	END;
 END MODULE;
