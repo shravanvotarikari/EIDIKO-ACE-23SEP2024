@@ -1,0 +1,25 @@
+CREATE COMPUTE MODULE noofrecords_Compute
+    CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+      
+        CALL CopyEntireMessage();
+        RETURN TRUE;
+    END;
+
+    CREATE PROCEDURE CopyEntireMessage() BEGIN
+        DECLARE Res,No INTEGER;
+		DECLARE Ans CHARACTER;
+       
+        CALL DataBaseEx1(Res );
+		SET Ans = CAST(Res AS CHARACTER) || ' data inserted successfully';
+        
+        SET OutputRoot.BLOB.BLOB = CAST(Ans AS BLOB CCSID 1208);
+        
+    END;
+
+  
+    
+END MODULE;
+CREATE PROCEDURE DataBaseEx1 (Out No INTEGER )
+LANGUAGE DATABASE
+EXTERNAL NAME getTodaysRecordCount;
