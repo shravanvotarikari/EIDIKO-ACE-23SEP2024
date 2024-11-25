@@ -24,7 +24,7 @@ CREATE COMPUTE MODULE SF_ExceptionList_LastChild_Compute
 		SET OutputRoot.JSON.Data.res=mainText;
 
 
-		CALL initLog4j('C:\Log4J\Log4jConfigurationFile.xml') INTO initval;
+		CALL initLog4j('C:\Log4j\Log4jConfigurationFile.xml') INTO initval;
 		CALL writeToLogFile('Logger','RakeshLogger1','INFO', mainText ) INTO writetolog;
 
 		RETURN TRUE;
