@@ -11,7 +11,7 @@ CREATE COMPUTE MODULE insertquerymsgflow_Compute
 	
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		
-		INSERT INTO Database.APP1_APP (EID, ENAME, DESIGNATION, ADDRESS) VALUES ('E12378', 'adsf', 'Manager', 'BOSTON');
+		INSERT INTO Database.APP1_APP (EID, ENAME, DESIGNATION, ADDRESS) VALUES ('E94225', 'adsf', 'Director', 'England');
 		
 		SET OutputRoot.JSON.Data.Sakshi = 'Data inserted';
 	END;
