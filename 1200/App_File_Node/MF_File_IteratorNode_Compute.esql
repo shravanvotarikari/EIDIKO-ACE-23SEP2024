@@ -1,0 +1,14 @@
+
+
+CREATE COMPUTE MODULE MF_File_IteratorNode_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+	END;
+END MODULE;
