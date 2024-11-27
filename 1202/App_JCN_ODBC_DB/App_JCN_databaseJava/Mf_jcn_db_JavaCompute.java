@@ -47,7 +47,7 @@ public class Mf_jcn_db_JavaCompute extends MbJavaComputeNode {
 			}
 			else if(query.equals("select")) {
 				String val1 = inMessage.getRootElement().getFirstElementByPath("XMLNSC/root/val1").getValueAsString();
-				
+	
 				MbSQLStatement state = createSQLStatement( "jaydsn", 
 				"SET OutputRoot.XMLNSC.integer[] = select * from Database.jaytable as t where t.col1='"+val1+"';" );
 				state.select(inAssembly,outAssembly);
