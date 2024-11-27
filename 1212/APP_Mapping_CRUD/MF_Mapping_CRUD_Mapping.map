@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <inlinedXMLSchema>
+        <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+    
+        
+   
+  <xsd:element name="Result" nillable="true" type="xsd:string"/> 
+    
+    
+ 
+</xsd:schema> 
+]]>
+    </inlinedXMLSchema>
+    <input path="/xmlDataip.xsd" var="var"/>
+    <input path="jar:file://!com/ibm/msl/mapping/rdb/xsds/dbreturn.xsd" var="var1"/>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var3"/>
+    <output path="db:table(/xe.dbm,xe,SYSTEM,EMPLOYEE)" var="EMPLOYEE"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var2"/>
+    <imports>
+        <import kind="esql" namespace="/Mapping.esql"/>
+    </imports>
+    <namespaces>
+        <namespace kind="supplement" prefix="out" uri="http://www.ibm.com/iib/msl/json"/>
+        <namespace kind="extension" prefix="Mapping" uri="/Mapping.esql"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="MF_Mapping_CRUD_Mapping">
+        <input path="$var/mb:msg(employees,assembly,XMLNSC,Properties)" var="MessageAssembly"/>
+        <output path="$EMPLOYEE/db:insert(fn:false(),EMPLOYEE_ID,FIRST_NAME,LAST_NAME,DEPARTMENT,SALARY)" var="dbinsert"/>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var2/mb:msg(JSON,assembly,JSON,Properties)" var="MessageAssembly1">
+            <cast castType="userDefined" path="$MessageAssembly1/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var2" var="anyType"/>
+            <cast castType="userDefined" path="$MessageAssembly1/JSON/spath('Data',2)/any" qualifier="Result" ref="var3" var="any"/>
+        </output>
+        <transaction>
+            <insert ref="dbinsert">
+                <input path="$MessageAssembly/employees"/>
+                <output path="$dbinsert/."/>
+                <move>
+                    <input path="employee/employee_id"/>
+                    <output path="EMPLOYEE_ID"/>
+                </move>
+                <move>
+                    <input path="employee/first_name"/>
+                    <output path="FIRST_NAME"/>
+                </move>
+                <move>
+                    <input path="employee/last_name"/>
+                    <output path="LAST_NAME"/>
+                </move>
+                <move>
+                    <input path="employee/department"/>
+                    <output path="DEPARTMENT"/>
+                </move>
+                <move>
+                    <input path="employee/salary"/>
+                    <output path="SALARY"/>
+                </move>
+            </insert>
+            <return>
+                <input path="$var1/DBInsertReturn"/>
+                <output path="$MessageAssembly1/JSON/spath('Data',2)/Result"/>
+                <move>
+                    <input path="NumberOfRowsInserted" var="NumberOfRowsInserted"/>
+                    <output path="."/>
+                </move>
+            </return>
+        </transaction>
+        <move>
+            <input path="$MessageAssembly/Properties"/>
+            <output path="$MessageAssembly1/Properties"/>
+        </move>
+    </mappingDeclaration>
+</mappingRoot>

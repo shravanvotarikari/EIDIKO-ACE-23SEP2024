@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="eid" type="xsd:string"/>
+  <xsd:element name="fname" type="xsd:string"/>
+  <xsd:element name="lname" type="xsd:string"/>
+  <xsd:element name="root">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="emp"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="emp">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="eid"/>
+        <xsd:element ref="fname"/>
+        <xsd:element ref="lname"/>
+        <xsd:element ref="dept"/>
+        <xsd:element ref="sal"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="dept" type="xsd:string"/>
+  <xsd:element name="sal" type="xsd:string"/>
+</xsd:schema>
