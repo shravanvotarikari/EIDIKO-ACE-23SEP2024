@@ -6,7 +6,7 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_Retry_Mechanism/icons/full/obj16/MF_Retry_Mechanism.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_Retry_Mechanism/icons/full/obj30/MF_Retry_Mechanism.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="71,141" inputDirectory="C:\Users\Sreenivas Bandaru\Desktop\IIB_V\F1" messageDomainProperty="BLOB" validateTiming="complete" retryMechanism="shortRetry" retryThreshold="3" shortRetryInterval="6">
+      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="71,141" inputDirectory="C:\Users\Sreenivas Bandaru\Desktop\IIB_V\F1" messageDomainProperty="BLOB" validateTiming="complete" retryMechanism="shortAndLongRetry" retryThreshold="3" shortRetryInterval="3" longRetryInterval="7">
         <translation xmi:type="utility:ConstantString" string="File Input"/>
       </nodes>
       <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="521,141" outputDirectory="C:\Users\Sreenivas Bandaru\Desktop\IIB_V\F2" outputFilename="abc.txt">

@@ -1,0 +1,30 @@
+
+
+CREATE COMPUTE MODULE routingmsg_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		 
+		 
+		 
+		 
+		 
+		
+		 	INSERT INTO Database.CUSTOMER(NAME,ACCID,BRANCH) VALUES('rama',23456789,'UNION');
+		 	
+		 
+		 	
+		 	
+		 
+	
+		 
+		
+		 
+	END;
+END MODULE;

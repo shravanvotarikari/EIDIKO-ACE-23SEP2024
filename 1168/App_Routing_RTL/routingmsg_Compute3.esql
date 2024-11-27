@@ -1,0 +1,17 @@
+
+
+CREATE COMPUTE MODULE routingmsg_Compute3
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+			 DELETE FROM Database.CUSTOMER as R WHERE R.NAME = 'rama';
+		
+	END;
+END MODULE;
