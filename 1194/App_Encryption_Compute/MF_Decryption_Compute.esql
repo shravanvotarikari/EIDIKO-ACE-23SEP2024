@@ -1,0 +1,26 @@
+DECLARE result CHARACTER;
+
+CREATE COMPUTE MODULE MF_Decryption_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		Pass Encrypted data as input and set Message domain as blob at input node
+		DECLARE data CHARACTER CAST(InputRoot.BLOB.BLOB AS CHARACTER CCSID 1208);
+		DECLARE key CHARACTER 'myKey';
+		
+--		Calling Java Decryption Procedure
+		CALL decryptProc(data, key) INTO result;
+		
+--		Converting Character result into XMLNSC to set it to output
+		DECLARE blobVar BLOB CAST(result AS BLOB CCSID 1208);
+		CREATE LASTCHILD OF OutputRoot DOMAIN ('XMLNSC') PARSE(blobVar CCSID 1208);
+	END;
+END MODULE;
+
+CREATE PROCEDURE decryptProc(IN Data CHARACTER, IN Key CHARACTER) RETURNS CHARACTER
+LANGUAGE JAVA
+EXTERNAL NAME "DecryptionPackage.DecryptClass.decryptFunction";
