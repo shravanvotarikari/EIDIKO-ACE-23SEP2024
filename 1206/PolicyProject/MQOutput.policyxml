@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <policies>
-  <policy policyType="MQEndpoint" policyName="Remote_MQ_Policy" policyTemplate="MQEndpoint">
-    <connection>CLIENT</connection>
-    <destinationQueueManagerName>manager1</destinationQueueManagerName>
-    <queueManagerHostname>192.168.1.205</queueManagerHostname>
-    <listenerPortNumber>1415</listenerPortNumber>
-    <channelName>hrishi</channelName>
+  <policy policyType="MQEndpoint" policyName="MQOutput" policyTemplate="MQEndpoint">
+    <connection>SERVER</connection>
+    <destinationQueueManagerName>Manager_1</destinationQueueManagerName>
+    <queueManagerHostname>localhost</queueManagerHostname>
+    <listenerPortNumber>1419</listenerPortNumber>
+    <channelName></channelName>
     <CCDTUrl></CCDTUrl>
     <securityIdentity></securityIdentity>
     <useSSL>false</useSSL>
