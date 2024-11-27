@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>App_Mapping_CRUD</name>
+	<name>App_JCN_global_cache</name>
 	<comment></comment>
 	<projects>
-		<project>MappingDb</project>
-		<project>dbProject</project>
-		<project>jdbcprovider</project>
+		<project>App_JCN_global_cacheJava</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

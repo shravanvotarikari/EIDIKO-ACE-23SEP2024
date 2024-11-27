@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <inlinedXMLSchema>
+        <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+    
+     
+      
+       
+           
+      
+     
+    
+   
+  <xsd:element name="value" nillable="true" type="xsd:string"/> 
+    
+     
+      
+       
+           
+      
+     
+    
+   
+  <xsd:element name="key" nillable="true" type="xsd:string"/> 
+    
+     
+      
+       
+       
+    
+   
+  
+ 
+</xsd:schema> 
+]]>
+    </inlinedXMLSchema>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var4"/>
+    <input path="/key_value.xsd" var="var9"/>
+    <input path="jar:file://!com/ibm/msl/mapping/cache/xsds/cache.xsd" var="var8"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var3"/>
+    <output path="jar:file://!com/ibm/msl/mapping/cache/xsds/cache.xsd" var="var7"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="io" uri="http://www.ibm.com/msl/cache/1.0"/>
+        <namespace kind="supplement" prefix="out" uri="http://www.ibm.com/iib/msl/json"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="MF_gc_container_server_3_Mapping">
+        <input path="$var9/mb:msg(root,assembly,XMLNSC,Properties)" var="MessageAssembly"/>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var3/mb:msg(JSON,assembly,JSON,Properties)" var="MessageAssembly1">
+            <cast castType="userDefined" path="$MessageAssembly1/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var3"/>
+            <cast castType="userDefined" path="$MessageAssembly1/JSON/spath('Data',2)/any" qualifier="key" ref="var4"/>
+            <cast castType="userDefined" path="$MessageAssembly1/JSON/spath('Data',2)/any" qualifier="value" ref="var4"/>
+        </output>
+        <transaction>
+            <cacheGet>
+                <input path="$MessageAssembly/root/key"/>
+                <output path="$var7/CacheGet"/>
+                <move>
+                    <input path="."/>
+                    <output path="Key"/>
+                </move>
+            </cacheGet>
+            <cacheReturn>
+                <input path="$var8/CacheGetReturn"/>
+                <output path="$MessageAssembly1/JSON/spath('Data',2)/value"/>
+                <move>
+                    <input path="Value"/>
+                    <output path="."/>
+                </move>
+            </cacheReturn>
+            <cacheFailure>
+                <input path="$var8/CacheFailure"/>
+            </cacheFailure>
+        </transaction>
+        <move>
+            <input path="$MessageAssembly/root/key"/>
+            <output path="$MessageAssembly1/JSON/spath('Data',2)/key"/>
+        </move>
+    </mappingDeclaration>
+</mappingRoot>

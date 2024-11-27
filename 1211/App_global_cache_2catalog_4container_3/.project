@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>App_Mapping_CRUD</name>
+	<name>App_global_cache_2catalog_4container_3</name>
 	<comment></comment>
 	<projects>
-		<project>MappingDb</project>
-		<project>dbProject</project>
-		<project>jdbcprovider</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
