@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <inlinedXMLSchema>
+        <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+    
+        
+   
+  <xsd:element name="rows_inserted" nillable="true" type="xsd:string"/> 
+    
+    
+ 
+</xsd:schema> 
+]]>
+    </inlinedXMLSchema>
+    <input path="/xmlDataip.xsd" var="var1"/>
+    <input path="jar:file://!com/ibm/msl/mapping/rdb/xsds/dbreturn.xsd" var="var2"/>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var3"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var"/>
+    <output path="db:table(/xe.dbm,xe,SYSTEM,EMPLOYEE)" var="EMPLOYEE"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="out" uri="http://www.ibm.com/iib/msl/json"/>
+        <namespace kind="extension" prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="MF_Mapping_CRUD_Mapping1">
+        <input path="$var1/mb:msg(employees,assembly,XMLNSC,Properties)" var="ComIbmMessageAssembly_employees"/>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var/mb:msg(JSON,assembly,JSON,Properties)" var="ComIbmMessageAssembly_JSON">
+            <cast castType="userDefined" path="$ComIbmMessageAssembly_JSON/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var"/>
+            <cast castType="userDefined" path="$ComIbmMessageAssembly_JSON/JSON/spath('Data',2)/any" qualifier="rows_inserted" ref="var3"/>
+        </output>
+        <move>
+            <input path="$ComIbmMessageAssembly_employees/Properties"/>
+            <output path="$ComIbmMessageAssembly_JSON/Properties"/>
+        </move>
+        <local>
+            <input path="$ComIbmMessageAssembly_employees/employees"/>
+            <output path="$ComIbmMessageAssembly_JSON/JSON" var="JSON"/>
+            <output path="$EMPLOYEE/db:insert(fn:false(),EMPLOYEE_ID,FIRST_NAME,LAST_NAME,DEPARTMENT,SALARY)" var="dbinsert"/>
+            <transaction>
+                <insert ref="dbinsert">
+                    <input path="employee"/>
+                    <output path="$dbinsert/."/>
+                    <function ref="xs:integer">
+                        <input path="employee_id" var="employee_id"/>
+                        <output path="EMPLOYEE_ID"/>
+                        <param name="primitive" value="$employee_id"/>
+                    </function>
+                    <move>
+                        <input path="first_name"/>
+                        <output path="FIRST_NAME"/>
+                    </move>
+                    <move>
+                        <input path="last_name"/>
+                        <output path="LAST_NAME"/>
+                    </move>
+                    <move>
+                        <input path="department"/>
+                        <output path="DEPARTMENT"/>
+                    </move>
+                    <function ref="xs:integer">
+                        <input path="salary" var="salary"/>
+                        <output path="SALARY"/>
+                        <param name="primitive" value="$salary"/>
+                    </function>
+                </insert>
+                <return>
+                    <input path="$var2/DBInsertReturn"/>
+                    <output path="$JSON/spath('Data',2)/rows_inserted"/>
+                    <move>
+                        <input path="NumberOfRowsInserted"/>
+                        <output path="."/>
+                    </move>
+                </return>
+            </transaction>
+        </local>
+    </mappingDeclaration>
+</mappingRoot>
