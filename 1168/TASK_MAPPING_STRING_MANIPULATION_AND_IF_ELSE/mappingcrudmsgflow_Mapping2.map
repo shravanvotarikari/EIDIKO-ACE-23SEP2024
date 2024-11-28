@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <input path="/employee.xsd" var="var"/>
+    <input path="/employee.xsd" var="var1"/>
+    <output path="/employee.xsd"/>
+    <namespaces>
+        <namespace kind="extension" prefix="fn" uri="http://www.w3.org/2005/xpath-functions"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="mappingcrudmsgflow_Mapping2">
+        <input path="$var/mb:msg(Employee,assembly,XMLNSC,Properties)" var="ComIbmMessageAssembly_Employee"/>
+        <output path="mb:msg(Employee,assembly,XMLNSC,Properties)" var="ComIbmMessageAssembly_Employee1"/>
+        <move>
+            <input path="$ComIbmMessageAssembly_Employee/Employee/id"/>
+            <output path="$ComIbmMessageAssembly_Employee1/Employee/id"/>
+        </move>
+        <task type="todo">
+            <input path="$ComIbmMessageAssembly_Employee/Employee"/>
+            <output path="$ComIbmMessageAssembly_Employee1/Employee"/>
+        </task>
+        <move>
+            <input path="$ComIbmMessageAssembly_Employee/Employee/type"/>
+            <output path="$ComIbmMessageAssembly_Employee1/Employee/type"/>
+        </move>
+        <move>
+            <input path="$ComIbmMessageAssembly_Employee/Employee/tel" var="tel"/>
+            <output path="$ComIbmMessageAssembly_Employee1/Employee/tel"/>
+        </move>
+        <function ref="fn:upper-case">
+            <input path="$ComIbmMessageAssembly_Employee/Employee/email" var="email"/>
+            <output path="$ComIbmMessageAssembly_Employee1/Employee/email"/>
+            <param name="string" value="$email"/>
+        </function>
+        <function ref="fn:upper-case">
+            <input path="$ComIbmMessageAssembly_Employee/Employee/name" var="name"/>
+            <output path="$ComIbmMessageAssembly_Employee1/Employee/name"/>
+            <param name="string" value="$name"/>
+        </function>
+        <move>
+            <input path="$ComIbmMessageAssembly_Employee/Properties"/>
+            <output path="$ComIbmMessageAssembly_Employee1/Properties"/>
+        </move>
+    </mappingDeclaration>
+</mappingRoot>
