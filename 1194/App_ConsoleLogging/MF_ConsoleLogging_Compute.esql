@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE MF_ConsoleLogging_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		LOG EVENT EXCEPTION VALUES('Request : ', 'Avishkar', 'Khude', InputRoot.XMLNSC, 54);
+--		LOG EVENT EXCEPTION SEVERITY 1 CATALOG 'BIPmsgs' MESSAGE 2952 VALUES('Request : ', InputData);
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;

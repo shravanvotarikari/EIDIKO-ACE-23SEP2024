@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <inlinedXMLSchema targetNamespace="http://www.ibm.com/iib/msl/json">
+        <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.ibm.com/iib/msl/json"> 
+    
+        
+   
+  <xsd:complexType block="#all" name="JSONArray_1"> 
+      
+     
+    <xsd:sequence> 
+        
+       
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Item" nillable="true"> 
+        <xsd:complexType> 
+          <xsd:sequence> 
+            <xsd:element name="emp_id" nillable="true" type="xsd:string"/> 
+            <xsd:element name="F_name" nillable="true" type="xsd:string"/> 
+            <xsd:element name="L_name" nillable="true" type="xsd:string"/> 
+            <xsd:element name="Dept" nillable="true" type="xsd:string"/> 
+            <xsd:element name="Salary" nillable="true" type="xsd:string"/> 
+          </xsd:sequence> 
+        </xsd:complexType> 
+      </xsd:element> 
+        
+     
+    </xsd:sequence> 
+      
+   
+  </xsd:complexType> 
+    
+    
+ 
+</xsd:schema> 
+]]>
+    </inlinedXMLSchema>
+    <input path="/XMLData.xsd" var="var2"/>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" targetNamespace="http://www.ibm.com/iib/msl/json" var="var1"/>
+    <input path="db:database(/xe.dbm,xe,db:schema-tables(SYSTEM,EMPLOYEES))" var="xe"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="io" uri="http://www.ibm.com/iib/msl/json"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="MF_Retrive_Data_Mapping">
+        <input path="$var2/mb:msg(employees,assembly,XMLNSC,Properties)" var="MessageAssembly"/>
+        <input path="$xe/db:select(fn:false(),ResultSet(SYSTEM/EMPLOYEES/EMPLOYEEID,SYSTEM/EMPLOYEES/FIRSTNAME,SYSTEM/EMPLOYEES/LASTNAME,SYSTEM/EMPLOYEES/DEPARTMENT,SYSTEM/EMPLOYEES/SALARY),db:where('1=1'))" var="dbselect"/>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var/mb:msg(JSON,assembly,JSON,Properties)" var="MessageAssembly1">
+            <cast castType="userDefined" path="$MessageAssembly1/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONArray_1" ref="var1"/>
+        </output>
+        <move>
+            <input path="$MessageAssembly/Properties"/>
+            <output path="$MessageAssembly1/Properties"/>
+        </move>
+        <select ref="dbselect">
+            <input path="$dbselect/ResultSet"/>
+            <output path="$MessageAssembly1/JSON"/>
+            <foreach>
+                <input path="." var="ResultSet"/>
+                <output path="spath('Data',2)/Item"/>
+                <move>
+                    <input path="$ResultSet/SYSTEM/EMPLOYEES/EMPLOYEEID"/>
+                    <output path="emp_id"/>
+                </move>
+                <move>
+                    <input path="$ResultSet/SYSTEM/EMPLOYEES/FIRSTNAME"/>
+                    <output path="F_name"/>
+                </move>
+                <move>
+                    <input path="$ResultSet/SYSTEM/EMPLOYEES/LASTNAME"/>
+                    <output path="L_name"/>
+                </move>
+                <move>
+                    <input path="$ResultSet/SYSTEM/EMPLOYEES/DEPARTMENT"/>
+                    <output path="Dept"/>
+                </move>
+                <move>
+                    <input path="$ResultSet/SYSTEM/EMPLOYEES/SALARY"/>
+                    <output path="Salary"/>
+                </move>
+            </foreach>
+        </select>
+    </mappingDeclaration>
+</mappingRoot>

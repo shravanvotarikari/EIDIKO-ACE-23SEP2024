@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>myApp</name>
+	<name>App_global_cache_2catalog_4container_4</name>
 	<comment></comment>
 	<projects>
+		<project>App_global_cache_2catalog_4container_4Java</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

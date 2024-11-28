@@ -1,0 +1,25 @@
+DECLARE var CHARACTER;
+
+CREATE COMPUTE MODULE MF_Encryption_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		Converting incoming data into character format
+		DECLARE data CHARACTER CAST(ASBITSTREAM(InputRoot.XMLNSC) AS CHARACTER CCSID 1208);
+		DECLARE key CHARACTER 'myKey';
+		
+--		Calling Java Encryption Procedure
+		CALL encryptProc(data, key) INTO var;
+		
+--		Setting Encrypted data to output
+		SET OutputRoot.XMLNSC.encryptedData = var;
+	END;
+END MODULE;
+
+CREATE PROCEDURE encryptProc(IN Data CHARACTER, IN Key CHARACTER) RETURNS CHARACTER
+LANGUAGE JAVA
+EXTERNAL NAME "EncryptionPackage.EncryptClass.encryptFunction";

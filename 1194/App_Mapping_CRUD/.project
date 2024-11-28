@@ -3,8 +3,9 @@
 	<name>App_Mapping_CRUD</name>
 	<comment></comment>
 	<projects>
+		<project>MappingDb</project>
 		<project>dbProject</project>
-		<project>jdbcPolicy</project>
+		<project>jdbcprovider</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

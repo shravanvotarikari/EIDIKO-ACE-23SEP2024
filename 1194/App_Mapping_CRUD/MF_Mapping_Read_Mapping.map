@@ -5,55 +5,157 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
     
      
+      
+       
+        
+         
+             
+        
+           
+             
+        
+           
+             
+        
+           
+         
+      
+         
+      
+       
+    
+   
+  <xsd:element name="id" nillable="true" type="xsd:int"/> 
+    
+     
+      
+       
+       
+    
+   
+  
+ 
+</xsd:schema> 
+]]>
+    </inlinedXMLSchema>
+    <inlinedXMLSchema targetNamespace="http://www.ibm.com/iib/msl/json">
+        <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.ibm.com/iib/msl/json"> 
+    
+     
          
     
+   
+  <xsd:complexType block="#all" name="JSONArray_1"> 
+      
        
+      
+     
+    <xsd:sequence> 
+        
          
-    
+        
        
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Item" nillable="true"> 
+          
+           
+          
          
-    
+        <xsd:complexType> 
+            
+             
+            
+           
+          <xsd:sequence> 
+              
+               
+              
+             
+            <xsd:element name="id" nillable="true" type="xsd:int"/> 
+              
+               
+              
+             
+            <xsd:element name="name" nillable="true" type="xsd:string"/> 
+              
+               
+              
+             
+            <xsd:element name="city" nillable="true" type="xsd:string"/> 
+              
+               
+            
+           
+          </xsd:sequence> 
+            
+             
+          
+         
+        </xsd:complexType> 
+          
+           
+        
        
+      </xsd:element> 
+        
+         
+      
+     
+    </xsd:sequence> 
+      
+       
+    
+   
+  </xsd:complexType> 
+    
+     
      
   
-     
-  <xsd:element name="Employee" nillable="true"> 
-    <xsd:complexType> 
-      <xsd:sequence> 
-        <xsd:element name="name" nillable="true" type="xsd:string"/> 
-        <xsd:element name="id" nillable="true" type="xsd:integer"/> 
-        <xsd:element name="city" nillable="true" type="xsd:string"/> 
-      </xsd:sequence> 
-    </xsd:complexType> 
-  </xsd:element> 
-   
+ 
 </xsd:schema> 
 ]]>
     </inlinedXMLSchema>
     <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var2"/>
-    <input path="db:database(/xe.dbm,xe,db:schema-tables(SYSTEM,AVISHKAR))" var="xe1"/>
-    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var"/>
+    <input path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var1"/>
+    <input inlinedXMLSchema="true" path="../schema_1.xsd" targetNamespace="http://www.ibm.com/iib/msl/json" var="var4"/>
+    <input path="db:database(/xe.dbm,xe,db:schema-tables(SYSTEM,AVISHKAR))" var="xe"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var3"/>
     <namespaces>
         <namespace kind="supplement" prefix="out" uri="http://www.ibm.com/iib/msl/json"/>
     </namespaces>
     <generation engine="xquery"/>
     <mappingDeclaration name="MF_Mapping_Read_Mapping">
-        <input path="$xe1/db:select(fn:false(),ResultSet(SYSTEM/AVISHKAR/NAME,SYSTEM/AVISHKAR/ID,SYSTEM/AVISHKAR/CITY),db:where('1=1'))" var="dbselect1"/>
-        <output namespace="http://www.ibm.com/iib/msl/json" path="$var/mb:msg(JSON,assembly,JSON,Properties)">
-            <cast castType="userDefined" path="JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var"/>
-            <cast castType="userDefined" path="JSON/spath('Data',2)/any" qualifier="Employee" ref="var2"/>
+        <input namespace="http://www.ibm.com/iib/msl/json" path="$var1/mb:msg(JSON,assembly,JSON,Properties)" var="MessageAssembly">
+            <cast castType="userDefined" path="$MessageAssembly/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var1"/>
+            <cast castType="userDefined" path="$MessageAssembly/JSON/spath('Data',2)/any" qualifier="id" ref="var2"/>
+        </input>
+        <input path="$xe/db:select(fn:false(),ResultSet(SYSTEM/AVISHKAR/NAME,SYSTEM/AVISHKAR/ID,SYSTEM/AVISHKAR/CITY),db:where('SYSTEM.AVISHKAR.ID =  ?','?'=$MessageAssembly/out:JSON//Data//id))" var="dbselect"/>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var3/mb:msg(JSON,assembly,JSON,Properties)" var="MessageAssembly1">
+            <cast castType="userDefined" path="$MessageAssembly1/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONArray_1" ref="var4"/>
         </output>
-        <move>
-            <input path="$dbselect1/ResultSet[1]/SYSTEM/AVISHKAR/NAME"/>
-            <output path="JSON/spath('Data',2)/Employee/name"/>
-        </move>
-        <move>
-            <input path="$dbselect1/ResultSet[1]/SYSTEM/AVISHKAR/ID"/>
-            <output path="JSON/spath('Data',2)/Employee/id"/>
-        </move>
-        <move>
-            <input path="$dbselect1/ResultSet[1]/SYSTEM/AVISHKAR/CITY"/>
-            <output path="JSON/spath('Data',2)/Employee/city"/>
-        </move>
+        <local>
+            <input path="$dbselect/."/>
+            <output path="$MessageAssembly1/JSON" var="JSON"/>
+            <select>
+                <input path="ResultSet"/>
+                <output path="$JSON/spath('Data',2)/Item"/>
+                <foreach>
+                    <input path="."/>
+                    <output path="."/>
+                    <move>
+                        <input path="SYSTEM/AVISHKAR/NAME"/>
+                        <output path="name"/>
+                    </move>
+                    <move>
+                        <input path="SYSTEM/AVISHKAR/ID"/>
+                        <output path="id"/>
+                    </move>
+                    <move>
+                        <input path="SYSTEM/AVISHKAR/CITY"/>
+                        <output path="city"/>
+                    </move>
+                </foreach>
+            </select>
+        </local>
     </mappingDeclaration>
 </mappingRoot>
