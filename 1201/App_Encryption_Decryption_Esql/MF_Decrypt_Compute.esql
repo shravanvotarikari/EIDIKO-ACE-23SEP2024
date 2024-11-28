@@ -1,0 +1,27 @@
+
+DECLARE s2 CHARACTER;
+
+CREATE COMPUTE MODULE MF_Decrypt_Compute
+
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		--SET OutputRoot = InputRoot;
+		
+		call secure_decrypt('U8RFzKC+lnoyQAFFkF4FnA==','1200') INTO s2;
+		SET OutputRoot.XMLNSC.Decrypted_Message = s2;
+		
+	END;
+END MODULE;
+
+
+CREATE PROCEDURE secure_decrypt (in value2 CHARACTER,in key2 CHARACTER ) RETURNS CHARACTER
+LANGUAGE JAVA
+EXTERNAL NAME "decryption.Decryption.decrypt";
