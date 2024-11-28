@@ -4,33 +4,65 @@
         <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.ibm.com/iib/msl/json"> 
     
-        
+     
+         
+    
    
   <xsd:complexType block="#all" name="JSONArray_1"> 
+      
+       
       
      
     <xsd:sequence> 
         
+         
+        
        
       <xsd:element maxOccurs="unbounded" minOccurs="0" name="Item" nillable="true"> 
+          
+         
         <xsd:complexType> 
+            
+           
           <xsd:sequence> 
-            <xsd:element name="emp_id" nillable="true" type="xsd:string"/> 
+              
+             
+            <xsd:element name="emp_id" nillable="true" type="xsd:int"/> 
+              
+             
             <xsd:element name="F_name" nillable="true" type="xsd:string"/> 
+              
+             
             <xsd:element name="L_name" nillable="true" type="xsd:string"/> 
+              
+             
             <xsd:element name="Dept" nillable="true" type="xsd:string"/> 
-            <xsd:element name="Salary" nillable="true" type="xsd:string"/> 
+              
+             
+            <xsd:element name="Salary" nillable="true" type="xsd:double"/> 
+              
+           
           </xsd:sequence> 
+            
+         
         </xsd:complexType> 
+          
+       
       </xsd:element> 
         
+         
+      
      
     </xsd:sequence> 
       
+       
+    
    
   </xsd:complexType> 
     
-    
+     
+     
+  
  
 </xsd:schema> 
 ]]>
@@ -45,7 +77,7 @@
     <generation engine="xquery"/>
     <mappingDeclaration name="MF_Retrive_Data_Mapping">
         <input path="$var2/mb:msg(employees,assembly,XMLNSC,Properties)" var="MessageAssembly"/>
-        <input path="$xe/db:select(fn:false(),ResultSet(SYSTEM/EMPLOYEES/EMPLOYEEID,SYSTEM/EMPLOYEES/FIRSTNAME,SYSTEM/EMPLOYEES/LASTNAME,SYSTEM/EMPLOYEES/DEPARTMENT,SYSTEM/EMPLOYEES/SALARY),db:where('1=1'))" var="dbselect"/>
+        <input path="$xe/db:select(fn:false(),ResultSet(SYSTEM/EMPLOYEES/EMPLOYEEID,SYSTEM/EMPLOYEES/FIRSTNAME,SYSTEM/EMPLOYEES/LASTNAME,SYSTEM/EMPLOYEES/DEPARTMENT,SYSTEM/EMPLOYEES/SALARY),db:where('SYSTEM.EMPLOYEES.EMPLOYEEID =  ? ','?'=$MessageAssembly/employees/employee/employee_id))" var="dbselect"/>
         <output namespace="http://www.ibm.com/iib/msl/json" path="$var/mb:msg(JSON,assembly,JSON,Properties)" var="MessageAssembly1">
             <cast castType="userDefined" path="$MessageAssembly1/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONArray_1" ref="var1"/>
         </output>
