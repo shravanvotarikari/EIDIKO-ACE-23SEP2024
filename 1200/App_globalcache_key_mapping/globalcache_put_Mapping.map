@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <input path="/data.xsd" var="var7"/>
+    <input path="jar:file://!com/ibm/msl/mapping/cache/xsds/cache.xsd" var="var3"/>
+    <output path="/data.xsd" var="var2"/>
+    <output path="jar:file://!com/ibm/msl/mapping/cache/xsds/cache.xsd" var="var"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="in" uri="http://www.ibm.com/iib/msl/json"/>
+        <namespace kind="supplement" prefix="io" uri="http://www.ibm.com/msl/cache/1.0"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="globalcache_put_Mapping">
+        <input path="$var7/mb:msg(root,assembly,XMLNSC,Properties)" var="MessageAssembly"/>
+        <output path="$var2/mb:msg(root,assembly,XMLNSC,Properties)" var="MessageAssembly1"/>
+        <transaction>
+            <cachePut>
+                <input path="$MessageAssembly/root"/>
+                <output path="$var/CachePut"/>
+                <move>
+                    <input path="key"/>
+                    <output path="Key"/>
+                </move>
+                <move>
+                    <input path="value"/>
+                    <output path="Value"/>
+                </move>
+            </cachePut>
+            <cacheReturn>
+                <input path="$var3/CachePutReturn"/>
+                <output path="$MessageAssembly1/root/value"/>
+                <move>
+                    <input path="Count"/>
+                    <output path="."/>
+                </move>
+            </cacheReturn>
+        </transaction>
+    </mappingDeclaration>
+</mappingRoot>

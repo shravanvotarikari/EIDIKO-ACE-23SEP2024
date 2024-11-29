@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <input path="/dataupdate.xsd"/>
+    <output path="/dataupdate.xsd" var="var2"/>
+    <output path="jar:file://!com/ibm/msl/mapping/cache/xsds/cache.xsd" var="var11"/>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="globalcache_update_Mapping">
+        <input path="mb:msg(new,assembly,XMLNSC,Properties)" var="MessageAssembly"/>
+        <output path="$var2/mb:msg(new,assembly,XMLNSC,Properties)" var="MessageAssembly1"/>
+        <move>
+            <input path="$MessageAssembly/Properties"/>
+            <output path="$MessageAssembly1/Properties"/>
+        </move>
+        <task type="todo">
+            <input path="$MessageAssembly/new/uval"/>
+            <output path="$var11/CachePut" var="CachePut3"/>
+            <output path="$MessageAssembly1/new/uval" var="uval7"/>
+            <move>
+                <input path="."/>
+                <output path="$CachePut3/Value"/>
+            </move>
+        </task>
+    </mappingDeclaration>
+</mappingRoot>
