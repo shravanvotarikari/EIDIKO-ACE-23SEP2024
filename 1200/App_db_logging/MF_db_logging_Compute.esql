@@ -1,0 +1,23 @@
+
+
+CREATE COMPUTE MODULE MF_db_logging_Compute
+	
+
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+	CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		call entrydata(CURRENT_TIMESTAMP,ApplicationLabel,MessageFlowLabel);
+
+	END;
+END MODULE;
+
+CREATE PROCEDURE entrydata (in mfid timestamp,  in mfname character, in  mfaddress character )
+LANGUAGE DATABASE
+EXTERNAL NAME Entry;
