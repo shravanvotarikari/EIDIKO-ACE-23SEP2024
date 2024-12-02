@@ -1,0 +1,25 @@
+
+DECLARE s1 CHARACTER;
+
+CREATE COMPUTE MODULE MF_Encryption_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot = InputRoot;
+		
+		call secure_encrypt('hrishi','1200') INTO s1;
+		SET OutputRoot.XMLNSC.Encrypted_Message = s1;
+		
+		
+	END;
+END MODULE;
+
+CREATE PROCEDURE secure_encrypt (in value CHARACTER, in key CHARACTER ) RETURNS CHARACTER
+LANGUAGE JAVA
+EXTERNAL NAME "encryption.Encryption.encrypt";

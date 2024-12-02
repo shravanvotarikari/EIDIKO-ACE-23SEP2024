@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="getkey" type="xsd:string">
+
+  </xsd:element>
+  <xsd:element name="getmain">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="getkey"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:simpleType name="string">
+  	<xsd:restriction base="xsd:string"></xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>
