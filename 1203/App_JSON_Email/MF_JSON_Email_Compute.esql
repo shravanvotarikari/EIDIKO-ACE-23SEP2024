@@ -1,20 +1,25 @@
 
 
+
+
 CREATE COMPUTE MODULE MF_JSON_Email_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
-		 CALL CopyEntireMessage();
+		CALL CopyEntireMessage();
 		RETURN TRUE;
-	END;
+	END;	
 
-	
+
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		DECLARE Data BLOB ;
-
-		SET Data = ASBITSTREAM(InputRoot.JSON.Data);
-		SET OutputRoot.BLOB.BLOB=Data;
+--		 SET Data = ASBITSTREAM(InputRoot.JSON.Data);
+--		 SET OutputRoot.BLOB.BLOB=Data;
+		 SET Data = Cast(InputRoot.BLOB.BLOB AS CHARACTER );
+		 SET OutputRoot.JSON.Data = Data;
 		
---		SET OutputRoot=InputRoot;
+		
+		--
+		-- SET OutputRoot=InputRoot;
 	END;
 END MODULE;

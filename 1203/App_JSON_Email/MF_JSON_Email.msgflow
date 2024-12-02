@@ -9,7 +9,7 @@
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="344,167" computeExpression="esql://routine/#MF_JSON_Email_Compute.Main">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="85,166" inputDirectory="C:\Users\Sreenivas Bandaru\Desktop\IIB_STORE\Attachment" messageDomainProperty="JSON" recordDetection="delimited">
+      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="85,166" inputDirectory="C:\Users\Sreenivas Bandaru\Desktop\IIB_STORE\Attachment" messageDomainProperty="BLOB" recordDetection="delimited">
         <translation xmi:type="utility:ConstantString" string="File Input"/>
       </nodes>
       <nodes xmi:type="ComIbmEmailOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="659,153" smtpServer="eidiko-india.com:587" toAddresses="apurvasomnath.pawar@eidiko-india.com" fromAddress="vedantianil.fartade@eidiko-india.com" subject="Json data mail" securityIdentity="Sec_id">
