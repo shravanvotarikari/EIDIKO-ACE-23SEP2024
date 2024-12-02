@@ -6,17 +6,16 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_JSON_Email/icons/full/obj16/MF_JSON_Email.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_JSON_Email/icons/full/obj30/MF_JSON_Email.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="344,167" computeExpression="esql://routine/#MF_JSON_Email_Compute.Main">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="332,66" computeExpression="esql://routine/#MF_JSON_Email_Compute.Main">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="85,166" inputDirectory="C:\Users\Sreenivas Bandaru\Desktop\IIB_STORE\Attachment" messageDomainProperty="BLOB" recordDetection="delimited">
+      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="85,67" inputDirectory="C:\Users\Sreenivas Bandaru\Desktop\IIB_STORE\Attachment" messageDomainProperty="BLOB" recordDetection="delimited">
         <translation xmi:type="utility:ConstantString" string="File Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmEmailOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="659,153" smtpServer="eidiko-india.com:587" toAddresses="apurvasomnath.pawar@eidiko-india.com" fromAddress="vedantianil.fartade@eidiko-india.com" subject="Json data mail" securityIdentity="Sec_id">
+      <nodes xmi:type="ComIbmEmailOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="655,92" smtpServer="eidiko-india.com:587" toAddresses="apurvasomnath.pawar@eidiko-india.com" fromAddress="vedantianil.fartade@eidiko-india.com" subject="Json data mail" securityIdentity="Sec_id">
         <translation xmi:type="utility:ConstantString" string="Email Output"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_6" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
     </composition>
     <propertyOrganizer/>
     <stickyBoard/>

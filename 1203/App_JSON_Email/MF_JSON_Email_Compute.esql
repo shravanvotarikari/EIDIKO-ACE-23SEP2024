@@ -1,7 +1,6 @@
 
 
 
-
 CREATE COMPUTE MODULE MF_JSON_Email_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
@@ -15,8 +14,9 @@ CREATE COMPUTE MODULE MF_JSON_Email_Compute
 		DECLARE Data BLOB ;
 --		 SET Data = ASBITSTREAM(InputRoot.JSON.Data);
 --		 SET OutputRoot.BLOB.BLOB=Data;
-		 SET Data = Cast(InputRoot.BLOB.BLOB AS CHARACTER );
-		 SET OutputRoot.JSON.Data = Data;
+		 --SET Data = Cast(InputRoot.BLOB.BLOB AS CHARACTER );
+		 CREATE LASTCHILD OF OutputRoot DOMAIN 'JSON' PARSE(InputRoot.BLOB.BLOB);
+		 --SET OutputRoot.JSON.Data = Data;
 		
 		
 		--

@@ -6,24 +6,15 @@
 
     <xsl:template match="/">
         {
-            "employee1": {
-                "id": "<xsl:value-of select='/employees/employee[1]/@id'/>",
-                "name": "<xsl:value-of select='/employees/employee[1]/name'/>",
-                "position": "<xsl:value-of select='/employees/employee[1]/position'/>",
-                "salary": <xsl:value-of select='/employees/employee[1]/salary'/>
-            },
-            "employee2": {
-                "id": "<xsl:value-of select='/employees/employee[2]/@id'/>",
-                "name": "<xsl:value-of select='/employees/employee[2]/name'/>",
-                "position": "<xsl:value-of select='/employees/employee[2]/position'/>",
-                "salary": <xsl:value-of select='/employees/employee[2]/salary'/>
-            },
-            "employee3": {
-                "id": "<xsl:value-of select='/employees/employee[3]/@id'/>",
-                "name": "<xsl:value-of select='/employees/employee[3]/name'/>",
-                "position": "<xsl:value-of select='/employees/employee[3]/position'/>",
-                "salary": <xsl:value-of select='/employees/employee[3]/salary'/>
-            }
+            <xsl:for-each select="/employees/employee">
+                <xsl:if test="position() > 1">,</xsl:if>
+                "employee": {
+                    "id": "<xsl:value-of select='@id'/>",
+                    "name": "<xsl:value-of select='name'/>",
+                    "position": "<xsl:value-of select='position'/>",
+                    "salary": <xsl:value-of select='salary'/>
+                }
+            </xsl:for-each>
         }
     </xsl:template>
 

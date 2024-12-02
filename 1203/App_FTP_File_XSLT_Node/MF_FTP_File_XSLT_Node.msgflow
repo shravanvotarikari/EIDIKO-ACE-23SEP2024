@@ -12,7 +12,7 @@
       <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="572,94" outputDirectory="C:\Users\Sreenivas Bandaru\Desktops" outputFilename="newfile.txt" fileFtp="true" fileFtpServer="192.168.1.28:21" fileFtpUser="Sec_id" fileFtpDirectory="/">
         <translation xmi:type="utility:ConstantString" string="File Output"/>
       </nodes>
-      <nodes xmi:type="ComIbmXslMqsi.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="296,89" stylesheetName="SampleData_seprt_field.xsl">
+      <nodes xmi:type="ComIbmXslMqsi.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="296,89" stylesheetName="Sample1.xsl">
         <translation xmi:type="utility:ConstantString" string="XSL Transform"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
