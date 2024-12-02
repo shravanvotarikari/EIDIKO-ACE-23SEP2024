@@ -1,0 +1,13 @@
+
+
+create FUNCTION fun1 ( ) RETURNS CHARacter
+BEGIN
+	RETURN 'abc';
+END;
+
+
+
+create FUNCTION fun2 ( ) RETURNS CHARacter
+BEGIN
+	RETURN 'abc';
+END;

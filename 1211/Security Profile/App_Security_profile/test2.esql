@@ -1,0 +1,7 @@
+
+
+
+create FUNCTION fun3 (IN lastname CHARACTER) RETURNS CHARacter
+BEGIN
+	RETURN lastname;
+END;
