@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>App_Security_profile</name>
+	<name>App_JCN_db_direct_JDBC</name>
 	<comment></comment>
 	<projects>
-		<project>dbProject1</project>
+		<project>App_JCN_dbJava</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
