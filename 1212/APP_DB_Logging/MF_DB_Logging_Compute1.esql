@@ -1,0 +1,36 @@
+
+
+CREATE COMPUTE MODULE MF_DB_Logging_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+	    CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		DECLARE Payload CHARACTER;
+		
+		SET Payload = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID 1208 ENCODING 546);
+		call Insert_P1(Payload, CURRENT_TIMESTAMP,1,ApplicationLabel, MessageFlowLabel, 'Backend Response');
+
+		SET OutputRoot.XMLNSC = InputRoot.JSON.Data;
+		SET Payload = CAST(ASBITSTREAM(OutputRoot.XMLNSC) AS CHARACTER CCSID 1208 ENCODING 546);
+		call Insert_P1(Payload, CURRENT_TIMESTAMP,1,ApplicationLabel,  MessageFlowLabel ,'Channel_Response');
+	END;
+	
+	CREATE PROCEDURE Insert_P1(IN var1 CHARACTER, IN var2 TIMESTAMP, IN var3 INTEGER, IN var4 CHARACTER, IN var5 CHARACTER, IN var6 CHARACTER)
+	LANGUAGE DATABASE
+	EXTERNAL NAME Proc_Log_Data;
+END MODULE;

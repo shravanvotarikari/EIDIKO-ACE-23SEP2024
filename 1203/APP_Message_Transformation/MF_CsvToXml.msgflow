@@ -6,10 +6,10 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/APP_Message_Transformation/icons/full/obj16/MF_CsvToXml.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/APP_Message_Transformation/icons/full/obj30/MF_CsvToXml.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="23,124" inputDirectory="C:\Users\Aruns\OneDrive\Desktop\fileInputNode_1" messageDomainProperty="DFDL" messageTypeProperty="{}:CsvToXML" validateTiming="immediate">
+      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="23,124" inputDirectory="D:\Office Stuff\IIB\f1" messageDomainProperty="DFDL" messageTypeProperty="{}:CsvToXML" validateTiming="immediate">
         <translation xmi:type="utility:ConstantString" string="File Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="745,145" outputDirectory="C:\Users\Aruns\OneDrive\Desktop\fileIOutNode_2" outputFilename="CsvToXml_Data">
+      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="745,145" outputDirectory="D:\Office Stuff\IIB\f2" outputFilename="CsvToXml_Data">
         <translation xmi:type="utility:ConstantString" string="File Output"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="366,109" computeExpression="esql://routine/#MF_CsvToXml_Compute.Main">

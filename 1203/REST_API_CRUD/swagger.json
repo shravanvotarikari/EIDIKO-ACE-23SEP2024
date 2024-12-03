@@ -31,7 +31,7 @@
           "type" : "integer"
         }, {
           "name" : "name",
-          "in" : "query",
+          "in" : "header",
           "type" : "boolean"
         } ]
       },
@@ -73,11 +73,11 @@
           "required" : true
         }, {
           "name" : "id",
-          "in" : "query",
+          "in" : "header",
           "type" : "integer"
         }, {
           "name" : "name",
-          "in" : "query",
+          "in" : "header",
           "type" : "boolean"
         } ]
       },

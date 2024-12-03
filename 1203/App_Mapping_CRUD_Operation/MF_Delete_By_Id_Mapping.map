@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <inlinedXMLSchema>
+        <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+       
+  <xsd:element name="Result2" nillable="true" type="xsd:string"/> 
+   
+</xsd:schema> 
+]]>
+    </inlinedXMLSchema>
+    <input path="/XMLData.xsd" var="var2"/>
+    <input path="jar:file://!com/ibm/msl/mapping/rdb/xsds/dbreturn.xsd" var="var3"/>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var1"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var"/>
+    <output path="db:table(/xe.dbm,xe,SYSTEM,EMPLOYEES)" var="EMPLOYEES"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="out" uri="http://www.ibm.com/iib/msl/json"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="MF_Delete_By_Id_Mapping">
+        <input path="$var2/mb:msg(employees,assembly,XMLNSC,Properties)" var="ComIbmMessageAssembly_employees"/>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var/mb:msg(JSON,assembly,JSON,Properties)" var="ComIbmMessageAssembly_JSON">
+            <cast castType="userDefined" path="$ComIbmMessageAssembly_JSON/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var" var="anyType"/>
+            <cast castType="userDefined" path="$ComIbmMessageAssembly_JSON/JSON/spath('Data',2)/any" qualifier="Result2" ref="var1" var="any"/>
+        </output>
+        <output path="$EMPLOYEES/db:delete(fn:false(),db:where('SYSTEM.EMPLOYEES.EMPLOYEEID =  ?','?'=$ComIbmMessageAssembly_employees/employees/employee/employee_id))" var="dbdelete"/>
+        <move>
+            <input path="$ComIbmMessageAssembly_employees/Properties"/>
+            <output path="$ComIbmMessageAssembly_JSON/Properties"/>
+        </move>
+        <transaction>
+            <delete ref="dbdelete">
+                <input path="$ComIbmMessageAssembly_employees/employees" var="employees"/>
+                <output path="$dbdelete/."/>
+            </delete>
+            <return>
+                <input path="$var3/DBDeleteReturn"/>
+                <output path="$ComIbmMessageAssembly_JSON/JSON/spath('Data',2)/Result2"/>
+                <move>
+                    <input path="NumberOfRowsDeleted"/>
+                    <output path="."/>
+                </move>
+            </return>
+        </transaction>
+    </mappingDeclaration>
+</mappingRoot>
