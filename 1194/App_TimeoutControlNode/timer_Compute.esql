@@ -8,15 +8,19 @@ CREATE COMPUTE MODULE timer_Compute
 	END;
 
 CREATE PROCEDURE CopyEntireMessage() BEGIN
+	
+	
+	
+	
 		SET OutputRoot = InputRoot;
 --		Action is to set the properties of Notification Node
-		SET OutputLocalEnvironment.TimeoutRequest.Action = 'SET';
+		SET OutputLocalEnvironment.TimeoutRequest.Action = 'CANCEL';
 --		Identifier used to uniquely identify each message request
-		SET OutputLocalEnvironment.TimeoutRequest.Identifier = 'Request_' || CAST(CURRENT_TIMESTAMP AS CHARACTER);
+		SET OutputLocalEnvironment.TimeoutRequest.Identifier = 'abc'; --'Request_' || CAST(CURRENT_TIMESTAMP AS CHARACTER);
 --		Start date to trig the Notification Node
 		SET OutputLocalEnvironment.TimeoutRequest.StartDate = '2024-11-29';
 --		Start time to trig the Notification Node
-		SET OutputLocalEnvironment.TimeoutRequest.StartTime = '06:13:00';
+		SET OutputLocalEnvironment.TimeoutRequest.StartTime = '22:45:00';
 --		Interval Specifies after how much time (seconds) we want to trig the Notification node
 		SET OutputLocalEnvironment.TimeoutRequest.Interval = 10;
 --		After Each Interval of time the Notification Node will trig once,This will happen for Count No. of times
