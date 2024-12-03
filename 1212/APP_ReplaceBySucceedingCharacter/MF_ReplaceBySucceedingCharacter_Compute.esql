@@ -1,0 +1,49 @@
+
+CREATE COMPUTE MODULE MF_ReplaceBySucceedingCharacter_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	  DECLARE inputString CHAR CAST(InputRoot.BLOB.BLOB AS CHAR CCSID 1208);
+        --DECLARE resultString CHAR ''; 
+        
+        DECLARE upperCaseString CHAR '';
+        
+        
+--        DECLARE i INT 1; 
+--        DECLARE currentChar CHAR;  
+--        DECLARE nextChar CHAR;
+        
+--        WHILE i <= LENGTH(inputString) DO
+--            
+--            SET currentChar = SUBSTRING(inputString FROM i FOR 1);
+--
+--         
+--            IF (currentChar >= 'a' AND currentChar <= 'g') THEN
+--                
+--                SET nextChar = TRANSLATE(currentChar, 'abcdefg', 'bcdefgh');
+--              
+--                SET resultString = resultString || nextChar;
+--            ELSEIF (currentChar >= 'p' AND currentChar <= 'v') THEN
+--              
+--                SET nextChar = TRANSLATE(currentChar, 'pqrstuv', 'qrstuvw');
+--              
+--                SET resultString = resultString || nextChar;
+--            ELSE
+--               
+--                SET resultString = resultString || currentChar;
+--            END IF;
+--
+--            SET i = i + 1; 
+--        END WHILE;
+
+
+
+         SET upperCaseString = TRANSLATE(inputString, 'abcdefgpqrstuv', 'ABCDEFGHPQRSTUV');
+
+         --SET resultString = TRANSLATE(inputString, 'abcdefgpqrstuv', 'bcdefghqrstuvw');
+
+        SET OutputRoot.BLOB.BLOB = CAST(upperCaseString AS BLOB CCSID 1208);
+
+		RETURN TRUE;
+	END;
+
+END MODULE;
