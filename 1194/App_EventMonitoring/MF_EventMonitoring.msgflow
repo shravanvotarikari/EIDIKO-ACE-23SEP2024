@@ -8,14 +8,14 @@
     <composition>
       <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="114,134" URLSpecifier="/monitoring" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
-        <monitorEvents eventSourceDescription="Transaction start" eventSourceName="HTTP Input.transaction.Start" eventIdentity="TS">
+        <monitorEvents eventSourceDescription="Transaction start" eventSourceName="HTTP Input.transaction.Start" eventIdentity="HTTP Input.TransactionStart">
           <eventXMLDoc xmi:type="mbmonitor:MonitorEvent">
             <applicationData dataLocation="$Root/XMLNSC" isXPath="true" complexData="true"/>
             <globalTransactionCorrelator/>
             <parentTransactionCorrelator/>
             <localTransactionCorrelator/>
             <bitStreamData/>
-            <eventName literal="TS"/>
+            <eventName literal="HTTP Input.TransactionStart"/>
             <eventFilter dataLocation="true()" isXPath="true"/>
           </eventXMLDoc>
         </monitorEvents>

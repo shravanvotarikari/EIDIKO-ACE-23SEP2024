@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="Employee">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="id"/>
+        <xsd:element ref="name"/>
+        <xsd:element ref="type"/>
+        <xsd:element ref="tel"/>
+        <xsd:element ref="email"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="name" type="xsd:string"/>
+  <xsd:element name="tel" type="xsd:string"/>
+  <xsd:element name="id" type="xsd:string"/>
+  <xsd:element name="type" type="xsd:string"/>
+  <xsd:element name="email" type="xsd:string"/>
+</xsd:schema>

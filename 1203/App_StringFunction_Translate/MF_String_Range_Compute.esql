@@ -1,0 +1,27 @@
+CREATE COMPUTE MODULE MF_String_Range_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- Extract the string from XMLNSC message
+		DECLARE inputString CHAR CAST(InputRoot.XMLNSC.Message AS CHAR CCSID 1208);
+		DECLARE resultString CHAR '';
+		
+		-->> using while loop in esql.
+		 -- Initialize the index
+		--DECLARE i INT 1;
+		-- WHILE i <= LENGTH(inputString) DO
+		-- DECLARE currentChar CHAR SUBSTRING(inputString FROM i FOR 1);
+		-- IF (currentChar >= 'a' AND currentChar <= 'g') OR (currentChar >= 'p' AND currentChar <= 'v') THEN
+		-- SET resultString = resultString || UPPER(currentChar);
+		-- ELSE
+		-- SET resultString = resultString || currentChar;
+		-- END IF;
+		-- SET i = i + 1; -- Increment the index
+		-- END WHILE;
+		
+		-->>Using String manipulation function <translate>.
+		SET resultString = TRANSLATE(inputString, 'abcdefgpqrstuv', 'ABCDEFGPQRSTUV');
+		SET OutputRoot.XMLNSC.Message = resultString;
+
+		RETURN TRUE;
+	END;
+END MODULE;

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <inlinedXMLSchema>
+        <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+    
+        
+   
+  <xsd:element name="Employee" nillable="true"> 
+      
+     
+    <xsd:complexType> 
+        
+       
+      <xsd:sequence> 
+          
+         
+        <xsd:element name="Emp_id" nillable="true" type="xsd:string"/> 
+          
+         
+        <xsd:element name="Emp_name" nillable="true" type="xsd:string"/> 
+          
+         
+        <xsd:element name="Emp_Type" nillable="true" type="xsd:string"/> 
+          
+         
+        <xsd:element name="Emp_tel" nillable="true" type="xsd:string"/> 
+          
+         
+        <xsd:element name="Emp_Email" nillable="true" type="xsd:string"/> 
+          
+       
+      </xsd:sequence> 
+        
+     
+    </xsd:complexType> 
+      
+   
+  </xsd:element> 
+    
+    
+ 
+</xsd:schema> 
+]]>
+    </inlinedXMLSchema>
+    <input path="/employee.xsd" var="var2"/>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var1"/>
+    <input path="db:database(/xe.dbm,xe,db:schema-tables(SYSTEM,MAP_DB))" var="xe"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="out" uri="http://www.ibm.com/iib/msl/json"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="singleidmsgflow_Mapping">
+        <input path="$var2/mb:msg(Employee,assembly,XMLNSC,Properties)" var="ComIbmMessageAssembly_Employee"/>
+        <input path="$xe/db:select(fn:false(),ResultSet(SYSTEM/MAP_DB/ID,SYSTEM/MAP_DB/NAME,SYSTEM/MAP_DB/TYPE,SYSTEM/MAP_DB/TEL,SYSTEM/MAP_DB/EMAIL),db:where('SYSTEM.MAP_DB.ID =  ? ','?'=$ComIbmMessageAssembly_Employee/Employee/id))" var="dbselect"/>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var/mb:msg(JSON,assembly,JSON,Properties)" var="ComIbmMessageAssembly_JSON">
+            <cast castType="userDefined" path="$ComIbmMessageAssembly_JSON/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var"/>
+            <cast castType="userDefined" path="$ComIbmMessageAssembly_JSON/JSON/spath('Data',2)/any" qualifier="Employee" ref="var1"/>
+        </output>
+        <move>
+            <input path="$ComIbmMessageAssembly_Employee/Properties"/>
+            <output path="$ComIbmMessageAssembly_JSON/Properties"/>
+        </move>
+        <select ref="dbselect">
+            <input path="$dbselect/ResultSet"/>
+            <output path="$ComIbmMessageAssembly_JSON/JSON/spath('Data',2)/Employee"/>
+            <move>
+                <input path="SYSTEM/MAP_DB/ID"/>
+                <output path="Emp_id"/>
+            </move>
+            <move>
+                <input path="SYSTEM/MAP_DB/NAME"/>
+                <output path="Emp_name"/>
+            </move>
+            <move>
+                <input path="SYSTEM/MAP_DB/TYPE"/>
+                <output path="Emp_Type"/>
+            </move>
+            <move>
+                <input path="SYSTEM/MAP_DB/TEL"/>
+                <output path="Emp_tel"/>
+            </move>
+            <move>
+                <input path="SYSTEM/MAP_DB/EMAIL"/>
+                <output path="Emp_Email"/>
+            </move>
+        </select>
+    </mappingDeclaration>
+</mappingRoot>

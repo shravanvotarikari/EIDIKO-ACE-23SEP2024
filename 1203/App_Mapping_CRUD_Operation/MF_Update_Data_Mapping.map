@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <inlinedXMLSchema>
+        <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+    
+        
+   
+  <xsd:element name="Result1" nillable="true" type="xsd:string"/> 
+    
+    
+ 
+</xsd:schema> 
+]]>
+    </inlinedXMLSchema>
+    <input path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var"/>
+    <input path="/XMLData.xsd" var="var8"/>
+    <input path="jar:file://!com/ibm/msl/mapping/rdb/xsds/dbreturn.xsd" var="var9"/>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var1"/>
+    <input path="/XMLData.xsd" var="var2"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var7"/>
+    <output path="db:table(/xe.dbm,xe,SYSTEM,EMPLOYEES)" var="EMPLOYEES1"/>
+    <output path="db:table(/xe.dbm,xe,SYSTEM,EMPLOYEES)" var="EMPLOYEES"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="in" uri="http://www.ibm.com/iib/msl/json"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="MF_Update_Data_Mapping">
+        <input path="$var8/mb:msg(employees,assembly,XMLNSC,Properties)" var="MessageAssembly"/>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var7/mb:msg(JSON,assembly,JSON,Properties)" var="MessageAssembly3">
+            <cast castType="userDefined" path="$MessageAssembly3/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var7" var="anyType3"/>
+            <cast castType="userDefined" path="$MessageAssembly3/JSON/spath('Data',2)/any" qualifier="Result1" ref="var1" var="any"/>
+        </output>
+        <output path="$EMPLOYEES1/db:update(fn:false(),fn:true(),db:where('SYSTEM.EMPLOYEES.EMPLOYEEID =  ? ','?'=$MessageAssembly/employees/employee/employee_id),EMPLOYEEID,FIRSTNAME,LASTNAME,DEPARTMENT,SALARY)" var="dbupdate1"/>
+        <move>
+            <input path="$MessageAssembly/Properties"/>
+            <output path="$MessageAssembly3/Properties"/>
+        </move>
+        <transaction>
+            <update ref="dbupdate1">
+                <input path="$MessageAssembly/employees" var="employees"/>
+                <output path="$dbupdate1/."/>
+                <move>
+                    <input path="$employees/employee/employee_id"/>
+                    <output path="EMPLOYEEID"/>
+                </move>
+                <move>
+                    <input path="$employees/employee/first_name"/>
+                    <output path="FIRSTNAME"/>
+                </move>
+                <move>
+                    <input path="$employees/employee/last_name"/>
+                    <output path="LASTNAME"/>
+                </move>
+                <move>
+                    <input path="$employees/employee/department"/>
+                    <output path="DEPARTMENT"/>
+                </move>
+                <move>
+                    <input path="$employees/employee/salary"/>
+                    <output path="SALARY"/>
+                </move>
+            </update>
+            <return>
+                <input path="$var9/DBUpdateReturn"/>
+                <output path="$MessageAssembly3/JSON/spath('Data',2)/Result1"/>
+                <move>
+                    <input path="NumberOfRowsUpdated"/>
+                    <output path="."/>
+                </move>
+            </return>
+        </transaction>
+    </mappingDeclaration>
+</mappingRoot>

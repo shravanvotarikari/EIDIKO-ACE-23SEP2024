@@ -3,7 +3,7 @@
 	<name>Policy_p1</name>
 	<comment></comment>
 	<projects>
-		<project>App_database_node</project>
+		<project>App_jcn_crud</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

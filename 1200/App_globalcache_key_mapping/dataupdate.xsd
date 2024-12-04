@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="new">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="ukey"/>
+        <xsd:element ref="uval"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="uval" type="xsd:string"/>
+  <xsd:element name="ukey" type="xsd:string"/>
+</xsd:schema>

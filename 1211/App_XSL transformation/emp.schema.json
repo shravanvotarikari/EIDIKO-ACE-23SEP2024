@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Employee",
+  "type": "object",
+  "properties": {
+    "empName": {
+      "type": "string",
+      "description": "The employee's name"
+    },
+    "companyName": {
+      "type": "string",
+      "description": "The name of the company the employee works for"
+    },
+    "mobileNumber": {
+      "type": "string",
+      "pattern": "^[0-9]{10}$",
+      "description": "The employee's 10-digit mobile number"
+    }
+  },
+  "required": ["empName", "companyName", "mobileNumber"],
+  "additionalProperties": false
+}
