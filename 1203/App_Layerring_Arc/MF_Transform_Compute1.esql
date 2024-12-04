@@ -1,0 +1,23 @@
+CREATE COMPUTE MODULE MF_Transform_Compute1
+    CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+        -- Call procedure to process the SOAP message and transform it to JSON
+        CALL TransformSoapToJson();
+        RETURN TRUE;
+    END;
+
+  CREATE PROCEDURE TransformSoapToJson() 
+BEGIN
+    -- Declare namespaces for SOAP and the application
+    DECLARE soapenv NAMESPACE 'http://schemas.xmlsoap.org/soap/envelope/';
+    DECLARE ns NAMESPACE 'http://temenos.com/CMS-SERVICES';
+
+    -- Clear the OutputRoot and set the output domain to JSON
+    --SET OutputRoot.JSON.Data = NULL;
+
+    -- Extract the values from the SOAP message
+    SET OutputRoot.JSON.Data.result = InputRoot.XMLNSC.*:Envelope.soapenv:Body.*:Response.result;
+   -- SET OutputRoot.JSON.Data.a2 = InputRoot.XMLNSC.soapenv:Envelope.soapenv:Body.ns:Request.a2;
+END;
+
+END MODULE;

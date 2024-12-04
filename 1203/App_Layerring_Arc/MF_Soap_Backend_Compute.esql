@@ -1,0 +1,43 @@
+
+
+CREATE COMPUTE MODULE MF_Soap_Backend_Compute
+
+
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+
+	END;
+
+	
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+	DECLARE soapEnvNamespace CONSTANT CHARACTER 'http://schemas.xmlsoap.org/soap/envelope/';
+	
+	 SET OutputRoot.XMLNSC.soapenv:Envelope.(XMLNSC.NamespaceDecl)xmlns:soapenv = soapenv;
+    -- SET OutputRoot.XMLNSC.soapenv:Envelope.(XMLNSC.NamespaceDecl)xmlns:ns = ns;
+     
+	SET OutputRoot.XMLNSC.soapenv:Envelope.soapenv:Header = NULL;
+	
+	DECLARE valueA1 INT;
+    DECLARE valueA2 INT;
+    
+    DECLARE result INT;
+    
+    
+    SET valueA1 = InputRoot.SOAP.*:Body.*:Request.a1;
+    SET valueA2 = InputRoot.SOAP.*:Body.*:Request.a2;
+    
+
+    SET result = valueA1 + valueA2;
+    
+ 
+    SET OutputRoot.XMLNSC.soapenv:Envelope.soapenv:Body.ns:Response.result = result;
+
+ 
+    
+	END;
+END MODULE;
+  
