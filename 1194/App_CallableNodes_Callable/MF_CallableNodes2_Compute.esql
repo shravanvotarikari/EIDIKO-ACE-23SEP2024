@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE MF_CallableNodes2_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+--		SET OutputRoot.JSON.Data.NAME = 'aVISHKAR1';
+
+	END;
+END MODULE;
