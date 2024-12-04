@@ -1,0 +1,29 @@
+CREATE COMPUTE MODULE MF_Routing_Layer1_Compute
+
+    CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+        DECLARE idValue CHAR;
+        DECLARE fileContents CHAR;
+        DECLARE url CHAR;
+
+        -- Get the ID from the HTTP Input (assuming JSON structure)
+        SET idValue = CAST(InputRoot.JSON.Data.ID AS CHAR CCSID 1208);
+
+        -- Read the lookup file content from the file system
+        SET fileContents = CAST(InputRoot.File.Body AS CHAR CCSID 1208);
+
+        -- Default URL
+        SET url = 'http://localhost:7801/default';
+
+        -- Search for the matching ID in the file content and extract the URL
+        IF POSITION(idValue IN fileContents) > 0 THEN
+            SET url = TRIM(SUBSTRING(fileContents FROM POSITION(idValue IN fileContents) + LENGTH(idValue) FOR LENGTH(fileContents)));
+        END IF;
+
+        -- Set the HTTP Request URL
+        SET OutputLocalEnvironment.Destination.HTTP.RequestURL = url;
+
+        RETURN TRUE;
+    END;
+
+END MODULE;

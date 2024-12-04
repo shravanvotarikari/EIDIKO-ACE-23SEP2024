@@ -1,0 +1,28 @@
+
+
+CREATE COMPUTE MODULE MF_Routing_Layer1_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		DECLARE mainId CHARACTER;
+		DECLARE url CHARACTER;
+		DECLARE status BOOLEAN TRUE;
+		SET mainId=Environment.mainId;
+		DECLARE childRef REFERENCE TO InputRoot.JSON.Data.routes.[>];
+		DECLARE id CHARACTER;
+		WHILE LASTMOVE(childRef) DO
+			SET id=childRef.ID;
+			SET url=childRef.URL;
+			IF (mainId=id) THEN
+				SET OutputLocalEnvironment.Destination.HTTP.RequestURL=url;
+				SET childRef=null;
+				SET status=FALSE;
+			END IF;
+			MOVE childRef NEXTSIBLING;
+		END WHILE;
+		IF status THEN
+			SET OutputLocalEnvironment.Destination.HTTP.RequestURL='http://localhost:7800/default';
+		END IF;
+		RETURN TRUE;
+	END;
+END MODULE;

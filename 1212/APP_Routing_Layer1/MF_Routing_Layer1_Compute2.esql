@@ -1,0 +1,10 @@
+
+
+CREATE COMPUTE MODULE MF_Routing_Layer1_Compute2
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		SET Environment.mainId=InputRoot.JSON.Data.ID;
+		RETURN TRUE;
+	END;
+END MODULE;
