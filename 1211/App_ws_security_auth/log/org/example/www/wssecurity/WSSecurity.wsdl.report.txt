@@ -1,0 +1,22 @@
+
+
+Importing file: C:\ace12\security profile\App_pawan\WSSecurity.wsdl
+
+The WSDL import will proceed with bindings WSSecuritySOAP.
+Creating wsdl schema document for file:///C:/ace12/security profile/App_pawan/WSSecurity.wsdl.
+Parsing wsdl binding {http://www.example.org/WSSecurity/}WSSecuritySOAP.
+Parsing wsdl binding input NewOperation.
+Parsing wsdl binding output NewOperation.
+Processing doc style for operation NewOperation.
+Populating WSDL schema WSSecurity.xsd.
+Creating file WSSecurity.xsd in the workspace.
+Creating file WSSecurity_InlineSchema1.xsd in the workspace.
+Copying source WSDL WSSecurity.wsdl to WSSecurity.wsdl.
+
+Elapsed time processing this message definition file: 0.596 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+
