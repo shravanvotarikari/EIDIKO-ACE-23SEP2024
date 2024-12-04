@@ -1,0 +1,77 @@
+
+
+
+
+CREATE COMPUTE MODULE MF_author_books_Compute2
+
+	DECLARE channelID CHARACTER InputRoot.XMLNSC.Root.Header.channelId;
+
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		IF channelID = 'FCR' OR channelID = 'TPH' THEN
+			CALL CopyEntireMessage();
+
+		ELSE
+			Set OutputRoot.XMLNSC.message = 'Invalid Channel';
+		END IF;
+
+
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		set OutputRoot.XMLNSC = InputRoot.XMLNSC;
+		DECLARE field CHARACTER FIELDNAME(InputRoot.XMLNSC.Root.Body.[1]);
+		DECLARE counting INTEGER 0;
+
+
+		IF field = 'Data' THEN
+			DECLARE indataref REFERENCE TO InputRoot.XMLNSC.Root.Body.Data.*.book[1];
+
+			CALL insertToQ(indataref,counting,TRUE);
+
+		ELSE
+			DECLARE indataref REFERENCE TO InputRoot.XMLNSC.Root.Body.*.book;
+
+			CALL insertToQ(indataref,counting,FALSE);
+
+		END IF;
+
+		IF channelID = 'FCR' THEN
+			SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'FCR';
+		ELSE
+			SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'TPH';
+
+		END IF;
+
+		propagate TO TERMINAL 'out1';
+		SET OutputRoot.XMLNSC.Root.bookscount = counting;
+		propagate TO TERMINAL 'out';
+
+	END;
+
+	CREATE PROCEDURE insertToQ (IN indataref REFERENCE,INOUT counting INTEGER,IN isData BOOLEAN)
+	BEGIN
+
+		DECLARE i INTEGER 1;
+		WHILE LASTMOVE(indataref) DO
+
+			IF indataref.author = 'Corets, Eva' THEN
+				SET counting = counting + 1;
+
+			ELSEIF isData THEN
+				
+				SET OutputRoot.XMLNSC.Root.Body.Data.*.book[i] = null;
+				SET i = i-1;
+				
+			ELSEIF NOT isData THEN
+				SET OutputRoot.XMLNSC.Root.Body.*.book[i] = null;
+				SET i = i-1;
+			END IF;
+			move indataref NEXTSIBLING;
+			SET i = i+1;
+		END WHILE;
+	END;
+
+END MODULE;

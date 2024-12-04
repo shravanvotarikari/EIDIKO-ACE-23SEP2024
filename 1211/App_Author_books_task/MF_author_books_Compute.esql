@@ -1,0 +1,30 @@
+
+
+CREATE COMPUTE MODULE MF_author_books_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		
+		DECLARE indataref REFERENCE TO InputRoot.XMLNSC.Root.Body.*.*.book;
+		
+		
+		DECLARE counting INTEGER 0;
+		WHILE LASTMOVE(indataref) DO
+			
+			IF indataref.author = 'Corets, Eva' THEN
+				SET counting = counting + 1;
+				set OutputRoot.XMLNSC.books = indataref;
+				propagate TO TERMINAL 'out1';
+			END IF;
+				move indataref NEXTSIBLING;
+			
+		END WHILE;
+		SET OutputRoot.XMLNSC.Root.bookscount = counting;
+	END;
+END MODULE;
