@@ -1,0 +1,38 @@
+
+
+CREATE COMPUTE MODULE MF_Provider_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+	DECLARE domainName CHARACTER;
+
+-- Check the incoming message's content type
+CASE InputRoot.Properties.ContentType
+    WHEN 'application/json' THEN
+        SET domainName = 'JSON';
+        SET OutputRoot.JSON.Data.Response.Message = 'The domain of your message is ' || domainName || '.';
+    WHEN 'application/xml' THEN
+        SET domainName = 'XMLNSC';
+        SET OutputRoot.XMLNSC.Response.Message = 'The domain of your message is ' || domainName || '.';
+    ELSE
+        SET domainName = 'Unknown';
+        SET OutputRoot.BLOB.BLOB = 'The domain of your message is ' || domainName || '.';
+END CASE;
+
+	END;
+END MODULE;
