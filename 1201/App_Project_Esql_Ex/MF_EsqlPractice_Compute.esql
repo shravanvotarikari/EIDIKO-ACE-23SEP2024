@@ -1,0 +1,54 @@
+
+
+CREATE COMPUTE MODULE MF_EsqlPractice_Compute
+
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		CALL CopyEntireMsg();
+		RETURN TRUE;
+	END;	
+
+
+		CREATE PROCEDURE CopyEntireMsg ( )
+		BEGIN
+			
+			DECLARE inref REFERENCE TO InputRoot.XMLNSC.Root;
+
+			DECLARE field CHARACTER FIELDNAME(inref.Body.[1]);
+			
+			IF field <> 'Data' THEN
+				DECLARE book REFERENCE TO InputRoot.XMLNSC.Root.Body.*.book[1];
+				CALL PrintData(book);
+				
+			ELSE
+				DECLARE book REFERENCE TO InputRoot.XMLNSC.Root.Body.Data.*.book[1];
+				CALL PrintData(book);
+			END IF;
+			
+		END;	
+		
+		CREATE PROCEDURE PrintData ( IN book REFERENCE )
+		BEGIN
+			SET OutputRoot = InputRoot;
+			DECLARE i INTEGER 1;
+
+			WHILE LASTMOVE(book) DO
+				IF book.author <> 'Corets, Eva' THEN
+					
+					IF FIELDNAME(InputRoot.XMLNSC.Root.Body.[1]) = 'Data' THEN
+						SET OutputRoot.XMLNSC.Root.Body.Data.*.book[i] = NULL;
+					ELSE
+						SET OutputRoot.XMLNSC.Root.Body.*.book[i] = NULL;
+					END IF;
+					
+				ELSE
+					SET i = i+1;
+				END IF;
+
+				MOVE book NEXTSIBLING;
+			END WHILE;		
+			
+		END;
+
+	END MODULE;
