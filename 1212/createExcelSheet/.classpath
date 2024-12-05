@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/ProgramData/IBM/MQSI/shared-classes/poi-3.17.jar"/>
+	<classpathentry kind="lib" path="C:/ProgramData/IBM/MQSI/shared-classes/poi-4.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/ProgramData/IBM/MQSI/shared-classes/jplugin2.jar"/>
+	<classpathentry kind="lib" path="C:/ProgramData/IBM/MQSI/shared-classes/ooxml-schemas-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/ProgramData/IBM/MQSI/shared-classes/poi-3.5-beta6.jar"/>
+	<classpathentry kind="lib" path="C:/ProgramData/IBM/MQSI/shared-classes/poi-ooxml-5.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/ProgramData/IBM/MQSI/shared-classes/poi-ooxml-full-5.0.0.jar"/>
+	<classpathentry kind="con" path="com.ibm.etools.mft.uri.classpath.MBProjectReference"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
