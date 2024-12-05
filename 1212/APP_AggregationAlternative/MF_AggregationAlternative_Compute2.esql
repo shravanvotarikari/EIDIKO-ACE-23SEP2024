@@ -1,0 +1,28 @@
+
+
+CREATE COMPUTE MODULE MF_AggregationAlternative_Compute2
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	CREATE FIELD OutputRoot.JSON.Data;
+		DECLARE outref REFERENCE TO OutputRoot.JSON.Data;
+		
+		DECLARE i INTEGER 1;
+		DECLARE blob_data BLOB;
+		DECLARE data CHARACTER;
+		DECLARE ref REFERENCE TO Environment.[>];
+		WHILE LASTMOVE(ref) DO
+			
+			SET blob_data=CAST(ref AS BLOB CCSID 1208 ENCODING 546);
+			CREATE LASTCHILD OF Environment DOMAIN 'JSON' PARSE(blob_data);
+			SET outref.data[i]=Environment.[<].Data;
+			SET Environment.[<]=null;
+			SET i=i+1;
+			MOVE ref NEXTSIBLING;
+			
+		END WHILE;
+		
+		RETURN TRUE;
+	END;
+
+
+END MODULE;
