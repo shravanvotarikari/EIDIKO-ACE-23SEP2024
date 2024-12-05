@@ -1,0 +1,16 @@
+
+
+CREATE COMPUTE MODULE MF_Backend_03_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+ call CopyEntireMessage();
+    RETURN TRUE;
+END;
+
+CREATE PROCEDURE CopyEntireMessage() BEGIN
+	 SET OutputRoot = InputRoot;
+	  SET OutputLocalEnvironment.Destination.HTTP.RequestBody = InputRoot.JSON.Data;
+	
+   
+END;
+END MODULE;
