@@ -1,0 +1,38 @@
+CREATE COMPUTE MODULE consumerCall
+    CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+         DECLARE jsonData CHARACTER '';
+        DECLARE xmlData CHARACTER '';
+        DECLARE delimitedData CHARACTER '';
+
+        -- Extract JSON input
+        IF InputRoot.Properties.ContentType = 'application/json' THEN
+            SET jsonData = InputRoot.JSON.Data;
+
+            -- Convert JSON to XML format
+            SET xmlData = '<Data>';
+            FOR field AS InputRoot.JSON.Data.*[] DO
+                SET xmlData = xmlData || '<' || field.Name || '>' || field.Value || '</' || field.Name || '>';
+            END FOR;
+            SET xmlData = xmlData || '</Data>';
+
+            -- Convert JSON to delimited format (key1=value1,key2=value2,...)
+            FOR field AS InputRoot.JSON.Data.*[] DO
+                IF delimitedData = '' THEN
+                    SET delimitedData = field.Name || '=' || field.Value;
+                ELSE
+                    SET delimitedData = delimitedData || ',' || field.Name || '=' || field.Value;
+                END IF;
+            END FOR;
+
+        END IF;
+
+        -- Call the renamed Java method
+        CALL procCall(jsonData, xmlData, delimitedData);
+		RETURN TRUE;
+	END;
+END MODULE;
+
+CREATE PROCEDURE procCall(IN jsonData CHARACTER, IN xmlData CHARACTER, IN delimitedData CHARACTER)
+LANGUAGE JAVA
+EXTERNAL NAME "createExcelSheet.consumer.processData";
