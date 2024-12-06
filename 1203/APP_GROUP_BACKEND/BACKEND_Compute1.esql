@@ -1,0 +1,17 @@
+
+
+CREATE COMPUTE MODULE BACKEND_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		 --CREATE FIELD OutputRoot.JSON.Data.fire;
+    --DECLARE ref_fireexit REFERENCE TO OutputRoot.JSON.Data.fire;
+		SET OutputRoot = InputRoot;
+		SET OutputRoot.XMLNSC.A.b = 'Success';
+	END;
+END MODULE;

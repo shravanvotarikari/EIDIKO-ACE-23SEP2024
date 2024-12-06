@@ -1,0 +1,24 @@
+
+CREATE COMPUTE MODULE MF_Channel_g1_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN FALSE;
+	END;	
+
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot=InputRoot;
+--		SET OutputLocalEnvironment = InputLocalEnvironment;
+		SET Environment.Destination.GroupScatter.Context = InputLocalEnvironment.Destination;
+		PROPAGATE TO TERMINAL 'out' DELETE NONE;
+		
+		SET Environment.Destination.GroupScatter.Context = InputLocalEnvironment.Destination;
+		PROPAGATE TO TERMINAL 'out1'DELETE NONE;
+		SET Environment.Destination.GroupScatter.Context = InputLocalEnvironment.Destination;
+		PROPAGATE TO TERMINAL 'out2';
+		
+
+	END;
+END MODULE;

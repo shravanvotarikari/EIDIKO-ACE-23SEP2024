@@ -1,0 +1,31 @@
+
+
+
+
+
+
+CREATE COMPUTE MODULE MF_Channel_g1_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		
+		CALL CopyEntireMessage();
+		
+			DECLARE ref_grp REFERENCE TO InputRoot.ComIbmGroupCompleteNode.Group.Replies;
+		CREATE FIELD OutputRoot.JSON.Data.Details IDENTITY(JSON.Array)result;
+
+		SET OutputRoot.JSON.Data.A = ref_grp.FOLDER1.Reply.Root.XMLNSC;
+		SET OutputRoot.JSON.Data.B =ref_grp.FOLDER2.Reply.Root.XMLNSC;
+		SET OutputRoot.JSON.Data.C =ref_grp.FOLDER3.Reply.Root.XMLNSC;
+		
+		
+		SET OutputLocalEnvironment.Destination = InputRoot.ComIbmGroupCompleteNode.Group.Context;
+		
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+	
+	
+	END;
+END MODULE;
