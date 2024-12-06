@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><?ibm-bip policySet="Policy_1"?>
+<securitybinding:securityBindings xmlns:securitybinding="http://www.ibm.com/xmlns/prod/websphere/200710/ws-securitybinding">
+  <securitybinding:securityBinding name="application">
+    <securitybinding:securityOutboundBindingConfig>
+      <securitybinding:keyInfo classname="com.ibm.ws.wssecurity.wssapi.CommonContentGenerator" name="gen_auth_keyinfo" type="STRREF">
+        <securitybinding:tokenReference reference="gen_auth"/>
+      </securitybinding:keyInfo>
+      <securitybinding:tokenGenerator classname="com.ibm.ws.wssecurity.wssapi.token.impl.CommonTokenGenerator" name="gen_auth">
+        <securitybinding:valueType localName="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"/>
+        <securitybinding:securityTokenReference reference="request:consumerrequest"/>
+        <securitybinding:jAASConfig configName="system.wss.generate.x509"/>
+        <securitybinding:callbackHandler classname="com.ibm.websphere.wssecurity.callbackhandler.X509GenerateCallbackHandler">
+          <securitybinding:keyStore path="*MQSIBROKERSTOREPATHMQSI*" storepass="*MQSIBROKERSTOREPWDMQSI*" type="JKS"/>
+          <securitybinding:key alias="c" keypass="*MQSIBROKERSTOREKEYPASScMQSI*" name="CN=Desk-73, C=IN"/>
+        </securitybinding:callbackHandler>
+      </securitybinding:tokenGenerator>
+    </securitybinding:securityOutboundBindingConfig>
+    <securitybinding:securityInboundBindingConfig>
+      <securitybinding:keyInfo classname="com.ibm.ws.wssecurity.wssapi.CommonContentConsumer" name="con_auth_keyinfo" type="STRREF">
+        <securitybinding:tokenReference reference="con_auth"/>
+      </securitybinding:keyInfo>
+      <securitybinding:tokenConsumer classname="com.ibm.ws.wssecurity.wssapi.token.impl.CommonTokenConsumer" name="con_auth">
+        <securitybinding:valueType localName="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"/>
+        <securitybinding:securityTokenReference reference="response:consumerresponse"/>
+        <securitybinding:jAASConfig configName="system.wss.consume.x509"/>
+        <securitybinding:callbackHandler classname="com.ibm.websphere.wssecurity.callbackhandler.X509ConsumeCallbackHandler">
+          <securitybinding:certPathSettings>
+            <securitybinding:trustAnyCertificate/>
+          </securitybinding:certPathSettings>
+        </securitybinding:callbackHandler>
+      </securitybinding:tokenConsumer>
+    </securitybinding:securityInboundBindingConfig>
+  </securitybinding:securityBinding>
+</securitybinding:securityBindings>

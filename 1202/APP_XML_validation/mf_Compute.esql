@@ -4,33 +4,30 @@ CREATE COMPUTE MODULE mf_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		
-		
-		if InputRoot.XMLNSC.Root.Header.channelId <> 'FCR' and InputRoot.XMLNSC.Root.Header.channelId <> 'TPH' then
-			Throw user EXCEPTION VALUES('invalid channel');
+	
+		if InputRoot.XMLNSC.Root.Header.channelId <> 'FCR' and  InputRoot.XMLNSC.Root.Header.channelId <> 'TPH' then
+			throw user EXCEPTION values('invalid channel');
 		end if;
-		
-		
+
 		set OutputRoot = InputRoot;
-		declare inref REFERENCE to InputRoot.XMLNSC.Root.Body;
 		
 		declare outref REFERENCE to OutputRoot.XMLNSC.Root.Body;
-		declare bookref reference to  InputRoot.XMLNSC.Root.Body.*.book[1];
+		
 		IF FIELDNAME(outref.*) <> 'Data'  THEN
 			
+			declare bookref reference to  InputRoot.XMLNSC.Root.Body.*.book[1];
 			DECLARE i INTEGER 1;
 			WHILE LASTMOVE(bookref) DO
 			
 				if bookref.author <> 'Corets, Eva' then
 					set OutputRoot.XMLNSC.Root.Body.*.*[i] = null;
 					set i = i-1;
-				else
-					--propagate to TERMINAL 'out1' MESSAGE InputRoot.XMLNSC.Root.Body.*.*[i];
 				End if;
-				
 				set i = i+1;
 				move bookref NEXTSIBLING;
 				
 			END WHILE;
+			
 		ELSE
 			declare bookref reference to outref.Data.*.book;
 			DECLARE i INTEGER 1;
@@ -38,13 +35,12 @@ CREATE COMPUTE MODULE mf_Compute
 			
 				if bookref.author <> 'Corets, Eva' then
 					set OutputRoot.XMLNSC.Root.Body.Data.*.*[i] = null;
-				else
-					--propagate to TERMINAL 'out1' MESSAGE InputRoot.XMLNSC.Root.Body.Data.*.*[i];
 				End if;
 				
 				set i = i+1;
 				move bookref NEXTSIBLING;
 			END WHILE;
+			
 		END IF;
 		
 	
@@ -52,4 +48,12 @@ CREATE COMPUTE MODULE mf_Compute
 		RETURN TRUE;
 	END;
 
+create PROCEDURE setqueue (in ch CHARACTER )
+BEGIN
+		if ch = 'FCR' then
+			set OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'FCR';
+		elseif ch = 'TPH' then
+			set OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'TPH';
+		end if;
+END;
 END MODULE;

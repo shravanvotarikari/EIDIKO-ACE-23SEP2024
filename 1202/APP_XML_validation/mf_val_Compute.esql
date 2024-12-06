@@ -4,21 +4,33 @@ CREATE COMPUTE MODULE mf_val_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
-		-- CALL CopyEntireMessage();
+		 CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
 
-	CREATE PROCEDURE CopyMessageHeaders() BEGIN
-		DECLARE I INTEGER 1;
-		DECLARE J INTEGER;--
-		SET J = CARDINALITY(InputRoot.*[]);
-		WHILE I < J DO
-			SET OutputRoot.*[I] = InputRoot.*[I];
-			SET I = I + 1;
-		END WHILE;
-	END;
-
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputRoot = InputRoot;
+		declare outref REFERENCE to OutputRoot.XMLNSC.Root.Body;
+		
+		IF FIELDNAME(outref.*) <> 'Data'  THEN
+			
+			declare bookref reference to  InputRoot.XMLNSC.Root.Body.*.book[1];
+			DECLARE i INTEGER 1;
+			WHILE LASTMOVE(bookref) DO
+				call setqueue(InputRoot.XMLNSC.Root.Header.channelId);
+				set OutputRoot.XMLNSC.Book = InputRoot.XMLNSC.Root.Body.*.*[i]; 
+				propagate to TERMINAL 'out1';
+				set i = i +1;
+				move bookref NEXTSIBLING;
+			end WHILE;
+		end if;
+	END;
+	
+	create PROCEDURE setqueue (in ch CHARACTER )
+	BEGIN
+		if ch = 'FCR' then
+			set OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'FCR';
+		elseif ch = 'TPH' then
+			set OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'TPH';
+		end if;
 	END;
 END MODULE;
