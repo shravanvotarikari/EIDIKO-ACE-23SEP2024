@@ -18,46 +18,4 @@
       </_200512:X509Token>
     </policy:Policy>
   </_200512:SupportingTokens>
-  <_200512:AsymmetricBinding>
-    <policy:Policy>
-      <_200512:InitiatorToken>
-        <policy:Policy>
-          <_200512:X509Token _200512:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200512/IncludeToken/AlwaysToInitiator">
-            <policy:Policy Name="consumercert">
-              <_200512:WssX509V3Token10/>
-            </policy:Policy>
-          </_200512:X509Token>
-        </policy:Policy>
-      </_200512:InitiatorToken>
-      <_200512:RecipientToken>
-        <policy:Policy>
-          <_200512:X509Token _200512:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200512/IncludeToken/AlwaysToRecipient">
-            <policy:Policy Name="providercert">
-              <_200512:WssX509V3Token10/>
-            </policy:Policy>
-          </_200512:X509Token>
-        </policy:Policy>
-      </_200512:RecipientToken>
-      <_200512:AlgorithmSuite>
-        <policy:Policy>
-          <_200512:Basic128Rsa15/>
-        </policy:Policy>
-      </_200512:AlgorithmSuite>
-      <_200512:Layout>
-        <policy:Policy>
-          <_200512:Strict/>
-        </policy:Policy>
-      </_200512:Layout>
-    </policy:Policy>
-  </_200512:AsymmetricBinding>
-  <policy:Policy _0:Id="request:EncryptRequest">
-    <_200512:EncryptedParts>
-      <_200512:Body/>
-    </_200512:EncryptedParts>
-  </policy:Policy>
-  <policy:Policy _0:Id="response:EncryptResponse">
-    <_200512:EncryptedParts>
-      <_200512:Body/>
-    </_200512:EncryptedParts>
-  </policy:Policy>
 </policy:Policy>

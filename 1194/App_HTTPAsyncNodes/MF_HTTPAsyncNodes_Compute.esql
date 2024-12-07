@@ -1,0 +1,14 @@
+
+
+CREATE COMPUTE MODULE MF_HTTPAsyncNodes_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		Here one request is made by postman and http async node will make request to another service (msg flow)
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+	END;
+END MODULE;

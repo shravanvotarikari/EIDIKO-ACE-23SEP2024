@@ -1,0 +1,16 @@
+
+
+CREATE COMPUTE MODULE MF_temp_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN FALSE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		DECLARE returnValue CHARACTER;
+--		This service will take time of 10 seconds to execute
+		SET returnValue = SLEEP(10000);
+	END;
+END MODULE;

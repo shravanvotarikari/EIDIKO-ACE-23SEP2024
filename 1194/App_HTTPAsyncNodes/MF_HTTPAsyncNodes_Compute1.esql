@@ -1,0 +1,18 @@
+
+
+CREATE COMPUTE MODULE MF_HTTPAsyncNodes_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE num1 INTEGER 5;
+		DECLARE num2 INTEGER 4;
+		
+--		As we have used HTTP Async request node, the response requested service is independent of request made by http async req node
+--		till then we can perform this another task simultaneously which means http async req node allow us to perform multiple tasks concurrently.
+		SET OutputRoot.JSON.Data.sum = num1 + num2;
+	END;
+END MODULE;

@@ -1,46 +1,61 @@
-
-
 CREATE COMPUTE MODULE MF_ValidAuthorTask_Compute
+
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		CALL CopyEntireMessage();
-		RETURN TRUE;
-	END;
 
-	CREATE PROCEDURE CopyEntireMessage() BEGIN
---		Creating reference to second child of Body tag
-		DECLARE inRef REFERENCE TO InputRoot.XMLNSC.Root.Body.*.*;
-		
---		Checking whether Data tag is present or not
-		IF (inRef.book.id = 'bk101') THEN
-			-- Do nothing because currently inRef pointing to catalog tag
-		ELSE
-			MOVE inRef PARENT; -- because currently inRef pointing to book tag
-		END IF;
-		
---		Checking for Valid Author and Retriving Book titles of his books
-		IF (InputRoot.XMLNSC.Root.Header.channelId = 'TPH' OR InputRoot.XMLNSC.Root.Header.channelId = 'FCR') THEN
+		CALL CopyEntireMsg();
+		RETURN TRUE;
+	END;	
+
+
+		CREATE PROCEDURE CopyEntireMsg ( )
+		BEGIN
 			
-			DECLARE index INTEGER 1;
-			FOR ref AS inRef.book[] DO
-				IF (ref.author = 'Corets, Eva') THEN
-					SET OutputRoot.XMLNSC.AuthenticBooks.book[index].name = ref.title;
-					SET index = index + 1;
+			DECLARE inref REFERENCE TO InputRoot.XMLNSC.Root;
+
+			DECLARE field CHARACTER FIELDNAME(inref.Body.[1]);
+			
+			IF field <> 'Data' THEN
+				DECLARE book REFERENCE TO InputRoot.XMLNSC.Root.Body.*.book[1];
+				CALL PrintData(book);
+				
+			ELSE
+				DECLARE book REFERENCE TO InputRoot.XMLNSC.Root.Body.Data.*.book[1];
+				CALL PrintData(book);
+			END IF;
+			
+			-- Sending output to respective backend
+			IF (InputRoot.XMLNSC.Root.Header.channelId = 'TPH') THEN
+				SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'q2';
+			ELSEIF(InputRoot.XMLNSC.Root.Header.channelId = 'FCR') THEN
+				SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'q3';
+			ELSE
+				SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'q4';
+			END IF;
+			
+		END;	
+		
+		CREATE PROCEDURE PrintData ( IN book REFERENCE )
+		BEGIN
+			SET OutputRoot = InputRoot;
+			DECLARE i INTEGER 1;
+
+			WHILE LASTMOVE(book) DO
+				IF book.author <> 'Corets, Eva' THEN
+					
+					IF FIELDNAME(InputRoot.XMLNSC.Root.Body.[1]) = 'Data' THEN
+						SET OutputRoot.XMLNSC.Root.Body.Data.*.book[i] = NULL;
+					ELSE
+						SET OutputRoot.XMLNSC.Root.Body.*.book[i] = NULL;
+					END IF;
+					
+				ELSE
+					SET i = i+1;
 				END IF;
-			END FOR;
+
+				MOVE book NEXTSIBLING;
+			END WHILE;		
 			
-		ELSE
-			SET OutputRoot.XMLNSC.result = 'No Valid Author found';
-		END IF;
-		
---		Sending output to respective backend
-		IF (InputRoot.XMLNSC.Root.Header.channelId = 'TPH') THEN
-			SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'q2';
-		ELSEIF(InputRoot.XMLNSC.Root.Header.channelId = 'FCR') THEN
-			SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'q3';				
-		ELSE
-			SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'q4';				
-		END IF;
-		
-	END;
-END MODULE;
+		END;
+
+	END MODULE;

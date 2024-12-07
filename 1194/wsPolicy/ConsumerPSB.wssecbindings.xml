@@ -2,15 +2,8 @@
 <securitybinding:securityBindings xmlns:securitybinding="http://www.ibm.com/xmlns/prod/websphere/200710/ws-securitybinding">
   <securitybinding:securityBinding name="application">
     <securitybinding:securityOutboundBindingConfig>
-      <securitybinding:encryptionInfo name="gen_EncryptRequest" order="1">
-        <securitybinding:keyEncryptionKeyInfo reference="gen_providercert_encEncryptRequest_keyinfo"/>
-        <securitybinding:encryptionPartReference reference="request:EncryptRequest"/>
-      </securitybinding:encryptionInfo>
       <securitybinding:keyInfo classname="com.ibm.ws.wssecurity.wssapi.CommonContentGenerator" name="gen_auth_keyinfo" type="STRREF">
         <securitybinding:tokenReference reference="gen_auth"/>
-      </securitybinding:keyInfo>
-      <securitybinding:keyInfo classname="com.ibm.ws.wssecurity.wssapi.CommonContentGenerator" name="gen_providercert_encEncryptRequest_keyinfo" type="KEYID">
-        <securitybinding:tokenReference reference="gen_requestEncryptRequest"/>
       </securitybinding:keyInfo>
       <securitybinding:tokenGenerator classname="com.ibm.ws.wssecurity.wssapi.token.impl.CommonTokenGenerator" name="gen_auth">
         <securitybinding:valueType localName="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"/>
@@ -18,45 +11,19 @@
         <securitybinding:jAASConfig configName="system.wss.generate.x509"/>
         <securitybinding:callbackHandler classname="com.ibm.websphere.wssecurity.callbackhandler.X509GenerateCallbackHandler">
           <securitybinding:keyStore path="*MQSIBROKERSTOREPATHMQSI*" storepass="*MQSIBROKERSTOREPWDMQSI*" type="JKS"/>
-          <securitybinding:key alias="consumer" keypass="*MQSIBROKERSTOREKEYPASSconsumerMQSI*" name="CN=provider, OU=esi, O=EIDIKO, L=Khajaguda"/>
-        </securitybinding:callbackHandler>
-      </securitybinding:tokenGenerator>
-      <securitybinding:tokenGenerator classname="com.ibm.ws.wssecurity.wssapi.token.impl.CommonTokenGenerator" name="gen_requestEncryptRequest">
-        <securitybinding:valueType localName="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"/>
-        <securitybinding:jAASConfig configName="system.wss.generate.x509"/>
-        <securitybinding:callbackHandler classname="com.ibm.websphere.wssecurity.callbackhandler.X509GenerateCallbackHandler">
-          <securitybinding:keyStore path="*MQSIBROKERSTOREPATHMQSI*" storepass="*MQSIBROKERSTOREPWDMQSI*" type="JKS"/>
-          <securitybinding:key alias="&lt;Enter Alias>" name="CN=provider, OU=esi, O=EIDIKO, L=Khajaguda"/>
+          <securitybinding:key alias="consumer" keypass="*MQSIBROKERSTOREKEYPASSconsumerMQSI*" name="CN=192.168.1.53, C=US"/>
         </securitybinding:callbackHandler>
       </securitybinding:tokenGenerator>
     </securitybinding:securityOutboundBindingConfig>
     <securitybinding:securityInboundBindingConfig>
-      <securitybinding:encryptionInfo name="con_EncryptResponse">
-        <securitybinding:keyEncryptionKeyInfo reference="con_consumercert_encEncryptResponse_keyinfo"/>
-        <securitybinding:encryptionPartReference reference="response:EncryptResponse"/>
-      </securitybinding:encryptionInfo>
       <securitybinding:keyInfo classname="com.ibm.ws.wssecurity.wssapi.CommonContentConsumer" name="con_auth_keyinfo" type="STRREF">
         <securitybinding:tokenReference reference="con_auth"/>
-      </securitybinding:keyInfo>
-      <securitybinding:keyInfo classname="com.ibm.ws.wssecurity.wssapi.CommonContentConsumer" name="con_consumercert_encEncryptResponse_keyinfo">
-        <securitybinding:tokenReference reference="con_responseEncryptResponse"/>
       </securitybinding:keyInfo>
       <securitybinding:tokenConsumer classname="com.ibm.ws.wssecurity.wssapi.token.impl.CommonTokenConsumer" name="con_auth">
         <securitybinding:valueType localName="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"/>
         <securitybinding:securityTokenReference reference="response:ConsumerResponseInbound"/>
         <securitybinding:jAASConfig configName="system.wss.consume.x509"/>
         <securitybinding:callbackHandler classname="com.ibm.websphere.wssecurity.callbackhandler.X509ConsumeCallbackHandler">
-          <securitybinding:certPathSettings>
-            <securitybinding:trustAnyCertificate/>
-          </securitybinding:certPathSettings>
-        </securitybinding:callbackHandler>
-      </securitybinding:tokenConsumer>
-      <securitybinding:tokenConsumer classname="com.ibm.ws.wssecurity.wssapi.token.impl.CommonTokenConsumer" name="con_responseEncryptResponse">
-        <securitybinding:valueType localName="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"/>
-        <securitybinding:jAASConfig configName="system.wss.consume.x509"/>
-        <securitybinding:callbackHandler classname="com.ibm.websphere.wssecurity.callbackhandler.X509ConsumeCallbackHandler">
-          <securitybinding:keyStore path="*MQSIBROKERSTOREPATHMQSI*" storepass="*MQSIBROKERSTOREPWDMQSI*" type="JKS"/>
-          <securitybinding:key alias="&lt;Enter Alias>" keypass="*MQSIBROKERSTOREKEYPASS&lt;Enter Alias>MQSI*" name="CN=consumer, OU=esi, O=EIDIKO, L=Khajaguda"/>
           <securitybinding:certPathSettings>
             <securitybinding:trustAnyCertificate/>
           </securitybinding:certPathSettings>
