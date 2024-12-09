@@ -1,0 +1,15 @@
+BROKER SCHEMA gen
+DECLARE ns1 NAMESPACE 'http://myIntegrationService';
+
+
+CREATE COMPUTE MODULE addition_Request_Response_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.SOAP.Body.ns1:additionResponse.sum = InputRoot.XMLNSC.ns1:addition.num1 + InputRoot.XMLNSC.ns1:addition.num2;
+	END;
+END MODULE;

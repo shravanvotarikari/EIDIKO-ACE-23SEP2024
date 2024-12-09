@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:tns="http://myIntegrationService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://myIntegrationService">
+            
+  
+  
+  <xsd:element xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" ibmSchExtn:docRoot="true" name="addition">
+                    
+    
+    
+    <xsd:complexType>
+                            
+      
+      
+      <xsd:sequence>
+                                    
+        
+        
+        <xsd:element name="num1" nillable="true" type="xsd:int"/>
+                                  
+                
+        
+        <xsd:element name="num2" nillable="true" type="xsd:int"/>
+                            
+      
+      </xsd:sequence>
+                          
+    
+    
+    </xsd:complexType>
+                  
+  
+  
+  </xsd:element>
+            
+  
+  
+  <xsd:element xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" ibmSchExtn:docRoot="true" name="additionResponse">
+                    
+    
+    
+    <xsd:complexType>
+                            
+      
+      
+      <xsd:sequence>
+                                    
+        
+        
+        <xsd:element name="sum" nillable="true" type="xsd:int"/>
+                                  
+      
+      
+      </xsd:sequence>
+                          
+    
+    
+    </xsd:complexType>
+                  
+  
+  
+  </xsd:element>
+          
+
+
+</xsd:schema>
