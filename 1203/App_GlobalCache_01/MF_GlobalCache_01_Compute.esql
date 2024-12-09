@@ -1,0 +1,19 @@
+
+
+CREATE COMPUTE MODULE MF_GlobalCache_01_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		DECLARE Var CHARACTER 'GlobalCache';
+		DECLARE  CastVar BLOB;
+		--SET CastVar = CAST(Var as BLOB CCSID 1208 ENCODING 546);
+		SET CastVar = ASBITSTREAM(InputRoot.XMLNSC);
+		DECLARE key CHARACTER 'vedanti';
+		CALL Insert_value(key, CastVar);
+	
+		RETURN TRUE;
+	END;
+END MODULE;
+CREATE PROCEDURE Insert_value (IN key CHARACTER, IN value BLOB)
+LANGUAGE JAVA
+EXTERNAL NAME "java_GlobalCache.Class_GlobalCache.insertData";
