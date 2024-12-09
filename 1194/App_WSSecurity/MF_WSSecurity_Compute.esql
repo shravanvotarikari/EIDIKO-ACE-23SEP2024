@@ -1,0 +1,14 @@
+DECLARE ns NAMESPACE 'http://www.example.org/NewWSDLFile/';
+
+
+CREATE COMPUTE MODULE MF_WSSecurity_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.SOAP.Body.ns:addResponse.result = InputRoot.SOAP.Body.ns:add.num1 + InputRoot.SOAP.Body.ns:add.num2;
+	END;
+END MODULE;

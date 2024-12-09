@@ -1,0 +1,22 @@
+
+
+Importing file: C:\temp\App_WSSecurity\NewWSDLFile.wsdl
+
+The WSDL import will proceed with bindings NewWSDLFileSOAP.
+Creating wsdl schema document for file:///C:/temp/App_WSSecurity/NewWSDLFile.wsdl.
+Parsing wsdl binding {http://www.example.org/NewWSDLFile/}NewWSDLFileSOAP.
+Parsing wsdl binding input add.
+Parsing wsdl binding output add.
+Processing doc style for operation add.
+Populating WSDL schema NewWSDLFile.xsd.
+Creating file NewWSDLFile.xsd in the workspace.
+Creating file NewWSDLFile_InlineSchema1.xsd in the workspace.
+Copying source WSDL NewWSDLFile.wsdl to NewWSDLFile.wsdl.
+
+Elapsed time processing this message definition file: 0.399 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+

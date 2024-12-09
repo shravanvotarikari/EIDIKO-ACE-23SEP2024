@@ -1,0 +1,27 @@
+
+
+Importing file: C:\temp\App_WSSecurity\NewWSDLFile.wsdl
+
+
+The following is a list of WS-I warning messages found when importing:
+WSDL: The 'Addition' element referenced by the parameters part cannot be resolved., Line: 31, Column: 6
+WSDL: The 'AdditionResponse' element referenced by the parameters part cannot be resolved., Line: 40, Column: 6
+
+
+The WSDL import will proceed with bindings NewWSDLFileSOAP.
+Creating wsdl schema document for file:///C:/temp/App_WSSecurity/NewWSDLFile.wsdl.
+Parsing wsdl binding {http://localhost:7800/NewWSDLFile/}NewWSDLFileSOAP.
+Parsing wsdl binding input Addition.
+Parsing wsdl binding output Addition.
+Processing doc style for operation Addition.
+Populating WSDL schema NewWSDLFile.xsd.
+Creating file NewWSDLFile.xsd in the workspace.
+Copying source WSDL NewWSDLFile.wsdl to NewWSDLFile.wsdl.
+
+Elapsed time processing this message definition file: 0.7 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+
