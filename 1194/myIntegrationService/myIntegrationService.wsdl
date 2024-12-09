@@ -11,125 +11,258 @@
     
     
     
+    
+    
+    
+  
+  
+  
   
   
   <wsdl:types>
-                
+                            
         
+    
+    
+    
     
     
     <xsd:schema xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" targetNamespace="http://myIntegrationService">
-                        
+                                          
+      
+      
+      
       
       
       <xsd:include schemaLocation="myIntegrationService_InlineSchema1.xsd"/>
-                
+                                  
+    
     </xsd:schema>
-                
+                            
+  
+  
+  
   
   
   </wsdl:types>
-        
+              
+  
+  
+  
   
   
   <wsdl:message name="additionRequestMsg">
-                
+                            
+    
+    
+    
     
     
     <wsdl:part element="tns:addition" name="additionParameters"/>
-              
+                          
+  
+  
+  
   
   
   </wsdl:message>
-        
+              
+  
+  
+  
   
   
   <wsdl:message name="additionResponseMsg">
-                
+                            
+    
+    
+    
     
     
     <wsdl:part element="tns:additionResponse" name="additionResult"/>
-              
+                          
+  
+  
+  
   
   
   </wsdl:message>
-        
-  
-    
-  <wsdl:portType name="myIntegrationService">
-                
-    
-    
-    <wsdl:operation name="addition">
-                        
-            
-            
-      
-      <wsdl:input message="tns:additionRequestMsg" name="additionRequest"/>
-                        
-      
-      <wsdl:output message="tns:additionResponseMsg" name="additionResponse"/>
-                      
-    
-    
-    </wsdl:operation>
               
   
     
-  </wsdl:portType>
+    
+    
+  
+  <wsdl:message name="setNameRequestMsg">
         
+    <wsdl:part element="tns:setName" name="setNameParameters"/>
+      
+  </wsdl:message>
+        
+  
+  <wsdl:portType name="myIntegrationService">
+                            
+    
+    
+    
+    
+    
+    <wsdl:operation name="addition">
+                                          
+            
+            
+      
+      
+      
+      
+      <wsdl:input message="tns:additionRequestMsg" name="additionRequest"/>
+                                          
+      
+      
+      
+      
+      <wsdl:output message="tns:additionResponseMsg" name="additionResponse"/>
+                                        
+    
+    
+    
+    
+    
+    </wsdl:operation>
+                          
+  
+    
+    
+        
+    
+    <wsdl:operation name="setName">
+                  
+      <wsdl:input message="tns:setNameRequestMsg" name="setNameRequest"/>
+              
+    </wsdl:operation>
+            
+  
+  </wsdl:portType>
+              
+  
+  
+  
   
   
   <wsdl:binding name="myIntegrationServiceHttpBinding" type="tns:myIntegrationService">
-                
+                            
         
       
+        
+            
+        
+            
+        
+            
         
             
         
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
             
     <wsdl:operation name="addition">
+                                    
                   
+            
+                  
+            
+                  
+            
       <soap:operation soapAction="http://myIntegrationService/addition"/>
                   
       <wsdl:input name="additionRequest">
+                                                
+                    
+                
+                    
+                
+                    
+                
+        <soap:body use="literal"/>
+                    
+      </wsdl:input>
+                              
+      
+      
+      
+      <wsdl:output name="additionResponse">
+                                                
+                    
+                
+                    
+                
+                    
+                
+        <soap:body use="literal"/>
+                    
+      </wsdl:output>
+                            
+    
+    
+    
+    </wsdl:operation>
+                        
+    
+    
+        
+    
+    <wsdl:operation name="setName">
+                  
+      <soap:operation soapAction="http://myIntegrationService/setName"/>
+                  
+      <wsdl:input name="setNameRequest">
                         
         <soap:body use="literal"/>
                     
       </wsdl:input>
-            
-      <wsdl:output name="additionResponse">
-                        
-        <soap:body use="literal"/>
-                    
-      </wsdl:output>
           
     </wsdl:operation>
             
-    
+  
   </wsdl:binding>
-        
-  
-  
-  <wsdl:service name="myIntegrationServiceHttpService">
-                
-    
-    
-    <wsdl:port binding="tns:myIntegrationServiceHttpBinding" name="myIntegrationServiceHttpPort">
-                        
-      
-      
-      <soap:address location="http://localhost:7800/myIntegrationService"/>
-                      
-    
-    
-    </wsdl:port>
               
   
   
-  </wsdl:service>
+  
+  
+  
+  <wsdl:service name="myIntegrationServiceHttpService">
+                            
+    
+    
+    
+    
+    
+    <wsdl:port binding="tns:myIntegrationServiceHttpBinding" name="myIntegrationServiceHttpPort">
+                                          
       
+      
+      
+      
+      
+      <soap:address location="http://localhost:7800/myIntegrationService"/>
+                                        
+    
+    
+    
+    
+    
+    </wsdl:port>
+                          
+  
+  
+  
+  
+  
+  </wsdl:service>
+            
+
+
+
 
 
 </wsdl:definitions>

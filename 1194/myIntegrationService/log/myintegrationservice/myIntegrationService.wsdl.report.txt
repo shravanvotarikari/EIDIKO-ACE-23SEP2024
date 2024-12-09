@@ -1,13 +1,16 @@
 
 
-Importing file: C:\temp\myIntegrationService\myIntegrationService.wsdl
+Importing file: C:\Users\Sreenivas Bandaru\git\EIDIKO-ACE-23SEP2024\1194\myIntegrationService\myIntegrationService.wsdl
 
 The WSDL import will proceed with bindings myIntegrationServiceHttpBinding.
 Creating wsdl schema document for platform:/resource/myIntegrationService/myIntegrationService.wsdl.
 Parsing wsdl binding {http://myIntegrationService}myIntegrationServiceHttpBinding.
 Parsing wsdl binding input addition.
 Parsing wsdl binding output addition.
+Parsing wsdl binding input setName.
+Parsing wsdl binding output setName.
 Processing doc style for operation addition.
+Processing doc style for operation setName.
 Populating WSDL schema myIntegrationService.xsd.
 Creating file myIntegrationService.xsd in the workspace.
 Copying source WSDL myIntegrationService.wsdl to myIntegrationService.wsdl.

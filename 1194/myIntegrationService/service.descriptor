@@ -7,6 +7,11 @@
           <service:flow location="gen/addition_Request_Response.subflow" type="Request_Response"/>
         </service:flows>
       </service:operation>
+      <service:operation name="setName" type="one-way">
+        <service:flows>
+          <service:flow location="gen/setName_Request.subflow" type="Request"/>
+        </service:flows>
+      </service:operation>
     </service:operations>
     <service:errors>
       <service:flows>

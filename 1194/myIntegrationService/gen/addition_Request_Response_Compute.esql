@@ -11,5 +11,6 @@ CREATE COMPUTE MODULE addition_Request_Response_Compute
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		SET OutputRoot.SOAP.Body.ns1:additionResponse.sum = InputRoot.XMLNSC.ns1:addition.num1 + InputRoot.XMLNSC.ns1:addition.num2;
+		SET OutputRoot.SOAP.Body.myName = 'Avishkar';
 	END;
 END MODULE;

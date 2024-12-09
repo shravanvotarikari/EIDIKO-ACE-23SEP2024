@@ -1,0 +1,20 @@
+BROKER SCHEMA gen
+
+
+CREATE COMPUTE MODULE setName_Request_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		DECLARE name CHARACTER;
+		SET name = InputRoot.XMLNSC.ns1:setName.myName;
+		DECLARE sirName CHARACTER;
+		SET sirName = InputRoot.XMLNSC.ns1:setName.sirName;
+		
+		INSERT INTO Database.EMPLOYEES VALUES (1194, name, sirName, 'ACE', 12345);
+	END;
+END MODULE;
