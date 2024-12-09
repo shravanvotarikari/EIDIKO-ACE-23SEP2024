@@ -1,0 +1,19 @@
+
+
+CREATE COMPUTE MODULE MF_GlobalCache_02_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE key Character 'vedanti';
+		DECLARE Getvar BLOB;
+		
+		
+         call getData(key) INTO Getvar;
+         SET OutputRoot.BLOB.BLOB =Getvar;
+		
+		RETURN TRUE;
+	END;
+
+END MODULE;
+CREATE PROCEDURE getData (In key CHARACTER ) RETURNS BLOB
+LANGUAGE JAVA
+EXTERNAL NAME "java_GlobalCache.Class_GlobalCache.getData";
