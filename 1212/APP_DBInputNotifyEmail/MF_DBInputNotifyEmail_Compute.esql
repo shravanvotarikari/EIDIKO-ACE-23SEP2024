@@ -1,0 +1,25 @@
+
+
+CREATE COMPUTE MODULE MF_DBInputNotifyEmail_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 DECLARE inputData REFERENCE TO InputRoot.DataObject.ns:EMPLOYEES_APP_TABLE;
+        DECLARE employeeId CHARACTER '';
+        DECLARE newSalary DECIMAL;
+        DECLARE employeeName CHARACTER '';
+        DECLARE employeeDomain CHARACTER '';
+
+       
+        SET employeeId = COALESCE(inputData.EID, '');
+        SET newSalary = COALESCE(inputData.SALARY, 0);
+        SET employeeName = COALESCE(inputData.ENAME, '');
+        SET employeeDomain = COALESCE(inputData.DOMAIN, '');
+
+       
+        SET OutputRoot.DataObject.EID = employeeId;
+        SET OutputRoot.DataObject.ENAME = employeeName;
+        SET OutputRoot.DataObject.SALARY = newSalary;
+        SET OutputRoot.DataObject.DOMAIN = employeeDomain;
+		RETURN TRUE;
+	END;
+END MODULE;
