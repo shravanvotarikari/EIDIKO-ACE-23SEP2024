@@ -1,0 +1,24 @@
+
+
+CREATE COMPUTE MODULE MF_DBNode_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CREATE FIELD OutputRoot.JSON.Data.res;
+		DECLARE outref REFERENCE TO OutputRoot.JSON.Data.res;
+		IF Environment.operation='select' THEN
+			DECLARE salary INTEGER Environment.data.SALARY;
+			SET outref=Environment.data;
+			SET outref.SALARY=null;
+			SET outref.SALARY=salary;
+			
+		ELSE
+			 SET outref=Environment.data;
+		END IF;
+     
+      
+		RETURN TRUE;
+	END;
+	
+
+END MODULE;

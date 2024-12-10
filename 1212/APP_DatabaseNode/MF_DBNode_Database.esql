@@ -1,0 +1,46 @@
+
+
+CREATE DATABASE MODULE MF_DBNode_Database
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL dbnode();
+		RETURN TRUE;
+	END;
+	
+CREATE PROCEDURE dbnode() BEGIN
+	
+	DECLARE inref REFERENCE TO Root.JSON.Data;
+	
+	DECLARE id INTEGER inref.id;
+    DECLARE name CHARACTER inref.name;
+    DECLARE tech CHARACTER inref.tech; 
+    DECLARE salary INTEGER inref.salary;
+	
+	
+	
+	DECLARE operation CHARACTER inref.operation;
+	
+	IF operation = 'insert' THEN
+		
+		PASSTHRU('INSERT INTO Flourisense VALUES (?, ?, ?, ?)', id,name,tech,salary);
+		SET Environment.data='data is inserted successfully';
+		
+	ELSEIF operation = 'update' THEN
+		
+		PASSTHRU('UPDATE Flourisense SET name = ?, tech = ?, salary = ? WHERE id = ?', name, tech, salary, id);
+		SET Environment.data='data is updated successfully';
+		
+	ELSEIF operation= 'select' THEN
+		
+		SET Environment.data[] = PASSTHRU('SELECT name, tech, salary FROM Flourisense WHERE id = ?', id);
+		SET Environment.operation=operation;
+		
+	ELSEIF operation = 'delete' THEN
+		
+		PASSTHRU('DELETE FROM Flourisense WHERE id = ?', id);
+		SET Environment.data='data is deleted successfully';
+		
+	END IF;
+    
+END;
+END MODULE;
