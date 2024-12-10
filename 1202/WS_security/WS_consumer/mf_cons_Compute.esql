@@ -1,15 +1,11 @@
-DECLARE ns NAMESPACE 'http://www.example.org/NewWSDLFile/';
 
 
-CREATE COMPUTE MODULE mf_provider_Compute
+CREATE COMPUTE MODULE mf_cons_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
-		set OutputRoot.SOAP.Context = InputRoot.SOAP.Context;
-		
-		set OutputRoot.SOAP.Header = InputRoot.SOAP.Header;
-		set OutputRoot.SOAP.Body.ns:OneResponse.out = 'hi';
 		-- CALL CopyEntireMessage();
+		set Environment.sec = InputRoot.SOAP.Header;
 		RETURN TRUE;
 	END;
 

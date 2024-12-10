@@ -1,15 +1,12 @@
-DECLARE ns NAMESPACE 'http://www.example.org/NewWSDLFile/';
 
 
-CREATE COMPUTE MODULE mf_provider_Compute
+CREATE COMPUTE MODULE JMSOutput_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
-		set OutputRoot.SOAP.Context = InputRoot.SOAP.Context;
-		
-		set OutputRoot.SOAP.Header = InputRoot.SOAP.Header;
-		set OutputRoot.SOAP.Body.ns:OneResponse.out = 'hi';
-		-- CALL CopyEntireMessage();
+	    CALL CopyEntireMessage();
+	    --LocalEnvironment/Variables/JMSReplyTo
+	    SET OutputLocalEnvironment.Destination.JMSDestinationList.DestinationData = 'jndi://jmsexample';
 		RETURN TRUE;
 	END;
 
