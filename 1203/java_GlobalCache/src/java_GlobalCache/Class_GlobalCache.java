@@ -24,7 +24,7 @@ public class Class_GlobalCache {
 		try {
 			MbGlobalMap globalMap = MbGlobalMap.getGlobalMap("containerVar");
 		if (globalMap.containsKey(key)) {
-			return (byte[])globalMap.get(key);			
+			return (byte[])globalMap.get(key);		
 			
 		}
 		} catch (MbException e) {

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmDatabaseRetrieve.msgnode="ComIbmDatabaseRetrieve.msgnode" xmlns:ComIbmWSInput.msgnode="ComIbmWSInput.msgnode" xmlns:ComIbmWSReply.msgnode="ComIbmWSReply.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="MF_Database_RetriveNode.msgflow" nsPrefix="MF_Database_RetriveNode.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="RECTANGLE">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="MF_Database_RetriveNode" bundleName="MF_Database_RetriveNode" pluginId="App_Database_RetriveNode"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_Database_RetriveNode/icons/full/obj16/MF_Database_RetriveNode.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_Database_RetriveNode/icons/full/obj30/MF_Database_RetriveNode.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="64,112" URLSpecifier="/path" messageDomainProperty="JSON">
+        <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="585,111">
+        <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
+      </nodes>
+      <nodes xmi:type="ComIbmDatabaseRetrieve.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="308,112" dataSourceName="{Policy_DataBase_Nodes}:DB_Retrive_Node" copyMessage="true" allRows="true" sqlQuery="SELECT Retrive_Node.name, Retrive_Node.tech, Retrive_Node.salary&#xA;FROM Retrive_Node&#xA;WHERE Retrive_Node.id = ?&#xA;ORDER BY Retrive_Node.name ASC, Retrive_Node.tech ASC, Retrive_Node.salary ASC" tableNameComboValues="0,0,0,0~Retrive_Node" columnNameComboValues="1,3,2,0~id,name,salary,tech"
+          operatorComboValues="0,0,0,2~=" valueTypeComboValues="0,0,0,2~Element" columnValueComboValues="0,1,2~Retrive_Node.tech">
+        <translation xmi:type="utility:ConstantString" string="Database Retrieve"/>
+        <queryElements tableName="Retrive_Node" columnName="name" operator="ASC" valueType="None" value="None"/>
+        <queryElements tableName="Retrive_Node" columnName="tech" operator="ASC" valueType="None" value="None"/>
+        <queryElements tableName="Retrive_Node" columnName="salary" operator="ASC" valueType="None" value="None"/>
+        <queryElements tableName="Retrive_Node" columnName="id" operator="=" valueType="Element" value="$InputRoot/JSON/Data/id"/>
+        <dataElements columnName="Retrive_Node.name" messageElement="$OutputRoot/JSON/Data/Emp/name"/>
+        <dataElements columnName="Retrive_Node.salary" messageElement="$OutputRoot/JSON/Data/Emp/salary"/>
+        <dataElements columnName="Retrive_Node.tech" messageElement="$OutputRoot/JSON/Data/Emp/tech"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>
