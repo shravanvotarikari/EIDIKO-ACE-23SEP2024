@@ -6,7 +6,7 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_Security_profile/icons/full/obj16/MF_Security_profile.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_Security_profile/icons/full/obj30/MF_Security_profile.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="38,83" URLSpecifier="/path" messageDomainProperty="XMLNSC" securityProfileName="{Policy_Security_Profile}:Security_Profile" identityType="usernameAndPassword" identityTokenLocation="$Root/XMLNSC/security/u" identityPasswordLocation="$Root/XMLNSC/security/p">
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="38,83" URLSpecifier="/path" messageDomainProperty="XMLNSC" securityProfileName="{Policy_Security_Profile}:Security_Profile" identityTokenLocation="$Root/XMLNSC/security/u" identityPasswordLocation="$Root/XMLNSC/security/p">
         <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="290,84" computeExpression="esql://routine/#MF_Security_profile_Compute.Main">
