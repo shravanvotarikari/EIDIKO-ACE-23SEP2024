@@ -1,0 +1,20 @@
+
+
+CREATE COMPUTE MODULE MF_AggregationNodes_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		SET OutputRoot = InputRoot;
+		SET OutputLocalEnvironment=InputLocalEnvironment;
+
+    SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://localhost:7800/path1';
+    PROPAGATE to terminal 'out' delete none;  
+
+    SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://localhost:7800/path2';
+     PROPAGATE to terminal 'out' delete none;  
+
+    SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://localhost:7800/path3';
+	RETURN TRUE;
+	END;
+
+END MODULE;

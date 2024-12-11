@@ -1,0 +1,26 @@
+
+
+CREATE COMPUTE MODULE MF_AggregationNodes_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		DECLARE ref_grp REFERENCE TO InputRoot.ComIbmAggregateReplyBody;
+        --CREATE FIELD OutputRoot.JSON.Data.Details IDENTITY(JSON.Array)result;
+
+        SET OutputRoot.JSON.Data.A = ref_grp.myData[1].JSON.Data.msg;
+        SET OutputRoot.JSON.Data.B = ref_grp.myData[2].JSON.Data.msg;
+        SET OutputRoot.JSON.Data.C = ref_grp.myData[3].JSON.Data.msg;
+
+        --SET OutputRoot.JSON.Data.res = InputRoot.ComIbmAggregateReplyBody.myData.JSON.Data.msg;		
+        		
+
+
+
+
+	END;
+END MODULE;
