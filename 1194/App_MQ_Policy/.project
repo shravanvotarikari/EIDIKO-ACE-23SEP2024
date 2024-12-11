@@ -3,6 +3,7 @@
 	<name>App_MQ_Policy</name>
 	<comment></comment>
 	<projects>
+		<project>Policy_MQ_Project_</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
