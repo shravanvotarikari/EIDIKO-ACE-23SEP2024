@@ -1,0 +1,12 @@
+{
+  "mongodb_dev": { 
+    "name": "mongodb_dev",
+    "connector": "loopback-connector-mongodb",
+	"url": "mongodb+srv://<user>:<password>@cluster0.aes7t.mongodb.net/",
+    "host": "", 
+    "port": 27017,
+    "database": "jaydb", 
+    "username": "", 
+    "password": ""
+  }
+}
