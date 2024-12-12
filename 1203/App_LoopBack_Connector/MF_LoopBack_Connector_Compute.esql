@@ -8,9 +8,22 @@ CREATE COMPUTE MODULE MF_LoopBack_Connector_Compute
 		RETURN TRUE;
 	END;
 
-
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		Set OutputRoot = InputRoot;
-	SET OutputRoot.JSON.Data.Time1 = CURRENT_TIMESTAMP;
+    --INSERT/create
+	--SET OutputRoot.JSON.Data.Time1 = CURRENT_TIMESTAMP;
+	--RETRIVE ONE RECORD
+	--SET OutputLocalEnvironment.Destination.Loopback.Request.Id = InputRoot.JSON.Data.eid;
+	--UPDATE ONE RECORD and DELETE.
+	--SET OutputLocalEnvironment.Destination.Loopback.Request.Id = InputRoot.HTTPInputHeader.Token;
+	--CREATE using environmment
+	CREATE LASTCHILD OF Environment DOMAIN 'JSON';
+	CREATE FIELD Environment.JSON.Data;
+	DECLARE outref REFERENCE TO Environment.JSON.Data;
+	SET outref.eid=99878;
+	SET outref.name='vedanti';
+	SET outref.location='hyd';
+	
+	
 	END;
 END MODULE;
