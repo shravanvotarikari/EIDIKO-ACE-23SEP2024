@@ -12,9 +12,10 @@ CREATE COMPUTE MODULE MF_MultiDSN_Compute
 --		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
 		
 		SET OutputRoot = InputRoot;
-		INSERT INTO Database.AVIDSN.SYSTEM.AVISHKAR VALUES ('Abhi', 4521, 'Bhor');
-		INSERT INTO Database.ORADSN.SYSTEM.employees VALUES (15,'Pavan', 'G', 'Bhor',2252);
-		DELETE FROM Database.ORADSN.SYSTEM.employees WHERE employees.DEPARTMENT = 'Bhor';
+		INSERT INTO Database.AVIDSN.SYSTEM.AVISHKAR VALUES ('Mohit', 4521, 'Bhor');
+--		INSERT INTO Database.ORADSN.SYSTEM.employees VALUES (15,'Pavan', 'G', 'Bhor',2252);
+--		DELETE FROM Database.AVISHKAR WHERE AVISHKAR.id = 4521;
+--		DELETE FROM Database.ORADSN.SYSTEM.employees WHERE employees.DEPARTMENT = 'Bhor';
 		
 	END;
 END MODULE;
