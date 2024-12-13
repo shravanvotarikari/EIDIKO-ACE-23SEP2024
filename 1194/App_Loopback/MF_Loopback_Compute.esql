@@ -1,0 +1,45 @@
+
+
+CREATE COMPUTE MODULE MF_Loopback_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		To override object
+--		SET OutputLocalEnvironment.Destination.Loopback.Request.object = 'coll1';
+
+--		To select id of request object
+--		SET OutputLocalEnvironment.Destination.Loopback.Request.id = '675b5bc80911cc1fa0aa36a3';
+
+
+--		1. To create or insert data in database, you just need to give input data to be inserted (inputroot)
+
+		SET OutputRoot = InputRoot;
+		
+		
+		
+--		2. To Retrieve data from database : 
+
+--		SET OutputLocalEnvironment.Destination.Loopback.Request.id = '675b5bc80911cc1fa0aa36a3';
+--		To add filter on receiving data
+--		SET OutputLocalEnvironment.Destination.Loopback.Request.filter.limit = 2;
+--		SET OutputLocalEnvironment.Destination.Loopback.Request.filter.where = ;
+--		SET OutputLocalEnvironment.Destination.Loopback.Request.filter.skip = ;
+--		SET OutputLocalEnvironment.Destination.Loopback.Request.filter.order = ;
+--		SET OutputLocalEnvironment.Destination.Loopback.Request.filter.field = ;
+
+
+--		3. To Update data, you must provide matching id along with data to update inside inputroot
+
+--		SET OutputLocalEnvironment.Destination.Loopback.Request.id = '675b5bc80911cc1fa0aa36a3';
+--		SET OutputRoot = InputRoot;
+
+
+--		4. To delete data, you just need to mention matching id
+
+--		SET OutputLocalEnvironment.Destination.Loopback.Request.id = '675b5bc80911cc1fa0aa36a3';
+	END;
+END MODULE;
