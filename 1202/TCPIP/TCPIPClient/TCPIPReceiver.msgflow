@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmFileOutput.msgnode="ComIbmFileOutput.msgnode" xmlns:ComIbmTCPIPClientInput.msgnode="ComIbmTCPIPClientInput.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="TCPIPReceiver.msgflow" nsPrefix="TCPIPReceiver.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="RECTANGLE">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="TCPIPReceiver" bundleName="TCPIPReceiver" pluginId="TCPIPClient"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/TCPIPClient/icons/full/obj16/TCPIPReceiver.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/TCPIPClient/icons/full/obj30/TCPIPReceiver.gif"/>
+    <longDescription xmi:type="utility:ConstantString" string="Sample program for use with IBM Integration Bus&#xD;&#xA;© Copyright International Business Machines Corporation 2009, 2010&#xD;&#xA;Licensed Materials - Property of IBM"/>
+    <composition>
+      <nodes xmi:type="ComIbmTCPIPClientInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="30,30" connectionDetails="{TCPIPPolicies}:TCPIPTutorialClient" timeoutWaitingForData="10" modifyOutputStream="release" messageDomainProperty="XMLNSC" recordDetection="parsedRecordSequence" customDelimiter="00">
+        <translation xmi:type="utility:ConstantString" string="TCPIPClientInput"/>
+      </nodes>
+      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="410,30" outputDirectory="C:\temp" outputFilename="TCPClientTutorialOutput.txt" outputMode="append">
+        <translation xmi:type="utility:ConstantString" string="File Output"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.open" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.close" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>
