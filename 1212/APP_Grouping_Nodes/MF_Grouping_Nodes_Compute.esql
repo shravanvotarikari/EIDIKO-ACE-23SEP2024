@@ -1,0 +1,21 @@
+
+
+CREATE COMPUTE MODULE MF_Grouping_Nodes_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+	DECLARE ref_grp REFERENCE TO InputRoot.ComIbmGroupCompleteNode.Group.Replies;
+		CREATE FIELD OutputRoot.JSON.Data.Details IDENTITY(JSON.Array)result;
+
+		SET OutputRoot.JSON.Data.A = ref_grp.folder1.Reply.Root.XMLNSC;
+		SET OutputRoot.JSON.Data.B =ref_grp.folder2.Reply.Root.XMLNSC;
+		SET OutputRoot.JSON.Data.C =ref_grp.folder3.Reply.Root.XMLNSC;
+		
+		
+		SET OutputLocalEnvironment.Destination = InputRoot.ComIbmGroupCompleteNode.Group.Context;
+		
+		RETURN TRUE;
+	END;
+
+	
+END MODULE;
