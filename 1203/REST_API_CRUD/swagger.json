@@ -27,7 +27,7 @@
           "required" : true
         }, {
           "name" : "id",
-          "in" : "query",
+          "in" : "header",
           "type" : "integer"
         }, {
           "name" : "name",
@@ -77,7 +77,7 @@
           "type" : "integer"
         }, {
           "name" : "name",
-          "in" : "header",
+          "in" : "query",
           "type" : "boolean"
         } ]
       },

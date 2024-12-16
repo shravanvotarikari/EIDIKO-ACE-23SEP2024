@@ -16,7 +16,8 @@ CREATE COMPUTE MODULE MF_LoopBack_Connector_Compute
 	--SET OutputLocalEnvironment.Destination.Loopback.Request.Id = InputRoot.JSON.Data.eid;
 	--UPDATE ONE RECORD and DELETE.
 	--SET OutputLocalEnvironment.Destination.Loopback.Request.Id = InputRoot.HTTPInputHeader.Token;
-	--CREATE using environmment
+	
+	--we can CREATE using environmment
 	CREATE LASTCHILD OF Environment DOMAIN 'JSON';
 	CREATE FIELD Environment.JSON.Data;
 	DECLARE outref REFERENCE TO Environment.JSON.Data;
