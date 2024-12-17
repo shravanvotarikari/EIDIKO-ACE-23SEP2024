@@ -1,0 +1,32 @@
+CREATE COMPUTE MODULE MF_GroupNode_Backend_Compute
+    CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+       	DECLARE var ROW;
+		DECLARE empID INTEGER;
+		DECLARE empName CHARACTER;
+		DECLARE empDepartment CHARACTER;
+
+		DECLARE i INTEGER 1;
+		DECLARE j INTEGER;
+		SET j=CARDINALITY(InputRoot.JSON.Data.employee_ids.[]);
+		
+		CREATE FIELD OutputRoot.JSON.Data.employeeDetails;
+		DECLARE employeeData REFERENCE TO OutputRoot.JSON.Data.employeeDetails;
+		
+		WHILE i <= j DO
+			
+			DECLARE currentEmployee REFERENCE TO InputRoot.JSON.Data.employee_ids;
+			SET empID = currentEmployee.Item[i];
+			
+			SET var = PASSTHRU('SELECT Name, Department FROM Employees WHERE EmployeeID = ?', empID);
+			
+			SET employeeData.employee[i].EmployeeID = empID;
+			SET employeeData.employee[i].Name = var.NAME;
+			SET employeeData.employee[i].Department = var.DEPARTMENT;
+			
+			SET i = i + 1;
+		END WHILE;
+        RETURN TRUE;
+    END;
+
+END MODULE;
