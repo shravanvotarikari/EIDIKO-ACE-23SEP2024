@@ -1,0 +1,12 @@
+-- installing kafka server
+1. tar -xzf kafka_2.13-3.9.0.tgz
+2. create c:/kafka 
+3. open /config/zookeeper.prop  ## change dataDir to C:\kafka\zookeeper-data
+4. open /config/server.prop ## change log.dirs to c:\kafka\kafka-logs
+
+-- run
+5. .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+6. .\bin\windows\kafka-server-start.bat .\config\server.properties
+
+-- creating topic 
+7. .\bin\windows\kafka-topics.bat--create --topic topicjay --bootstrap-server localhost:9092
