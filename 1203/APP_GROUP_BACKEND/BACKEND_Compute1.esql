@@ -13,5 +13,7 @@ CREATE COMPUTE MODULE BACKEND_Compute1
     --DECLARE ref_fireexit REFERENCE TO OutputRoot.JSON.Data.fire;
 		SET OutputRoot = InputRoot;
 		SET OutputRoot.XMLNSC.A.b = 'Success';
+		--FOR GETTING EXCEPTIOn LAST CHILD IN OUTPUT
+		--SET OutputRoot.XMLNSC.B = 'Success';
 	END;
 END MODULE;
