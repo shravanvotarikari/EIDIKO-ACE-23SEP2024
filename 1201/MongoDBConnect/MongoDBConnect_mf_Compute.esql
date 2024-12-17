@@ -1,0 +1,32 @@
+
+
+CREATE COMPUTE MODULE MongoDBConnect_mf_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		
+		--For Insert
+		SET OutputRoot.JSON.Data.name = 'Ashar';
+		SET OutputRoot.JSON.Data.age = 20;
+		SET OutputRoot.JSON.Data.dept = 'IIB DEV';
+		
+		
+		 --For update operation
+		 SET OutputRoot.JSON.Data.major = 'Dev' ;
+		 SET OutputRoot.JSON.Data.name = 'Avi' ;
+		 SET OutputLocalEnvironment.Destination.Loopback.Request.id= InputRoot.JSON.Data.id;
+       
+       	
+       	--For Delete operation
+       	SET OutputLocalEnvironment.Destination.Loopback.Request.id = InputRoot.JSON.Data.id;
+		
+		
+		
+		--For Retrieve operation operation
+        SET OutputLocalEnvironment.Destination.Loopback.Request.id= InputRoot.JSON.Data.id;
+        
+        
+		RETURN TRUE;
+	END;
+
+END MODULE;
