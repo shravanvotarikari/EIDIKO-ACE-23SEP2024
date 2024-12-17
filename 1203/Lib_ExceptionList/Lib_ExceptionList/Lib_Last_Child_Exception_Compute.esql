@@ -1,0 +1,32 @@
+BROKER SCHEMA Lib_ExceptionList
+
+
+CREATE COMPUTE MODULE Lib_Last_Child_Exception_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+	
+		DECLARE ref REFERENCE TO InputExceptionList.[>];
+
+		DECLARE mainText CHARACTER '';
+		WHILE ENDSWITH(FIELDNAME(ref),'Exception') DO
+
+			SET mainText=ref.Text;
+			--For loop is for concatenating Insert elements text values with main Text error.
+
+			FOR insertRef AS ref.Insert[] DO
+				SET mainText=mainText ||','||insertRef.Text||',';
+			END FOR;
+
+			MOVE ref LASTCHILD;
+		END WHILE;
+
+		SET OutputRoot.XMLNSC.res=mainText;
+		-- SET OutputRoot = InputRoot;
+	END;
+END MODULE;
