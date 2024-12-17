@@ -1,0 +1,34 @@
+
+
+CREATE COMPUTE MODULE MF_grpBackend_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE var ROW;
+		DECLARE empID INTEGER;
+		DECLARE empName CHARACTER;
+		DECLARE empSalary INTEGER;
+
+		DECLARE i INTEGER 1;
+		DECLARE j INTEGER;
+		SET j=CARDINALITY(InputRoot.JSON.Data.employee_ids.[]);
+		
+		CREATE FIELD OutputRoot.JSON.Data.employeeDetails;
+		DECLARE employeeData REFERENCE TO OutputRoot.JSON.Data.employeeDetails;
+		
+		WHILE i <= j DO
+			
+			DECLARE currentEmployee REFERENCE TO InputRoot.JSON.Data.employee_ids;
+			SET empID = currentEmployee.Item[i];
+			
+			SET var = PASSTHRU('SELECT name, salary FROM emp_grp WHERE id = ?', empID);
+			
+			SET employeeData.employee[i].id = empID;
+			SET employeeData.employee[i].name = var.NAME;
+			SET employeeData.employee[i].salary = var.SALARY;
+			
+			SET i = i + 1;
+		END WHILE;
+
+		RETURN TRUE;
+	END;
+END MODULE;
