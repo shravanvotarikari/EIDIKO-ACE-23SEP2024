@@ -1,0 +1,31 @@
+
+
+CREATE COMPUTE MODULE MF_Group_EmpData_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	DECLARE empID INTEGER;
+    DECLARE empName CHARACTER;
+    DECLARE empSalary INTEGER;
+
+    CREATE LASTCHILD OF OutputRoot.JSON.Data;
+
+    DECLARE i INTEGER 1;
+    WHILE i <= CARDINALITY(InputRoot.JSON.Data.*[]) DO
+   
+    DECLARE currentEmployee REFERENCE TO InputRoot.JSON.Data.*[i];
+    
+    SET empID = currentEmployee.id;
+    SET empName = currentEmployee.name;
+    SET empSalary = currentEmployee.salary;
+
+    CREATE LASTCHILD OF OutputRoot.JSON.Data;
+    SET OutputRoot.JSON.Data.id = empID;
+    SET OutputRoot.JSON.Data.name = empName;
+    SET OutputRoot.JSON.Data.salary = empSalary;
+
+    SET i = i + 1;
+   END WHILE;
+
+		RETURN TRUE;
+	END;
+END MODULE;

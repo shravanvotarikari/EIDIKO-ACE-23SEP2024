@@ -1,0 +1,17 @@
+
+
+CREATE COMPUTE MODULE MF_Group_EmpData_Compute2
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE ref_grp REFERENCE TO InputRoot.ComIbmGroupCompleteNode.Group.Replies;
+
+		SET OutputRoot.JSON.Data = ref_grp.myData.Reply.Root.JSON.Data;
+	
+		SET OutputLocalEnvironment.Destination = InputRoot.ComIbmGroupCompleteNode.Group.Context;
+	RETURN TRUE;
+	END;
+END MODULE;
+
+
+
+
