@@ -3,6 +3,7 @@
 	<name>APP_Grouping_Nodes</name>
 	<comment></comment>
 	<projects>
+		<project>ExceptionDetection</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

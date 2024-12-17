@@ -19,7 +19,10 @@ CREATE COMPUTE MODULE MF_Grouping_Backend_Compute1
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-			SET OutputRoot = InputRoot;
-		SET OutputRoot.XMLNSC.A.b = 'Success';
+		--SET OutputRoot = InputRoot;
+		--SET OutputRoot.XMLNSC.A.b = 'Success';
+		
+		SET OutputRoot = InputRoot;
+		SET OutputRoot.XMLNSC.B.a = 'Success';
 	END;
 END MODULE;
