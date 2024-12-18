@@ -1,0 +1,25 @@
+
+
+CREATE COMPUTE MODULE MF_databaseinput_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		SET OutputRoot = InputRoot;
+		DECLARE inref REFERENCE to InputRoot.XMLNSC.employee;
+		INSERT INTO Database.EMPLOYEES (EID,ENAME,DESIGNATION,ADDRESS) VALUES (inref.id,inref.name,inref.designation,inref.address);
+		
+		IF SQLCODE = 0 THEN
+			
+			SET OutputRoot.XMLNSC.RESULT = 'EMPLOYEES ' || inref.id || 'IS INSERTED';
+			
+		ELSE
+			SET OutputRoot.XMLNSC.RESULT = 'EMPLOYEES ' || inref.id || 'IS NOT INSERTED';
+		
+		END IF;
+	END;
+END MODULE;
