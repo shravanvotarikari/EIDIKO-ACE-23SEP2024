@@ -9,7 +9,7 @@ CREATE PROCEDURE DB_CRUD() BEGIN
 	 DECLARE inRef REFERENCE TO Root.JSON.Data;
 	 DECLARE id INTEGER inRef.id;
 	 DECLARE name CHARACTER inRef.name;
-	 DECLARE tech CHARACTER inRef.tech;
+	 DECLARE tech CHARACTER inRef.tech;                                                                                                                                                             
 	 DECLARE salary INTEGER inRef.salary;
 	 
 	 DECLARE operation CHARACTER inRef.operation;

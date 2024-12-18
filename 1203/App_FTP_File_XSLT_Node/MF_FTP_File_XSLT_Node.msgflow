@@ -6,10 +6,10 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_FTP_File_XSLT_Node/icons/full/obj16/MF_FTP_File_XSLT_Node.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_FTP_File_XSLT_Node/icons/full/obj30/MF_FTP_File_XSLT_Node.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="43,91" queueName="Q1" destinationQueueManagerName="QM1" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="97,91" queueName="Q1" destinationQueueManagerName="QM1" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="MQ Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="572,94" outputDirectory="C:\Users\Sreenivas Bandaru\Desktops" outputFilename="newfile.txt" fileFtp="true" fileFtpServer="192.168.1.28:21" fileFtpUser="Sec_id" fileFtpDirectory="/">
+      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="525,92" outputDirectory="C:\Users\Sreenivas Bandaru\Desktops" outputFilename="newfile.txt" fileFtp="true" fileFtpServer="192.168.1.28:21" fileFtpUser="Sec_id" fileFtpDirectory="/">
         <translation xmi:type="utility:ConstantString" string="File Output"/>
       </nodes>
       <nodes xmi:type="ComIbmXslMqsi.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="296,89" stylesheetName="Sample1.xsl">
@@ -17,7 +17,6 @@
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.in"/>
     </composition>
     <propertyOrganizer/>
     <stickyBoard/>

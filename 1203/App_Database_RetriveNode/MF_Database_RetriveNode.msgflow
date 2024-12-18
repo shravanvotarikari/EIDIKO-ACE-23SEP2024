@@ -13,7 +13,7 @@
         <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
       </nodes>
       <nodes xmi:type="ComIbmDatabaseRetrieve.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="308,112" dataSourceName="{Policy_DataBase_Nodes}:DB_Retrive_Node" copyMessage="true" allRows="true" sqlQuery="SELECT Retrive_Node.name, Retrive_Node.tech, Retrive_Node.salary&#xA;FROM Retrive_Node&#xA;WHERE Retrive_Node.id = ?&#xA;ORDER BY Retrive_Node.name ASC, Retrive_Node.tech ASC, Retrive_Node.salary ASC" tableNameComboValues="0,0,0,0~Retrive_Node" columnNameComboValues="1,3,2,0~id,name,salary,tech"
-          operatorComboValues="0,0,0,2~=" valueTypeComboValues="0,0,0,2~Element" columnValueComboValues="0,1,2~Retrive_Node.tech">
+          operatorComboValues="0,0,0,2,2~=" valueTypeComboValues="0,0,0,2,2~None" columnValueComboValues="0,1,2~Retrive_Node.tech">
         <translation xmi:type="utility:ConstantString" string="Database Retrieve"/>
         <queryElements tableName="Retrive_Node" columnName="name" operator="ASC" valueType="None" value="None"/>
         <queryElements tableName="Retrive_Node" columnName="tech" operator="ASC" valueType="None" value="None"/>
