@@ -1,0 +1,21 @@
+
+CREATE COMPUTE MODULE MF_ExitHandler_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		
+		INSERT INTO Database.AVIDSN.SYSTEM.AVISHKAR VALUES (1234, '1254', 'Hyd');
+		
+--		To explicitly get sqlcode in negative, do some spell mistake like this :
+--		INSERT INTO Database.AVID.SYSTEM.AVISHKAR VALUES (1234, '1254', 'Hyd');
+		
+		IF (SQLCODE < 0) THEN
+			PROPAGATE TO TERMINAL 'out1';
+		END IF;
+	END;
+END MODULE;

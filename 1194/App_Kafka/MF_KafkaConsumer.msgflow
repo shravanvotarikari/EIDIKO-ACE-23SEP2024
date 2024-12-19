@@ -6,30 +6,30 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_Kafka/icons/full/obj16/MF_KafkaConsumer.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_Kafka/icons/full/obj30/MF_KafkaConsumer.gif"/>
     <composition>
-      <nodes xmi:type="com_ibm_connector_kafka_ComIbmEventInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="197,213" connectorName="Kafka" topicName="kafkaTopic" bootstrapServers="localhost:9092" groupId="avi" initialOffset="latest" enableAutoCommit="true" useSyncCommit="true" clientId="avi" useClientIdSuffix="true" connectionTimeout="15" sessionTimeout="10" receiveBatchSize="1" securityProtocol="PLAINTEXT" sslProtocol="TLSv1.2" messageDomainProperty="XMLNSC" validateTiming="deferred"
-          parserXmlnscBuildTreeUsingXMLSchema="false" parserXmlnscUseForXmlnsDomain="false" parserXmlnscMixedContentRetainMode="none" parserXmlnscCommentsRetainMode="none" parserXmlnscProcessingInstructionsRetainMode="none" validateMaster="none" validateFailureAction="exception" componentLevel="flow" additionalInstances="0">
-        <translation xmi:type="utility:ConstantString" string="KafkaConsumer2"/>
-      </nodes>
       <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="336,39" queueName="q2" destinationQueueManagerName="newManager">
         <translation xmi:type="utility:ConstantString" string="MQ Output1"/>
       </nodes>
-      <nodes xmi:type="com_ibm_connector_kafka_ComIbmEventInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="194,128" connectorName="Kafka" topicName="kafkaTopic" bootstrapServers="localhost:9092" groupId="avi" initialOffset="latest" enableAutoCommit="true" useSyncCommit="true" clientId="avi" useClientIdSuffix="true" connectionTimeout="15" sessionTimeout="10" receiveBatchSize="1" securityProtocol="PLAINTEXT" sslProtocol="TLSv1.2" messageDomainProperty="XMLNSC" validateTiming="deferred"
-          parserXmlnscBuildTreeUsingXMLSchema="false" parserXmlnscUseForXmlnsDomain="false" parserXmlnscMixedContentRetainMode="none" parserXmlnscCommentsRetainMode="none" parserXmlnscProcessingInstructionsRetainMode="none" validateMaster="none" validateFailureAction="exception" componentLevel="flow" additionalInstances="0">
-        <translation xmi:type="utility:ConstantString" string="KafkaConsumer1"/>
-      </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="328,212" queueName="q4" destinationQueueManagerName="newManager">
-        <translation xmi:type="utility:ConstantString" string="MQ Output2"/>
-      </nodes>
-      <nodes xmi:type="com_ibm_connector_kafka_ComIbmEventInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="199,39" connectorName="Kafka" topicName="kafkaTopic" bootstrapServers="localhost:9092" groupId="avi" initialOffset="latest" enableAutoCommit="true" useSyncCommit="true" clientId="avi" useClientIdSuffix="true" connectionTimeout="15" sessionTimeout="10" receiveBatchSize="1" securityProtocol="PLAINTEXT" sslProtocol="TLSv1.2" messageDomainProperty="XMLNSC" validateTiming="deferred"
+      <nodes xmi:type="com_ibm_connector_kafka_ComIbmEventInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="199,39" connectorName="Kafka" topicName="kafkaTopic" bootstrapServers="localhost:9092" groupId="avi" initialOffset="earliest" enableAutoCommit="true" useSyncCommit="true" clientId="avi" useClientIdSuffix="true" connectionTimeout="15" sessionTimeout="10" receiveBatchSize="1" securityProtocol="PLAINTEXT" sslProtocol="TLSv1.2" messageDomainProperty="XMLNSC" validateTiming="deferred"
           parserXmlnscBuildTreeUsingXMLSchema="false" parserXmlnscUseForXmlnsDomain="false" parserXmlnscMixedContentRetainMode="none" parserXmlnscCommentsRetainMode="none" parserXmlnscProcessingInstructionsRetainMode="none" validateMaster="none" validateFailureAction="exception" componentLevel="flow" additionalInstances="0">
         <translation xmi:type="utility:ConstantString" string="KafkaConsumer"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="329,128" queueName="q3" destinationQueueManagerName="newManager">
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="329,128" queueName="q3" destinationQueueManagerName="newManager">
         <translation xmi:type="utility:ConstantString" string="MQ Output3"/>
       </nodes>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="328,212" queueName="q4" destinationQueueManagerName="newManager">
+        <translation xmi:type="utility:ConstantString" string="MQ Output2"/>
+      </nodes>
+      <nodes xmi:type="com_ibm_connector_kafka_ComIbmEventInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="194,128" connectorName="Kafka" topicName="kafkaTopic" bootstrapServers="localhost:9092" groupId="avi" initialOffset="earliest" enableAutoCommit="true" useSyncCommit="true" clientId="avi" useClientIdSuffix="true" connectionTimeout="15" sessionTimeout="10" receiveBatchSize="1" securityProtocol="PLAINTEXT" sslProtocol="TLSv1.2" messageDomainProperty="XMLNSC" validateTiming="deferred"
+          parserXmlnscBuildTreeUsingXMLSchema="false" parserXmlnscUseForXmlnsDomain="false" parserXmlnscMixedContentRetainMode="none" parserXmlnscCommentsRetainMode="none" parserXmlnscProcessingInstructionsRetainMode="none" validateMaster="none" validateFailureAction="exception" componentLevel="flow" additionalInstances="0">
+        <translation xmi:type="utility:ConstantString" string="KafkaConsumer1"/>
+      </nodes>
+      <nodes xmi:type="com_ibm_connector_kafka_ComIbmEventInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="197,213" connectorName="Kafka" topicName="kafkaTopic" bootstrapServers="localhost:9092" groupId="avi" initialOffset="earliest" enableAutoCommit="true" useSyncCommit="true" clientId="avi" useClientIdSuffix="true" connectionTimeout="15" sessionTimeout="10" receiveBatchSize="1" securityProtocol="PLAINTEXT" sslProtocol="TLSv1.2" messageDomainProperty="XMLNSC" validateTiming="deferred"
+          parserXmlnscBuildTreeUsingXMLSchema="false" parserXmlnscUseForXmlnsDomain="false" parserXmlnscMixedContentRetainMode="none" parserXmlnscCommentsRetainMode="none" parserXmlnscProcessingInstructionsRetainMode="none" validateMaster="none" validateFailureAction="exception" componentLevel="flow" additionalInstances="0">
+        <translation xmi:type="utility:ConstantString" string="KafkaConsumer2"/>
+      </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_5" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
-      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
     </composition>
     <propertyOrganizer/>
     <stickyBoard/>
