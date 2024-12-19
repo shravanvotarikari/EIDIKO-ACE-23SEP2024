@@ -1,0 +1,32 @@
+
+CREATE COMPUTE MODULE MF_ContinueHandler_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		BEGIN
+			-- DECLARE EXIT HANDLER FOR SQLSTATE LIKE 'U%' -- for user exceptions
+			-- DECLARE EXIT HANDLER FOR SQLSTATE LIKE 'D%' -- for database exceptions
+			DECLARE CONTINUE HANDLER FOR SQLSTATE LIKE '%' -- for all exceptions
+			BEGIN
+				INSERT INTO Database.AVISHKA VALUES ('Avishkar', '1194', 'Pune');
+			END;
+			
+			INSERT INTO Database.VISHKAR VALUES ('Avishkar', '1194', 'Pune');
+			
+			/* This is the next statement executed if it is a CONTINUE HANDLER */
+			 SET OutputRoot.XMLNSC.data.time = CURRENT_TIMESTAMP;
+			 SET OutputRoot.XMLNSC.data.name = 'Avishkar';
+			 SET OutputRoot.XMLNSC.data.id = '1194';
+			 SET OutputRoot.XMLNSC.data.city = 'Pune';
+			 PROPAGATE TO TERMINAL 'out1';
+			 
+		END;
+		/* This is the next statement executed if it is a EXIT HANDLER */
+
+	END;
+END MODULE;
