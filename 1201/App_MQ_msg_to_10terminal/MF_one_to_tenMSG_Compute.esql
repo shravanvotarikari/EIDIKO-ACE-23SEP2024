@@ -1,0 +1,22 @@
+
+
+CREATE COMPUTE MODULE MF_one_to_tenMSG_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		  CALL CopyEntireMessage();
+		 -- Propagate to terminal 'out1';
+	
+	RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData[1].queueName = 'q3';
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData[2].queueName = 'q4';
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData[3].queueName = 'q5';
+  
+	END;
+END MODULE;
