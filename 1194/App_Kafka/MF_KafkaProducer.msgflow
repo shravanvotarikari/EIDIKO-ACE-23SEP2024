@@ -12,7 +12,7 @@
       <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="363,95">
         <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
       </nodes>
-      <nodes xmi:type="com_ibm_connector_kafka_ComIbmOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="226,91" connectorName="Kafka" topicName="kafkaTopic" bootstrapServers="localhost:9092" clientId="avi" useClientIdSuffix="true" acks="0" timeout="60" securityProtocol="PLAINTEXT" sslProtocol="TLSv1.2" validateMaster="inherit" validateFailureAction="exception">
+      <nodes xmi:type="com_ibm_connector_kafka_ComIbmOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="226,91" connectorName="Kafka" topicName="my_topic" bootstrapServers="192.168.2.46:9092" useClientIdSuffix="true" acks="0" timeout="60" securityProtocol="PLAINTEXT" sslProtocol="TLSv1.2" validateMaster="inherit" validateFailureAction="exception">
         <translation xmi:type="utility:ConstantString" string="KafkaProducer"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>

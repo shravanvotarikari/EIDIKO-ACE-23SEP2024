@@ -1,5 +1,5 @@
 
-CREATE COMPUTE MODULE MF_ExitHandler_Compute
+CREATE COMPUTE MODULE MF_dbFileBackup
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		CALL CopyEntireMessage();
@@ -7,14 +7,16 @@ CREATE COMPUTE MODULE MF_ExitHandler_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputRoot = InputRoot;
 		
-		INSERT INTO Database.AVIDSN.SYSTEM.AVISHKAR VALUES (1234, '1254', 'Hyd');
+--		INSERT INTO Database.AVIDSN.SYSTEM.AVISHKAR VALUES ('Avishkar', '1194', 'Pune');
 		
 --		To explicitly get sqlcode in negative, do some spell mistake like this :
---		INSERT INTO Database.AVID.SYSTEM.AVISHKAR VALUES (1234, '1254', 'Hyd');
+		INSERT INTO Database.AVID.SYSTEM.AVISHKAR VALUES ('Avishkar', '1194', 'Pune'); -- wrong dsn name provided
 		
 		IF (SQLCODE < 0) THEN
+			SET OutputRoot.XMLNSC.data.name = 'Avishkar';
+			SET OutputRoot.XMLNSC.data.id = '1194';
+			SET OutputRoot.XMLNSC.data.city = 'Pune';
 			PROPAGATE TO TERMINAL 'out1';
 		END IF;
 	END;
