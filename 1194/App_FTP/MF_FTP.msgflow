@@ -6,7 +6,7 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_FTP/icons/full/obj16/MF_FTP.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_FTP/icons/full/obj30/MF_FTP.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="365,89" outputDirectory="C:\Users\Sreenivas Bandaru\Documents\FileZilla\FileOutput" outputFilename="last.txt" fileFtp="true" fileFtpServer="192.168.11.128:21" fileFtpUser="ftpSecid" fileFtpDirectory="/">
+      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="365,89" outputDirectory="C:\Users\Sreenivas Bandaru\Documents\FileZilla\FileOutput" outputFilename="last.txt" fileFtp="true" remoteTransferType="SFTP" fileFtpServer="192.168.2.46:21" fileFtpUser="ftpSecid" fileFtpDirectory="/">
         <translation xmi:type="utility:ConstantString" string="File Output"/>
       </nodes>
       <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="104,88" inputDirectory="C:\Users\Sreenivas Bandaru\Documents\FileZilla\FileInput">
