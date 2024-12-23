@@ -2,5 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="com.ibm.etools.mft.uri.classpath.MBProjectReference"/>
+	<classpathentry kind="lib" path="C:/Program Files/IBM/ACE/12.0.12.0/common/classes/IntegrationAPI.jar"/>
+	<classpathentry kind="lib" path="C:/ProgramData/IBM/MQSI/shared-classes/jplugin2.jar"/>
+	<classpathentry kind="lib" path="C:/ProgramData/IBM/MQSI/shared-classes/json-20210307.jar"/>
+	<classpathentry kind="lib" path="C:/ProgramData/IBM/MQSI/shared-classes/pdfbox-app-2.0.32.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
