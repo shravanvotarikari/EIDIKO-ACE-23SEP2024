@@ -15,7 +15,7 @@
       <nodes xmi:type="ComIbmMQGet.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="387,101" queueName="q1" destinationQueueManagerName="newManager" messageDomainProperty="XMLNSC" getWithMessageID="true" browse="true">
         <translation xmi:type="utility:ConstantString" string="MQ Get"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="242,99" computeExpression="esql://routine/#MF_MQ_RetrievePriorityMsg_Compute.Main" computeMode="destinationAndMessage">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="242,99" computeExpression="esql://routine/#MF_MQ_RetrievePriorityMsg_Compute.Main">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
