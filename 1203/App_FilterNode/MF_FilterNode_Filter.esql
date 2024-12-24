@@ -9,16 +9,14 @@ CREATE FILTER MODULE MF_FilterNode_Filter
 		WHERE FN.Name = empName
 		);
 	
-		IF empExists THEN
-		
-			RETURN TRUE; -- Route to True terminal
-			
-		ELSE
-			
-			RETURN FALSE; -- Route to False terminal
-		END IF;
+--		IF empExists THEN	
+--			RETURN TRUE; -- Route to True terminal	
+--		ELSE		
+--			RETURN FALSE; -- Route to False terminal
+--		END IF;
 
-		RETURN TRUE;
+		RETURN empExists;
+		
 	END;
 
 END MODULE;

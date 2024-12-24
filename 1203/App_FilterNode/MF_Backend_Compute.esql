@@ -1,4 +1,3 @@
-
 CREATE COMPUTE MODULE MF_Backend_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
@@ -10,13 +9,11 @@ CREATE COMPUTE MODULE MF_Backend_Compute
 		--DECLARE empId INTEGER InputRoot.JSON.Data.Id;
 		DECLARE empName CHAR InputRoot.JSON.Data.Name;
 		DECLARE empSalary DECIMAL InputRoot.JSON.Data.Salary;
-		
+
 		INSERT INTO Database.FILTER_NODE (Name, Salary) VALUES (empName, empSalary);
---		SET Environment.data=
---		SET OutputRoot.JSON.Data.Status = 'Success';
-SET OutputRoot = InputRoot;
-		SET OutputRoot.JSON.Data.Status = 'Data inserted successfully';
-		
-		
+		SET OutputRoot = InputRoot;
+		SET OutputRoot.JSON.Data.Status = 'Data inserted successfully';		
+
+
 	END;
 END MODULE;
