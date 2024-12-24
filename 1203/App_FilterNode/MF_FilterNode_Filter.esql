@@ -1,0 +1,24 @@
+CREATE FILTER MODULE MF_FilterNode_Filter
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE empName CHAR Root.JSON.Data.Name;
+		DECLARE empExists BOOLEAN FALSE;
+		SET empExists = EXISTS (
+		SELECT Name
+		FROM Database.FILTER_NODE as FN
+		WHERE FN.Name = empName
+		);
+	
+		IF empExists THEN
+		
+			RETURN TRUE; -- Route to True terminal
+			
+		ELSE
+			
+			RETURN FALSE; -- Route to False terminal
+		END IF;
+
+		RETURN TRUE;
+	END;
+
+END MODULE;
