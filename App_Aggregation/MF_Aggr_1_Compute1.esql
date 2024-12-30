@@ -1,14 +1,15 @@
 
 
-CREATE COMPUTE MODULE MF_2_Compute
+CREATE COMPUTE MODULE MF_Aggr_1_Compute1
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
+
 		CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
 
-	
+
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputRoot = InputRoot;
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
 	END;
 END MODULE;

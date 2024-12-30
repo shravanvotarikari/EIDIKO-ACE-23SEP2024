@@ -13,10 +13,10 @@
       <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="579,201">
         <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
       </nodes>
-      <nodes xmi:type="ComIbmCallableFlowAsyncInvoke.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="329,77" asyncResponseCorrelator="Callable Flow Async Invoke-251b6a66-3375-499f-bbac-813952b3a2ad" targetApplication="App_Callable_async2" targetEndpointName="as1" requestTimeout="60">
+      <nodes xmi:type="ComIbmCallableFlowAsyncInvoke.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="384,74" asyncResponseCorrelator="Callable Flow Async Invoke-251b6a66-3375-499f-bbac-813952b3a2ad" targetApplication="App_Callable_async2" targetEndpointName="as1" requestTimeout="60">
         <translation xmi:type="utility:ConstantString" string="Callable Flow Async Invoke"/>
       </nodes>
-      <nodes xmi:type="ComIbmCallableFlowAsyncResponse.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="248,224" asyncResponseCorrelator="Callable Flow Async Invoke-251b6a66-3375-499f-bbac-813952b3a2ad">
+      <nodes xmi:type="ComIbmCallableFlowAsyncResponse.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="246,201" asyncResponseCorrelator="Callable Flow Async Invoke-251b6a66-3375-499f-bbac-813952b3a2ad">
         <translation xmi:type="utility:ConstantString" string="Callable Flow Async Response"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>

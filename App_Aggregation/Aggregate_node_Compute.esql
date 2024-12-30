@@ -1,13 +1,15 @@
 
 
-CREATE COMPUTE MODULE MF_2_Compute
+CREATE COMPUTE MODULE Aggregate_node_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
+		
 		CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
 
 	
+
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		SET OutputRoot = InputRoot;
 	END;
