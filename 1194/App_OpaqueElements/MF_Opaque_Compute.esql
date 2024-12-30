@@ -1,0 +1,18 @@
+
+
+CREATE COMPUTE MODULE MF_Opaque_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		
+--		Give input msg like <main><info><id>1194</id><name>Avishkar</name></info></main>\
+--		and in opaque elements property give :- //info
+--		So in Logical tree structure, all the childs of info tag will be treated as simple character data and not xml
+--		It works with xml msg only and not with json msg
+	END;
+END MODULE;
