@@ -1,8 +1,4 @@
 
-
-
-
-
 CREATE COMPUTE MODULE MF_Database_Logging_01_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN

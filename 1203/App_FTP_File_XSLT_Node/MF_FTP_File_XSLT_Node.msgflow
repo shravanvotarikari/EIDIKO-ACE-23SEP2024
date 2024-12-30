@@ -9,7 +9,7 @@
       <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="97,91" queueName="Q1" destinationQueueManagerName="QM1" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="MQ Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="525,92" outputDirectory="C:\Users\Sreenivas Bandaru\Desktops" outputFilename="newfile.txt" fileFtp="true" fileFtpServer="192.168.1.28:21" fileFtpUser="Sec_id" fileFtpDirectory="/">
+      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="525,92" outputDirectory="C:\Users\Sreenivas Bandaru\Desktops" outputFilename="newfile.txt" failedFileAction="moveToFailure" fileFtp="true" fileFtpServer="192.168.1.28:21" fileFtpUser="Sec_id" fileFtpDirectory="/">
         <translation xmi:type="utility:ConstantString" string="File Output"/>
       </nodes>
       <nodes xmi:type="ComIbmXslMqsi.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="296,89" stylesheetName="Sample1.xsl">
