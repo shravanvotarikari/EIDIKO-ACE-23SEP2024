@@ -1,0 +1,17 @@
+
+
+CREATE COMPUTE MODULE File_retry_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		SET OutputRoot.JSON.Data.root = InputRoot.XMLNSC;
+
+	END;
+END MODULE;
