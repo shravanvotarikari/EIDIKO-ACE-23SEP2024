@@ -1,0 +1,54 @@
+
+DECLARE counter INTEGER 0;
+
+CREATE COMPUTE MODULE Dynamic_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		CALL copym('IIB','299999');
+		RETURN TRUE; --Its is not perfect, needs to be correct.
+	END;
+
+
+	CREATE PROCEDURE copym(IN DEPT CHARACTER, IN SALARY CHARACTER)
+	BEGIN		
+
+
+
+		DECLARE EXIT HANDLER FOR SQLSTATE LIKE '%'
+		BEGIN
+			IF (counter = 1) THEN
+				CALL LogToLocalDatabase();
+			ELSEIF (counter = 2) THEN
+				CALL LogToRemoteDatabase();
+			ELSE
+--				fILE LOGGING
+				SET OutputRoot.XMLNSC.Debug.SQLSTATE = SQLSTATE;
+				SET OutputRoot.XMLNSC.Debug.ErrorMessage = 'Remote database failed. Switching to local database.';
+			END IF;
+
+		END;
+		-- CALL LogToRemoteDatabase();
+--		INSERT INTO Database.ashar.system.ACE_TASK VALUES ('AK','BABU', 64 );
+
+		CALL LogToRemoteDatabase();
+
+	END;
+
+
+	CREATE PROCEDURE LogToRemoteDatabase()
+	BEGIN
+
+		SET counter = 1;
+		INSERT INTO Database.ashar.system.ACE_TASK VALUES ('AK','BABU', 64 );
+
+	END;
+
+
+	CREATE PROCEDURE LogToLocalDatabase()
+	BEGIN
+		SET counter = 2;
+		INSERT INTO Database.ORADSN.system.EMP_DAT (DEPT,SALARY) VALUES ('1','hi' );
+	END;
+
+END MODULE;
