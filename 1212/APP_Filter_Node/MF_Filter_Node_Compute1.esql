@@ -1,0 +1,20 @@
+
+
+CREATE COMPUTE MODULE MF_Filter_Node_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+BEGIN
+    DECLARE acc_no INTEGER;
+    DECLARE name CHARACTER;
+    DECLARE location CHARACTER;
+
+    SET acc_no = InputRoot.JSON.Data.acc_no;
+    SET name = InputRoot.JSON.Data.name;
+    SET location = InputRoot.JSON.Data.location;
+
+    PASSTHRU('INSERT INTO FILTER_ACC (acc_no, name, location) VALUES (?, ?, ?)', acc_no, name, location);
+
+    SET OutputRoot.JSON.Data.status = 'Data inserted successfully';
+END;
+
+
+END MODULE;

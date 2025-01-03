@@ -1,0 +1,24 @@
+
+-- In filter node you cant modify the incoming msg
+CREATE FILTER MODULE MF_FilterNode_Filter
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE total INTEGER 0;
+
+		FOR stud AS Root.XMLNSC.student.question[] DO
+			IF stud.marks = 1 THEN
+				SET total = total + 1;
+			END IF;
+		END FOR;
+
+		IF total >= 5 THEN
+			RETURN TRUE; -- msg routes to true terminal
+		ELSEIF ((total >= 0) AND (total < 5)) THEN
+			RETURN FALSE; -- msg routes to false terminal
+		ELSE
+			RETURN NULL; -- msg routes to unknown terminal
+		END IF;
+
+	END;
+
+END MODULE;

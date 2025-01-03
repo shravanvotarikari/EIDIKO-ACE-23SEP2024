@@ -7,31 +7,31 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_Aggregate_Nodes/icons/full/obj16/MF_Aggregate_nodes.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_Aggregate_Nodes/icons/full/obj30/MF_Aggregate_nodes.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="13,69" URLSpecifier="/path" messageDomainProperty="JSON">
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="13,60" URLSpecifier="/path" messageDomainProperty="JSON">
         <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmAggregateControl.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="113,67" aggregateName="aggregateGroup" timeoutInterval="120" timeoutLocation="$LocalEnvironment/Aggregation/Timeout">
+      <nodes xmi:type="ComIbmAggregateControl.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="119,58" aggregateName="aggregateGroup" timeoutInterval="120" timeoutLocation="$LocalEnvironment/Aggregation/Timeout">
         <translation xmi:type="utility:ConstantString" string="Aggregate Control"/>
       </nodes>
-      <nodes xmi:type="ComIbmAggregateReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="258,227" aggregateName="aggregateGroup" unsolicitedTimeout="120" transactionMode="true">
+      <nodes xmi:type="ComIbmAggregateReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="245,192" aggregateName="aggregateGroup" unsolicitedTimeout="120" transactionMode="true">
         <translation xmi:type="utility:ConstantString" string="Aggregate Reply"/>
       </nodes>
-      <nodes xmi:type="ComIbmAggregateRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="581,49" folderName="FOLDER1">
+      <nodes xmi:type="ComIbmAggregateRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="584,56" folderName="FOLDER1">
         <translation xmi:type="utility:ConstantString" string="Aggregate Request"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="261,60" computeExpression="esql://routine/#MF_Aggregate_nodes_Compute.Main" computeMode="destinationAndMessage">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="277,55" computeExpression="esql://routine/#MF_Aggregate_nodes_Compute.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="433,213" computeExpression="esql://routine/#MF_Aggregate_nodes_Compute1.Main" computeMode="destinationAndMessage">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="434,192" computeExpression="esql://routine/#MF_Aggregate_nodes_Compute1.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="Compute1"/>
       </nodes>
-      <nodes xmi:type="ComIbmHTTPAsyncRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="388,54" asyncResponseCorrelator="uid1" URLSpecifier="http://localhost:7802/default">
+      <nodes xmi:type="ComIbmHTTPAsyncRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="407,52" asyncResponseCorrelator="uid1" URLSpecifier="http://localhost:7802/default">
         <translation xmi:type="utility:ConstantString" string="HTTP Async Request"/>
       </nodes>
-      <nodes xmi:type="ComIbmHTTPAsyncResponse.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="64,194" asyncRequestCorrelator="uid1" messageDomainProperty="JSON">
+      <nodes xmi:type="ComIbmHTTPAsyncResponse.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="61,200" asyncRequestCorrelator="uid1" messageDomainProperty="JSON">
         <translation xmi:type="utility:ConstantString" string="HTTP Async Response"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="606,214">
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="605,195">
         <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>

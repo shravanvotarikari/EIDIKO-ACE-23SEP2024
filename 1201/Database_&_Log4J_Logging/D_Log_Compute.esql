@@ -1,0 +1,24 @@
+
+
+CREATE COMPUTE MODULE D_Log_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		
+		
+		DECLARE logMessage CHARACTER 'Transaction Processed';
+		DECLARE logTime TIMESTAMP CURRENT_TIMESTAMP;
+		DECLARE logseverity CHARACTER 'Info';
+		DECLARE data CHARACTER CAST(ASBITSTREAM(InputRoot.XMLNSC) AS CHARACTER CCSID 1208);
+		
+		INSERT INTO Database.LOG_TABLE (MESSAGE,TIMESTAMP,SEVERITY,PAYLOAD ) VALUES (logMessage,logTime,logseverity,data);
+		
+	END;
+END MODULE;

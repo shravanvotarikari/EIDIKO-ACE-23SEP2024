@@ -1,0 +1,26 @@
+
+
+CREATE COMPUTE MODULE APP_logic_msgFlow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		DECLARE inref REFERENCE TO InputRoot.XMLNSC.Person.[>];
+		CREATE FIELD OutputRoot.XMLNSC.Result;
+		DECLARE outref REFERENCE TO OutputRoot.XMLNSC.Result;
+		DECLARE i INTEGER 1;
+		DECLARE fname,lname CHARACTER;
+		WHILE LASTMOVE(inref) DO
+			
+			SET fname=inref.FNAME;
+			SET lname=inref.LNAME;
+			SET outref.FULLNAME[i]=fname||' '||lname;
+			SET i=i+1;
+			
+			MOVE inref NEXTSIBLING;
+			
+		END WHILE;
+		
+		RETURN TRUE;
+	END;
+
+END MODULE;

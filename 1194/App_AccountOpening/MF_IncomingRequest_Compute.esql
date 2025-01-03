@@ -1,0 +1,16 @@
+
+
+
+CREATE COMPUTE MODULE MF_IncomingRequest_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		IF (InputRoot.XMLNSC.request.channel = 236) THEN
+			SET OutputRoot.XMLNSC = InputRoot.XMLNSC;
+			RETURN TRUE;
+		ELSE
+			SET OutputRoot.XMLNSC.response = 'Unauthorised channel';
+			PROPAGATE TO TERMINAL 'out1';
+			RETURN FALSE;
+		END IF;
+	END;
+END MODULE;

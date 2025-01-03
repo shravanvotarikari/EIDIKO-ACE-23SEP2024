@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE demo1MsgFlow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.JSON.Data.res = Environment.res;
+	END;
+END MODULE;

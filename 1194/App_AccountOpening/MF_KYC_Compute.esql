@@ -1,0 +1,21 @@
+
+CREATE COMPUTE MODULE MF_KYC_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		IF InputRoot.XMLNSC.request.accountOpeningCheck = 'KYC_CHECK' THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'KYC';
+		ELSEIF InputRoot.XMLNSC.request.accountOpeningCheck = 'FCM' THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'FCM';
+		ELSEIF InputRoot.XMLNSC.request.accountOpeningCheck = 'UPDATE' THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'UPDATE';
+		ELSE
+			-- Do nothing
+		END IF;
+	END;
+END MODULE;

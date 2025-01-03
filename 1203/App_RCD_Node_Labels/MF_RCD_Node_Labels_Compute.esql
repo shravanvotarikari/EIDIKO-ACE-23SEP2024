@@ -1,0 +1,31 @@
+CREATE COMPUTE MODULE MF_RCD_Node_Labels_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE msgDomain CHARACTER;
+		DECLARE blobAsChar CHARACTER;
+		DECLARE responseMessage CHARACTER;
+
+		SET blobAsChar = CAST(InputRoot.BLOB.BLOB AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId);
+--		IF blobAsChar IS NULL THEN
+--			THROW USER EXCEPTION CATALOG 'BIPmsgs' MESSAGE 2666 VALUES('BLOB data is NULL');
+--		END IF;
+
+		IF SUBSTRING(blobAsChar FROM 1 FOR 1) = '<' THEN
+			SET msgDomain = 'XML';			
+			SET OutputRoot.JSON.Data.responseMessage = 'This is an XML message.';
+			PROPAGATE TO LABEL 'XML';
+
+		ELSEIF blobAsChar LIKE '{%' THEN
+			SET msgDomain = 'JSON';			
+			SET OutputRoot.JSON.Data.responseMessage = 'This is a JSON message.';
+			PROPAGATE TO LABEL 'JSON';
+
+		ELSE
+			SET msgDomain = 'DFDL';		
+			SET OutputRoot.JSON.Data.responseMessage = 'This is DFDL message';
+				PROPAGATE TO LABEL 'DFDL';
+		END IF;
+	--	SET OutputRoot.Properties.ResponseType = 'application/json';
+		RETURN FALSE;
+	END;
+END MODULE;

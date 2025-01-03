@@ -1,0 +1,33 @@
+
+
+CREATE COMPUTE MODULE route_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot = InputRoot;
+		
+		
+		DECLARE operation CHARACTER;
+		SET operation = InputRoot.XMLNSC.Root.Data.OperationSet;
+		
+		
+		IF operation = 'add' THEN
+			
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName='add';
+			
+		ELSEIF operation = 'mul' THEN
+			
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'mul';
+						
+		END IF;
+		
+		
+	END;
+END MODULE;

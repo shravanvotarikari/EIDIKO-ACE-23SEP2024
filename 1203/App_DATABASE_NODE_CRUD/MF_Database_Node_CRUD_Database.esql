@@ -22,8 +22,10 @@ CREATE PROCEDURE DB_CRUD() BEGIN
 	 	SET Environment.data='Data updated successfully';
 	 	
 	 ELSEIF operation ='select' THEN
-	 	SET Environment.data[]=PASSTHRU('SELECT * FROM Eidiko WHERE id=?', id);
+	 	--SET Environment.data[]=PASSTHRU('SELECT * FROM Eidiko WHERE id=?', id);
 	 	SET Environment.operation = operation;
+	---calling procedure for dynamic result set
+	 	CALL dynamicRes(id,Environment.data[]);
 	 	
 	  ELSEIF operation ='delete' THEN
 	  	PASSTHRU('DELETE FROM Eidiko WHERE id=?', id);
@@ -34,3 +36,10 @@ CREATE PROCEDURE DB_CRUD() BEGIN
 	END;
 
 END MODULE;
+--Retrieving data using dynamic result set
+
+CREATE PROCEDURE  dynamicRes(IN id INTEGER)
+LANGUAGE DATABASE
+DYNAMIC RESULT SETS 1
+EXTERNAL NAME "GetEidikoDetails";
+  

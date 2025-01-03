@@ -1,0 +1,17 @@
+
+
+CREATE COMPUTE MODULE MF_KYC_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		IF Environment.isPresent = true THEN
+			SET OutputRoot.XMLNSC.response = 'Users KYC is Successfull';
+		ELSE
+			SET OutputRoot.XMLNSC.response = 'Users KYC is Unsuccessfull';
+		END IF;
+	END;
+END MODULE;

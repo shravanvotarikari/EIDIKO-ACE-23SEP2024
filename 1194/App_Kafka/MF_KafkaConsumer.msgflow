@@ -9,8 +9,8 @@
       <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="336,39" queueName="q2" destinationQueueManagerName="newManager">
         <translation xmi:type="utility:ConstantString" string="MQ Output1"/>
       </nodes>
-      <nodes xmi:type="com_ibm_connector_kafka_ComIbmEventInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="199,39" connectorName="Kafka" topicName="kafkaTopic" bootstrapServers="localhost:9092" groupId="avi" initialOffset="earliest" enableAutoCommit="true" useSyncCommit="true" clientId="avi" useClientIdSuffix="true" connectionTimeout="15" sessionTimeout="10" receiveBatchSize="1" securityProtocol="PLAINTEXT" sslProtocol="TLSv1.2" messageDomainProperty="XMLNSC" validateTiming="deferred"
-          parserXmlnscBuildTreeUsingXMLSchema="false" parserXmlnscUseForXmlnsDomain="false" parserXmlnscMixedContentRetainMode="none" parserXmlnscCommentsRetainMode="none" parserXmlnscProcessingInstructionsRetainMode="none" validateMaster="none" validateFailureAction="exception" componentLevel="flow" additionalInstances="0">
+      <nodes xmi:type="com_ibm_connector_kafka_ComIbmEventInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="199,39" connectorName="Kafka" topicName="my_topic" bootstrapServers="192.168.2.46:9092" groupId="gid" initialOffset="latest" enableAutoCommit="true" useSyncCommit="true" useClientIdSuffix="true" connectionTimeout="15" sessionTimeout="10" receiveBatchSize="1" securityProtocol="PLAINTEXT" sslProtocol="TLSv1.2" messageDomainProperty="XMLNSC" validateTiming="deferred" parserXmlnscBuildTreeUsingXMLSchema="false"
+          parserXmlnscUseForXmlnsDomain="false" parserXmlnscMixedContentRetainMode="none" parserXmlnscCommentsRetainMode="none" parserXmlnscProcessingInstructionsRetainMode="none" validateMaster="none" validateFailureAction="exception" componentLevel="flow" additionalInstances="0">
         <translation xmi:type="utility:ConstantString" string="KafkaConsumer"/>
       </nodes>
       <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="329,128" queueName="q3" destinationQueueManagerName="newManager">
