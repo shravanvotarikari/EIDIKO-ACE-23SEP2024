@@ -1,0 +1,81 @@
+
+
+CREATE COMPUTE MODULE MF_Transcation_History_Compute
+	
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE channelId REFERENCE TO InputRoot.XMLNSC.Root.Header.channelId;
+		DECLARE book REFERENCE TO InputRoot.XMLNSC.Root.Body.Data.catalog.book[1];
+		DECLARE Outbook REFERENCE TO InputRoot.XMLNSC.Root.Body.Data.catalog;
+		
+----		DECLARE book CHARACTER InputRoot.XMLNSC.Root.Body.Data.catalog;
+----    	IF FIELDNAME(InputRoot.XMLNSC.Root.Body.Data.catalog) 
+----       		 set book = InputRoot.XMLNSC.Root.Body.Data.catalog.book[1];
+----    	ELSEIF FIELDNAME(InputRoot.XMLNSC.Root.Body.Data.catalogs) IS NOT NULL THEN
+----        	 SET book = InputRoot.XMLNSC.Root.Body.Data.catalogs.book[1];
+----    	END IF;
+		DECLARE author REFERENCE TO InputRoot.XMLNSC.Root.Body.Data.catalog.book.author;
+		if channelId = 'TPH' THEN
+		DECLARE i INTEGER 1;
+		WHILE LASTMOVE(book) DO
+			DECLARE author CHARACTER book.author;
+			IF  author = 'Corets, Eva' THEN 
+				--CREATE LASTCHILD OF OutputRoot.XMLNSC.Root.Body.Data.catalog;
+				  CREATE LASTCHILD OF  Outbook.book NAME 'book';
+				  
+				SET Outbook.book.author = book.author;
+				SET Outbook.book.title = book.title;
+				SET Outbook.book.genre = book.genre;
+				SET Outbook.book.price = book.price;
+				SET Outbook.book.publish_date = book.publish_date;
+				SET Outbook.book.description = book.description;
+				
+				--Set OutputRoot.XMLNSC.Root.Body.Data.catalog.book[1]=InputRoot.XMLNSC.Root.Body.Data.catalog.book;
+			move book NEXTSIBLING;
+			SET i = i + 1;
+			ELSE
+			move book NEXTSIBLING;
+			SET i = i + 1;
+		END IF;
+		END WHILE;
+		/*ELSEIF channelId = 'FCR' THEN
+			DECLARE i INTEGER 1;
+		WHILE LASTMOVE(book) DO
+			DECLARE author CHARACTER book.author;
+			IF  author = 'Corets, Eva' THEN 
+				CREATE LASTCHILD OF OutputRoot.XMLNSC.Root.Body.Data.catalog.book  NAME 'author' VALUE author;
+				CREATE LASTCHILD OF OutputRoot.XMLNSC.Root.Body.Data.catalog.book  NAME 'title' VALUE book.title;
+				CREATE LASTCHILD OF OutputRoot.XMLNSC.Root.Body.Data.catalog.book  NAME 'genre' VALUE book.genre;
+				CREATE LASTCHILD OF OutputRoot.XMLNSC.Root.Body.Data.catalog.book  NAME 'price' VALUE book.price;
+				CREATE LASTCHILD OF OutputRoot.XMLNSC.Root.Body.Data.catalog.book  NAME 'publish_date' VALUE book.publish_date;
+				CREATE LASTCHILD OF OutputRoot.XMLNSC.Root.Body.Data.catalog.book  NAME 'description' VALUE book.description;
+				
+				--Set OutputRoot.XMLNSC.Root.Body.Data.catalog.book[1]=InputRoot.XMLNSC.Root.Body.Data.catalog.book;
+			move book NEXTSIBLING;
+			SET i = i + 1;
+			ELSE
+			move book NEXTSIBLING;
+			SET i = i + 1;
+		END IF;
+		END WHILE;*/
+		END IF;
+		
+	END;
+END MODULE;
+
