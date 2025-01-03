@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>App_kafka</name>
+	<name>App_XSL_Transformation</name>
 	<comment></comment>
 	<projects>
-		<project>JDBC</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
