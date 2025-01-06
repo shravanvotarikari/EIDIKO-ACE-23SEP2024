@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Lib_ExceptionList</name>
+	<name>Lib_ExampleDb_logging</name>
 	<comment></comment>
 	<projects>
-		<project>Lib_ExampleDb_logging</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

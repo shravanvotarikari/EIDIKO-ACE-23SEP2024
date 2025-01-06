@@ -1,5 +1,5 @@
 BROKER SCHEMA Lib_ExceptionList
-
+PATH Lib_ExampleDb_logging;
 
 CREATE COMPUTE MODULE Lib_Last_Child_Exception_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
@@ -22,11 +22,14 @@ CREATE COMPUTE MODULE Lib_Last_Child_Exception_Compute
 			FOR insertRef AS ref.Insert[] DO
 				SET mainText=mainText ||','||insertRef.Text||',';
 			END FOR;
-
-			MOVE ref LASTCHILD;
+		MOVE ref LASTCHILD;
 		END WHILE;
-
+		
+		DECLARE Payload CHARACTER ;
+		
+	SET Payload = mainText ;
+	call Insert_Data(Payload, CURRENT_TIMESTAMP,1, 100, MessageFlowLabel, ApplicationLabel,'ESB_Error');
+	
 		SET OutputRoot.XMLNSC.res=mainText;
-		-- SET OutputRoot = InputRoot;
 	END;
 END MODULE;

@@ -1,0 +1,21 @@
+PATH Lib_ExampleDb_logging;
+
+CREATE COMPUTE MODULE MF_ExampleDatabase_1203_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE Payload CHARACTER;
+		SET Payload = CAST(ASBITSTREAM(InputRoot.XMLNSC) AS CHARACTER CCSID 1208 ENCODING 546);
+		call Insert_Data(Payload, CURRENT_TIMESTAMP, 1, 100, MessageFlowLabel, ApplicationLabel,'Channel_Request');
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		SET Payload = CAST(ASBITSTREAM(OutputRoot.JSON.Data) AS CHARACTER CCSID 1208 ENCODING 546);
+		call Insert_Data(Payload, CURRENT_TIMESTAMP,1, 100, MessageFlowLabel, ApplicationLabel,'Backend_Request');
+	END;
+END MODULE;
