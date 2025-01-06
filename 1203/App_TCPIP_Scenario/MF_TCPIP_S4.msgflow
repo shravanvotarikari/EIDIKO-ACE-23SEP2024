@@ -12,7 +12,7 @@
       <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="414,199" queueName="Q2" destinationQueueManagerName="QM1">
         <translation xmi:type="utility:ConstantString" string="MQ Output"/>
       </nodes>
-      <nodes xmi:type="ComIbmTCPIPClientInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="86,188" connectionDetails="9000" closeConnection="afterData" messageDomainProperty="XMLNSC" recordDetection="parsedRecordSequence">
+      <nodes xmi:type="ComIbmTCPIPClientInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="86,188" connectionDetails="9000" messageDomainProperty="XMLNSC" recordDetection="parsedRecordSequence">
         <translation xmi:type="utility:ConstantString" string="TCPIP Client Input"/>
       </nodes>
       <nodes xmi:type="ComIbmTCPIPServerOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="410,70" connectionDetails="9000">
