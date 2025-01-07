@@ -19,7 +19,7 @@ CREATE COMPUTE MODULE MF_pubsub_Compute
 
 		SET OutputRoot.MQRFH2.psc.Command = 'Publish';
 
-		SET OutputRoot.MQRFH2.psc.Topic = 'topic1';
+		SET OutputRoot.MQRFH2.psc.Topic = 'Sample_Topic_String';
 
 		SET OutputRoot.MQRFH2.psc.PubOpt = 'Local';
 		
