@@ -3,6 +3,12 @@
     nsURI="MF_Example_database_1211.msgflow" nsPrefix="MF_Example_database_1211.msgflow">
   <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="SQUARE">
     <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.messageDomainProperty" name="messageDomainProperty" defaultValueLiteral="XMLNSC">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.timeoutForServer" name="timeoutForServer" lowerBound="1" defaultValueLiteral="120">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eStructuralFeatures>
     <translation xmi:type="utility:TranslatableString" key="MF_Example_database_1211" bundleName="MF_Example_database_1211" pluginId="Example_database_1211"/>
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Example_database_1211/icons/full/obj16/MF_Example_database_1211.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Example_database_1211/icons/full/obj30/MF_Example_database_1211.gif"/>
@@ -31,7 +37,20 @@
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_5" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_6" targetNode="FCMComposite_1_7" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.catch" targetTerminalName="InTerminal.Input"/>
     </composition>
-    <propertyOrganizer/>
+    <propertyOrganizer>
+      <propertyDescriptor groupName="Group.Basic" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.MRMessageDomainPropertyEditor" describedAttribute="Property.messageDomainProperty">
+        <propertyName xmi:type="utility:TranslatableString" key="Property.messageDomainProperty" bundleName="ComIbmWSInput" pluginId="com.ibm.etools.mft.ibmnodes.definitions"/>
+        <propertyDescriptor groupName="Group.Group1" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.PositiveIntegerPropertyEditor" configurable="true" describedAttribute="Property.timeoutForServer">
+          <propertyName xmi:type="utility:TranslatableString" key="Property.timeoutForServer" bundleName="ComIbmWSRequest" pluginId="com.ibm.etools.mft.ibmnodes.definitions"/>
+        </propertyDescriptor>
+      </propertyDescriptor>
+    </propertyOrganizer>
+    <attributeLinks promotedAttribute="Property.messageDomainProperty" overriddenNodes="FCMComposite_1_2">
+      <overriddenAttribute href="ComIbmWSInput.msgnode#Property.messageDomainProperty"/>
+    </attributeLinks>
+    <attributeLinks promotedAttribute="Property.timeoutForServer" overriddenNodes="FCMComposite_1_4">
+      <overriddenAttribute href="ComIbmWSRequest.msgnode#Property.timeoutForServer"/>
+    </attributeLinks>
     <stickyBoard/>
   </eClassifiers>
 </ecore:EPackage>
