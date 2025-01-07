@@ -1,0 +1,27 @@
+
+
+CREATE COMPUTE MODULE MF_UserDefined_Policy_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		
+    SET OutputRoot.JSON.Data.emp = InputRoot.XMLNSC;
+    DECLARE Property2 CHARACTER;
+    SET Property2 = getPolicyProperty('{UserDefined_Policy}:myPolicy', 'var1');
+	--SET OutputRoot.JSON.Data.emp.a = getPolicyProperty('{UserDefined_Policy}:myPolicy', 'var1');
+	SET OutputRoot.JSON.Data.emp.a= Property2;
+	
+	END;
+END MODULE;
+
+CREATE FUNCTION getPolicyProperty( IN policyName CHARACTER, IN propertyName CHARACTER )
+  RETURNS CHARACTER
+  LANGUAGE JAVA
+  EXTERNAL NAME "java_userDefined_Pol.java_userDefined_pol.getPolicyProperty";
+
