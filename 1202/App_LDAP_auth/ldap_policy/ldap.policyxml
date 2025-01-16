@@ -2,10 +2,10 @@
 <policies>
   <policy policyType="SecurityProfiles" policyName="ldap" policyTemplate="SecurityProfiles">
     <authentication>LDAP</authentication>
-    <authenticationConfig>ldap://172.30.41.130:389/dc=nodomain</authenticationConfig>
+    <authenticationConfig>ldap://192.168.3.147:389/dc=nodomain</authenticationConfig>
     <mapping>NONE</mapping>
     <mappingConfig></mappingConfig>
-    <authorization>NONE</authorization>
+    <authorization></authorization>
     <authorizationConfig></authorizationConfig>
     <propagation>false</propagation>
     <idToPropagateToTransport>Message ID</idToPropagateToTransport>
