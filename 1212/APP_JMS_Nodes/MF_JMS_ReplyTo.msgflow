@@ -10,16 +10,16 @@
       <nodes xmi:type="ComIbmJMSClientOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="376,60" destinationQueueName="D1" locationJndiBindings="file:/C:/JNDI/" connectionFactoryName="cf">
         <translation xmi:type="utility:ConstantString" string="JMS Output"/>
       </nodes>
-      <nodes xmi:type="ComIbmJMSClientInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="70,164" sourceQueueName="D1" locationJndiBindings="C:\JNDI" connectionFactoryName="cf">
+      <nodes xmi:type="ComIbmJMSClientInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="70,164" sourceQueueName="D1" locationJndiBindings="file:/C:/JNDI/" connectionFactoryName="cf">
         <translation xmi:type="utility:ConstantString" string="JMS Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmJMSClientReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="581,165" useDistList="true" locationJndiBindings="file:/C:/JNDI/" connectionFactoryName="cf">
+      <nodes xmi:type="ComIbmJMSClientReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="581,165" locationJndiBindings="file:/C:/JNDI/" connectionFactoryName="cf">
         <translation xmi:type="utility:ConstantString" string="JMS Reply"/>
       </nodes>
       <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="67,59" queueName="q3" destinationQueueManagerName="QM1">
         <translation xmi:type="utility:ConstantString" string="MQ Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmJMSHeader.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="319,163" jmsHeaderOptions="Modify header" jmsDeliveryMode="Inherit" jmsExpiration="Inherit" jmsPriority="Inherit" jmsCorrelationID="Inherit" jmsReplyTo="jndi:D1">
+      <nodes xmi:type="ComIbmJMSHeader.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="319,163" jmsHeaderOptions="Add header" jmsDeliveryMode="Non_Persistent" jmsExpiration="0" jmsPriority="4" jmsReplyTo="jndi://D2">
         <translation xmi:type="utility:ConstantString" string="JMS Header"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
