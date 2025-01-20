@@ -22,7 +22,7 @@
       <nodes xmi:type="ComIbmJMSHeader.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="208,129" jmsHeaderOptions="Add header" jmsDeliveryMode="Non_Persistent" jmsExpiration="0" jmsPriority="4" jmsReplyTo="jndi:D1">
         <translation xmi:type="utility:ConstantString" string="JMS Header"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_19" location="446,124" computeExpression="esql://routine/#MF_JMS_Reply_Compute.Main">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_19" location="414,138" computeExpression="esql://routine/#MF_JMS_Reply_Compute.Main">
         <translation xmi:type="utility:ConstantString" string="Compute1"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_9" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
