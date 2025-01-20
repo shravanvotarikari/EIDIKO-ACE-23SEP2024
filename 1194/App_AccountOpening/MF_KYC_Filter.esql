@@ -5,7 +5,7 @@ CREATE FILTER MODULE MF_KYC_Filter
 		DECLARE uid INTEGER CAST(Root.XMLNSC.request.userid AS INTEGER);
 
 		DECLARE isUserPresent BOOLEAN EXISTS(SELECT * FROM Database.DWH where DWH.id = uid);
-		
+
 		IF (isUserPresent) THEN
 			SET Environment.isPresent = true;
 			RETURN TRUE;
@@ -13,6 +13,6 @@ CREATE FILTER MODULE MF_KYC_Filter
 			SET Environment.isPresent = false;
 			RETURN FALSE;
 		END IF;
-END;
+	END;
 
 END MODULE;

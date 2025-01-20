@@ -15,7 +15,7 @@ CREATE COMPUTE MODULE MF_KYC_Compute
 		ELSEIF InputRoot.XMLNSC.request.accountOpeningCheck = 'UPDATE' THEN
 			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'UPDATE';
 		ELSE
-			-- Do nothing
+			-- Do Nothing
 		END IF;
 	END;
 END MODULE;
