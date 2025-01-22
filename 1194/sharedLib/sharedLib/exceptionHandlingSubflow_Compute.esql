@@ -1,0 +1,29 @@
+
+BROKER SCHEMA sharedLib
+
+CREATE COMPUTE MODULE exceptionHandlingSubflow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE refVar REFERENCE TO InputExceptionList.RecoverableException;
+		WHILE LASTMOVE(refVar) AND (FIELDNAME(refVar) = 'RecoverableException') DO
+			SET OutputRoot.XMLNSC.ErrorMessage = refVar;
+			MOVE refVar LASTCHILD;
+		END WHILE;
+		
+		-- Error generated logpoint
+		SET Environment.var5.logPoint = 'ESB Error Generated';
+		SET Environment.var5.errorTime = CURRENT_TIMESTAMP;
+		SET Environment.var5.errorMsg = CAST(ASBITSTREAM(OutputRoot.XMLNSC) AS CHARACTER CCSID 1208);
+		
+		-- Error response sent logpoint
+		SET Environment.var6.logPoint = 'ESB Response Generated';
+		SET Environment.var6.responseTime = CURRENT_TIMESTAMP;
+		SET Environment.var6.responseMsg = CAST(ASBITSTREAM(OutputRoot.XMLNSC) AS CHARACTER CCSID 1208);
+
+	END;
+END MODULE;
