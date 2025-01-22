@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy:Deploy xmlns:deploy="http://www.ibm.com/xmlns/prod/wmb/deploy/6.0.0" overrideConfigurableProperties="false" includeESQL="false">
+  <deployables>
+    <deployable deployed="true" barResourceTimeStamp="1737364180609" workspaceResource="/App_test/application.descriptor">
+      <deployableStatus code="0" key="DEPLOYABLE_LAST_COMPILE_STATUS" message="&#xA;Processing file App_test\application.descriptor.&#xA;Successfully added file App_test\application.descriptor to BAR file.&#xA;Elapsed time: 0.001 second(s).&#xA;&#xA;Successfully added file App_test\application.descriptor to BAR file.&#xA;" severity="0"/>
+      <barEntry name="application.descriptor"/>
+    </deployable>
+    <deployable deployed="true" barResourceTimeStamp="1737453666281" workspaceResource="/App_test/mf_itext.msgflow">
+      <deployableStatus code="0" key="DEPLOYABLE_LAST_COMPILE_STATUS" message="&#xA;Processing file App_test\mf_itext.msgflow.&#xA;Successfully added file App_test\mf_itext.msgflow to BAR file.&#xA;" severity="0"/>
+      <barEntry name="mf_itext.msgflow"/>
+    </deployable>
+    <deployable deployed="true" barResourceTimeStamp="1737452392993" workspaceResource="/App_testJava/.classpath">
+      <deployableStatus code="0" key="DEPLOYABLE_LAST_COMPILE_STATUS" message="&#xA;Processing file App_testJava\.classpath.&#xA;Successfully added file App_testJava\.classpath to BAR file.&#xA;Elapsed time: 0.096 second(s).&#xA;" severity="0"/>
+      <barEntry name="App_testJava.jar"/>
+    </deployable>
+    <deployable deployed="true" barResourceTimeStamp="1736491573430" workspaceResource="/AppJava/.classpath">
+      <deployableStatus code="0" key="DEPLOYABLE_LAST_COMPILE_STATUS" message="&#xA;Processing file AppJava\.classpath.&#xA;Successfully added file AppJava\.classpath to BAR file.&#xA;Elapsed time: 0.005 second(s).&#xA;" severity="0"/>
+      <barEntry name="AppJava.jar"/>
+    </deployable>
+  </deployables>
+</deploy:Deploy>
