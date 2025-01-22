@@ -1,0 +1,31 @@
+DECLARE custId SHARED INTEGER 1;
+
+CREATE COMPUTE MODULE MF_req1_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		DECLARE accNo CHARACTER InputRoot.JSON.Data.request.body.accNumber;
+
+		DECLARE isUserPresent BOOLEAN EXISTS(SELECT * FROM Database.BANKUSERS where BANKUSERS.ACCOUNTNUMBER = accNo);
+
+		IF (isUserPresent) THEN
+			SET OutputRoot.JSON.Data.response.body = 'User already had account in the bank';
+			RETURN TRUE;
+		ELSE
+			DECLARE fName CHARACTER InputRoot.JSON.Data.request.body.firstName;
+			DECLARE lName CHARACTER InputRoot.JSON.Data.request.body.lastName;
+			DECLARE phone CHARACTER InputRoot.JSON.Data.request.body.phone;
+			DECLARE city CHARACTER InputRoot.JSON.Data.request.body.city;
+			DECLARE adharNo CHARACTER InputRoot.JSON.Data.request.body.aadhar;
+			DECLARE balance INTEGER 0;
+
+			INSERT INTO Database.BANKUSERS VALUES (custId, accNo, fName, lName, phone, city, balance, adharNo);
+			SET custId = custId + 1;
+			SET OutputRoot.JSON.Data.response.body = 'User account creation in bank is successfull';
+			RETURN TRUE;
+		END IF;
+
+		RETURN FALSE;
+	END;
+
+END MODULE;

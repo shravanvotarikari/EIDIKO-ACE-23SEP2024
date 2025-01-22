@@ -1,7 +1,4 @@
 
-
-
-
 CREATE COMPUTE MODULE MF_AttachDetachStatement_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
@@ -21,7 +18,6 @@ CREATE COMPUTE MODULE MF_AttachDetachStatement_Compute
 
 		ATTACH ref1 TO OutputRoot.XMLNSC.root AS FIRSTCHILD;
 		ATTACH ref2 TO OutputRoot.XMLNSC.root.name AS PREVIOUSSIBLING;
-
 
 	END;
 END MODULE;

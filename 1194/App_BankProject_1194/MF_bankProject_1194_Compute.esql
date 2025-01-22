@@ -1,0 +1,18 @@
+
+
+CREATE COMPUTE MODULE MF_bankProject_1194_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.XMLNSC.response.body = 'Invalid Operation Name';
+		
+		-- ESB response logPoint
+		SET Environment.var2.logPoint = 'ESB Response Sent';
+		SET Environment.var2.responseTime = CURRENT_TIMESTAMP;
+		SET Environment.var2.responseMsg = CAST(ASBITSTREAM(OutputRoot.XMLNSC) AS CHARACTER CCSID 1208);
+	END;
+END MODULE;

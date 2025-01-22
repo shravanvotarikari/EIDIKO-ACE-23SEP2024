@@ -1,0 +1,25 @@
+
+CREATE COMPUTE MODULE MF_req2_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		-- KYC check
+		DECLARE accNo CHARACTER InputRoot.JSON.Data.request.body.accNumber;
+		DECLARE fName CHARACTER InputRoot.JSON.Data.request.body.firstName;
+		DECLARE lName CHARACTER InputRoot.JSON.Data.request.body.lastName;
+		DECLARE adharNo CHARACTER InputRoot.JSON.Data.request.body.aadhar;
+
+		DECLARE isUserVerified BOOLEAN EXISTS(select * from Database.BANKUSERS where BANKUSERS.ACCOUNTNUMBER = accNo AND BANKUSERS.FIRSTNAME = fName AND BANKUSERS.LASTNAME = lName AND BANKUSERS.AADHARNUMBER = adharNo);
+
+		IF isUserVerified THEN
+			SET OutputRoot.JSON.Data.response.body = 'Users KYC is Successfull';
+		ELSE
+			SET OutputRoot.JSON.Data.response.body = 'Users KYC is Unsuccessfull';
+		END IF;
+
+	END;
+END MODULE;
