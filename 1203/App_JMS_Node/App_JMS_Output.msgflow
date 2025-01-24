@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmJMSClientOutput.msgnode="ComIbmJMSClientOutput.msgnode" xmlns:ComIbmMQInput.msgnode="ComIbmMQInput.msgnode" xmlns:ComIbmMQJMSTransform.msgnode="ComIbmMQJMSTransform.msgnode" xmlns:ComIbmWSInput.msgnode="ComIbmWSInput.msgnode" xmlns:ComIbmWSReply.msgnode="ComIbmWSReply.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility"
-    nsURI="App_JMS_Output.msgflow" nsPrefix="App_JMS_Output.msgflow">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmJMSClientOutput.msgnode="ComIbmJMSClientOutput.msgnode" xmlns:ComIbmJMSMQTransform.msgnode="ComIbmJMSMQTransform.msgnode" xmlns:ComIbmMQInput.msgnode="ComIbmMQInput.msgnode" xmlns:ComIbmMQJMSTransform.msgnode="ComIbmMQJMSTransform.msgnode" xmlns:ComIbmWSInput.msgnode="ComIbmWSInput.msgnode" xmlns:ComIbmWSReply.msgnode="ComIbmWSReply.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow"
+    xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="App_JMS_Output.msgflow" nsPrefix="App_JMS_Output.msgflow">
   <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="SQUARE">
     <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
     <translation xmi:type="utility:TranslatableString" key="App_JMS_Output" bundleName="App_JMS_Output" pluginId="App_JMS_Node"/>
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_JMS_Node/icons/full/obj16/App_JMS_Output.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_JMS_Node/icons/full/obj30/App_JMS_Output.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmJMSClientOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="306,27" destinationQueueName="D1" locationJndiBindings="file:/C:/Users/Sreenivas Bandaru/Desktop/IIB_STORE/JNDI/" connectionFactoryName="cf">
+      <nodes xmi:type="ComIbmJMSClientOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="306,27" destinationQueueName="D1" locationJndiBindings="file:/C:/Users/Sreenivas Bandaru/Desktop/IIB_STORE/jndi1/" connectionFactoryName="cf1">
         <translation xmi:type="utility:ConstantString" string="JMS Output"/>
       </nodes>
       <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="102,25" URLSpecifier="/path">
@@ -16,7 +16,7 @@
       <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="527,33">
         <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
       </nodes>
-      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="100,119" queueName="J1">
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="100,119" queueName="a">
         <translation xmi:type="utility:ConstantString" string="MQ Input"/>
       </nodes>
       <nodes xmi:type="ComIbmMQJMSTransform.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_12" location="292,126">
@@ -31,11 +31,26 @@
       <nodes xmi:type="ComIbmJMSClientOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_17" location="525,208" destinationQueueName="D1" locationJndiBindings="file:/C:/Users/Sreenivas Bandaru/Desktop/IIB_STORE/JNDI/" connectionFactoryName="cf">
         <translation xmi:type="utility:ConstantString" string="JMS Output2"/>
       </nodes>
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="126,303" queueName="J1">
+        <translation xmi:type="utility:ConstantString" string="MQ Input2"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQJMSTransform.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="242,308">
+        <translation xmi:type="utility:ConstantString" string="MQ JMS Transform1"/>
+      </nodes>
+      <nodes xmi:type="ComIbmJMSClientOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="553,311" destinationQueueName="D1" locationJndiBindings="file:/C:/Users/Sreenivas Bandaru/Desktop/IIB_STORE/JNDI/" connectionFactoryName="cf">
+        <translation xmi:type="utility:ConstantString" string="JMS Output3"/>
+      </nodes>
+      <nodes xmi:type="ComIbmJMSMQTransform.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="391,316">
+        <translation xmi:type="utility:ConstantString" string="JMS MQ Transform"/>
+      </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_10" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_12" sourceNode="FCMComposite_1_11" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_13" sourceNode="FCMComposite_1_12" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_7" targetNode="FCMComposite_1_17" sourceNode="FCMComposite_1_16" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_8" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_9" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
     </composition>
     <propertyOrganizer/>
     <stickyBoard/>
