@@ -1,0 +1,37 @@
+
+
+CREATE COMPUTE MODULE NPCICall_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN FALSE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		
+		IF InputRoot.JSON.Data.KYC = 'success' AND InputRoot.JSON.Data.CBS = 'success' THEN
+			SET OutputRoot.JSON.Data.KYC = NULL;
+			SET OutputRoot.JSON.Data.CBS = NULL;
+			SET OutputLocalEnvironment = InputLocalEnvironment;
+			SET OutputLocalEnvironment.Variables.MandateId = InputRoot.JSON.Data.MandateId;
+			SET OutputLocalEnvironment.Variables.EmailID = InputRoot.JSON.Data.EmailID;
+			propagate TO TERMINAL 'out';
+		ELSE
+			propagate TO TERMINAL 'out1';
+		END IF;
+		
+		
+	END;
+END MODULE;

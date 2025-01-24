@@ -1,0 +1,36 @@
+
+
+CREATE COMPUTE MODULE EKYC_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		DECLARE kyc CHARACTER;
+		SET kyc = CAST(OutputRoot.XMLNSC.[<] AS CHARACTER CCSID 1208 ENCODING 546);
+		IF  CONTAINS(kyc,'success') THEN
+			SET OutputRoot.XMLNSC = NULL;
+			SET OutputRoot.JSON.Data.KYC = 'success';
+			UPDATE Database.MANDATE_STATUS AS t SET EKYC = 'success' WHERE t.mandate_id = InputRoot.JSON.Data.MandateId;
+		ELSE
+			SET OutputRoot.XMLNSC = NULL;
+			SET OutputRoot.JSON.Data.KYC = 'fail';
+			UPDATE Database.MANDATE_STATUS AS t SET EKYC = 'fail' WHERE t.mandate_id = InputRoot.JSON.Data.MandateId;
+		END IF;
+		
+	END;
+END MODULE;

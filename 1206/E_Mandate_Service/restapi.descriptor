@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:restapiDescriptor xmlns="http://com.ibm.etools.mft.descriptor.base" xmlns:ns2="http://com.ibm.etools.mft.descriptor.restapi" definitionType="swagger_20" definitionFile="swagger.json" implementation="gen/E_Mandate_Service.msgflow" https="false" definitionWithExtRef="false" faultFormat="JSON">
+    <ns2:operations>
+        <ns2:operation name="deleteMandate" implementation="deleteMandate.subflow"/>
+        <ns2:operation name="getMandate" implementation="getMandate.subflow"/>
+        <ns2:operation name="postMandate" implementation="postMandate.subflow"/>
+        <ns2:operation name="putMandate" implementation="putMandate.subflow"/>
+    </ns2:operations>
+    <ns2:errorHandlers>
+        <ns2:errorHandler type="CATCH" implementation="E_Mandate_ServiceInputCatchHandler.subflow"/>
+        <ns2:errorHandler type="FAILURE" implementation="E_Mandate_ServiceInputFailureHandler.subflow"/>
+    </ns2:errorHandlers>
+    <ns2:validations>
+        <ns2:validation type="INPUT" allowUnexpectedBody="false" onlyValidate2xx="false"/>
+    </ns2:validations>
+</ns2:restapiDescriptor>
