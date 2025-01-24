@@ -9,6 +9,8 @@ DECLARE exception_text CHARACTER;
 CREATE COMPUTE MODULE exception_handling_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
+		--SET Environment.variables.val3 = 3;
+		
 		CALL CopyEntireMessage();
 		CALL log2();
 		RETURN TRUE;
