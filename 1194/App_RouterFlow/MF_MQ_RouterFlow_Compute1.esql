@@ -1,0 +1,14 @@
+
+
+CREATE COMPUTE MODULE MF_MQ_RouterFlow_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.XMLNSC = InputRoot.XMLNSC;
+		SET OutputLocalEnvironment.Destination.HTTP.RequestIdentifier =  reqId;
+	END;
+END MODULE;

@@ -1,0 +1,19 @@
+
+
+CREATE COMPUTE MODULE MF_Test_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		
+		DECLARE serviceCode integer InputLocalEnvironment.HTTP.Input.QueryString.serviceCode;
+
+		SET Environment.var = PASSTHRU('SELECT SERVICEURL FROM URLTABLE WHERE SERVICECODE = ?', serviceCode);
+		
+		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = Environment.var.SERVICEURL;
+	END;
+END MODULE;

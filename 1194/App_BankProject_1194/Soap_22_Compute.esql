@@ -1,0 +1,23 @@
+
+
+CREATE COMPUTE MODULE Soap_22_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+ 
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		set OutputRoot.XMLNSC.age = InputRoot.SOAP.Body;
+		
+		--SET OutputRoot.JSON.Data.age = InputRoot.SOAP.Body.age;
+		
+		--SET OutputLocalEnvironment.Destination.HTTP.RequestIdentifier = InputLocalEnvironment.Destination.SOAP.Reply.ReplyIdentifier;
+		
+		
+		
+		
+	END;
+END MODULE;

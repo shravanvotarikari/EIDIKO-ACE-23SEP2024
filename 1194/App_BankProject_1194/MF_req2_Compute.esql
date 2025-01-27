@@ -7,6 +7,9 @@ CREATE COMPUTE MODULE MF_req2_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE schemaName CHARACTER 'SYSTEM';
+		DECLARE dsnName CHARACTER 'AVIDSN';
+		
 		-- KYC check
 		DECLARE accNo CHARACTER InputRoot.JSON.Data.request.body.accNumber;
 		DECLARE fName CHARACTER InputRoot.JSON.Data.request.body.firstName;

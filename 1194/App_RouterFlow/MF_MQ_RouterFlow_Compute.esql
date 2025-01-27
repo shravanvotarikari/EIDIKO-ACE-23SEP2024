@@ -1,0 +1,22 @@
+DECLARE reqId SHARED BLOB;
+
+CREATE COMPUTE MODULE MF_MQ_RouterFlow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		DECLARE serviceCode integer InputLocalEnvironment.HTTP.Input.QueryString.serviceCode;
+		SET Environment.var.q = PASSTHRU('SELECT QUEUE FROM queuetable WHERE SERVICECODE = ?', serviceCode);
+		SET Environment.var.qmgr = PASSTHRU('SELECT QMANAGER FROM queuetable WHERE SERVICECODE = ?', serviceCode);
+
+		SET OutputRoot.MQMD.ReplyToQ = Environment.var.q.QUEUE;
+		SET OutputRoot.MQMD.ReplyToQMgr = Environment.var.qmgr.QMANAGER;
+		SET reqId = InputLocalEnvironment.Destination.HTTP.RequestIdentifier;
+		
+		SET OutputRoot.XMLNSC = InputRoot.XMLNSC;
+	END;
+END MODULE;
