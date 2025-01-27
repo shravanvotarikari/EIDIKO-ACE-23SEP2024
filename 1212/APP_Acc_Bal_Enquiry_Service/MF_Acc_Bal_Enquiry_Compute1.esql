@@ -1,0 +1,30 @@
+PATH DB_logging;
+
+CREATE COMPUTE MODULE MF_Acc_Bal_Enquiry_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		
+		
+			DECLARE Payload CHARACTER;
+			--THROW USER EXCEPTION VALUES('exception occured');
+
+		--SET Payload = CAST(ASBITSTREAM(InputRoot.XMLNSC) AS CHARACTER CCSID 1208 ENCODING 546);
+		SET Payload = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID 1208 ENCODING 546);
+		
+		call DB_loggProc(Payload, CURRENT_TIMESTAMP,101,MessageFlowLabel,ApplicationLabel,'Backend_Response');
+
+		--SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		
+		SET OutputRoot.XMLNSC.res = InputRoot.JSON.Data;
+		
+		SET Payload = CAST(ASBITSTREAM(OutputRoot.XMLNSC) AS CHARACTER CCSID 1208 ENCODING 546);
+		call DB_loggProc(Payload, CURRENT_TIMESTAMP,101,MessageFlowLabel,ApplicationLabel,'Channel_response');
+		
+	END;
+END MODULE;
