@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="DateOfBirth" type="xsd:string"/>
+  <xsd:element name="PANNumber" type="xsd:string"/>
+  <xsd:element name="ValidatePANRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="ClientID"/>
+        <xsd:element ref="PANNumber"/>
+        <xsd:element ref="FullName"/>
+        <xsd:element ref="DateOfBirth"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="FullName" type="xsd:string"/>
+  <xsd:element name="ClientID" type="xsd:string"/>
+</xsd:schema>
