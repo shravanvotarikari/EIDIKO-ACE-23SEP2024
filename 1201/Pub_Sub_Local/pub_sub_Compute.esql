@@ -1,0 +1,25 @@
+
+
+CREATE COMPUTE MODULE pub_sub_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot = InputRoot ;
+		
+		SET OutputRoot.MQRFH2.Version = 2;
+		SET OutputRoot.MQRFH2.Format = MQFMT_NONE;
+		SET OutputRoot.MQRFH2.NameValueCCSID = 1208;
+		SET OutputRoot.MQRFH2.psc.Command = 'Publish';
+		SET OutputRoot.MQRFH2.psc.Topic = 'topic1';
+		SET OutputRoot.MQRFH2.psc.PubOpt = 'Local';
+		
+		SET OutputRoot.BLOB.BLOB = InputRoot.BLOB.BLOB;
+		
+		
+	END;
+END MODULE;

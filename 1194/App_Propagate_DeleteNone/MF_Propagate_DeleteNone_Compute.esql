@@ -1,0 +1,23 @@
+
+CREATE COMPUTE MODULE MF_Propagate_DeleteNone_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		
+--		PROPAGATE; -- It will propagate the msg to out terminal
+		
+		-- Propagate to terminal
+		-- PROPAGATE TO TERMINAL 'out1'; -- Due to this statement Message tree (msg, env, excep) is cleared after propagation of msg to out1
+		PROPAGATE TO TERMINAL 'out1' DELETE NONE; -- Due to this statement a copy of Message is retained in compute node even after propagation
+		
+		-- Propagate to label
+		PROPAGATE TO LABEL 'label1';
+		-- PROPAGATE TO LABEL 'label1' DELETE NONE;
+		
+	END;
+END MODULE;

@@ -1,0 +1,24 @@
+
+
+CREATE COMPUTE MODULE DB_Conn_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot = InputRoot;
+		
+		DECLARE get_data ROW;
+		
+		SET get_data.box1[] = SELECT * FROM Database.ashar.system.EMP_EVENT;
+		SET get_data.box2[] = SELECT * FROM Database.ORADSN.system.EMP_DATA; 
+		    
+		
+		SET OutputRoot.XMLNSC.data = get_data;
+		
+	END;
+END MODULE;

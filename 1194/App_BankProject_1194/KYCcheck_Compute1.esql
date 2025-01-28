@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE KYCcheck_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE var ROW;
+		set var.result[] = PASSTHRU('select * from BANKUSERS');
+		SET OutputRoot.xmlnsc.root = var.result;
+	END;
+END MODULE;

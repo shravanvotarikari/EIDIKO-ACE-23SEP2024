@@ -1,0 +1,23 @@
+
+CREATE COMPUTE MODULE MF_AttachDetachStatement_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		SET OutputRoot = InputRoot;
+
+		DECLARE ref1 REFERENCE TO OutputRoot.XMLNSC.root.id;
+		DECLARE ref2 REFERENCE TO OutputRoot.XMLNSC.root.city;
+
+		DETACH ref1;
+		DETACH ref2;
+
+		ATTACH ref1 TO OutputRoot.XMLNSC.root AS FIRSTCHILD;
+		ATTACH ref2 TO OutputRoot.XMLNSC.root.name AS PREVIOUSSIBLING;
+
+	END;
+END MODULE;

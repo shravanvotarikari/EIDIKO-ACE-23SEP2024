@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<policies>
+  <policy policyType="UserDefined" policyName="UserDefined_policy" policyTemplate="UserDefined">
+    <var1>Vedanti</var1>
+  </policy>
+</policies>

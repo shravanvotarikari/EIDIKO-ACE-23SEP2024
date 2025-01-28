@@ -1,0 +1,19 @@
+
+
+CREATE FILTER MODULE MF_KYC_Filter1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE uid INTEGER CAST(Root.XMLNSC.request.userid AS INTEGER);
+
+		DECLARE isUserPresent BOOLEAN EXISTS(SELECT * FROM Database.Econet where Econet.id = uid);
+		
+		IF (isUserPresent) THEN
+			SET Environment.isPresent = true;
+			RETURN TRUE;
+		ELSE
+			SET Environment.isPresent = false;
+			RETURN FALSE;
+		END IF;
+	END;
+
+END MODULE;

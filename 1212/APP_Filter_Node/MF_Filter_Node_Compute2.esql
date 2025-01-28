@@ -1,0 +1,10 @@
+
+
+CREATE COMPUTE MODULE MF_Filter_Node_Compute2
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+    	
+    SET OutputRoot.JSON.Data.status = 'Account exists';
+END;
+
+END MODULE;

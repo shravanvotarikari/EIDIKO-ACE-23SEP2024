@@ -1,0 +1,44 @@
+CREATE COMPUTE MODULE MF_RCD_Label_Compute
+    CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+   
+        DECLARE msgDomain CHARACTER;
+        DECLARE blobAsChar CHARACTER;
+
+        SET blobAsChar = CAST(InputRoot.BLOB.BLOB AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId);
+
+        IF blobAsChar IS NULL THEN
+            THROW USER EXCEPTION CATALOG 'BIPmsgs' MESSAGE 2666 VALUES('BLOB data is NULL');
+        END IF;
+
+        IF SUBSTRING(blobAsChar FROM 1 FOR 1) = '<' THEN
+            SET msgDomain = 'XMLNSC';
+            SET OutputRoot.BLOB.BLOB = InputRoot.BLOB.BLOB;
+            PROPAGATE TO LABEL 'XML' DELETE NONE;
+        ELSEIF blobAsChar LIKE '{%' THEN
+            SET msgDomain = 'JSON';
+            SET OutputRoot.BLOB.BLOB = InputRoot.BLOB.BLOB;
+            PROPAGATE TO LABEL 'JSON' DELETE NONE;
+        ELSE
+            SET msgDomain = 'DFDL';
+            SET OutputRoot.BLOB.BLOB = InputRoot.BLOB.BLOB;
+            PROPAGATE TO LABEL 'DFDL' DELETE NONE;
+        END IF;
+
+        CASE msgDomain
+            WHEN 'XMLNSC' THEN
+            	DELETE FIELD OutputRoot.[<];
+                SET OutputRoot.JSON.Data.responseMessage = 'This is an XML message.';   
+            WHEN 'JSON' THEN
+            	DELETE FIELD OutputRoot.[<];
+                SET OutputRoot.JSON.Data.responseMessage = 'This is a JSON message.';
+            WHEN 'DFDL' THEN
+            	DELETE FIELD OutputRoot.[<];
+                SET OutputRoot.JSON.Data.responseMessage = 'This is a DFDL message.';
+            ELSE
+                THROW USER EXCEPTION CATALOG 'BIPmsgs' MESSAGE 3005 VALUES('Unexpected domain after label processing');
+        END CASE;
+
+        RETURN TRUE;
+    END;
+END MODULE;

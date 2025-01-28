@@ -1,0 +1,18 @@
+    5  sudo apt update
+    6  sudo apt upgrade
+    7  sudo apt install apache2 php php-cgi libapache2-mod-php php-mbstring php-common php-pear -y
+    8  sudo apt install slapd ldap-utils -y
+    9  sudo slapcat
+    
+   10  sudo apt -y install ldap-account-manager
+   ##  http://ip:80/lam
+   
+   
+   12  sudo systemctl restart apache2
+   13  sudo a2enconf php*-cgi
+   14  sudo systemctl enable apache2
+   15  sudo systemctl status apache2
+   
+   
+   16  ifconfig #linux
+   9  sudo slapcat

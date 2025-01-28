@@ -10,6 +10,6 @@ CREATE COMPUTE MODULE mf_request2_Compute
 
 	
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputRoot.JSON.Data.h = InputRoot.XMLNSC.h.name;
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
 	END;
 END MODULE;

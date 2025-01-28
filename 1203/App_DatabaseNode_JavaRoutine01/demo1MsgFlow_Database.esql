@@ -1,0 +1,25 @@
+
+
+CREATE DATABASE MODULE demo1MsgFlow_Database
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		DECLARE data1,data2 CHARACTER;
+		DECLARE inref REFERENCE TO Root.XMLNSC.data;
+		SET data1=inref.a;
+		SET data2=inref.b;
+		
+		DECLARE result CHARACTER;
+		
+		CALL demo(data1,data2) INTO result;
+		
+		SET Environment.res=result;
+		
+		RETURN TRUE;
+	END;
+
+END MODULE;
+
+CREATE PROCEDURE demo (IN data1 CHARACTER,IN data2 CHARACTER) RETURNS CHARACTER
+LANGUAGE JAVA
+EXTERNAL NAME "demoJavaApp.Sample.getSampleData";

@@ -1,0 +1,27 @@
+
+
+CREATE COMPUTE MODULE MF_ExampleDatabase1200_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		Routing to particular label based on operation
+		IF InputLocalEnvironment.WrittenDestination.Label.label = 'label1' THEN
+			SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://localhost:7800/accountOpening';
+		ELSE
+			set OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://localhost:7800/kyc';
+		END IF;
+		
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		
+--		Backend request sent logPoint
+		SET Environment.var2.logPoint = 'Backend Request';
+		SET Environment.var2.requestTime = CURRENT_TIMESTAMP;
+		SET Environment.var2.requestMsg = CAST(ASBITSTREAM(OutputRoot.JSON.Data) AS CHARACTER CCSID 1208);
+	END;
+	
+END MODULE;

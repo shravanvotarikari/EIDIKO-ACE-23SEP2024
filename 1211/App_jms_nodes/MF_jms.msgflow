@@ -3,11 +3,11 @@
     xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="MF_jms.msgflow" nsPrefix="MF_jms.msgflow">
   <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="SQUARE">
     <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
-    <translation xmi:type="utility:TranslatableString" key="MF_jms" bundleName="MF_jms" pluginId="App_jms"/>
-    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_jms/icons/full/obj16/MF_jms.gif"/>
-    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_jms/icons/full/obj30/MF_jms.gif"/>
+    <translation xmi:type="utility:TranslatableString" key="MF_jms" bundleName="MF_jms" pluginId="App_jms_nodes"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_jms_nodes/icons/full/obj16/MF_jms.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_jms_nodes/icons/full/obj30/MF_jms.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmJMSClientOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="350,74" destinationQueueName="n2" replyToDestination="queue://TESTQM/Q3" useDistList="true" locationJndiBindings="file:/C:/JMS/" connectionFactoryName="cf1">
+      <nodes xmi:type="ComIbmJMSClientOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="350,74" destinationQueueName="n5" locationJndiBindings="file:/C:/JMS/" connectionFactoryName="cf1">
         <translation xmi:type="utility:ConstantString" string="JMS Output"/>
       </nodes>
       <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="60,73" queueName="Q1" destinationQueueManagerName="TESTQM">

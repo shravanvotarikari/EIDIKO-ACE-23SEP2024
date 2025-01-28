@@ -1,0 +1,10 @@
+
+
+CREATE COMPUTE MODULE MF_backend_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot = InputRoot;
+		SET OutputRoot.JSON.Data.status = 'Data retrieved successfully';
+		RETURN TRUE;
+	END;
+END MODULE;

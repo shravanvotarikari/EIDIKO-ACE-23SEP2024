@@ -1,0 +1,13 @@
+
+
+CREATE COMPUTE MODULE MF_JMSReply_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.JMSTransport.Transport_Folders.Header_Values.JMSReplyTo = 'myq';
+	END;
+END MODULE;

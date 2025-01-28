@@ -1,0 +1,34 @@
+PATH ExampleDB_Log;
+
+CREATE COMPUTE MODULE MF_ExampleDatabase_1212_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		 DECLARE Payload CHARACTER;
+		 SET Payload = CAST(ASBITSTREAM(InputRoot.XMLNSC) AS CHARACTER CCSID 1208 ENCODING 546);
+		 CALL ExampleDB_Proc(Payload, CURRENT_TIMESTAMP, 1, 101, MessageFlowLabel, ApplicationLabel, 'Channel_Request');
+		
+		 SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		
+		 SET Payload = CAST(ASBITSTREAM(OutputRoot.JSON.Data) AS CHARACTER CCSID 1208 ENCODING 546);
+		 CALL ExampleDB_Proc(Payload, CURRENT_TIMESTAMP, 2, 101, MessageFlowLabel, ApplicationLabel, 'Backend_Request');
+		 
+	END;
+END MODULE;
+

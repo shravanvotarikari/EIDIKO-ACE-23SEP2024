@@ -3,6 +3,7 @@
 	<name>APP_GROUP_BACKEND</name>
 	<comment></comment>
 	<projects>
+		<project>Lib_ExceptionList</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

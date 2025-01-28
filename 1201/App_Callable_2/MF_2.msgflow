@@ -9,7 +9,7 @@
       <nodes xmi:type="ComIbmCallableFlowInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="81,96" callableInputEndpoint="c1">
         <translation xmi:type="utility:ConstantString" string="Callable Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmCallableFlowReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="640,90">
+      <nodes xmi:type="ComIbmCallableFlowReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="571,92">
         <translation xmi:type="utility:ConstantString" string="Callable Reply"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="280,94" computeExpression="esql://routine/#MF_2_Compute.Main">

@@ -1,0 +1,30 @@
+CREATE COMPUTE MODULE MF_ExampleDatabase1200_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;		 
+
+--		Routing to particular label according to operation
+		IF InputRoot.XMLNSC.request.header.operation = 'AccountOpening' THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData.labelName = 'label1';
+		ELSEIF InputRoot.XMLNSC.request.header.operation = 'KYC' THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData.labelName = 'label2';
+		ELSE
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData.labelName = 'label3';
+		END IF;		 
+		
+		 
+--		ESB request received logpoint
+		SET Environment.var1.logPoint = 'ESB Request Provided';
+		SET Environment.var1.requestTime = CURRENT_TIMESTAMP;
+		SET Environment.var1.requestMsg = CAST(ASBITSTREAM(InputRoot.XMLNSC) AS CHARACTER CCSID 1208);
+		
+		 --THROW USER EXCEPTION SEVERITY 3 CATALOG 'BIPmsgs' MESSAGE 8951 VALUES('User Exception from Avishkar');
+
+	END;
+END MODULE;

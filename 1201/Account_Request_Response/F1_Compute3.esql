@@ -1,0 +1,16 @@
+
+
+CREATE COMPUTE MODULE F1_Compute3
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		SET OutputRoot.XMLNSC.a.request.status = 'Entry is not present';
+	END;
+END MODULE;

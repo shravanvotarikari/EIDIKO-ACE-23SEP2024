@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-   <!-- ******************************************************************
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- ******************************************************************
 	* Licensed Materials - Property of IBM
 	*
 	* (C) Copyright IBM Corp. 2011, 2014
@@ -18,57 +17,31 @@
 	* Example use: 
 	* 
 	*  <xsd:import namespace="http://www.ibm.com/dfdl/CommaSeparatedFormat" schemaLocation="CommaSeparatedFormat.xsd"/>
-	******************************************************************* -->
-	
-
-
-<xsd:schema targetNamespace="http://www.ibm.com/dfdl/CommaSeparatedFormat"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-	xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
-	xmlns:fn="http://www.w3.org/2005/xpath-functions"
-	xmlns:tns="http://www.ibm.com/dfdl/CommaSeparatedFormat"> 
-	<xsd:annotation>
-		<xsd:appinfo source="http://www.ogf.org/dfdl/">
-
-			<dfdl:defineEscapeScheme name="CSVEscapeScheme">
-				<dfdl:escapeScheme escapeKind="escapeBlock"
-					escapeBlockStart='"' escapeBlockEnd='"' escapeCharacter='"'
-					escapeEscapeCharacter='"' generateEscapeBlock="whenNeeded"
-					extraEscapedCharacters=", %#x0D; %#x0A;">
+	******************************************************************* --><xsd:schema xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:tns="http://www.ibm.com/dfdl/CommaSeparatedFormat" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.ibm.com/dfdl/CommaSeparatedFormat">
+   
+    
+  <xsd:annotation>
+    		
+    <xsd:appinfo source="http://www.ogf.org/dfdl/">
+      			
+      <dfdl:defineEscapeScheme name="CSVEscapeScheme">
+        				
+        <dfdl:escapeScheme escapeBlockEnd="&quot;" escapeBlockStart="&quot;" escapeCharacter="&quot;" escapeEscapeCharacter="&quot;" escapeKind="escapeBlock" extraEscapedCharacters=", %#x0D; %#x0A;" generateEscapeBlock="whenNeeded">
 				</dfdl:escapeScheme>
-			</dfdl:defineEscapeScheme>
-
-			<dfdl:defineFormat name="CommaSeparatedFormat">
-				<dfdl:format encoding="US-ASCII" ignoreCase="no" byteOrder="bigEndian"
-					lengthUnits="characters" representation="text" textPadKind="none"
-					textStringJustification="left" truncateSpecifiedLengthString="no"
-					decimalSigned="yes" textNumberCheckPolicy="lax"
-					textNumberJustification="right" textZonedSignStyle="asciiStandard"
-					textBooleanJustification="left" sequenceKind="ordered"
-					choiceLengthKind="implicit" separator="," separatorPolicy="suppressedAtEndLax"
-					separatorPosition="infix" emptyValueDelimiterPolicy="none"
-					documentFinalTerminatorCanBeMissing="no" lengthKind="delimited"
-					textNumberRounding="pattern" textTrimKind="padChar"
-					textStandardBase="10" textStandardDecimalSeparator="."
-					textStandardExponentCharacter="E" escapeSchemeRef="tns:CSVEscapeScheme"
-					alignment="1" alignmentUnits="bytes" leadingSkip="0" trailingSkip="0"
-					fillByte="0" textStringPadCharacter="%SP;" initiatedContent="no"
-					textNumberPadCharacter="%SP;" textBooleanPadCharacter="%SP;"
-					textNumberRep="standard" textStandardGroupingSeparator=","
-					textStandardZeroRep="" textNumberRoundingMode="roundUp"
-					calendarPatternKind="implicit" calendarPattern="yyyy-MM-dd'T'HH:mm:ss"
-					calendarCheckPolicy="lax" calendarTimeZone="UTC"
-					calendarObserveDST="yes" calendarFirstDayOfWeek="Monday"
-					calendarDaysInFirstWeek="4" textCalendarJustification="left"
-					textCalendarPadCharacter="%SP;" calendarCenturyStart="53"
-					calendarLanguage="en-US" occursCountKind="implicit"
-					textStandardInfinityRep="Inf" textStandardNaNRep="NaN"
-					textBooleanTrueRep="true" textBooleanFalseRep="false" 
-					initiator="" terminator=""  nilValueDelimiterPolicy="none"  outputNewLine="%CR;%LF;" binaryFloatRep="ieee" textBidi="no"  floating="no"  >
+        			
+      </dfdl:defineEscapeScheme>
+      			
+      <dfdl:defineFormat name="CommaSeparatedFormat">
+        				
+        <dfdl:format alignment="1" alignmentUnits="bytes" binaryFloatRep="ieee" byteOrder="bigEndian" calendarCenturyStart="53" calendarCheckPolicy="lax" calendarDaysInFirstWeek="4" calendarFirstDayOfWeek="Monday" calendarLanguage="en-US" calendarObserveDST="yes" calendarPattern="yyyy-MM-dd'T'HH:mm:ss" calendarPatternKind="implicit" calendarTimeZone="UTC" choiceLengthKind="implicit" decimalSigned="yes" documentFinalTerminatorCanBeMissing="no" emptyValueDelimiterPolicy="none" encoding="US-ASCII" escapeSchemeRef="tns:CSVEscapeScheme" fillByte="0" floating="no" ignoreCase="no" initiatedContent="no" initiator="" leadingSkip="0" lengthKind="delimited" lengthUnits="characters" nilValueDelimiterPolicy="none" occursCountKind="implicit" outputNewLine="%CR;%LF;" representation="text" separator="," separatorPosition="infix" separatorSuppressionPolicy="trailingEmpty" sequenceKind="ordered" terminator="" textBidi="no" textBooleanFalseRep="false" textBooleanJustification="left" textBooleanPadCharacter="%SP;" textBooleanTrueRep="true" textCalendarJustification="left" textCalendarPadCharacter="%SP;" textNumberCheckPolicy="lax" textNumberJustification="right" textNumberPadCharacter="%SP;" textNumberRep="standard" textNumberRounding="pattern" textNumberRoundingMode="roundUp" textPadKind="none" textStandardBase="10" textStandardDecimalSeparator="." textStandardExponentRep="E" textStandardGroupingSeparator="," textStandardInfinityRep="Inf" textStandardNaNRep="NaN" textStandardZeroRep="" textStringJustification="left" textStringPadCharacter="%SP;" textTrimKind="padChar" textZonedSignStyle="asciiStandard" trailingSkip="0" truncateSpecifiedLengthString="no">
 				</dfdl:format>
-			</dfdl:defineFormat>
+        			
+      </dfdl:defineFormat>
+      			
 			
-			
-		</xsd:appinfo>
-	</xsd:annotation>
+		
+    </xsd:appinfo>
+    	
+  </xsd:annotation>
+  
 </xsd:schema>

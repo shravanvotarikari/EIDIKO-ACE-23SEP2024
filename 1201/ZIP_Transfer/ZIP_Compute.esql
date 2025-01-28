@@ -1,0 +1,18 @@
+
+
+CREATE COMPUTE MODULE ZIP_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		CREATE LASTCHILD OF Environment.VAR DOMAIN('XMLNSC') PARSE(InputRoot.BLOB.BLOB CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);--str OPTIONS RootBitStream);
+		SET OutputRoot.JSON.Data = Environment.VAR.XMLNSC;
+		
+		
+	END;
+END MODULE;

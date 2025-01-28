@@ -1,0 +1,45 @@
+CREATE DATABASE MODULE MF_Database_Node_CRUD_Database
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL DB_CRUD();
+		RETURN TRUE;
+	END;
+	
+CREATE PROCEDURE DB_CRUD() BEGIN
+	 DECLARE inRef REFERENCE TO Root.JSON.Data;
+	 DECLARE id INTEGER inRef.id;
+	 DECLARE name CHARACTER inRef.name;
+	 DECLARE tech CHARACTER inRef.tech;                                                                                                                                                             
+	 DECLARE salary INTEGER inRef.salary;
+	 
+	 DECLARE operation CHARACTER inRef.operation;
+	 IF operation='insert' THEN
+	 	PASSTHRU('INSERT INTO Eidiko VALUES(?,?,?,?)', id,name,tech,salary);
+	 	SET Environment.data='Data is inserted successfully';
+	 	
+	 ELSEIF operation ='update' THEN
+	 	PASSTHRU('UPDATE Eidiko SET tech =?, salary=? WHERE id=?', tech,salary,id);
+	 	SET Environment.data='Data updated successfully';
+	 	
+	 ELSEIF operation ='select' THEN
+	 	--SET Environment.data[]=PASSTHRU('SELECT * FROM Eidiko WHERE id=?', id);
+	 	SET Environment.operation = operation;
+	---calling procedure for dynamic result set
+	 	CALL dynamicRes(id,Environment.data[]);
+	 	
+	  ELSEIF operation ='delete' THEN
+	  	PASSTHRU('DELETE FROM Eidiko WHERE id=?', id);
+	 	SET Environment.data='Data is deleted successfully';
+	 	
+	 END IF;		
+	
+	END;
+
+END MODULE;
+--Retrieving data using dynamic result set
+
+CREATE PROCEDURE  dynamicRes(IN id INTEGER)
+LANGUAGE DATABASE
+DYNAMIC RESULT SETS 1
+EXTERNAL NAME "GetEidikoDetails";
+  

@@ -1,0 +1,22 @@
+
+
+Importing file: C:\Users\syste\git\EIDIKO-ACE-23SEP2024\1202\WS_security\WS_consumer\NewWSDLFile.wsdl
+
+The WSDL import will proceed with bindings NewWSDLFileSOAP.
+Creating wsdl schema document for file:///C:/Users/syste/git/EIDIKO-ACE-23SEP2024/1202/WS_security/WS_consumer/NewWSDLFile.wsdl.
+Parsing wsdl binding {http://www.example.org/NewWSDLFile/}NewWSDLFileSOAP.
+Parsing wsdl binding input One.
+Parsing wsdl binding output One.
+Processing doc style for operation One.
+Populating WSDL schema NewWSDLFile.xsd.
+Creating file NewWSDLFile.xsd in the workspace.
+Creating file /ExampleJMSInput/NewWSDLFile_InlineSchema1.xsd in the workspace.
+Copying source WSDL NewWSDLFile.wsdl to NewWSDLFile.wsdl.
+
+Elapsed time processing this message definition file: 0.235 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+

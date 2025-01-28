@@ -1,0 +1,18 @@
+CREATE FILTER MODULE MF_Filter_Node_Filter
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+    DECLARE acc_no INTEGER Root.JSON.Data.acc_no;
+    DECLARE emp_exists BOOLEAN FALSE;
+    
+    SET emp_exists = EXISTS(SELECT acc_no FROM Database.FILTER_ACC AS FA WHERE FA.acc_no = acc_no);
+    
+    IF emp_exists THEN 
+        RETURN TRUE;
+    ELSE
+        RETURN FALSE;
+    END IF;
+    RETURN TRUE;
+END;
+
+
+END MODULE;

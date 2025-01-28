@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Broker>
+    <CompiledApplication>
+        <ConfigurableProperty uri="startMode"/>
+    </CompiledApplication>
+    <CompiledMessageFlow name="mf_itext">
+        <ConfigurableProperty uri="mf_itext#additionalInstances"/>
+        <ConfigurableProperty uri="mf_itext#notificationThresholdMsgsPerSec"/>
+        <ConfigurableProperty uri="mf_itext#maximumRateMsgsPerSec"/>
+        <ConfigurableProperty uri="mf_itext#processingTimeoutSec"/>
+        <ConfigurableProperty uri="mf_itext#processingTimeoutAction"/>
+        <ConfigurableProperty uri="mf_itext#wlmPolicy"/>
+        <ConfigurableProperty uri="mf_itext#commitCount"/>
+        <ConfigurableProperty uri="mf_itext#commitInterval"/>
+        <ConfigurableProperty uri="mf_itext#coordinatedTransaction"/>
+        <ConfigurableProperty uri="mf_itext#consumerPolicySet"/>
+        <ConfigurableProperty uri="mf_itext#providerPolicySet"/>
+        <ConfigurableProperty uri="mf_itext#consumerPolicySetBindings"/>
+        <ConfigurableProperty uri="mf_itext#providerPolicySetBindings"/>
+        <ConfigurableProperty uri="mf_itext#securityProfileName"/>
+        <ConfigurableProperty uri="mf_itext#monitoringProfile"/>
+        <ConfigurableProperty uri="mf_itext#startMode"/>
+        <ConfigurableProperty uri="mf_itext#startInstancesWhenFlowStarts"/>
+        <ConfigurableProperty override="/genratePDF" uri="mf_itext#HTTP Input.URLSpecifier"/>
+        <ConfigurableProperty uri="mf_itext#HTTP Input.useHTTPS"/>
+        <ConfigurableProperty uri="mf_itext#HTTP Input.decompressInputMessage"/>
+        <ConfigurableProperty uri="mf_itext#HTTP Input.timeoutForClient"/>
+        <ConfigurableProperty uri="mf_itext#HTTP Input.faultFormat"/>
+        <ConfigurableProperty uri="mf_itext#HTTP Input.validateMaster"/>
+        <ConfigurableProperty uri="mf_itext#HTTP Input.securityProfileName"/>
+        <ConfigurableProperty uri="mf_itext#HTTP Reply.compressionType"/>
+        <ConfigurableProperty uri="mf_itext#HTTP Reply.validateMaster"/>
+        <ConfigurableProperty uri="mf_itext#Java Compute.javaClassLoader"/>
+        <ConfigurableProperty uri="mf_itext#Java Compute.validateMaster"/>
+    </CompiledMessageFlow>
+</Broker>

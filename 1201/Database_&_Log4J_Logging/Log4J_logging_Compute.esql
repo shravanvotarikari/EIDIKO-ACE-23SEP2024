@@ -1,0 +1,29 @@
+DECLARE var_path CHARACTER 'C:\Users\Sreenivas Bandaru\Desktop\Log4jConfigurationFile.xml';
+DECLARE result BOOLEAN;
+
+CREATE COMPUTE MODULE Log4J_logging_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		 CALL init_Log(var_path) INTO result;
+		 CALL CopyEntireMessage();
+		 CALL write_log(MessageFlowLabel,'dco_debug','DEBUG','Mohit') INTO result;
+		RETURN TRUE;
+	END;
+
+	
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
+
+
+CREATE FUNCTION init_Log(IN var_path CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
+
+
+create PROCEDURE write_log (IN mfName CHARACTER, IN logger_name CHARACTER, IN level CHARACTER, IN data CHARACTER ) RETURNS BOOLEAN 
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";

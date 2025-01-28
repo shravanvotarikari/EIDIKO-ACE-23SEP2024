@@ -1,0 +1,39 @@
+
+CREATE COMPUTE MODULE getStatement_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+	DECLARE cc_number INTEGER;
+	DECLARE start_date DATE;
+	DECLARE end_date DATE;
+	
+	DECLARE transactions ROW;
+	DECLARE card_details ROW;
+	
+
+	SET cc_number = cast(InputRoot.JSON.Data.cardNumber AS INTEGER);
+	SET start_date = cast(InputRoot.JSON.Data.statementFromDate as DATE FORMAT 'yyyy-mm-dd');
+	SET end_date = cast(InputRoot.JSON.Data.statementToDate as DATE FORMAT 'yyyy-mm-dd');
+	
+	set card_details.fields[] = select * from Database.CREDITCARD_DETAILS as d where d.card_number = cc_number;
+	
+	set transactions.i[] = SELECT * FROM Database.CREDIT_CARD_TRANSACTIONS AS t WHERE t.card_number = cc_number AND t.transaction_date BETWEEN start_date AND end_date;
+	
+	CREATE FIELD OutputRoot.JSON.Data.card_details;
+	CREATE FIELD OutputRoot.JSON.Data.transactions IDENTITY(JSON.Array)transactions;
+	
+	DECLARE AMOUNT INTEGER;
+	SET AMOUNT = cast(transactions.i[1].AMOUNT as integer);
+	
+
+	SET OutputRoot.JSON.Data.card_details = card_details;
+	SET OutputRoot.JSON.Data.transactions = transactions;
+	
+	END;
+END MODULE;

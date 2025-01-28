@@ -1,0 +1,30 @@
+
+
+CREATE COMPUTE MODULE MF_MongoDB_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+	
+--		SET OutputRoot.JSON.Data.students.Name='ashar';
+--		set  OutputRoot = InputRoot;
+--		if (InputRoot.JSON.Data.Name = "Name") then 
+--			
+--			SET OutputRoot.JSON.Data.students.section='EXTC';
+--			end if;
+
+--set OutputRoot = InputRoot;
+
+--	SET OutputRoot.JSON.Data.students.Section='it';
+
+	 SET OutputLocalEnvironment.Destination.Loopback.Request.id = InputRoot.JSON.Data.id;
+	 	
+	 	
+	 	SET OutputRoot.JSON.Data.Information.name='avishkar';
+	 	
+	 	
+	 	
+	 	
+		RETURN TRUE;
+	END;
+
+END MODULE;

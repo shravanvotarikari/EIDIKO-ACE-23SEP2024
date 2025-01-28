@@ -1,0 +1,64 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Acc_Bal_Enquiry_Service",
+    "version" : "1.0.0",
+    "description" : "Acc_Bal_Enquiry_Service"
+  },
+  "paths" : {
+    "/getBal" : {
+      "get" : {
+        "operationId" : "getGetBal",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/request"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve getBal",
+        "parameters" : [ ]
+      }
+    },
+    "/postBal" : {
+      "post" : {
+        "operationId" : "postPostBal",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Insert a postBal",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "$ref" : "#/definitions/request"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        } ]
+      }
+    }
+  },
+  "basePath" : "/acc_bal_enquiry_service/v1",
+  "definitions" : {
+    "request" : {
+      "type" : "object",
+      "properties" : {
+        "BalReq" : {
+          "type" : "object",
+          "properties" : {
+            "accountNO" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
