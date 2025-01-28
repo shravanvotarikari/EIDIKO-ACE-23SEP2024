@@ -9,9 +9,9 @@ CREATE COMPUTE MODULE MF_Consumer_Compute2
 	END;
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 	--	SET OutputRoot = InputRoot;	
---		DECLARE Payload CHARACTER;
---		SET Payload = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID 1208 ENCODING 546);
---		call Insert_Data_BE(Payload, CURRENT_TIMESTAMP, 1, MessageFlowLabel, ApplicationLabel,'Channel_Request');
---		
+		DECLARE Payload CHARACTER;
+		SET Payload = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID 1208 ENCODING 546);
+		call Insert_Data_BE(Payload, CURRENT_TIMESTAMP, 2, MessageFlowLabel, ApplicationLabel,'Channel_Request');
+	
 	END;
 END MODULE;

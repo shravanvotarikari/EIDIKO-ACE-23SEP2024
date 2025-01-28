@@ -1,3 +1,4 @@
+
 PATH Lib_DatabaseLog_Procedure;
 
 DECLARE ns NAMESPACE 'http://www.example.org/NewWSDLFile/';
@@ -7,40 +8,68 @@ CREATE COMPUTE MODULE MF_Consumer_Compute
 		CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
-
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET Environment.Request.Accountno=InputRoot.JSON.Data.accountNumber;
+		SET Environment.Request.MsgId=InputRoot.HTTPInputHeader.Msgid;
+	DECLARE MsgId CHARACTER InputRoot.HTTPInputHeader.Msgid;
+
+		
+		------------------------------------------Log1
+		
+		DECLARE Payload CHARACTER CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID 1208 ENCODING 546);
+		call DBLogging(Payload, CURRENT_TIMESTAMP, MsgId, MessageFlowLabel, ApplicationLabel, 'Channel_Request');
+		
+		----------------------------------		
+	--	DECLARE CONTINUE HANDLER FOR SQLSTATE LIKE '%' BEGIN END;
 		DECLARE AccountNumber CHARACTER;
 		DECLARE AccountExists INTEGER;
-		
-		DECLARE acc_no INTEGER;
-		--DECLARE accountNO INTEGER InputRoot.JSON.Data.accountNumber;
-		
-		SET AccountNumber =  InputRoot.JSON.Data.accountNumber;
-		SET Environment.var =  InputRoot.JSON.Data.accountNumber;
-		SET OutputRoot.JSON.Data.details=Environment.var ;
-	--	Propagate to terminal 'out1' delete none;
-		
-		
-		IF AccountNumber IS NULL THEN
-          THROW USER EXCEPTION VALUES('Account number does not exist');
-        ELSEIF LENGTH(AccountNumber) <> 10 THEN
-          THROW USER EXCEPTION VALUES('Invalid account number: must be 10 digits');
-        END IF;
-        
-        SET AccountExists = (SELECT COUNT(*) FROM Database.balance_details AS B WHERE B.acc_no = AccountNumber);
 
-        IF AccountExists = 0 THEN
-          THROW USER EXCEPTION VALUES('Account number does not exist in the database');
-        END IF;
-        
-		DECLARE Payload CHARACTER;
-		SET Payload = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID 1208 ENCODING 546);
-		call Insert_Data_BE(Payload, CURRENT_TIMESTAMP, 1, MessageFlowLabel, ApplicationLabel,'Channel_Request');	
+		SET AccountNumber = InputRoot.JSON.Data.accountNumber;
+
+		--SET OutputRoot.JSON.Data.details=Environment.var ;
+		--Propagate to terminal 'out1' delete none;
+		SET OutputRoot = null;
+		IF AccountNumber IS NULL THEN
+			THROW USER EXCEPTION VALUES('Account number does not exist');
+		ELSEIF LENGTH(AccountNumber) <> 10 THEN
+			THROW USER EXCEPTION VALUES('Invalid account number: must be 10 digits');
+		END IF;
+
+		SET AccountExists = (SELECT COUNT(*) FROM Database.ACC_Details AS B WHERE B.accountNumber = AccountNumber);
+
+		IF AccountExists = 0 THEN
+			THROW USER EXCEPTION VALUES('Account number does not exist in the database');
+		END IF;
+
+		--Propagate to terminal 'out1' delete none;
+		DECLARE outref REFERENCE TO OutputRoot.SOAP.Body.ns:NewOperation.accountNumber;
+		SET OutputRoot.SOAP.Body.ns:NewOperation.accountNumber = InputRoot.JSON.Data.accountNumber;
+		------------------------------------------Log2
 		
-       DECLARE outref REFERENCE TO OutputRoot.SOAP.Body.ns:NewOperation.accountNumber;
-        SET OutputRoot.SOAP.Body.ns:NewOperation.accountNumber = InputRoot.JSON.Data.accountNumber;
-        SET Payload = CAST(ASBITSTREAM(outref) AS CHARACTER CCSID 1208 ENCODING 546);
-      call Insert_Data_BE(Payload, CURRENT_TIMESTAMP, 1, MessageFlowLabel, ApplicationLabel,'Backend_Request');	
-	END;
+		SET Payload = CAST(ASBITSTREAM( OutputRoot.SOAP.Body) AS CHARACTER CCSID 1208 ENCODING 546);
+		SET OutputRoot=null;
+		call DBLogging(Payload, CURRENT_TIMESTAMP, MsgId, MessageFlowLabel, ApplicationLabel, 'Backend_Request');
+		
+		----------------------------------		
+		SET OutputRoot.SOAP.Body.ns:NewOperation.accountNumber = InputRoot.JSON.Data.accountNumber;
+
+	END;	
+
+	CREATE PROCEDURE DBLogging(IN Payload CHARACTER,IN log_time TIMESTAMP ,IN MsgId CHARACTER,IN MessageFlowname CHARACTER,IN Applicationname CHARACTER,IN log_point CHARACTER )
+	BEGIN
+		CREATE FIELD OutputRoot.JSON.Data;
+		DECLARE Outref REFERENCE TO OutputRoot.JSON.Data;
+		SET Outref.Payload= Payload;
+		SET Outref.log_time= log_time;
+		SET Outref.MsgId= MsgId;
+		SET Outref.MessageFlowname= MessageFlowname;
+		SET Outref.Applicationname= Applicationname;
+		SET Outref.log_point= log_point;
+		
+		
+		PROPAGATE TO TERMINAL 'out1';	 	
+	SET Outref = null;
 	
+	END;
 END MODULE;
+

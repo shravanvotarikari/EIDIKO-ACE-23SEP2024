@@ -9,13 +9,22 @@ CREATE COMPUTE MODULE MF_Consumer_Compute1
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-
+	--	DECLARE CONTINUE HANDLER FOR SQLSTATE LIKE '%' BEGIN END;
+		--throw User exception values('user defined exception occured');
 		--DECLARE inRef REFERENCE TO InputRoot.SOAP.Body.*:NewOperationResponse;
 		DECLARE inRef REFERENCE TO InputRoot.SOAP;
 		DECLARE Payload CHARACTER;
-	--	SET Payload = CAST(inRef AS CHARACTER CCSID 1208 ENCODING 546);
-			SET Payload = CAST(ASBITSTREAM(inRef) AS CHARACTER CCSID 1208 ENCODING 546);
-		call Insert_Data_BE(Payload, CURRENT_TIMESTAMP, 1, MessageFlowLabel, ApplicationLabel,'Backend Response');
+		------------------------------------------Log3
+		
+		DECLARE MsgId CHARACTER  Environment.Request.MsgId;
+		
+		SET Payload = CAST(ASBITSTREAM(inRef) AS CHARACTER CCSID 1208 ENCODING 546);
+		call DBLogging(Payload, CURRENT_TIMESTAMP, MsgId, MessageFlowLabel, ApplicationLabel, 'Backend_Response');
+		
+		----------------------------------		
+--	--	SET Payload = CAST(inRef AS CHARACTER CCSID 1208 ENCODING 546);
+--			SET Payload = CAST(ASBITSTREAM(inRef) AS CHARACTER CCSID 1208 ENCODING 546);
+--		call Insert_Data_BE(Payload, CURRENT_TIMESTAMP, 2, MessageFlowLabel, ApplicationLabel,'Backend Response');
 
 		CREATE FIELD OutputRoot.JSON.Data;
 		CREATE FIELD OutputRoot.JSON.Data.AccountDetails IDENTITY(JSON.Array);
@@ -23,7 +32,33 @@ CREATE COMPUTE MODULE MF_Consumer_Compute1
 		SET OutputRoot.JSON.Data.AccountDetails.Item[1].Name='Vedanti';
 		SET OutputRoot.JSON.Data.AccountDetails.Item[1].AccNumber = InputRoot.SOAP.Body.ns:NewOperationResponse.accountNumber.ACCOUNTNUMBER;
 
+		------------------------------------------Log4
+		
 		SET Payload = CAST(ASBITSTREAM(OutputRoot.JSON.Data) AS CHARACTER CCSID 1208 ENCODING 546);
-		call Insert_Data_BE(Payload, CURRENT_TIMESTAMP, 1, MessageFlowLabel, ApplicationLabel,'Channel_Response');
+		call DBLogging(Payload, CURRENT_TIMESTAMP, MsgId, MessageFlowLabel, ApplicationLabel, 'Channel_Response');
+		
+		----------------------------------		
+		CREATE FIELD OutputRoot.JSON.Data;
+		CREATE FIELD OutputRoot.JSON.Data.AccountDetails IDENTITY(JSON.Array);
+		SET OutputRoot.JSON.Data.AccountDetails.Item[1].AccBalance = InputRoot.SOAP.Body.ns:NewOperationResponse.accountBalance.BALANCE;
+		SET OutputRoot.JSON.Data.AccountDetails.Item[1].Name='Vedanti';
+		SET OutputRoot.JSON.Data.AccountDetails.Item[1].AccNumber = InputRoot.SOAP.Body.ns:NewOperationResponse.accountNumber.ACCOUNTNUMBER;
+		END;
+		
+	CREATE PROCEDURE DBLogging(IN Payload CHARACTER,IN log_time TIMESTAMP ,IN MsgId CHARACTER,IN MessageFlowname CHARACTER,IN Applicationname CHARACTER,IN log_point CHARACTER )
+	BEGIN
+		CREATE FIELD OutputRoot.JSON.Data;
+		DECLARE Outref REFERENCE TO OutputRoot.JSON.Data;
+		SET Outref.Payload= Payload;
+		SET Outref.log_time= log_time;
+		SET Outref.MsgId= MsgId;
+		SET Outref.MessageFlowname= MessageFlowname;
+		SET Outref.Applicationname= Applicationname;
+		SET Outref.log_point= log_point;
+		
+		
+		PROPAGATE TO TERMINAL 'out1';	 	
+	SET Outref = null;
+	
 	END;
 END MODULE;
