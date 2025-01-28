@@ -12,7 +12,7 @@ CREATE COMPUTE MODULE MF_Test_Compute
 		
 		DECLARE serviceCode integer InputLocalEnvironment.HTTP.Input.QueryString.serviceCode;
 
-		SET Environment.var = PASSTHRU('SELECT SERVICEURL FROM URLTABLE WHERE SERVICECODE = ?', serviceCode);
+		SET Environment.var = PASSTHRU('SELECT SERVICEURL FROM URLTABLE WHERE SERVICECODE = ?', serviceCode);		
 		
 		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = Environment.var.SERVICEURL;
 	END;
