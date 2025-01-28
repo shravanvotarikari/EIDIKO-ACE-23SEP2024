@@ -1,6 +1,6 @@
 
 
-CREATE COMPUTE MODULE n
+CREATE COMPUTE MODULE postReversePayment_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
