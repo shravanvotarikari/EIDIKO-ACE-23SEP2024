@@ -5,6 +5,8 @@ CREATE COMPUTE MODULE MF_Example_database_1211_Compute1
 	BEGIN
 		-- CALL CopyMessageHeaders();
 		 CALL CopyEntireMessage();
+		 		SET Environment.variables.val2 = 2;
+
 		RETURN TRUE;
 	END;
 

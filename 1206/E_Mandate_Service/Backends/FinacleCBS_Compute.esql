@@ -1,0 +1,36 @@
+BROKER SCHEMA Backends
+
+
+
+
+CREATE COMPUTE MODULE FinacleCBS_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		DECLARE r ROW;
+
+		SET r.status[] = SELECT t.CBS_ID FROM Database.CBS_FINACLE as t WHERE t.BankAccount = InputRoot.SOAP.Body.BankAccount AND t.IFSC_MICR = InputRoot.SOAP.Body.IFSC_MICR;
+
+		IF r.status.[1] IS NOT NULL THEN
+			SET OutputRoot.SOAP.Body.status = 'success';
+		ELSE
+			SET OutputRoot.SOAP.Body.status = 'fail';
+		END IF;
+	END;
+END MODULE;

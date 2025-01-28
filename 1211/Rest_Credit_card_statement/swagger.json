@@ -1,0 +1,121 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Rest_Credit_card_statement",
+    "version" : "1.0.0",
+    "description" : "Rest_Credit_card_statement"
+  },
+  "paths" : {
+    "/statement" : {
+      "get" : {
+        "operationId" : "getStatement",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/success_response"
+            }
+          },
+          "400" : {
+            "description" : "The operation was unsuccessful.",
+            "schema" : {
+              "$ref" : "#/definitions/failure_response"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve statement",
+        "parameters" : [ ]
+      },
+      "post" : {
+        "operationId" : "postStatement",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/success_response"
+            }
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Insert a statement",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "$ref" : "#/definitions/request_header"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        } ]
+      }
+    }
+  },
+  "basePath" : "/rest_credit_card_statement/v1",
+  "definitions" : {
+    "request_header" : {
+      "type" : "object",
+      "properties" : {
+        "cardNumber" : {
+          "type" : "number"
+        },
+        "statementFromDate" : {
+          "type" : "object",
+          "properties" : { }
+        },
+        "statementToDate" : {
+          "type" : "object"
+        }
+      },
+      "required" : [ "cardNumber" ]
+    },
+    "success_response" : {
+      "type" : "object",
+      "properties" : {
+        "body" : {
+          "type" : "object",
+          "properties" : {
+            "cardHolderName" : {
+              "type" : "string"
+            },
+            "cardNumber" : {
+              "type" : "string"
+            },
+            "statementFromDate" : {
+              "type" : "string"
+            },
+            "statementToDate" : {
+              "type" : "string"
+            },
+            "totalDue" : {
+              "type" : "string"
+            },
+            "transaction" : {
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "properties" : {
+                  "date" : {
+                    "type" : "object"
+                  },
+                  "amount" : {
+                    "type" : "number"
+                  },
+                  "type" : {
+                    "type" : "string"
+                  }
+                },
+                "required" : [ "amount", "type", "date" ]
+              }
+            }
+          },
+          "required" : [ "cardHolderName" ]
+        }
+      }
+    },
+    "failure_response" : {
+      "type" : "object"
+    }
+  }
+}

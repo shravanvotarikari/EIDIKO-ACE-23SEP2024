@@ -1,0 +1,30 @@
+
+
+CREATE COMPUTE MODULE CBSValidate_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.SOAP = InputRoot.SOAP;
+		SET OutputLocalEnvironment =InputLocalEnvironment;
+		SET OutputRoot.JSON = InputLocalEnvironment.Variables.payload;
+		SET OutputRoot.JSON.Data.CBS = InputRoot.SOAP.Body.status;
+		UPDATE Database.MANDATE_STATUS AS t SET ACC_VALIDATION = InputRoot.SOAP.Body.status WHERE t.mandate_id = InputLocalEnvironment.Variables.payload.Data.MandateId;
+		SET OutputRoot.SOAP = NULL;
+		SET OutputLocalEnvironment.Variables = NULL;
+	END;
+END MODULE;
