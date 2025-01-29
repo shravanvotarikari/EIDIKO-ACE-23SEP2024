@@ -9,22 +9,37 @@ CREATE COMPUTE MODULE MF_Acc_Bal_Enquiry_Compute1
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		
+	--	DECLARE CONTINUE HANDLER FOR SQLSTATE LIKE '%' BEGIN END;
 		
-		
-			DECLARE Payload CHARACTER;
+			DECLARE Payload CHARACTER InputRoot.JSON.Data;
 			--THROW USER EXCEPTION VALUES('exception occured');
 
 		--SET Payload = CAST(ASBITSTREAM(InputRoot.XMLNSC) AS CHARACTER CCSID 1208 ENCODING 546);
 		SET Payload = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID 1208 ENCODING 546);
-		
-		call DB_loggProc(Payload, CURRENT_TIMESTAMP,101,MessageFlowLabel,ApplicationLabel,'Backend_Response');
-
-		--SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		SET OutputRoot=null;
+		call DB_log(Payload, CURRENT_TIMESTAMP,101,MessageFlowLabel,ApplicationLabel,'Backend_Response');
 		
 		SET OutputRoot.XMLNSC.res = InputRoot.JSON.Data;
 		
 		SET Payload = CAST(ASBITSTREAM(OutputRoot.XMLNSC) AS CHARACTER CCSID 1208 ENCODING 546);
-		call DB_loggProc(Payload, CURRENT_TIMESTAMP,101,MessageFlowLabel,ApplicationLabel,'Channel_response');
+		SET OutputRoot=null;
+			call DB_log(Payload, CURRENT_TIMESTAMP,101,MessageFlowLabel,ApplicationLabel,'Channel_Response');
+			SET OutputRoot.XMLNSC.res = InputRoot.JSON.Data;
 		
-	END;
+		END;
+		CREATE Procedure DB_log(IN Payload CHARACTER, IN Log_time TIMESTAMP, In MsgId INTEGER, IN msgFlowname CHARACTER, IN applicationName CHARACTER, IN Log_point CHARACTER)
+	
+		Begin
+			CREATE FIELD OutputRoot.JSON.Data;
+			DECLARE outref REFERENCE TO OutputRoot.JSON.Data;
+			SET outref.Payload=Payload;
+			SET outref.Log_time=Log_time;
+			SET outref.MsgId=MsgId;
+			SET outref.msgFlowname=msgFlowname;
+			SET outref.applicationName=applicationName;
+			SET outref.Log_point=Log_point;
+			propagate to TERMINAL 'out1';
+			SET outref =null;		
+			
+			END;
 END MODULE;

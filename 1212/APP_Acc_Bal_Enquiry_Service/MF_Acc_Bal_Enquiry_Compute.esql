@@ -1,25 +1,29 @@
 PATH DB_logging;
-
-
 CREATE COMPUTE MODULE MF_Acc_Bal_Enquiry_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		 CALL CopyEntireMessage();
+		 
 		RETURN TRUE;
 	END;
 
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		
+		DECLARE CONTINUE HANDLER FOR SQLSTATE LIKE '%' BEGIN END;
 		DECLARE Payload CHARACTER;
 		DECLARE AccountNumber CHARACTER;
 		DECLARE AccountExists INTEGER;
 		
 		DECLARE acc_no INTEGER;
 		DECLARE accountNO INTEGER InputRoot.XMLNSC.BalReq.accountNO;
+		SET Environment.Request.accountNO=InputRoot.XMLNSC.BalReq.accountNO;
 		
-		
+			
 		SET AccountNumber = InputRoot.XMLNSC.BalReq.accountNO;
+		SET Payload = CAST(ASBITSTREAM(InputRoot.XMLNSC) AS CHARACTER CCSID 1208 ENCODING 546);
+		call DB_log(Payload, CURRENT_TIMESTAMP,101,MessageFlowLabel,ApplicationLabel,'Channel_Request');
+		SET AccountNumber = InputRoot.XMLNSC.BalReq.accountNO;
+		SET OutputRoot=null;
 		
 		IF AccountNumber IS NULL THEN
           THROW USER EXCEPTION VALUES('Account number does not exist');
@@ -33,18 +37,34 @@ CREATE COMPUTE MODULE MF_Acc_Bal_Enquiry_Compute
           THROW USER EXCEPTION VALUES('Account number does not exist in the database');
         END IF;
         
-		SET Payload = CAST(ASBITSTREAM(InputRoot.XMLNSC) AS CHARACTER CCSID 1208 ENCODING 546);
+		--SET Payload = CAST(ASBITSTREAM(InputRoot.XMLNSC) AS CHARACTER CCSID 1208 ENCODING 546);
 		--SET Payload = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID 1208 ENCODING 546);
-		
-		call DB_loggProc(Payload, CURRENT_TIMESTAMP,101,MessageFlowLabel,ApplicationLabel,'Channel_Request');
+	
+		--call DB_loggProc(Payload, CURRENT_TIMESTAMP,101,MessageFlowLabel,ApplicationLabel,'Channel_Request');
 
 		--SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
 		
 		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
 		
-		SET Payload = CAST(ASBITSTREAM(OutputRoot.JSON.Data) AS CHARACTER CCSID 1208 ENCODING 546);
-		call DB_loggProc(Payload, CURRENT_TIMESTAMP,101,MessageFlowLabel,ApplicationLabel,'Backend_Request');
+		SET Payload = CAST(ASBITSTREAM(OutputRoot.JSON.Data) AS CHARACTER CCSID 1208 ENCODING 546);	
+		SET OutputRoot=null;	
+		call DB_log(Payload, CURRENT_TIMESTAMP,101,MessageFlowLabel,ApplicationLabel,'Backend_Request');
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
 		
-		
-	END;
+		END;
+		CREATE Procedure DB_log(IN Payload CHARACTER, IN Log_time TIMESTAMP, In MsgId INTEGER, IN msgFlowname CHARACTER, IN applicationName CHARACTER, IN Log_point CHARACTER)
+	
+		Begin
+			CREATE FIELD OutputRoot.JSON.Data;
+			DECLARE outref REFERENCE TO OutputRoot.JSON.Data;
+			SET outref.Payload=Payload;
+			SET outref.Log_time=Log_time;
+			SET outref.MsgId=MsgId;
+			SET outref.msgFlowname=msgFlowname;
+			SET outref.applicationName=applicationName;
+			SET outref.Log_point=Log_point;
+			propagate to TERMINAL 'out1';
+			SET outref =null;		
+			
+			END;
 END MODULE;
