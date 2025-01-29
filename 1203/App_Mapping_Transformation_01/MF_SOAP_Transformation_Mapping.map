@@ -3,6 +3,9 @@
     <input path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/SOAPDomainMsg.xsd" var="var1"/>
     <input path="/NewWSDLFile_InlineSchema2.xsd" var="var"/>
     <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/SOAPDomainMsg.xsd"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="io" uri="http://www.example.org/NewWSDLFile/"/>
+    </namespaces>
     <generation engine="xquery"/>
     <mappingDeclaration name="MF_SOAP_Transformation_Mapping">
         <input path="$var1/mb:msg(SOAP_Domain_Msg,assembly,SOAP,Properties)" var="MessageAssembly">
@@ -16,10 +19,10 @@
             <output path="$MessageAssembly5/Properties"/>
         </move>
         <local>
-            <input path="$MessageAssembly/SOAP_Domain_Msg/Body/in"/>
+            <input path="$MessageAssembly/SOAP_Domain_Msg/Body/in" var="in"/>
             <output path="$MessageAssembly5/SOAP_Domain_Msg/Body/out"/>
             <move>
-                <input path="text()"/>
+                <input path="$in/text()" var="value"/>
                 <output path="text()"/>
             </move>
         </local>

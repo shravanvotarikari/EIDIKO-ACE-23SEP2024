@@ -15,7 +15,8 @@
     <xsd:schema xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" targetNamespace="http://www.example.org/NewWSDLFile/">
       
       <xsd:include schemaLocation="NewWSDLFile_InlineSchema2.xsd"/>
-    </xsd:schema>
+            <xsd:element name="in2" type="xsd:string"></xsd:element>
+        </xsd:schema>
         
   </wsdl:types>
     
@@ -44,29 +45,31 @@
   </wsdl:portType>
     
   <wsdl:binding name="NewWSDLFileSOAP" type="tns:NewWSDLFile">
-        
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        
-    <wsdl:operation name="NewOperation">
-            
-      <soap:operation soapAction="http://www.example.org/NewWSDLFile/NewOperation"/>
-            
-      <wsdl:input>
-                
-        <soap:body use="literal"/>
-              
-      </wsdl:input>
-            
-      <wsdl:output>
-                
-        <soap:body use="literal"/>
-              
-      </wsdl:output>
-          
-    </wsdl:operation>
-      
+
+  	<soap:binding style="document"
+  		transport="http://schemas.xmlsoap.org/soap/http" />
+
+  	<wsdl:operation name="NewOperation">
+
+  		<soap:operation
+  			soapAction="http://www.example.org/NewWSDLFile/NewOperation" />
+
+  		<wsdl:input>
+
+  			<soap:body use="literal" />
+
+  		</wsdl:input>
+
+  		<wsdl:output>
+
+  			<soap:body use="literal" />
+
+  		</wsdl:output>
+
+  	</wsdl:operation>
+
   </wsdl:binding>
-    
+
   <wsdl:service name="NewWSDLFile">
         
     <wsdl:port binding="tns:NewWSDLFileSOAP" name="NewWSDLFileSOAP">
