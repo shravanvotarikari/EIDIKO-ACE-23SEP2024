@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <input path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/SOAPDomainMsg.xsd" var="var1"/>
+    <input path="/NewWSDLFile_InlineSchema1.xsd" var="var"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/SOAPDomainMsg.xsd"/>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="MF_IFELSE_Mapping123">
+        <input path="$var1/mb:msg(SOAP_Domain_Msg,assembly,SOAP,Properties)" var="MessageAssembly">
+            <cast path="$MessageAssembly/SOAP_Domain_Msg/Body/any" qualifier="{http://www.example.org/NewWSDLFile/}NewOperation" ref="var"/>
+        </input>
+        <output path="mb:msg(SOAP_Domain_Msg,assembly,SOAP,Properties)" var="MessageAssembly1">
+            <cast path="$MessageAssembly1/SOAP_Domain_Msg/Body/any" qualifier="{http://www.example.org/NewWSDLFile/}NewOperationResponse" ref="var"/>
+        </output>
+        <move>
+            <input path="$MessageAssembly/Properties"/>
+            <output path="$MessageAssembly1/Properties"/>
+        </move>
+        <condition>
+            <if>
+                <input path="$MessageAssembly/SOAP_Domain_Msg/Body/NewOperation/in" var="in"/>
+                <output path="$MessageAssembly1/SOAP_Domain_Msg/Body/NewOperationResponse/out"/>
+                <test lang="xpath">$in = '10'</test>
+                <move>
+                    <input path="$in/."/>
+                    <output path="."/>
+                </move>
+            </if>
+            <else>
+                <output path="$MessageAssembly1/SOAP_Domain_Msg/Body/NewOperationResponse/out"/>
+                <assign value="20">
+                    <output path="."/>
+                </assign>
+            </else>
+        </condition>
+    </mappingDeclaration>
+</mappingRoot>
