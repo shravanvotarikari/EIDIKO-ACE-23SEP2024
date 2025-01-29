@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE MF_Testtt_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		SET OutputRoot.XMLNSC.Envelope2.Header.reqId = InputLocalEnvironment.Destination.HTTP.RequestIdentifier;
+		-- If any changes made to msg which leads to wrong xml structure then RCD node ahead will give error whilst reparsing the modified msg.
+	END;
+END MODULE;
