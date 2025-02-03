@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <inlinedXMLSchema>
+        <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+       
+  <xsd:element name="DATA" nillable="true"> 
+    <xsd:complexType> 
+      <xsd:sequence> 
+        <xsd:element name="element1" nillable="true" type="xsd:string"/> 
+        <xsd:element name="element2" nillable="true" type="xsd:string"/> 
+        <xsd:element name="element3" nillable="true" type="xsd:string"/> 
+        <xsd:element name="element4" nillable="true" type="xsd:string"/> 
+      </xsd:sequence> 
+    </xsd:complexType> 
+  </xsd:element> 
+   
+</xsd:schema> 
+]]>
+    </inlinedXMLSchema>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var1"/>
+    <input path="db:database(/xe.dbm,xe,db:schema-tables(SYSTEM,MAPPING_CRUD))" var="xe1"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var4"/>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="Select_Mapping">
+        <input path="$xe1/db:select(fn:false(),ResultSet(SYSTEM/MAPPING_CRUD/CUSTOMERID,SYSTEM/MAPPING_CRUD/NAME,SYSTEM/MAPPING_CRUD/EMAIL,SYSTEM/MAPPING_CRUD/PHONE),db:where('SYSTEM.MAPPING_CRUD.CUSTOMERID = 987654'))" var="dbselect"/>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var4/mb:msg(JSON,assembly,JSON,Properties)">
+            <cast castType="userDefined" path="JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var4"/>
+            <cast castType="userDefined" path="JSON/spath('Data',2)/any" qualifier="DATA" ref="var1"/>
+        </output>
+        <select ref="dbselect">
+            <input path="$dbselect/ResultSet"/>
+            <output path="JSON/spath('Data',2)/DATA"/>
+            <foreach>
+                <input path="."/>
+                <output path="."/>
+                <move>
+                    <input path="SYSTEM/MAPPING_CRUD/CUSTOMERID"/>
+                    <output path="element1"/>
+                </move>
+                <move>
+                    <input path="SYSTEM/MAPPING_CRUD/NAME"/>
+                    <output path="element2"/>
+                </move>
+                <move>
+                    <input path="SYSTEM/MAPPING_CRUD/EMAIL"/>
+                    <output path="element3"/>
+                </move>
+                <move>
+                    <input path="SYSTEM/MAPPING_CRUD/PHONE"/>
+                    <output path="element4"/>
+                </move>
+            </foreach>
+        </select>
+    </mappingDeclaration>
+</mappingRoot>
