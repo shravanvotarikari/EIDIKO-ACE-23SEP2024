@@ -1,0 +1,16 @@
+
+
+CREATE COMPUTE MODULE MQ_Retry_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		--THROW EXCEPTION;
+	END;
+END MODULE;
