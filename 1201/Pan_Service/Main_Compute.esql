@@ -1,0 +1,122 @@
+
+
+CREATE COMPUTE MODULE Main_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot = InputRoot;
+		
+		SET Environment.Data.Pan  = InputRoot.XMLNSC.root.pan;
+		SET Environment.Data.DOB  = InputRoot.XMLNSC.root.dob;
+		SET Environment.Data.Address  = InputRoot.XMLNSC.root.address;
+		SET Environment.Data.Phone  = InputRoot.XMLNSC.root.phone;
+		
+		PROPAGATE TO TERMINAL 'out1' DELETE NONE;
+		
+		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = Environment.Data.URL;
+		
+	END;
+END MODULE;
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+CREATE COMPUTE MODULE Main_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.JSON.Data.Pan = Environment.Data.Pan;
+		SET OutputRoot.JSON.Data.DOB = Environment.Data.DOB;
+		SET OutputRoot.JSON.Data.Address = Environment.Data.Address;
+		SET OutputRoot.JSON.Data.Phone = Environment.Data.Phone;
+	END;
+END MODULE;
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE COMPUTE MODULE Main_Compute2
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot = ;
+	END;
+END MODULE;
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+CREATE COMPUTE MODULE Propertieslibrary
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot = InputRoot;
+		
+		SET Environment.Data.URL = InputRoot.XMLNSC.PropertiesInfo.Global.ESBURL;
+		SET Environment.Data.ApplicationName = InputRoot.XMLNSC.PropertiesInfo.Global.ApplicationName;
+		
+	END;
+END MODULE;
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+CREATE COMPUTE MODULE ExceptionHandler
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		
+		DECLARE Exception_Data ROW InputExceptionList;
+		SET OutputRoot.JSON.Data.error = Exception_Data;
+		DECLARE Exception_Msg CHARACTER CAST(ASBITSTREAM(OutputRoot.JSON.Data.error) AS CHARACTER CCSID 1208);
+		
+	END;
+END MODULE;
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+CREATE COMPUTE MODULE AuditLogging
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
