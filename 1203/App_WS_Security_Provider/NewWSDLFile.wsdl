@@ -102,7 +102,7 @@
     <wsdl:port binding="tns:NewWSDLFileSOAP" name="NewWSDLFileSOAP">
                   
       
-      <soap:address location="http://www.example.org/"/>
+      <soap:address location="http://localhost:7801/saop"/>
                 
     
     </wsdl:port>

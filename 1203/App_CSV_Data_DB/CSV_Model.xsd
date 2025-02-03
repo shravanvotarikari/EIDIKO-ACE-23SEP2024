@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:csv="http://www.ibm.com/dfdl/CommaSeparatedFormat" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ibmDfdlExtn="http://www.ibm.com/dfdl/extensions" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        
+  
+  <xsd:import namespace="http://www.ibm.com/dfdl/CommaSeparatedFormat" schemaLocation="IBMdefined/CommaSeparatedFormat.xsd"/>
+        
+  
+  <xsd:annotation>
+        		
+    
+    <xsd:appinfo source="http://www.ogf.org/dfdl/">
+            			
+      
+      <dfdl:format documentFinalTerminatorCanBeMissing="yes" encoding="{$dfdl:encoding}" escapeSchemeRef="csv:CSVEscapeScheme" ref="csv:CommaSeparatedFormat"/>
+            		
+    
+    </xsd:appinfo>
+        	
+  
+  </xsd:annotation>
+    	
+  
+  <xsd:element ibmSchExtn:docRoot="true" name="CSV_Model">
+        		
+    
+    <xsd:complexType>
+            			
+      
+      <xsd:sequence dfdl:separator="">
+                				
+        
+        <xsd:element dfdl:terminator="%CR;%LF;%WSP*;" name="header">
+                    					
+          
+          <xsd:complexType>
+                        						
+            
+            <xsd:sequence>
+                            							
+              
+              <xsd:element ibmDfdlExtn:sampleValue="head_value1" name="head_field1" type="xsd:string"/>
+                            							
+              
+              <xsd:element ibmDfdlExtn:sampleValue="head_value2" name="head_field2" type="xsd:string"/>
+                            							
+							
+              
+              <xsd:element ibmDfdlExtn:sampleValue="head_value3" name="head_field3" type="xsd:string"/>
+                            							
+                            
+              
+              <xsd:element ibmDfdlExtn:sampleValue="head_value4" name="head_field4" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="head_value5" name="head_field5" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="head_value6" name="head_field6" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="head_value7" name="head_field7" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="head_value8" name="head_field8" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="head_value9" name="head_field9" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="head_value10" name="head_field10" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="head_value11" name="head_field11" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="head_value12" name="head_field12" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="head_value13" name="head_field13" type="xsd:string"/>
+                                                    
+            
+            </xsd:sequence>
+                        					
+          
+          </xsd:complexType>
+                    				
+        
+        </xsd:element>
+                			
+				
+        
+        <xsd:element dfdl:occursCountKind="implicit" dfdl:terminator="%CR;%LF;%WSP*;" maxOccurs="unbounded" name="record">
+                    					
+          
+          <xsd:complexType>
+                        						
+            
+            <xsd:sequence>
+                             
+							
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value1" name="api_name" type="xsd:string"/>
+                            							
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value2" name="api_version" type="xsd:string"/>
+                            							
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value3" name="app_name" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value4" name="catalog_name" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value5" name="datetime" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value6" name="event_id" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value7" name="gateway_ip" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value8" name="request_method" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value9" name="status_code" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value10" name="time_to_serve_request" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value11" name="transaction_id" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value12" name="uri_path" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value13" name="id" type="xsd:string"/>
+                                                    
+            
+            </xsd:sequence>
+                        					
+          
+          </xsd:complexType>
+                    				
+        
+        </xsd:element>
+                				
+			
+      
+      </xsd:sequence>
+            		
+    
+    </xsd:complexType>
+        	
+  
+  </xsd:element>
+    
+
+</xsd:schema>

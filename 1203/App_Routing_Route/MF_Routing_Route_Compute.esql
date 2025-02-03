@@ -1,5 +1,5 @@
 
-CREATE COMPUTE MODULE p
+CREATE COMPUTE MODULE MF_Routing_Route_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
@@ -16,5 +16,4 @@ CREATE COMPUTE MODULE p
 		SET OutputRoot = InputRoot;
 	END;
 END MODULE;
-
 
