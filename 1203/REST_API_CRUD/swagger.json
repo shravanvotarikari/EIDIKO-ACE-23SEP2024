@@ -28,10 +28,10 @@
         }, {
           "name" : "id",
           "in" : "header",
-          "type" : "integer"
+          "type" : "boolean"
         }, {
           "name" : "name",
-          "in" : "header",
+          "in" : "query",
           "type" : "boolean"
         } ]
       },
@@ -49,7 +49,7 @@
         "description" : "Retrieve empDetails",
         "parameters" : [ {
           "name" : "id",
-          "in" : "query",
+          "in" : "header",
           "type" : "integer"
         } ]
       },

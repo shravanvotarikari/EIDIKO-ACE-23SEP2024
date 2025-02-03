@@ -1,4 +1,4 @@
-CREATE COMPUTE MODULE s
+CREATE COMPUTE MODULE postEmpDetails_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
@@ -13,3 +13,4 @@ CREATE COMPUTE MODULE s
 		SET OutputRoot = InputRoot;
 	END;
 END MODULE;
+
