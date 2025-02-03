@@ -1,0 +1,23 @@
+
+
+CREATE COMPUTE MODULE Route_1_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		DECLARE InputServiceNo CHARACTER InputLocalEnvironment.HTTP.Input.QueryString.serviceno;
+		
+		DECLARE ReqData ROW;
+		SET ReqData = PASSTHRU('select URL from ROUTER_TABLE where SERVICE_NO=?',InputServiceNo);
+		
+		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = ReqData.URL;
+		
+	END;
+END MODULE;
