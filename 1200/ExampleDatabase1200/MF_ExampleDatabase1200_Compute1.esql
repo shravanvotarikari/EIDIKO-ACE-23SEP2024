@@ -1,0 +1,38 @@
+
+
+CREATE COMPUTE MODULE MF_ExampleDatabase1200_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		IF InputLocalEnvironment.WrittenDestination.Label.label = 'label1' THEN
+			
+			set OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://localhost:7800/genratePDF';
+			
+		ELSE
+			set OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://localhost:7800/genratePDF';
+		END IF;
+		
+		--SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		set OutputRoot.XMLNSC.ACCNAME = InputRoot.XMLNSC.root.ACCNAME;
+		
+		SET Environment.var2.logPoint = 'Backend Request';
+--		SET Environment.var2.appName = ApplicationLabel;
+--		SET Environment.var2.msgFlowName = MessageFlowLabel;
+--		SET Environment.var2.nodeName = NodeLabel;
+--		SET Environment.var2.serverName = ExecutionGroupLabel;
+--		SET Environment.var2.channelId = '01';
+--		SET Environment.var2.requestId = '1234';
+		SET Environment.var2.requestTime = CURRENT_TIMESTAMP;
+		SET Environment.var2.requestMsg = CAST(ASBITSTREAM(OutputRoot.JSON.Data) AS CHARACTER CCSID 1208);
+--		SET Environment.var2.responseTime = '';
+--		SET Environment.var2.responseMsg = '';
+--		SET Environment.var2.errorTime = '';
+--		SET Environment.var2.errorMsg = '';
+	END;
+	
+END MODULE;
