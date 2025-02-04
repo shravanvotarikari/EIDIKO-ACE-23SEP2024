@@ -1,0 +1,27 @@
+
+
+CREATE COMPUTE MODULE MF_Attach_Detach_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		
+		SET OutputRoot = InputRoot;
+        DECLARE ref1 REFERENCE TO OutputRoot.XMLNSC.Data.Order[1].Item[1];
+        DETACH ref1;
+        ATTACH ref1 TO OutputRoot.XMLNSC.Data.Order[2] AS LASTCHILD;
+        
+--        SET OutputRoot = InputRoot;
+--        DECLARE refOriginal REFERENCE TO OutputRoot.XMLNSC.Data.Order[1].Item[1];
+--        DECLARE refCopy REFERENCE TO OutputRoot.XMLNSC.Data.Order[2];
+--
+--        CREATE LASTCHILD OF refCopy AS refCopy NAME 'Item';
+--        SET refCopy = refOriginal;
+        
+	END;
+END MODULE;
