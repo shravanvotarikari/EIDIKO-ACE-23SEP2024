@@ -21,19 +21,22 @@ CREATE COMPUTE MODULE MF_Exit_Handler_Compute
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		--SET OutputRoot = InputRoot;
 		
-        DECLARE EXIT HANDLER FOR SQLSTATE LIKE '%' BEGIN END;
+        DECLARE EXIT HANDLER FOR SQLSTATE LIKE '%' BEGIN 
+        SET OutputRoot.XMLNSC.res = 'Error occured';
+	    RESIGNAL;
+        END;
         
-        PASSTHRU 'INSERT INTO system.A1 VALUES (1, ''Data1'')' TO Database.ORADSN;
-        PASSTHRU 'INSERT INTO system.A2 VALUES (2, ''Data2'')' TO Database.ORADSN;
-        PASSTHRU 'INSERT INTO system.A3 VALUES (3, ''Data3'')' TO Database.ORADSN;
-        PASSTHRU 'INSERT INTO system.A8 VALUES (8, ''Data8'')' TO Database.ORADSN; --table A8 does not exist
-        PASSTHRU 'INSERT INTO system.A5 VALUES (5, ''Data4'')' TO Database.ORADSN; 
+        PASSTHRU 'INSERT INTO system.A1 VALUES (1, ''Data1'')' TO Database.APURVADSN;
+        PASSTHRU 'INSERT INTO system.A2 VALUES (2, ''Data2'')' TO Database.APURVADSN;
+        PASSTHRU 'INSERT INTO system.A3 VALUES (3, ''Data3'')' TO Database.APURVADSN;
+        PASSTHRU 'INSERT INTO system.A8 VALUES (8, ''Data8'')' TO Database.APURVADSN; --table A8 does not exist
+        PASSTHRU 'INSERT INTO system.A5 VALUES (5, ''Data4'')' TO Database.APURVADSN; 
         
---        PASSTHRU 'INSERT INTO system.A1 VALUES (7, ''Data7'')' TO Database.ORADSN;
---        PASSTHRU 'INSERT INTO system.A1 VALUES (2, ''Data2'')' TO Database.ORADSN;
---        PASSTHRU 'INSERT INTO system.A1 VALUES (3, ''Data3'')' TO Database.ORADSN;
---        PASSTHRU 'INSERT INTO system.A1 VALUES (?)' TO Database.ORADSN; --wrong format
---        PASSTHRU 'INSERT INTO system.A1 VALUES (5, ''Data5'')' TO Database.ORADSN; 
+--        PASSTHRU 'INSERT INTO system.A1 VALUES (7, ''Data7'')' TO Database.APURVADSN;
+--        PASSTHRU 'INSERT INTO system.A1 VALUES (2, ''Data2'')' TO Database.APURVADSN;
+--        PASSTHRU 'INSERT INTO system.A1 VALUES (3, ''Data3'')' TO Database.APURVADSN;
+--        PASSTHRU 'INSERT INTO system.A1 VALUES (?)' TO Database.APURVADSN; --wrong format
+--        PASSTHRU 'INSERT INTO system.A1 VALUES (5, ''Data5'')' TO Database.APURVADSN; 
         
 		
 	END;
