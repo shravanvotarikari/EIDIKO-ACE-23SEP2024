@@ -1,0 +1,23 @@
+
+
+
+
+CREATE COMPUTE MODULE MF_OTP_Validation_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET Environment.otp[] = PASSTHRU('SELECT otp FROM OTP WHERE id = (SELECT MAX(id) FROM OTP)');
+
+		IF InputRoot.XMLNSC.info.otp = Environment.otp.OTP THEN
+			SET OutputRoot.XMLNSC.status = 'OTP Verified successfully';
+			PASSTHRU('TRUNCATE TABLE OTP');
+		ELSE
+			SET OutputRoot.XMLNSC.status = 'Invalid OTP';
+		END IF;
+
+	END;
+END MODULE;
