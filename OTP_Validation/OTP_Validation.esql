@@ -1,0 +1,35 @@
+CREATE COMPUTE MODULE OTP_Validation
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		DECLARE otp INTEGER;
+		DECLARE otpExists ROW;
+		DECLARE Inp_Otp INTEGER InputRoot.XMLNSC.root.otp;
+
+		SET otp = (FLOOR(RAND() * 900000 + 100000) );
+
+		SET otpExists =  PASSTHRU('SELECT OTP FROM OTP_VALIDATION');
+		--SET Environment.otp = otpExists;
+
+		IF otpExists.OTP = Inp_Otp THEN
+
+			SET OutputRoot.XMLNSC.OTP.Status = 'OTP expired or already exist "TRY AGAIN"';
+		ELSE
+			SET OutputRoot.XMLNSC.OTP.Status = 'OTP successfully validated';
+
+		END IF;		
+
+
+		DELETE FROM Database.OTP_VALIDATION;
+
+		INSERT INTO Database.OTP_VALIDATION (OTP) VALUES (otp);
+
+
+	END;
+END MODULE;
