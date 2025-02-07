@@ -1,0 +1,37 @@
+
+
+
+CREATE COMPUTE MODULE Postilion
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		DECLARE processingCode CHARACTER InputRoot.JSON.Data.processingCode;
+		DECLARE channel CHARACTER InputRoot.JSON.Data.channel;
+		
+		IF processingCode = '292000' AND channel = '236' THEN
+
+			SET OutputRoot.XMLNSC.Postilion.Data.accountNumber = InputRoot.JSON.Data.accountNumber;
+			SET OutputRoot.XMLNSC.Postilion.Data.mobileNumber = InputRoot.JSON.Data.mobileNumber;
+			SET OutputRoot.XMLNSC.Postilion.Data.firstname = InputRoot.JSON.Data.firstname;
+			SET OutputRoot.XMLNSC.Postilion.Data.lastname = InputRoot.JSON.Data.lastname;
+			SET OutputRoot.XMLNSC.Postilion.Data.middlename = InputRoot.JSON.Data.middlename;
+			SET OutputRoot.XMLNSC.Postilion.Data.emailAddress = InputRoot.JSON.Data.emailAddress;
+			SET OutputRoot.XMLNSC.Postilion.Data.gender = InputRoot.JSON.Data.gender;
+			SET OutputRoot.XMLNSC.Postilion.Data.maritalStatus = InputRoot.JSON.Data.maritalStatus;
+			SET OutputRoot.XMLNSC.Postilion.Data.expiryDate = InputRoot.JSON.Data.expiryDate;
+
+		ELSE
+			
+			SET OutputRoot.XMLNSC.request.postilion.status = 'Error Occured with response code 00';
+			THROW USER EXCEPTION;
+
+		END IF;		
+
+
+	END;
+END MODULE;

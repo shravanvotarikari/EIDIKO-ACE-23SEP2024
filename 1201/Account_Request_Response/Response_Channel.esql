@@ -1,16 +1,16 @@
 
 
-CREATE COMPUTE MODULE F1_Compute3
+CREATE COMPUTE MODULE Response_Channel
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		
-		 CALL CopyEntireMessage();
+		CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
 
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		SET OutputRoot = InputRoot;
-		SET OutputRoot.XMLNSC.a.request.status = 'Entry is not present';
+	--	SET OutputRoot.XMLNSC.request.fcm_data = InputRoot.JSON.Data;
 	END;
 END MODULE;
