@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE DataLog_Handling_Compute2
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		SET OutputRoot.JSON.Data.BackendStatus = 'Response sent successfully';
+	END;
+END MODULE;

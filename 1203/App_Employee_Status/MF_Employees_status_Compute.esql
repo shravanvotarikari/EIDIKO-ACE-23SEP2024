@@ -8,7 +8,7 @@ CREATE COMPUTE MODULE MF_Employees_status_Compute
 	END;
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		
-		declare temp row; 
+		declare temp row;  
 		declare i integer 1;
 		set temp.id[] = select E.ID from Database.EMPLOYEES_2 as E where E.STATUS = 'Active';
 		

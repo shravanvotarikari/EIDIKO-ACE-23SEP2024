@@ -1,0 +1,17 @@
+BROKER SCHEMA com.file1
+path com.file2;
+DECLARE var BOOLEAN;
+
+
+CREATE COMPUTE MODULE broker_1_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE c1 CHARACTER;
+		--set c1 = a1;
+		CALL abc(c1) INTO var;
+		
+		
+		RETURN TRUE;
+	END;
+	
+END MODULE;

@@ -1,0 +1,28 @@
+DECLARE ns NAMESPACE 'http://www.example.org/NewWSDLFile/';
+
+CREATE COMPUTE MODULE Soap_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		
+--		IF NOT EXISTS (soapRef.*[]) THEN
+--			SET OutputRoot.JSON.Data.error = 'Invalid SOAP Request';
+--		ELSE
+--			-- Map SOAP elements to JSON
+--			SET OutputRoot.JSON.Data.operation = 'adds';
+--			SET OutputRoot.JSON.Data.inputValue = soapRef.soapNS:in1;
+--		END IF;
+		
+	
+		SET OutputLocalEnvironment.Destination.HTTP.RequestIdentifier = InputLocalEnvironment.Destination.SOAP.Reply.ReplyIdentifier;
+		SET OutputRoot.XMLNSC.Data.in = InputRoot.SOAP.Body.ns:adds.in1;
+		
+	END;
+END MODULE;

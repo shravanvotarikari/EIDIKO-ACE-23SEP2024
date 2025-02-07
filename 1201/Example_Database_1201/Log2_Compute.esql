@@ -1,0 +1,16 @@
+
+
+CREATE COMPUTE MODULE Log2_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		SET OutputRoot.JSON.Data.Status = 'Response recieved succesfully';
+		
+	END;
+END MODULE;

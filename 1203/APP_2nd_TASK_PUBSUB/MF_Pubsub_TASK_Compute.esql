@@ -13,7 +13,7 @@ CREATE COMPUTE MODULE MF_Pubsub_TASK_Compute
         SET OutputRoot.MQRFH2.NameValueCCSID = 1208;
         
 
-		SET OutputRoot.MQRFH2.psc.Command = 'Publish';
+		SET OutputRoot.MQRFH2.psc.Command = 'Publiszh';
 
 		SET OutputRoot.MQRFH2.psc.Topic = 'ABC';
 

@@ -3,6 +3,7 @@
 	<name>App_kafka</name>
 	<comment></comment>
 	<projects>
+		<project>JDBC</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

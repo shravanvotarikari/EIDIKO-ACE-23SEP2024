@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<policies>
+  <policy policyType="UserDefined" policyName="User_Define" policyTemplate="UserDefined">
+    <DSN>ORADSN</DSN>
+    <Age>21</Age>
+  </policy>
+</policies>

@@ -3,6 +3,7 @@
 	<name>Lib_ExceptionList</name>
 	<comment></comment>
 	<projects>
+		<project>Lib_ExampleDb_logging</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

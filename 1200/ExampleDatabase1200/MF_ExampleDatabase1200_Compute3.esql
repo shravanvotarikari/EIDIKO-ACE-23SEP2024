@@ -1,0 +1,30 @@
+
+CREATE COMPUTE MODULE MF_ExampleDatabase1200_Compute3
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+
+		DECLARE i INTEGER 1;
+
+		DECLARE refEnv REFERENCE TO Environment;
+		MOVE refEnv FIRSTCHILD;
+		WHILE LASTMOVE(refEnv) DO
+			INSERT INTO Database.Logging1200 VALUES (refEnv.logPoint, ApplicationLabel, MessageFlowLabel, BrokerName, ExecutionGroupLabel, 1234, 56789, refEnv.requestTime , refEnv.requestMsg , refEnv.responseTime, refEnv.responseMsg, refEnv.errorTime, refEnv.errorMsg );
+			--SET i = i + 1;
+			MOVE refEnv NEXTSIBLING;
+		END WHILE;
+			
+--		INSERT INTO Database.Logging1200 VALUES (Environment.var1.logPoint, Environment.var1.appName, Environment.var1.msgFlowName, Environment.var1.nodeName, Environment.var1.serverName, Environment.var1.channelId, Environment.var1.requestId ,Environment.var1.requestTime , Environment.var1.requestMsg , Environment.var1.responseTime,Environment.var1.responseMsg, Environment.var1.errorTime, Environment.var1.errorMsg );
+--		INSERT INTO Database.Logging1200 VALUES (Environment.var2.logPoint, Environment.var2.appName, Environment.var2.msgFlowName, Environment.var2.nodeName, Environment.var2.serverName, Environment.var2.channelId, Environment.var2.requestId ,Environment.var2.requestTime , Environment.var2.requestMsg , Environment.var2.responseTime,Environment.var2.responseMsg, Environment.var2.errorTime, Environment.var2.errorMsg );
+--		INSERT INTO Database.Logging1200 VALUES (Environment.var3.logPoint, Environment.var3.appName, Environment.var3.msgFlowName, Environment.var3.nodeName, Environment.var3.serverName, Environment.var3.channelId, Environment.var3.requestId ,Environment.var3.requestTime , Environment.var3.requestMsg , Environment.var3.responseTime,Environment.var3.responseMsg, Environment.var3.errorTime, Environment.var3.errorMsg );
+--		INSERT INTO Database.Logging1200 VALUES (Environment.var4.logPoint, Environment.var4.appName, Environment.var4.msgFlowName, Environment.var4.nodeName, Environment.var4.serverName, Environment.var4.channelId, Environment.var4.requestId ,Environment.var4.requestTime , Environment.var4.requestMsg , Environment.var4.responseTime,Environment.var4.responseMsg, Environment.var4.errorTime, Environment.var4.errorMsg );
+--		INSERT INTO Database.Logging1200 VALUES (Environment.var5.logPoint, Environment.var5.appName, Environment.var5.msgFlowName, Environment.var5.nodeName, Environment.var5.serverName, Environment.var5.channelId, Environment.var5.requestId ,Environment.var5.requestTime , Environment.var5.requestMsg , Environment.var5.responseTime,Environment.var5.responseMsg, Environment.var5.errorTime, Environment.var5.errorMsg );
+--		INSERT INTO Database.Logging1200 VALUES (Environment.var6.logPoint, Environment.var6.appName, Environment.var6.msgFlowName, Environment.var6.nodeName, Environment.var6.serverName, Environment.var6.channelId, Environment.var6.requestId ,Environment.var6.requestTime , Environment.var6.requestMsg , Environment.var6.responseTime,Environment.var6.responseMsg, Environment.var6.errorTime, Environment.var6.errorMsg );
+	END;
+END MODULE;

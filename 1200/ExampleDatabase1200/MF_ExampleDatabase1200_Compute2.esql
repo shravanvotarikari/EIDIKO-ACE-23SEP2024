@@ -1,0 +1,46 @@
+
+
+
+
+CREATE COMPUTE MODULE MF_ExampleDatabase1200_Compute2
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		SET Environment.var3.logPoint = 'Backend Response';
+--		SET Environment.var3.appName = ApplicationLabel;
+--		SET Environment.var3.msgFlowName = MessageFlowLabel;
+--		SET Environment.var3.nodeName = NodeLabel;
+--		SET Environment.var3.serverName = ExecutionGroupLabel;
+--		SET Environment.var3.channelId = '01';
+--		SET Environment.var3.requestId = '1234';
+--		SET Environment.var3.requestTime = '';
+--		SET Environment.var3.requestMsg = '';
+		SET Environment.var3.responseTime = CURRENT_TIMESTAMP;
+		SET Environment.var3.responseMsg = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID 1208);
+--		SET Environment.var3.errorTime = '';
+--		SET Environment.var3.errorMsg = '';
+		
+		SET OutputRoot.XMLNSC = InputRoot.JSON.Data;
+		
+		SET Environment.var4.logPoint = 'ESB Response Sent';
+		SET Environment.var4.appName = ApplicationLabel;
+		SET Environment.var4.msgFlowName = MessageFlowLabel;
+		SET Environment.var4.nodeName = NodeLabel;
+		SET Environment.var4.serverName = ExecutionGroupLabel;
+		SET Environment.var4.channelId = '01';
+		SET Environment.var4.requestId = '1234';
+		SET Environment.var4.requestTime = '';
+		SET Environment.var4.requestMsg = '';
+		SET Environment.var4.responseTime = CURRENT_TIMESTAMP;
+		SET Environment.var4.responseMsg = CAST(ASBITSTREAM(OutputRoot.XMLNSC) AS CHARACTER CCSID 1208);
+		SET Environment.var4.errorTime = '';
+		SET Environment.var4.errorMsg = '';
+		
+-- THROW EXCEPTION MESSAGE 12323;
+		
+	END;
+END MODULE;

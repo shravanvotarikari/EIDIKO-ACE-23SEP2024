@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?><?ibm-bip policySet="Policy_Consumer"?>
+<securitybinding:securityBindings xmlns:securitybinding="http://www.ibm.com/xmlns/prod/websphere/200710/ws-securitybinding"/>

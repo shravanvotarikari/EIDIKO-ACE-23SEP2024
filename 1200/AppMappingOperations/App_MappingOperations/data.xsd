@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="PAN_ID" type="xsd:string"/>
+  <xsd:element name="DETAILS">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="PAN_ID"/>
+        <xsd:element ref="NAME"/>
+        <xsd:element ref="ADDRESS"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="ADDRESS" type="xsd:string"/>
+  <xsd:element name="NAME" type="xsd:string"/>
+</xsd:schema>

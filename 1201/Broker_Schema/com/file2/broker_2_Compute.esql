@@ -1,0 +1,27 @@
+BROKER SCHEMA com.file2
+
+declare a1 SHARED CHARACTER 'ji';
+
+
+CREATE FUNCTION abc (out d1 CHARACTER ) RETURNS BOOLEAN
+BEGIN
+	set a1 = 'gg';
+	RETURN True;
+END;
+
+CREATE COMPUTE MODULE broker_2_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		 CALL CopyEntireMessage();
+		 
+		 set a1 = 'yo';
+		 
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
+

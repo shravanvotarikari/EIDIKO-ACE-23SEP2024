@@ -1,0 +1,13 @@
+DECLARE status EXTERNAL CHARACTER;
+
+CREATE COMPUTE MODULE MF_pan_server_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.XMLNSC.root.status = status;
+	END;
+END MODULE;

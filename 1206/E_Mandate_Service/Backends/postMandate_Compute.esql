@@ -1,0 +1,56 @@
+BROKER SCHEMA Backends
+
+CREATE COMPUTE MODULE postMandate_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		DECLARE inRef REFERENCE TO InputRoot.JSON.Data;
+
+		INSERT INTO Database.mandate (
+		mandate_id,Created_ON, SponsorBankCode, UtilityCode, CorporateName, ToDebit,
+		BankAccount, WithBank, IFSC_MICR, Amount, Reference1, Reference2,
+		Frequency, DebitType, Period, PhoneNumber, EmailID, Signature
+		)
+		VALUES (
+		inRef.MandateId,
+		CAST(inRef.CreatedOn AS DATE FORMAT 'yyyy-MM-dd'), -- Created_ON date
+		inRef.SponsorBankCode,
+		inRef.UtilityCode,
+		inRef.CorporateName,
+		inRef.ToDebit,
+		inRef.BankAccount,
+		inRef.WithBank,
+		inRef."IFSC/MICR",
+		inRef.Amount,
+		inRef.Reference1,
+		inRef.Reference2,
+		inRef.Frequency,
+		inRef.DebitType,
+		inRef.Period,
+		inRef.PhoneNumber,
+		inRef.EmailID,
+		inRef.Signature
+		);
+		
+		DECLARE r ROW null;
+		SET r.UMRN[] = SELECT t.UMRN FROM Database.mandate AS t WHERE t.mandate_id = inRef.MandateId ;
+		SET OutputRoot.JSON.Data.Response.UMRN =  r.UMRN.[1];
+
+	END;
+END MODULE;

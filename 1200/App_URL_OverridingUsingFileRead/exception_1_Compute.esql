@@ -1,0 +1,17 @@
+
+
+CREATE COMPUTE MODULE exception_1_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		
+		SET OutputRoot.XMLNSC.Exception = InputExceptionList;
+	END;
+END MODULE;

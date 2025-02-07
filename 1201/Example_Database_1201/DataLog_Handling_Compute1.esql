@@ -1,0 +1,27 @@
+CREATE COMPUTE MODULE DataLog_Handling_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		DECLARE xmlCharacterData CHARACTER InputRoot.XMLNSC.Data;
+
+		DECLARE xmlBlob BLOB CAST(xmlCharacterData AS BLOB CCSID 1208 ENCODING 546);
+
+		CREATE LASTCHILD OF OutputRoot DOMAIN('XMLNSC') PARSE( xmlCharacterData ENCODING InputRoot.Properties.Encoding 
+																CCSID InputRoot.Properties.CodedCharSetId );
+		
+	--	UPDATE Database.LOGTABLE_1 AS L SET RESPONSE_TIME = CAST(CURRENT_TIMESTAMP AS CHARACTER FORMAT 'yyyy-MM-dd - HH-mm-ss') WHERE ;		
+
+
+		PASSTHRU ('UPDATE LOGTABLE_1
+		SET RESPONSE_TIME = CURRENT_TIMESTAMP
+		WHERE Transaction_ID = (SELECT MAX(Transaction_ID) FROM LOGTABLE_1)');
+
+
+	END;
+END MODULE;

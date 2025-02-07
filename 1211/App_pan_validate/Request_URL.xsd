@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="ApplicationName" type="xsd:string"/>
+  <xsd:element name="ESBURL" type="xsd:string"/>
+  <xsd:element name="TLSVersion" type="xsd:string"/>
+  <xsd:element name="Username" type="xsd:string"/>
+  <xsd:element name="PropertiesInfo">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="Global"/>
+        <xsd:element maxOccurs="unbounded" ref="API"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="API">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="ApplicationName"/>
+        <xsd:element ref="Username"/>
+        <xsd:element ref="Password"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="Global">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="ApplicationName"/>
+        <xsd:element ref="ESBURL"/>
+        <xsd:element ref="TLSVersion"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="Password" type="xsd:string"/>
+</xsd:schema>

@@ -28,10 +28,10 @@
         }, {
           "name" : "id",
           "in" : "header",
-          "type" : "integer"
+          "type" : "boolean"
         }, {
           "name" : "name",
-          "in" : "header",
+          "in" : "query",
           "type" : "boolean"
         } ]
       },
@@ -73,7 +73,7 @@
           "required" : true
         }, {
           "name" : "id",
-          "in" : "header",
+          "in" : "query",
           "type" : "integer"
         }, {
           "name" : "name",

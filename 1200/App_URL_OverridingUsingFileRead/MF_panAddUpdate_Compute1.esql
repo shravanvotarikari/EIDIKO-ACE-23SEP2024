@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE MF_panAddUpdate_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		SET OutputRoot = InputRoot;
+		PROPAGATE TO TERMINAL 'out1' DELETE NONE;
+	END;
+END MODULE;

@@ -1,0 +1,22 @@
+
+
+CREATE COMPUTE MODULE MF_routingService_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		DECLARE SERVICE INTEGER InputRoot.XMLNSC.SERVICE_CODE;
+		declare var ROW;
+		SET var = PASSTHRU('SELECT URL FROM ROUTING_TABLE WHERE SERVICE_CODE = ?',SERVICE);
+		
+		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = var.URL;
+		--SET OutputRoot = InputRoot;
+		SET OutputRoot.XMLNSC.DATA = 'ROUTING DONE SUCCESSFULLY!';
+	END;
+END MODULE;
+
+

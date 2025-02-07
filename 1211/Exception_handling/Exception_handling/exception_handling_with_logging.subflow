@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="Exception_handling/exception_handling_with_logging.subflow" nsPrefix="Exception_handling_exception_handling_with_logging.subflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" useDefaults="true" udpSupport="true" nodeLayoutStyle="RECTANGLE">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.computeMode" name="computeMode" lowerBound="1" eType="//%" defaultValueLiteral="message"/>
+    <translation xmi:type="utility:TranslatableString" key="exception_handling_with_logging" bundleName="Exception_handling/exception_handling_with_logging" pluginId="Exception_handling"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Exception_handling/icons/full/obj16/exception_handling_with_logging.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Exception_handling/icons/full/obj30/exception_handling_with_logging.gif"/>
+    <composition>
+      <nodes xmi:type="eflow:FCMSource" xmi:id="InTerminal.Input" location="20,20">
+        <translation xmi:type="utility:TranslatableString" key="InTerminal.Input" bundleName="Exception_handling/exception_handling_with_logging" pluginId="Exception_handling"/>
+      </nodes>
+      <nodes xmi:type="eflow:FCMSink" xmi:id="OutTerminal.Output" location="520,20">
+        <translation xmi:type="utility:TranslatableString" key="OutTerminal.Output" bundleName="Exception_handling/exception_handling_with_logging" pluginId="Exception_handling"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="250,19" dataSource="ORADSN" computeExpression="esql://routine/Exception_handling#exception_handling_Compute.Main">
+        <translation xmi:type="utility:ConstantString" string="Compute"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_1" sourceNode="InTerminal.Input" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="OutTerminal.Output" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer>
+      <propertyDescriptor groupName="Group.Basic" describedAttribute="Property.computeMode">
+        <propertyName xmi:type="utility:TranslatableString" key="Property.computeMode" bundleName="ComIbmCompute" pluginId="com.ibm.etools.mft.ibmnodes.definitions"/>
+      </propertyDescriptor>
+    </propertyOrganizer>
+    <attributeLinks promotedAttribute="Property.computeMode" overriddenNodes="FCMComposite_1_1">
+      <overriddenAttribute href="ComIbmCompute.msgnode#Property.computeMode"/>
+    </attributeLinks>
+    <stickyBoard/>
+  </eClassifiers>
+  <eClassifiers xmi:type="ecore:EEnum">
+    <eLiterals xmi:id="computeMode.message" name="message"/>
+    <eLiterals xmi:id="computeMode.destination" name="destination" value="1"/>
+    <eLiterals xmi:id="computeMode.destinationAndMessage" name="destinationAndMessage" value="2"/>
+    <eLiterals xmi:id="computeMode.exception" name="exception" value="3"/>
+    <eLiterals xmi:id="computeMode.exceptionAndMessage" name="exceptionAndMessage" value="4"/>
+    <eLiterals xmi:id="computeMode.exceptionAndDestination" name="exceptionAndDestination" value="5"/>
+    <eLiterals xmi:id="computeMode.all" name="all" value="6"/>
+  </eClassifiers>
+</ecore:EPackage>

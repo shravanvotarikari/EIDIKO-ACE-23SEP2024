@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>BankStatementJDBC_Policy</name>
+	<comment></comment>
+	<projects>
+		<project>App_BankStatement</project>
+		<project>App_test</project>
+		<project>App_testJava</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.ibm.etools.mft.policy.ui.policybuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.ibm.etools.mft.policy.ui.Nature</nature>
+	</natures>
+</projectDescription>

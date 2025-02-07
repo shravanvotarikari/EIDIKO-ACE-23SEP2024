@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="false" targetNamespace="default" version="8.0.5.0">
+    <input path="jar:file://!com/ibm/etools/mft/map/xsds/assembly/Properties.xsd" var="in"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/assembly/Properties.xsd" var="out"/>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="PropertiesTypeToPropertiesType">
+        <input path="$in/Properties"/>
+        <output path="$out/Properties"/>
+        <move automap="true">
+            <input path="MessageSet"/>
+            <output path="MessageSet"/>
+        </move>
+        <move automap="true">
+            <input path="MessageType"/>
+            <output path="MessageType"/>
+        </move>
+        <move automap="true">
+            <input path="MessageFormat"/>
+            <output path="MessageFormat"/>
+        </move>
+        <move automap="true">
+            <input path="Encoding"/>
+            <output path="Encoding"/>
+        </move>
+        <move automap="true">
+            <input path="CodedCharSetId"/>
+            <output path="CodedCharSetId"/>
+        </move>
+        <move automap="true">
+            <input path="Transactional"/>
+            <output path="Transactional"/>
+        </move>
+        <move automap="true">
+            <input path="Persistence"/>
+            <output path="Persistence"/>
+        </move>
+        <move automap="true">
+            <input path="CreationTime"/>
+            <output path="CreationTime"/>
+        </move>
+        <move automap="true">
+            <input path="ExpirationTime"/>
+            <output path="ExpirationTime"/>
+        </move>
+        <move automap="true">
+            <input path="Priority"/>
+            <output path="Priority"/>
+        </move>
+        <move automap="true">
+            <input path="ReplyIdentifier"/>
+            <output path="ReplyIdentifier"/>
+        </move>
+        <move automap="true">
+            <input path="ReplyProtocol"/>
+            <output path="ReplyProtocol"/>
+        </move>
+        <move automap="true">
+            <input path="Topic"/>
+            <output path="Topic"/>
+        </move>
+        <move automap="true">
+            <input path="ContentType"/>
+            <output path="ContentType"/>
+        </move>
+        <move automap="true">
+            <input path="IdentitySourceType"/>
+            <output path="IdentitySourceType"/>
+        </move>
+        <move automap="true">
+            <input path="IdentitySourceToken"/>
+            <output path="IdentitySourceToken"/>
+        </move>
+        <move automap="true">
+            <input path="IdentitySourcePassword"/>
+            <output path="IdentitySourcePassword"/>
+        </move>
+        <move automap="true">
+            <input path="IdentitySourceIssuedBy"/>
+            <output path="IdentitySourceIssuedBy"/>
+        </move>
+        <move automap="true">
+            <input path="IdentityMappedType"/>
+            <output path="IdentityMappedType"/>
+        </move>
+        <move automap="true">
+            <input path="IdentityMappedToken"/>
+            <output path="IdentityMappedToken"/>
+        </move>
+        <move automap="true">
+            <input path="IdentityMappedPassword"/>
+            <output path="IdentityMappedPassword"/>
+        </move>
+        <move automap="true">
+            <input path="IdentityMappedIssuedBy"/>
+            <output path="IdentityMappedIssuedBy"/>
+        </move>
+    </mappingDeclaration>
+</mappingRoot>

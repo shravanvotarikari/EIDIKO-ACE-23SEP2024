@@ -1,0 +1,35 @@
+BROKER SCHEMA Lib_Exception_Handling_db
+Path Lib_DatabaseLog_Procedure;
+
+CREATE COMPUTE MODULE Exception_Handling_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+	  CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE ref REFERENCE TO InputExceptionList.[>];
+
+		DECLARE mainText CHARACTER '';
+		WHILE ENDSWITH(FIELDNAME(ref),'Exception') DO
+
+			SET mainText=ref.Text;
+			--For loop is for concatenating Insert elements text values with main Text error.
+
+			FOR insertRef AS ref.Insert[] DO
+				SET mainText=mainText ||','||insertRef.Text||',';
+			END FOR;
+		MOVE ref LASTCHILD;
+		END WHILE;
+		
+		DECLARE Payload CHARACTER ;
+		
+	SET Payload = mainText ;
+	call Insert_Data_BE(Payload, CURRENT_TIMESTAMP,1, MessageFlowLabel, ApplicationLabel,'ESB_Error');
+	
+		SET OutputRoot.JSON.Data.res=mainText;
+	END;
+END MODULE;

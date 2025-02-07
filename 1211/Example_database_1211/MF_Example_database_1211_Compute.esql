@@ -1,0 +1,37 @@
+
+
+
+
+CREATE COMPUTE MODULE MF_Example_database_1211_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		SET Environment.variables.val1 = 1;
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		
+		DECLARE REQUESTID CHARACTER InputLocalEnvironment.Destination.HTTP.RequestIdentifier;
+		DECLARE log_point CHARACTER 'Input request';
+		DECLARE log_time TIMESTAMP CURRENT_TIMESTAMP;
+		DECLARE application_name CHARACTER ApplicationLabel;
+		DECLARE messageflow_name CHARACTER MessageFlowLabel;
+		DECLARE payload CHARACTER cast(ASBITSTREAM(InputBody) as CHARACTER CCSID 1208);
+		DECLARE status CHARACTER 'success';
+		
+		CALL db_log(REQUESTID,log_point,log_time,application_name,messageflow_name,payload,status);
+	END;
+END MODULE;
+
+CREATE PROCEDURE db_log (IN REQUESTID CHARACTER
+,IN LOG_POINT CHARACTER
+,IN LOG_TIME TIMESTAMP
+,IN APPLICATION_NAME CHARACTER
+,IN MESSAGEFLOW_NAME CHARACTER
+,IN PAYLOAD CHARACTER
+,IN STATUS CHARACTER )
+LANGUAGE DATABASE
+EXTERNAL NAME LOAN_APP_LOG_PROCEDURE;

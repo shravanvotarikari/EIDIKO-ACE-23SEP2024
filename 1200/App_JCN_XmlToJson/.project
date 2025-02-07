@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>App_JCN_ComputeJava</project>
+		<project>App_JCN_XmlToJsonJava</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

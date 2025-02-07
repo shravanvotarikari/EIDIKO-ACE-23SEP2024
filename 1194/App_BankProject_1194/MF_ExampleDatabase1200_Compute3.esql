@@ -1,0 +1,21 @@
+
+CREATE COMPUTE MODULE MF_ExampleDatabase1200_Compute3
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+
+		DECLARE refEnv REFERENCE TO Environment;
+		MOVE refEnv FIRSTCHILD;
+		
+		WHILE LASTMOVE(refEnv) DO
+			INSERT INTO Database.BANKLOGS VALUES (refEnv.logPoint, ApplicationLabel, MessageFlowLabel, BrokerName, ExecutionGroupLabel, 1234, 56789, refEnv.requestTime , refEnv.requestMsg , refEnv.responseTime, refEnv.responseMsg, refEnv.errorTime, refEnv.errorMsg );
+			MOVE refEnv NEXTSIBLING;
+		END WHILE;
+			
+	END;
+END MODULE;

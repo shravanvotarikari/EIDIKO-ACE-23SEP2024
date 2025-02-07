@@ -12,7 +12,7 @@
       <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="654,141">
         <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
       </nodes>
-      <nodes xmi:type="ComIbmResetContentDescriptor.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="221,58" messageDomain="DFDL" resetMessageDomain="true" messageSet="{Lib_MessageModel}" resetMessageSet="true" messageType="{}:CsvData_Model" resetMessageType="true">
+      <nodes xmi:type="ComIbmResetContentDescriptor.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="228,63" messageDomain="DFDL" resetMessageDomain="true" messageSet="{Lib_MessageModel}" resetMessageSet="true" messageType="{}:CsvData_Model" resetMessageType="true">
         <translation xmi:type="utility:ConstantString" string="Reset Content Descriptor"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="437,62" computeExpression="esql://routine/#MF_RCD_Node_Compute.Main">

@@ -32,6 +32,13 @@ CREATE COMPUTE MODULE MF_String_Overlay_Compute
 --		SET OutputLocalEnvironment.value = value;
 --		SET OutputRoot = InputRoot;
 
-		SET OutputRoot.XMLNSC.data.s = modifiedString;
+
+--		COALESCE() Function - accepts multiple parameters and returns first not null parameter
+		DECLARE abc CHARACTER null;
+		DECLARE jkl CHARACTER 'Avi';
+		DECLARE xyz CHARACTER;
+		SET xyz = COALESCE(abc, jkl, 5, 'Avishkar');
+
+		SET OutputRoot.XMLNSC.data.s = xyz;
 	END;
 END MODULE;

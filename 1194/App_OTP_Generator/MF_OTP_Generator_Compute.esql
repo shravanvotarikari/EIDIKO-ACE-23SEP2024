@@ -1,0 +1,20 @@
+DECLARE id SHARED INTEGER 0;
+
+CREATE COMPUTE MODULE MF_OTP_Generator_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		DECLARE number INTEGER;
+		SET number = RAND()*10000;
+		SET id = id + 1;
+		
+		INSERT INTO Database.OTP (id, otp) VALUES (id, number);
+		
+		SET OutputRoot.XMLNSC.otp = number;
+	END;
+END MODULE;
