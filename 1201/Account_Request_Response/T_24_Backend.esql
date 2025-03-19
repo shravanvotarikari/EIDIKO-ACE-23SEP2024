@@ -1,0 +1,37 @@
+CREATE COMPUTE MODULE T_24_Backend
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+	
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		
+		DECLARE header REFERENCE TO InputRoot.JSON.Data.header; 
+		DECLARE channel CHARACTER header.channel;
+		DECLARE processingCode CHARACTER header.processingCode;
+		DECLARE customerId CHARACTER InputRoot.JSON.Data.body.customerIds.Item[1].customerId;
+		
+		IF channel = '236' AND processingCode = '292000' THEN
+			
+			IF LENGTH(customerId) = 6 THEN
+				
+				SET OutputRoot.JSON.Data.request.response = 'Customer is validated and eligible for process';
+				DELETE FIELD OutputRoot.JSON.Data.header;
+				DELETE FIELD OutputRoot.JSON.Data.body;
+				
+			ELSE
+				SET OutputRoot.JSON.Data.request.response = 'Customer is having bad credit rating';
+				
+			END IF;							
+		ELSE
+			
+			Throw USER EXCEPTION;
+			
+		END IF;
+		
+	END;
+END MODULE;

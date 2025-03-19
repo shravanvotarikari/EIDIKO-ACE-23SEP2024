@@ -3,6 +3,7 @@
 	<name>Account_Request_Response</name>
 	<comment></comment>
 	<projects>
+		<project>Account_opening</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

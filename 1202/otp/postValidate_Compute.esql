@@ -1,0 +1,14 @@
+
+
+CREATE COMPUTE MODULE postValidate_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		if InputRoot.JSON.Data.val.s_otp = InputRoot.JSON.Data.val.otp then 
+			set OutputRoot.JSON.Data.response = 'Otp is valid';
+		else 
+			set  OutputRoot.JSON.Data.response = 'Otp is not valid';
+		end if;
+		RETURN TRUE;
+	END;
+END MODULE;

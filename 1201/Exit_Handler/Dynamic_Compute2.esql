@@ -1,0 +1,41 @@
+CREATE COMPUTE MODULE Dynamic_Compute2
+
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		DECLARE EXIT HANDLER FOR SQLSTATE LIKE '%'
+
+		BEGIN
+
+			DECLARE EXIT HANDLER FOR SQLSTATE LIKE '%'
+			BEGIN
+				SET OutputRoot.XMLNSC.Database.Status = 'Error in both database';
+			END;
+
+			CALL LogToLocalDatabase();
+
+		END;
+
+		CALL LogToRemoteDatabase();
+	END;
+
+	CREATE PROCEDURE LogToRemoteDatabase()
+	BEGIN
+		DECLARE DSN CHARACTER 'Database.ORADSN.system';
+		INSERT INTO DSN.EMP_DATA (EMP_ID,NAME,NAME2,DEPT,SALARY) VALUES ('1201','Mohit','Kanthale','IIB','20000' );
+
+	END;
+
+	CREATE PROCEDURE LogToLocalDatabase()
+	BEGIN
+		DECLARE DSNR CHARACTER 'Database.ashar.system';
+		INSERT INTO DSNR.ACE_TASK VALUES ('AK','BABU', 64 );
+	END;
+
+END MODULE;

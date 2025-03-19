@@ -125,6 +125,11 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>com.ibm.dfdl.validation.dfdlBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>com.ibm.etools.msgbroker.tooling.libraryNature</nature>
