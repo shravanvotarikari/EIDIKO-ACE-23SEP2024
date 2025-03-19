@@ -1,6 +1,6 @@
 BROKER SCHEMA Lib_ExceptionList
 PATH Lib_ExampleDb_logging;
-
+--this is for balance enquery service
 CREATE COMPUTE MODULE Lib_Last_Child_Exception_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN

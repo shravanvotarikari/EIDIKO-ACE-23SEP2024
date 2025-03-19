@@ -1,5 +1,5 @@
 BROKER SCHEMA Lib_DatabaseLog_Procedure
-
+--FOr balance enquiry service
 CREATE COMPUTE MODULE Database_LogProc_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN

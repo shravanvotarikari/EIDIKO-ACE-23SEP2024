@@ -12,19 +12,19 @@
       <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="779,133">
         <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
       </nodes>
-      <nodes xmi:type="ComIbmRouteToLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="172,131">
+      <nodes xmi:type="ComIbmRouteToLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="173,124">
         <translation xmi:type="utility:ConstantString" string="Route To Label"/>
       </nodes>
-      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="365,27" labelName="onePOST">
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="363,21" labelName="onePOST">
         <translation xmi:type="utility:ConstantString" string="Create"/>
       </nodes>
-      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="361,101" labelName="oneGET">
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="362,98" labelName="oneGET">
         <translation xmi:type="utility:ConstantString" string="Read"/>
       </nodes>
       <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="357,173" labelName="onePUT">
         <translation xmi:type="utility:ConstantString" string="Update"/>
       </nodes>
-      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="362,257" labelName="oneDELETE">
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="357,253" labelName="oneDELETE">
         <translation xmi:type="utility:ConstantString" string="Delete"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="491,22" dataSource="ORADSN" computeExpression="esql://routine/#MF_Routing_RTL_Compute.Main">
