@@ -3,6 +3,7 @@
 	<name>App_DynamicLogging</name>
 	<comment></comment>
 	<projects>
+		<project>Lib_Dynamic_Logging</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -9,8 +9,11 @@
       <nodes xmi:type="ComIbmSOAPReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="509,116">
         <translation xmi:type="utility:ConstantString" string="SOAP Reply"/>
       </nodes>
-      <nodes xmi:type="ComIbmSOAPInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="18,112" wsdlFileName="NewWSDLFile.wsdl" selectedPortType="NewWSDLFile" selectedBinding="NewWSDLFileSOAP" selectedPort="NewWSDLFileSOAP" targetNamespace="http://www.example.org/NewWSDLFile/" useHTTPTransport="true" urlSelector="/path1" allowQueryWSDL="true">
+      <nodes xmi:type="ComIbmSOAPInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="18,112" wsdlFileName="NewWSDLFile.wsdl" selectedPortType="NewWSDLFile" selectedBinding="NewWSDLFileSOAP" selectedPort="NewWSDLFileSOAP" targetNamespace="http://www.example.org/NewWSDLFile/" useHTTPTransport="true" urlSelector="/path1" allowQueryWSDL="true" usingWsAddressing="true" populateLocalEnvWithWSAInfo="true">
         <translation xmi:type="utility:ConstantString" string="SOAP Input"/>
+        <wsSecurity alias="wsheader" xPathExpression="$Root/SOAP"/>
+        <nsMappingTable nsPrefix="tns" namespace="http://www.example.org/NewWSDLFile/"/>
+        <nsMappingTable nsPrefix="tns1" namespace="http://schemas.xmlsoap.org/soap/envelope/"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="255,114" computeExpression="esql://routine/#MF_WS_Security_Provider_Compute.Main">
         <translation xmi:type="utility:ConstantString" string="Compute"/>

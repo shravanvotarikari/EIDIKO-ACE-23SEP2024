@@ -6,8 +6,11 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_WS_Security_Consumer/icons/full/obj16/MF_WS_Security_Consumer.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_WS_Security_Consumer/icons/full/obj30/MF_WS_Security_Consumer.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmSOAPRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="315,113" wsdlFileName="NewWSDLFile.wsdl" selectedPortType="NewWSDLFile" selectedBinding="NewWSDLFileSOAP" selectedOperation="NewOperation" selectedPort="NewWSDLFileSOAP" targetNamespace="http://www.example.org/NewWSDLFile/" useHTTPTransport="true" webServiceURL="http://localhost:7801/path1" sslProtocol="TLS">
+      <nodes xmi:type="ComIbmSOAPRequest.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="315,113" wsdlFileName="NewWSDLFile.wsdl" selectedPortType="NewWSDLFile" selectedBinding="NewWSDLFileSOAP" selectedOperation="NewOperation" selectedPort="NewWSDLFileSOAP" targetNamespace="http://www.example.org/NewWSDLFile/" useHTTPTransport="true" webServiceURL="http://localhost:7800/path1" sslProtocol="TLS" usingWsAddressing="true" populateLocalEnvWithWSAInfo="true">
         <translation xmi:type="utility:ConstantString" string="SOAP Request"/>
+        <wsSecurity alias="wsheader" xPathExpression="$Root/SOAP/Body&#xD;&#xA;"/>
+        <nsMappingTable nsPrefix="tns" namespace="http://www.example.org/NewWSDLFile/"/>
+        <nsMappingTable nsPrefix="tns1" namespace="http://schemas.xmlsoap.org/soap/envelope/"/>
       </nodes>
       <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="75,110" URLSpecifier="/path">
         <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
