@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmFileInput.msgnode="ComIbmFileInput.msgnode" xmlns:ComIbmFileOutput.msgnode="ComIbmFileOutput.msgnode" xmlns:ComIbmSequence.msgnode="ComIbmSequence.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="MF_Sequence.msgflow" nsPrefix="MF_Sequence.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="SQUARE">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="MF_Sequence" bundleName="MF_Sequence" pluginId="App_Sequence"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_Sequence/icons/full/obj16/MF_Sequence.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_Sequence/icons/full/obj30/MF_Sequence.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmSequence.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="370,70" pathToStoreSequenceNo="$OutputRoot/DFDL/csvData/record/sequence" correlationPath="$InputRoot/DFDL/csvData/record[1]/grp" startOfSequence="01" endOfSequence="04">
+        <translation xmi:type="utility:ConstantString" string="Sequence"/>
+      </nodes>
+      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="110,110" inputDirectory="C:\Users\Sreenivas Bandaru\Documents\Task Input" messageDomainProperty="DFDL" messageTypeProperty="{}:csvData" recordDetection="delimited">
+        <translation xmi:type="utility:ConstantString" string="File Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="610,110" outputDirectory="C:\Users\Sreenivas Bandaru\Documents\Taskfailure" outputFilename="dddd" writeMode="writeInPlace" outputMode="append" recordDefinition="delimited">
+        <translation xmi:type="utility:ConstantString" string="File Output"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.EOD" targetTerminalName="InTerminal.EOD">
+        <bendPoints>123,24,-121,21</bendPoints>
+      </connections>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>
