@@ -6,16 +6,16 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_AggregationNodes/icons/full/obj16/MF_AggregationResponse.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_AggregationNodes/icons/full/obj30/MF_AggregationResponse.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmAggregateReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="294,144" aggregateName="avi" unsolicitedTimeout="0" transactionMode="true">
+      <nodes xmi:type="ComIbmAggregateReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="282,89" aggregateName="avi" unsolicitedTimeout="0" transactionMode="true">
         <translation xmi:type="utility:ConstantString" string="Aggregate Reply"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="491,145">
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="479,90">
         <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
       </nodes>
-      <nodes xmi:type="ComIbmHTTPAsyncResponse.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="68,191" asyncRequestCorrelator="second" messageDomainProperty="JSON">
+      <nodes xmi:type="ComIbmHTTPAsyncResponse.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="56,136" asyncRequestCorrelator="second" messageDomainProperty="JSON">
         <translation xmi:type="utility:ConstantString" string="HTTP Async Response1"/>
       </nodes>
-      <nodes xmi:type="ComIbmHTTPAsyncResponse.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="70,98" asyncRequestCorrelator="first" messageDomainProperty="XMLNSC">
+      <nodes xmi:type="ComIbmHTTPAsyncResponse.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="58,43" asyncRequestCorrelator="first" messageDomainProperty="XMLNSC">
         <translation xmi:type="utility:ConstantString" string="HTTP Async Response"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>

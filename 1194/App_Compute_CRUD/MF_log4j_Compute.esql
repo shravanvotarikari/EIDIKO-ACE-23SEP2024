@@ -1,0 +1,29 @@
+DECLARE var_path CHARACTER 'C:\log4j\Log4jConfigurationFile.xml';
+DECLARE var BOOLEAN;
+
+CREATE COMPUTE MODULE MF_log4j_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL init_log4j(var_path) INTO var;
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO','Avishkar') INTO var;
+		CALL write_log(MessageFlowLabel,'AvishkarDebug','DEBUG','Avishkar') INTO var;
+		CALL write_log(MessageFlowLabel,'AvishkarFatal','FATAL','Avishkar') INTO var;
+		CALL write_log(MessageFlowLabel,'AvishkarTrace','TRACE','Avishkar') INTO var;
+		CALL write_log(MessageFlowLabel,'AvishkarWarn','WARN','Avishkar') INTO var;
+		CALL write_log(MessageFlowLabel,'AvishkarError','ERROR','Avishkar') INTO var;
+	END;
+END MODULE;
+
+CREATE FUNCTION init_log4j (IN var_path CHARACTER) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
+
+CREATE PROCEDURE write_log ( in mfname CHARACTER, in logger_name CHARACTER, in level CHARACTER, in data CHARACTER) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";

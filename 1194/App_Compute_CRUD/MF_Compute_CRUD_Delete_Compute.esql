@@ -3,11 +3,27 @@
 CREATE COMPUTE MODULE MF_Compute_CRUD_Delete_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		CALL CopyEntireMessage();
+--		CALL CopyEntireMessage();
+		CALL deleteRecord();
 		RETURN TRUE;
 	END;
 	
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		DELETE FROM Database.Employees where Employees.id = 1212;
+		PASSTHRU 'DELETE FROM Employees where EID = ''1194''';
+	END;
+	
+	CREATE FUNCTION deleteRecord()
+	BEGIN
+		CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO','ESB Request received') INTO var;
+		
+		PASSTHRU 'DELETE FROM Employees where EID = ''1194''';
+		
+		IF SQLCODE = 0 THEN
+			CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO','Row deleted successfully') INTO var;
+		ELSE
+			CALL write_log(MessageFlowLabel,'AvishkarError','ERROR', 'Failed to delete row from table : ' || SQLERRORTEXT) INTO var;
+		END IF;
+		
+		CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO','ESB Response sent') INTO var;
 	END;
 END MODULE;

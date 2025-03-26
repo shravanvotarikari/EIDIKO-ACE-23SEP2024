@@ -8,6 +8,6 @@ CREATE COMPUTE MODULE MF_first_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputRoot.XMLNSC = InputRoot.XMLNSC;
+		SET OutputRoot = InputRoot;
 	END;
 END MODULE;

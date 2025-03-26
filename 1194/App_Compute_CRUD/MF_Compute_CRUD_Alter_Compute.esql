@@ -3,11 +3,27 @@
 CREATE COMPUTE MODULE MF_Compute_CRUD_Alter_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		CALL CopyEntireMessage();
+--		CALL CopyEntireMessage();
+		CALL alter();
 		RETURN TRUE;
 	END;
 
-	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		PASSTHRU 'ALTER TABLE employees ADD COLUMN Status VARCHAR2(10)';
+--	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		PASSTHRU 'ALTER TABLE Employees ADD Salary VARCHAR2(10)';
+--	END;
+	
+	CREATE FUNCTION alter()
+	BEGIN
+		CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO','ESQ request received') INTO var;
+		
+		PASSTHRU 'ALTER TABLE Employees ADD Company VARCHAR2(10)';
+		
+		IF SQLCODE = 0 THEN
+			CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO','Table altered successfully') INTO var;
+		ELSE
+			CALL write_log(MessageFlowLabel,'AvishkarError','ERROR', 'Failed to alter the table : ' || SQLERRORTEXT) INTO var;
+		END IF;
+		
+		CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO','ESB response sent') INTO var;
 	END;
 END MODULE;

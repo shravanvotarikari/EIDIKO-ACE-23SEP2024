@@ -3,13 +3,32 @@
 CREATE COMPUTE MODULE MF_Compute_CRUD_Retrive_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		CALL CopyEntireMessage();
+--		CALL CopyEntireMessage();
+		CALL retrieve();
 		RETURN TRUE;
 	END;
 
-	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		DECLARE rowVar ROW;
+--		SET rowVar.arr[] = PASSTHRU('SELECT * FROM Employees WHERE EID=?', 1194);
+--		SET OutputRoot.XMLNSC.data = rowVar;
+--	END;
+	
+	CREATE FUNCTION retrieve()
+	BEGIN
+		CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO','ESB Request received') INTO var;
+		
 		DECLARE rowVar ROW;
-		SET rowVar.arr[] = SELECT * FROM Database.Employees WHERE Employees.id=1194;
-		SET OutputLocalEnvironment.data = rowVar;
+		SET rowVar.arr[] = PASSTHRU('SELECT * FROM Employees WHERE EID=?', 1194);
+		
+		IF SQLCODE = 0 THEN
+			CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO', 'Retrived data from table : ' || CAST(rowVar.arr AS CHARACTER CCSID 1208)) INTO var;
+		ELSE
+			CALL write_log(MessageFlowLabel,'AvishkarError','ERROR', 'Failed to retrieve data from table : ' || SQLERRORTEXT) INTO var;
+		END IF;
+		
+		CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO','ESB Response sent') INTO var;
+		
+		SET OutputRoot.XMLNSC.data = rowVar;	
 	END;
 END MODULE;

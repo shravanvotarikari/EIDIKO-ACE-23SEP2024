@@ -3,11 +3,27 @@
 CREATE COMPUTE MODULE MF_Compute_CRUD_Update_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		CALL CopyEntireMessage();
+--		CALL CopyEntireMessage();
+		CALL updateRecord();
 		RETURN TRUE;
 	END;
 
-	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		UPDATE Database.Employees SET dept = 'IIB' where Employees.id = 1194;
+--	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		PASSTHRU 'UPDATE Employees SET DESIGNATION = ''ACE Developer'' where EID = ''1194''';
+--	END;
+	
+	CREATE FUNCTION updateRecord()
+	BEGIN
+		CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO','ESB Request received') INTO var;
+		
+		PASSTHRU 'UPDATE Employees SET DESIGNATION = ''ACE Developer'' where EID = ''1194''';
+		
+		IF SQLCODE = 0 THEN
+			CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO','Table updated successfully') INTO var;
+		ELSE
+			CALL write_log(MessageFlowLabel,'AvishkarError','ERROR', 'Failed to update the table : ' || SQLERRORTEXT) INTO var;
+		END IF;
+		
+		CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO','ESB Response sent') INTO var;
 	END;
 END MODULE;

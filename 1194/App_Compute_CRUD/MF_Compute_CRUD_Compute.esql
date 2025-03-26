@@ -3,16 +3,29 @@
 CREATE COMPUTE MODULE MF_Compute_CRUD_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		CALL CopyEntireMessage();
+--		CALL CopyEntireMessage();
+		CALL insertRecord();
 		RETURN TRUE;
 	END;
 
-	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		INSERT INTO Database.Employees VALUES (1212, 'Abhishek', 'IIB');
+--	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		PASSTHRU 'INSERT INTO Employees VALUES (1194, ''Avishkar'', ''IIB Developer'', ''Pune'')';
+--	END;
+	
+	CREATE FUNCTION insertRecord()
+	BEGIN
+		CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO','ESB request received for Inserting a row in table') INTO var;
 		
+		PASSTHRU 'INSERT INTO Employees VALUES (1194, ''Avishkar'', ''IIB Developer'', ''Pune'', 200000, ''EIDIKO'')';
 		
---		To insert data (Another approach using PASSTHRU function)
---		SET OutputRoot.XMLNSC.insert.table[] = PASSTHRU('INSERT INTO Employees VALUES(1176, ''Abhijeet'',''IIB'')');
+		IF SQLCODE = 0 THEN
+			SET OutputRoot.XMLNSC.response = 'Data inserted successfully';
+			CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO','Row inserted successfully') INTO var;
+		ELSE
+			CALL write_log(MessageFlowLabel,'AvishkarError','ERROR', 'Failed to insert in table : ' || SQLERRORTEXT) INTO var;
+		END IF;
 		
+		CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO','ESB Response sent') INTO var;
 	END;
+	
 END MODULE;

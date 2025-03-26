@@ -3,11 +3,27 @@
 CREATE COMPUTE MODULE MF_Compute_CRUD_Retrieve_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		CALL CopyEntireMessage();
+--		CALL CopyEntireMessage();
+		CALL createTable();
 		RETURN TRUE;
 	END;
 
-	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		PASSTHRU 'Create table employees(id NUMBER(4), empName VARCHAR2(10), dept VARCHAR2(10))';
+--	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		PASSTHRU 'Create table Employees(EID NUMBER(4), ENAME VARCHAR2(10), DESIGNATION VARCHAR2(10), ADDRESS VARCHAR2(20))';
+--	END;
+	
+	CREATE FUNCTION createTable()
+	BEGIN
+		CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO','ESB Request received') INTO var;
+		
+		PASSTHRU 'Create table Employees(EID NUMBER(4), ENAME VARCHAR2(10), DESIGNATION VARCHAR2(10), ADDRESS VARCHAR2(20))';
+		
+		IF SQLCODE = 0 THEN
+			CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO','Table created successfully') INTO var;
+		ELSE
+			CALL write_log(MessageFlowLabel,'AvishkarError','ERROR', 'Failed to create a table : ' || SQLERRORTEXT) INTO var;
+		END IF;
+		
+		CALL write_log(MessageFlowLabel,'AvishkarLogger','INFO','ESB Response sent') INTO var;
 	END;
 END MODULE;
