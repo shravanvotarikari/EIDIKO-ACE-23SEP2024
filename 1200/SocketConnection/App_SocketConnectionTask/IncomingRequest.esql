@@ -1,0 +1,36 @@
+CREATE COMPUTE MODULE IncomingRequest
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		Declare inref CHARACTER InputRoot.XMLNSC.data.IFSC;
+		--SET OutputRoot = InputRoot;
+		DECLARE ConnDetails CHARACTER;
+		set ConnDetails = getPolicyProperty1('{UDP}:BankDetails','SBIN0001');
+		set OutputRoot.XMLNSC.data.Conn = ConnDetails;
+		
+		
+	END;
+END MODULE;
+
+create FUNCTION getPolicyProperty1(in policyName CHARACTER, in propertyName CHARACTER)
+RETURNS CHARACTER
+LANGUAGE JAVA
+EXTERNAL NAME "MF_TASK_JavaCompute.getPolicyProperty1";
+
+CREATE COMPUTE MODULE GeneratedResponse
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
