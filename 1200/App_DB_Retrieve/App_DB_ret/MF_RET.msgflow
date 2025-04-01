@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmDatabaseRetrieve.msgnode="ComIbmDatabaseRetrieve.msgnode" xmlns:ComIbmWSInput.msgnode="ComIbmWSInput.msgnode" xmlns:ComIbmWSReply.msgnode="ComIbmWSReply.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="MF_RET.msgflow" nsPrefix="MF_RET.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="RECTANGLE">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="MF_RET" bundleName="MF_RET" pluginId="App_DB_ret"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_DB_ret/icons/full/obj16/MF_RET.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_DB_ret/icons/full/obj30/MF_RET.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="58,103" URLSpecifier="/ret" messageDomainProperty="XMLNSC">
+        <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="492,103">
+        <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
+      </nodes>
+      <nodes xmi:type="ComIbmDatabaseRetrieve.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="267,20" dataSourceName="xe" copyMessage="true" sqlQuery="SELECT EMPLOYEE_DETAIL.FIRST_NAME, EMPLOYEE_DETAIL.LAST_NAME&#xA;FROM EMPLOYEE_DETAIL&#xA;WHERE EMPLOYEE_DETAIL.EMPLOYEE_ID = '1200'&#xA;ORDER BY EMPLOYEE_DETAIL.FIRST_NAME ASC, EMPLOYEE_DETAIL.LAST_NAME ASC" tableNameComboValues="0,0,0,0,0~EMPLOYEE_DETAIL" columnNameComboValues="1,2,3,0,0,0~DEPARTMENT,EMPLOYEE_ID,FIRST_NAME,LAST_NAME,SALARY"
+          operatorComboValues="2,0,0,0,0~ASC" valueTypeComboValues="3,0,0,0,0,0~String" columnValueComboValues="1,2,0,0,0,0~EMPLOYEE_DETAIL.FIRST_NAME">
+        <translation xmi:type="utility:ConstantString" string="Database Retrieve"/>
+        <queryElements tableName="EMPLOYEE_DETAIL" columnName="EMPLOYEE_ID" operator="=" valueType="String" value="1200"/>
+        <queryElements tableName="EMPLOYEE_DETAIL" columnName="FIRST_NAME" operator="ASC" valueType="None" value="None"/>
+        <queryElements tableName="EMPLOYEE_DETAIL" columnName="LAST_NAME" operator="ASC" valueType="None" value="None"/>
+        <dataElements columnName="EMPLOYEE_DETAIL.FIRST_NAME" messageElement="$OutputRoot/XMLNSC/EMP/firstname"/>
+        <dataElements columnName="EMPLOYEE_DETAIL.LAST_NAME" messageElement="$OutputRoot/XMLNSC/EMP/lastname"/>
+        <nsMappingTable nsPrefix="xes" namespace="http://xe/system"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>
