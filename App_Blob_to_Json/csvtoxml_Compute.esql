@@ -1,0 +1,16 @@
+
+
+CREATE COMPUTE MODULE csvtoxml_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+	set OutputRoot=InputRoot;
+SET OutputLocalEnvironment.Wildcard.WildcardMatch = CAST(InputRoot.BLOB.BLOB AS CHARACTER CCSID 1208);
+	END;
+END MODULE;
