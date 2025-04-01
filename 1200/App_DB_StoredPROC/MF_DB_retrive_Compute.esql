@@ -1,0 +1,37 @@
+
+
+CREATE COMPUTE MODULE MF_DB_retrive_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		DECLARE message BLOB;
+		CALL task1_procedure(message);
+		
+		--DECLARE i INTEGER 1;
+		--DECLARE rows ROW;
+		
+		--CREATE FIELD OutputRoot.JSON.Data.root.emp IDENTITY(JSON.Array)emp;
+		
+--		WHILE i < 3 DO
+--			SET rows.item = CAST(message as CHARACTER CCSID 1208);
+--			set i = i+1;
+--		END WHILE;
+
+			--SET OutputRoot.JSON.Data.root.emp[1] = CAST(message as CHARACTER CCSID 1208);
+		
+		--SET OutputRoot.XMLNSC.data.root = CAST((message) as CHARACTER CCSID 1208);
+		CREATE LASTCHILD OF OutputRoot DOMAIN('XMLNSC') PARSE (message);
+		
+		
+	END;
+	
+		CREATE PROCEDURE task1_procedure (OUT msg BLOB)
+		EXTERNAL NAME TASK1_SELECT;
+	
+END MODULE;
