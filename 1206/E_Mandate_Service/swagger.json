@@ -1,0 +1,163 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "E_Mandate_Service",
+    "version" : "1.0.0",
+    "description" : "E_Mandate_Service"
+  },
+  "paths" : {
+    "/mandate" : {
+      "get" : {
+        "operationId" : "getMandate",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/validateMandate"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve mandate"
+      },
+      "post" : {
+        "operationId" : "postMandate",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Insert a mandate",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "$ref" : "#/definitions/validateMandate"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        } ]
+      },
+      "put" : {
+        "operationId" : "putMandate",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Update mandate",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "$ref" : "#/definitions/validateMandate"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        } ]
+      },
+      "delete" : {
+        "operationId" : "deleteMandate",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Remove from mandate"
+      }
+    }
+  },
+  "basePath" : "/e_mandate_service/v1",
+  "definitions" : {
+    "validateMandate" : {
+      "type" : "object",
+      "properties" : {
+        "UMRN" : {
+          "type" : "string"
+        },
+        "MandateId" : {
+          "type" : "integer",
+          "minLength":1
+        },
+        "CreatedOn" : {
+          "type" : "string",
+          "pattern":"^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$"
+        },
+        "SponsorBankCode" : {
+          "type" : "string",
+          "minLength":1
+        },
+        "UtilityCode" : {
+          "type" : "string"
+        },
+        "CorporateName" : {
+          "type" : "string",
+          "minLength":1
+        },
+        "ToDebit" : {
+          "type" : "string",
+          "minLength":1
+        },
+        "BankAccount" : {
+          "type" : "string",
+          "minLength":8,
+          "maxLength":18
+        },
+        "WithBank" : {
+          "type" : "string",
+          "minLength":1
+        },
+        "IFSC/MICR" : {
+          "type" : "string",
+          "minLength":1
+        },
+        "Amount" : {
+          "type" : "integer",
+          "minLength":1
+        },
+        "Reference1" : {
+          "type" : "string",
+          "minLength":1
+        },
+        "Reference2" : {
+          "type" : "string",
+          "minLength":1
+        },
+        "Frequency" : {
+          "type" : "string",
+          "minLength":1
+        },
+        "DebitType" : {
+          "type" : "string",
+          "minLength":1
+        },
+        "Period" : {
+          "type" : "string",
+          "minLength":1
+        },
+        "PhoneNumber" : {
+          "type" : "string",
+          "pattern":"\\d{10}"
+        },
+        "Aadhaar" : {
+          "type" : "string",
+          "pattern":"\\d{12}"
+        },
+        "E-MailID" : {
+          "type" : "string",
+          "minLength":1
+        },
+        "Signature" : {
+          "type" : "string",
+          "minLength":1
+        }
+      },
+      "required" : [ "MandateId", "CreatedOn", "SponsorBankCode", "UtilityCode", "CorporateName", "ToDebit", "BankAccount", "WithBank", "IFSC/MICR", "Amount", "Frequency", "DebitType", "Period", "PhoneNumber", "Signature", "Aadhaar" ]
+    }
+  }
+}

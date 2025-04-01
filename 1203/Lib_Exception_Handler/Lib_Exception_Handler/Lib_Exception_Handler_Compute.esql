@@ -1,0 +1,26 @@
+BROKER SCHEMA Lib_Exception_Handler
+
+
+CREATE COMPUTE MODULE Lib_Exception_Handler_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		--SET OutputRoot = InputRoot;
+		   DECLARE ref REFERENCE TO InputExceptionList.[>];
+		
+		DECLARE mainText CHARACTER '';
+		WHILE ENDSWITH(FIELDNAME(ref),'Exception') DO
+			
+			SET mainText=ref.Text;
+			--For loop is for concatenating
+			FOR insertRef AS ref.Insert[] DO
+				SET mainText=mainText ||','||insertRef.Text||',';
+			END FOR;
+			MOVE ref LASTCHILD;
+			
+		END WHILE;
+		
+		SET OutputRoot.XMLNSC.res=mainText;
+		RETURN TRUE;
+	END;
+
+END MODULE;

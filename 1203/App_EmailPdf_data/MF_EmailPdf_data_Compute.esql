@@ -1,19 +1,35 @@
 
 
+
+
+
+
+
+
 CREATE COMPUTE MODULE MF_EmailPdf_data_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
-		 CALL CopyEntireMessage();
+		CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
 
-	
+
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputRoot.JSON.Data = CAST(InputRoot.BLOB.BLOB AS CHARACTER CCSID 1208);
-		
-		
+		--SET OutputRoot.JSON.Data = CAST(InputRoot.BLOB.BLOB AS CHARACTER CCSID 1208);
+		-- Parse the record into JSON format
+		-- Assuming the input message is in BLOB format
+		-- Step 1: Convert BLOB to JSON
+		DECLARE inputJson CHAR CAST(InputRoot.BLOB.BLOB AS CHAR CCSID 1208);
+		CREATE LASTCHILD OF OutputRoot.JSON.Data PARSE(inputJson);
+		-- Step 2: Modify JSON (Optional)
+		SET OutputRoot.JSON.Data.newField = 'NewValue';
+		-- Step 3: Convert JSON Back to BLOB
+		SET OutputRoot.BLOB.BLOB = ASBITSTREAM(
+		OutputRoot.JSON.Data
+		ENCODING InputProperties.Encoding
+		CCSID InputProperties.CodedCharSetId);
 		--SET OutputRoot = InputRoot;
 	END;
 END MODULE;

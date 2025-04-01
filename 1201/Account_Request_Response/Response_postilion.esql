@@ -1,0 +1,16 @@
+CREATE COMPUTE MODULE Response_postilion
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		SET OutputRoot = InputRoot;
+		SET OutputRoot.XMLNSC.request.postilion.status = 'Updated successfully with response code 01';
+		Propagate TO TERMINAL 'out1' DELETE NONE;
+		
+	END;
+END MODULE;

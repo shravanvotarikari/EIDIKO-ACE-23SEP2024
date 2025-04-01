@@ -5,6 +5,7 @@
 	<projects>
 		<project>App_App_JCN_CSVToXMLJava</project>
 		<project>App_JCN_CSVToXMLJava</project>
+		<project>App_JCN_TransformationsJava</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

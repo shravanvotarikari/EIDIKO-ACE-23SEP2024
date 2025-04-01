@@ -1,0 +1,26 @@
+
+
+
+
+CREATE COMPUTE MODULE MF_Test_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		DECLARE Property2 CHARACTER;
+		SET Property2=getPolicyProperty('{JavaPol}:JavaPolicy', 'id');
+		SET OutputRoot.XMLNSC.Property = Property2;		
+
+	END;
+
+	CREATE FUNCTION getPolicyProperty( IN policyName CHARACTER, IN propertyName CHARACTER )
+	RETURNS CHARACTER
+	LANGUAGE JAVA
+	EXTERNAL NAME "MyPolicyAccessClass.getPolicyProperty";
+
+END MODULE;

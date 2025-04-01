@@ -1,0 +1,40 @@
+DECLARE var_path CHARACTER 'C:\temp\Log4jConfigurationFile.xml';
+DECLARE isSuccessful BOOLEAN;
+
+CREATE COMPUTE MODULE Error3_Handle_Compute
+
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL init_log4j(var_path) INTO isSuccessful;
+		CALL CopyEntireMessage();
+		
+		DECLARE tree ROW InputExceptionList;
+		SET OutputRoot.XMLNSC.root.exce = tree;
+	--	DECLARE msg CHARACTER CAST(InputExceptionList as CHARACTER CCSID 1208);
+		DECLARE msg CHARACTER CAST(ASBITSTREAM(OutputRoot.XMLNSC.root.exce) as CHARACTER CCSID 1208);
+		
+		CALL write_log(ApplicationLabel,'dco_debug','DEBUG',msg) INTO isSuccessful;
+
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage()
+	BEGIN
+		--SET OutputRoot = InputRoot;
+		
+		
+		--UPDATE Database.LOGTABLE_1 SET EXCEPTION_MSG = 'Exception occurs!! check logs';
+		INSERT INTO Database.LOGTABLE_1 (APPLICATION_NAME,FLOW_NAME,SERVER_NAME,EXCEPTION_MSG,EXCEPTION_TIME) 
+		VALUES (ApplicationLabel,MessageFlowLabel,ExecutionGroupLabel,'Exception occurs!! check logs',
+				CAST(CURRENT_TIMESTAMP AS CHARACTER FORMAT 'yyyy-MM-dd - HH-mm-ss'));
+	END;
+END MODULE;
+
+CREATE FUNCTION init_log4j (IN var_path CHARACTER) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
+
+
+CREATE PROCEDURE write_log (in Application_Flow CHARACTER, in logger_name CHARACTER, in level CHARACTER, in data CHARACTER) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";

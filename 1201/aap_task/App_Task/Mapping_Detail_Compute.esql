@@ -1,0 +1,39 @@
+
+
+CREATE COMPUTE MODULE Mapping_Detail_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+
+			DECLARE cst CHARACTER;
+			SET cst = CAST(InputRoot.BLOB.BLOB as CHARACTER CCSID 1208);
+			-- CREATE LASTCHILD OF OutputRoot DOMAIN('XMLNSC') PARSE (InputRoot.BLOB.BLOB CCSID 1208);
+
+			IF STARTSWITH(cst,'{') AND ENDSWITH(cst,'}') THEN
+
+				CREATE LASTCHILD OF OutputRoot DOMAIN('JSON') PARSE (InputRoot.BLOB.BLOB CCSID 1208);
+				SET OutputRoot.XMLNSC = OutputRoot.JSON.Data;
+				DELETE FIELD OutputRoot.JSON;
+
+			ELSEIF STARTSWITH(cst,'<') AND ENDSWITH(cst,'>') then
+				
+				CREATE LASTCHILD OF OutputRoot DOMAIN('XMLNSC') PARSE (InputRoot.BLOB.BLOB CCSID 1208);
+				SET OutputRoot.JSON.Data = OutputRoot.XMLNSC;
+				DELETE FIELD OutputRoot.XMLNSC;
+				
+			ELSE
+				SET OutputRoot.JSON.Data.input = 'Invalid';
+		END IF;
+
+
+
+	END;
+END MODULE;

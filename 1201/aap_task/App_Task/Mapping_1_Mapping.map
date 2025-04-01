@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <inlinedXMLSchema>
+        <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+       
+  <xsd:element name="Transaction" nillable="true"> 
+    <xsd:complexType> 
+      <xsd:sequence> 
+        <xsd:element name="TransactionId" nillable="true" type="xsd:string"/> 
+        <xsd:element name="Amount" nillable="true" type="xsd:string"/> 
+        <xsd:element name="Currency" nillable="true" type="xsd:string"/> 
+        <xsd:element name="Type" nillable="true" type="xsd:string"/> 
+      </xsd:sequence> 
+    </xsd:complexType> 
+  </xsd:element> 
+       
+  <xsd:element name="Customer" nillable="true"> 
+    <xsd:complexType> 
+      <xsd:sequence> 
+        <xsd:element name="CustomerId" nillable="true" type="xsd:string"/> 
+        <xsd:element name="Name" nillable="true" type="xsd:string"/> 
+        <xsd:element name="Email" nillable="true" type="xsd:string"/> 
+        <xsd:element name="Phone" nillable="true" type="xsd:string"/> 
+      </xsd:sequence> 
+    </xsd:complexType> 
+  </xsd:element> 
+   
+</xsd:schema> 
+]]>
+    </inlinedXMLSchema>
+    <input path="/map_scema.xsd" var="var2"/>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var1"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="out" uri="http://www.ibm.com/iib/msl/json"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="Mapping_1_Mapping">
+        <input path="$var2/mb:msg(Root,assembly,XMLNSC,Properties)" var="ComIbmMessageAssembly_Root"/>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var/mb:msg(JSON,assembly,JSON,Properties)" var="ComIbmMessageAssembly_JSON">
+            <cast castType="userDefined" path="$ComIbmMessageAssembly_JSON/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var"/>
+            <cast castType="userDefined" path="$ComIbmMessageAssembly_JSON/JSON/spath('Data',2)/any" qualifier="Customer" ref="var1"/>
+            <cast castType="userDefined" path="$ComIbmMessageAssembly_JSON/JSON/spath('Data',2)/any" qualifier="Transaction" ref="var1"/>
+        </output>
+        <move>
+            <input path="$ComIbmMessageAssembly_Root/Properties"/>
+            <output path="$ComIbmMessageAssembly_JSON/Properties"/>
+        </move>
+        <local>
+            <input path="$ComIbmMessageAssembly_Root/Root/Body/Customer"/>
+            <output path="$ComIbmMessageAssembly_JSON/JSON/spath('Data',2)/Customer"/>
+            <move>
+                <input path="CustomerId"/>
+                <output path="CustomerId"/>
+            </move>
+            <move>
+                <input path="Name"/>
+                <output path="Name"/>
+            </move>
+            <move>
+                <input path="Email"/>
+                <output path="Email"/>
+            </move>
+            <move>
+                <input path="Phone"/>
+                <output path="Phone"/>
+            </move>
+        </local>
+        <local>
+            <input path="$ComIbmMessageAssembly_Root/Root/Body/Transaction"/>
+            <output path="$ComIbmMessageAssembly_JSON/JSON/spath('Data',2)/Transaction"/>
+            <move>
+                <input path="TransactionId"/>
+                <output path="TransactionId"/>
+            </move>
+            <move>
+                <input path="Amount"/>
+                <output path="Amount"/>
+            </move>
+            <move>
+                <input path="Currency"/>
+                <output path="Currency"/>
+            </move>
+            <move>
+                <input path="Type"/>
+                <output path="Type"/>
+            </move>
+        </local>
+    </mappingDeclaration>
+</mappingRoot>

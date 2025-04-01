@@ -16,8 +16,8 @@ CREATE COMPUTE MODULE MF_server_Compute
 		
 		SET cibilScore.score[] = SELECT c.cibilscore FROM Database.creditscore AS c WHERE c.clientID = clientID ;
 		
+		SET OutputRoot.XMLNSC.root = cibilScore.score[1];
 		SET OutputRoot.XMLNSC.root.clientid = clientID;
-		SET OutputRoot.XMLNSC.root.cibilscore = cibilScore.score[1];
 		
 	END;
 END MODULE;

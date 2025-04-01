@@ -1,0 +1,45 @@
+
+
+CREATE COMPUTE MODULE postGenerate_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		SET OutputRoot.EmailOutputHeader.To = InputRoot.JSON.Data.info.email;
+		SET OutputRoot.EmailOutputHeader.From = 'abhishekrajendra.ghogare@eidiko-india.com';
+		SET OutputRoot.EmailOutputHeader."Reply-To" = 'jayeshmanohar.tawade@eidiko-india.com';
+		SET OutputRoot.EmailOutputHeader.Subject = 'Eidiko otp generator.';
+		------otp gen--------
+		DECLARE random_n INTEGER RAND()*9999;--9999 
+		DECLARE r_num CHARACTER cast(random_n as character CCSID 1208 ENCODING 546);
+		if random_n < 10 then--9
+			set r_num = '000' || cast(random_n as character CCSID 1208 ENCODING 546);
+		elseif random_n < 100 then --99
+			set r_num = '00' || cast(random_n as character CCSID 1208 ENCODING 546);
+		elseif random_n < 1000 then --999
+			set r_num = '0' || cast(random_n as character CCSID 1208 ENCODING 546);
+		end if;
+		-------------------------	
+		
+		DECLARE body CHARACTER 'Generated otp: '|| r_num;
+		
+		set OutputRoot.BLOB.BLOB = cast(body as BLOB CCSID 1208 ENCODING 546);
+		propagate to TERMINAL 'out1';
+		
+		Set OutputRoot.JSON.Data.info.key = InputRoot.JSON.Data.info.email;
+		Set OutputRoot.JSON.Data.info.otp = r_num;
+		Set OutputRoot.JSON.Data.info.ttl = 300;
+		Set OutputRoot.JSON.Data.info.map = 'otp_map';
+		
+		--SET OutputLocalEnvironment.Destination.Email.SMTPServer ='email.eidiko-india.com:587';
+		RETURN TRUE;
+	END;
+
+END MODULE;
+create COMPUTE MODULE removeInfo
+	CREATE FUNCTION  Main( ) RETURNS Boolean
+	BEGIN
+		set OutputRoot.JSON=null;
+		set OutputRoot.JSON.Data.info.res = 'Otp sent to Recipient';
+	RETURN true;
+	end;
+END MODULE;

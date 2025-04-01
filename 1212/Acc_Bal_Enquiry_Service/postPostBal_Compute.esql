@@ -1,0 +1,17 @@
+
+
+CREATE COMPUTE MODULE postPostBal_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+	DECLARE inref REFERENCE TO InputRoot.JSON.Data.BalReq;
+	CREATE FIELD  OutputRoot.JSON.Data;
+		
+	DECLARE ref REFERENCE TO OutputRoot.JSON.Data;
+	DECLARE acc_n INTEGER inref.accountNO;
+	SET ref = PASSTHRU('SELECT acc_holder, acc_bal FROM Acc_Bal WHERE acc_no = ?', acc_n);	
+		RETURN TRUE;
+	END;
+
+
+END MODULE;

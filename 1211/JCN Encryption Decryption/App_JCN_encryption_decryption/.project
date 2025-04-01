@@ -3,7 +3,6 @@
 	<name>App_JCN_encryption_decryption</name>
 	<comment></comment>
 	<projects>
-		<project>Encryption</project>
 		<project>App_JCN_encryption_decryptionJava</project>
 	</projects>
 	<buildSpec>

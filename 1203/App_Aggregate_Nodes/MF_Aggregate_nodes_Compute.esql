@@ -6,13 +6,13 @@ CREATE COMPUTE MODULE MF_Aggregate_nodes_Compute
 			SET OutputRoot = InputRoot;
 		SET OutputLocalEnvironment=InputLocalEnvironment;
 
-    SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://localhost:7800/path1';
+    SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://localhost:7801/path1';
     PROPAGATE to terminal 'out' delete none;  
 
-    SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://localhost:7800/path2';
+    SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://localhost:7801/path2';
      PROPAGATE to terminal 'out' delete none;  
 
-    SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://localhost:7800/path3';
+    SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://localhost:7801/path3';
 		RETURN TRUE;
 	END;
 

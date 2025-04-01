@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="Type" type="xsd:string"/>
+  <xsd:element name="Email" type="xsd:string"/>
+  <xsd:element name="Root">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="Body"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="Transaction">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="TransactionId"/>
+        <xsd:element ref="Amount"/>
+        <xsd:element ref="Currency"/>
+        <xsd:element ref="Type"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="Customer">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="CustomerId"/>
+        <xsd:element ref="Name"/>
+        <xsd:element ref="Email"/>
+        <xsd:element ref="Phone"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="Phone" type="xsd:string"/>
+  <xsd:element name="Amount" type="xsd:string"/>
+  <xsd:element name="Currency" type="xsd:string"/>
+  <xsd:element name="CustomerId" type="xsd:string"/>
+  <xsd:element name="Body">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="Customer"/>
+        <xsd:element ref="Transaction"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="Name" type="xsd:string"/>
+  <xsd:element name="TransactionId" type="xsd:string"/>
+</xsd:schema>

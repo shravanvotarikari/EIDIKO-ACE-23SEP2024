@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmJMSClientInput.msgnode="ComIbmJMSClientInput.msgnode" xmlns:ComIbmJMSClientOutput.msgnode="ComIbmJMSClientOutput.msgnode" xmlns:ComIbmJMSClientReply.msgnode="ComIbmJMSClientReply.msgnode" xmlns:ComIbmJMSHeader.msgnode="ComIbmJMSHeader.msgnode" xmlns:ComIbmMQInput.msgnode="ComIbmMQInput.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility"
+    nsURI="MF_JMS_ReplyTo.msgflow" nsPrefix="MF_JMS_ReplyTo.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="RECTANGLE">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="MF_JMS_ReplyTo" bundleName="MF_JMS_ReplyTo" pluginId="APP_JMS_Nodes"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/APP_JMS_Nodes/icons/full/obj16/MF_JMS_ReplyTo.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/APP_JMS_Nodes/icons/full/obj30/MF_JMS_ReplyTo.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmJMSClientOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="376,60" destinationQueueName="D1" locationJndiBindings="file:/C:/JNDI/" connectionFactoryName="cf">
+        <translation xmi:type="utility:ConstantString" string="JMS Output"/>
+      </nodes>
+      <nodes xmi:type="ComIbmJMSClientInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="70,164" sourceQueueName="D1" locationJndiBindings="file:/C:/JNDI/" connectionFactoryName="cf">
+        <translation xmi:type="utility:ConstantString" string="JMS Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmJMSClientReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_5" location="581,165" locationJndiBindings="file:/C:/JNDI/" connectionFactoryName="cf">
+        <translation xmi:type="utility:ConstantString" string="JMS Reply"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="67,59" queueName="q3" destinationQueueManagerName="QM1">
+        <translation xmi:type="utility:ConstantString" string="MQ Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmJMSHeader.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="319,163" jmsHeaderOptions="Add header" jmsDeliveryMode="Non_Persistent" jmsExpiration="0" jmsPriority="4" jmsReplyTo="jndi://D2">
+        <translation xmi:type="utility:ConstantString" string="JMS Header"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>

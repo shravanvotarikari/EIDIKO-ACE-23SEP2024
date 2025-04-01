@@ -1,0 +1,14 @@
+DECLARE ns NAMESPACE 'http://www.example.org/NewWSDLFile/';
+
+
+CREATE COMPUTE MODULE MF_Provider_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	   CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.SOAP.Body.ns:NewOperationResponse.out = 'Backend reply';
+	END;
+END MODULE;

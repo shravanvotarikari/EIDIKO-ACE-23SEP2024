@@ -1,0 +1,80 @@
+CREATE COMPUTE MODULE Bank_Inp_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		SEt OutputRoot = InputRoot;
+
+		DECLARE content_type CHARACTER InputRoot.HTTPInputHeader."Content-Type";
+		DECLARE Inp_Data CHARACTER;
+		DECLARE check CHARACTER;
+
+		IF content_type = 'text/plain' THEN
+
+			SET Inp_Data = CAST(ASBITSTREAM(InputRoot.XMLNSC CCSID 1208 ENCODING 546) AS CHARACTER CCSID 1208 ENCODING 546);
+--			SET Inp_Data = CAST(ASBITSTREAM(InputRoot.BLOB.BLOB CCSID 1208 ENCODING 546) AS CHARACTER CCSID 1208 ENCODING 546);
+--			CREATE LASTCHILD OF OutputRoot DOMAIN ('XMLNSC') PARSE(InputRoot.BLOB.BLOB CCSID 1208 ENCODING 546);
+--			DELETE FIELD OutputRoot.BLOB;
+--			SET OutputRoot.XMLNSC = Inp_Data;
+			
+			SET check = InputRoot.XMLNSC.request.accountOpeningCheck;
+
+			IF check = 'KYC_CHECK' THEN
+
+				SET OutputLocalEnvironment.Destination.RouterList.DestinationData.labelName = 'KYC';
+
+			ELSEIF check = 'FCM_CHECK' THEN
+
+				SET OutputLocalEnvironment.Destination.RouterList.DestinationData.labelName = 'FCM';
+
+			ELSEIF check = 'UPDATE' THEN
+
+				SET OutputLocalEnvironment.Destination.RouterList.DestinationData.labelName = 'UPDATE';
+
+			ELSE
+				SET OutputRoot.XMLNSC.Request.response = 'Unknown Request';
+				THROW USER EXCEPTION;
+
+			END IF;
+
+
+		ELSE
+			
+			SET Inp_Data = CAST(ASBITSTREAM(InputRoot.JSON.Data CCSID 1208 ENCODING 546) AS CHARACTER CCSID 1208 ENCODING 546);
+			SET check = InputRoot.JSON.Data.header.accountOpeningCheck;
+
+			IF check = 'KYC_CHECK' THEN
+
+				SET OutputLocalEnvironment.Destination.RouterList.DestinationData.labelName = 'KYC';
+
+			ELSEIF check = 'FCM_CHECK' THEN
+
+				SET OutputLocalEnvironment.Destination.RouterList.DestinationData.labelName = 'FCM';
+
+			ELSEIF check = 'UPDATE' THEN
+
+				SET OutputLocalEnvironment.Destination.RouterList.DestinationData.labelName = 'UPDATE';
+
+			ELSE
+				SET OutputRoot.JSON.Data.Request.response = 'Unknown Request';
+				THROW USER EXCEPTION;
+
+			END IF;
+
+
+		END IF;
+
+
+		INSERT INTO Database.RAW_AUDIT_LOGGING (MESSAGE_FLOW, APPLICATION_NAME, LOG_TIMESTAMP, CHANNEL_INPUT )
+		VALUES (MessageFlowLabel,ApplicationLabel,CAST(CURRENT_TIMESTAMP AS CHARACTER),Inp_Data );
+
+
+
+
+	END;
+END MODULE;

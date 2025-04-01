@@ -1,0 +1,50 @@
+
+
+
+
+Path Lib_Dynamic_Logging;
+
+DECLARE var SHARED INTEGER 1;
+
+CREATE COMPUTE MODULE Mf_DynamicLogging_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		--SET OutputRoot = InputRoot;
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		
+
+		Propagate to TERMINAL 'out2';
+		-- SET OutputRoot.DFDL.CSV_Model_01.record.Application_name = ApplicationLabel;
+		-- SET OutputRoot.DFDL.CSV_Model_01.record.Messageflow_name = MessageFlowLabel;
+		-- SET OutputRoot.DFDL.CSV_Model_01.record.Node_name = NodeLabel;
+		-- SET OutputRoot.DFDL.CSV_Model_01.record.EG_name = ExecutionGroupLabel;
+		-- SET OutputRoot.DFDL.CSV_Model_01.record.ChannelID = NULL;
+		-- SET OutputRoot.DFDL.CSV_Model_01.record.RequestID = var;
+		-- SET OutputRoot.DFDL.CSV_Model_01.record.Request_time = CAST (CURRENT_TIMESTAMP AS CHARACTER);
+		-- SET OutputRoot.DFDL.CSV_Model_01.record.Request_message = InputRoot.XMLNSC.name;
+		-- SET OutputRoot.DFDL.CSV_Model_01.record.Response_time = CAST (CURRENT_TIMESTAMP AS CHARACTER);
+		-- SET OutputRoot.DFDL.CSV_Model_01.record.Response_message = InputRoot.XMLNSC.name;
+		--
+		-- SET OutputLocalEnvironment.Destination.File.Name = 'Audit_log_' || CAST (CURRENT_DATE as CHARACTER FORMAT 'dd-MM-yy');
+		
+		DECLARE inref REFERENCE TO InputRoot.XMLNSC;
+		DECLARE outref REFERENCE TO OutputRoot.JSON.Data ;
+	
+		
+		CALL Dynamic_Log(ApplicationLabel, MessageFlowLabel, NodeLabel, ExecutionGroupLabel, 101, var, CURRENT_TIMESTAMP,
+		inref,
+		CURRENT_TIMESTAMP,
+		outref);
+
+		Propagate to TERMINAL 'out1';
+
+		SET var = var+1;
+
+	END;
+END MODULE;

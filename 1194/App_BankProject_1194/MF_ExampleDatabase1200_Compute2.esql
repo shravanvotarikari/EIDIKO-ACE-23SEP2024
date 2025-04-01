@@ -1,0 +1,24 @@
+
+CREATE COMPUTE MODULE MF_ExampleDatabase1200_Compute2
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		-- Backend Resonse logPoint
+		SET Environment.var3.logPoint = 'Backend Response';
+		SET Environment.var3.responseTime = CURRENT_TIMESTAMP;
+		SET Environment.var3.responseMsg = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID 1208);
+
+		SET OutputRoot.XMLNSC = InputRoot.JSON.Data;
+		-- ESB response logPoint
+		SET Environment.var4.logPoint = 'ESB Response Sent';
+		SET Environment.var4.responseTime = CURRENT_TIMESTAMP;
+		SET Environment.var4.responseMsg = CAST(ASBITSTREAM(OutputRoot.XMLNSC) AS CHARACTER CCSID 1208);
+
+		--THROW EXCEPTION MESSAGE 12323;
+
+	END;
+END MODULE;

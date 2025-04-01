@@ -1,0 +1,22 @@
+BROKER SCHEMA Account_opening
+
+
+CREATE COMPUTE MODULE Audit_Logging
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		SET OutputRoot = InputRoot;
+		
+		INSERT INTO Database.LOG_TABLE (MESSAGE, TIMESTAMP, SEVERITY ) 
+				VALUES ('Entry is present in DWH/ECONET', CAST(CURRENT_TIMESTAMP AS CHARACTER), 'info');
+						
+		
+	END;
+END MODULE;

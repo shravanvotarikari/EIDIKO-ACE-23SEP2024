@@ -1,0 +1,19 @@
+
+
+CREATE COMPUTE MODULE ISO_2
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		SET OutputRoot.Properties.MessageSet = '{ISO_8583_data}';
+		SET OutputRoot.Properties.MessageType = '{}:ISO8583_1987';
+		SET OutputRoot.DFDL = InputRoot.JSON.Data;
+		
+	END;
+END MODULE;

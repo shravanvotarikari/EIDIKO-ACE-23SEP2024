@@ -1,0 +1,27 @@
+
+CREATE COMPUTE MODULE cardinality_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot = InputRoot;
+
+		DECLARE count INTEGER;
+		DECLARE i INTEGER 1;
+		SET count = CARDINALITY(InputRoot.XMLNSC.Orders.Order[]);
+		--SET OutputRoot.JSON.Data.ans = count;
+
+		WHILE i <= count DO
+			
+			SET OutputRoot.JSON.Data.Orders.Order[i] = InputRoot.XMLNSC.Orders.Order[i];
+			SET i = i + 1;
+		END WHILE;
+
+	END;
+END MODULE;

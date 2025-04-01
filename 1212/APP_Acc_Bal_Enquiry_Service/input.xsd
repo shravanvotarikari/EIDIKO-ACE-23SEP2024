@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="accountNO" type="xsd:string"/>
+  <xsd:element name="BalReq">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="accountNO"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

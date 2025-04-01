@@ -1,0 +1,16 @@
+
+
+CREATE COMPUTE MODULE Response_Channel
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	--	SET OutputRoot.XMLNSC.request.fcm_data = InputRoot.JSON.Data;
+	END;
+END MODULE;

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <inlinedXMLSchema>
+        <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+       
+  <xsd:element name="Result" nillable="true" type="xsd:string"/> 
+   
+</xsd:schema> 
+]]>
+    </inlinedXMLSchema>
+    <input path="/map_scema.xsd" var="var2"/>
+    <input path="jar:file://!com/ibm/msl/mapping/rdb/xsds/dbreturn.xsd" var="var4"/>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var6"/>
+    <output path="db:table(/xe.dbm,xe,SYSTEM,MAPPING_CRUD)" var="MAPPINGCRUD2"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var5"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="out" uri="http://www.ibm.com/iib/msl/json"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="insert_Mapping">
+        <input path="$var2/mb:msg(Customer,assembly,XMLNSC,Properties)" var="MessageAssembly1"/>
+        <output path="$MAPPINGCRUD2/db:insert(fn:false(),CUSTOMERID,NAME,EMAIL,PHONE)" var="dbinsert2"/>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var5/mb:msg(JSON,assembly,JSON,Properties)" var="MessageAssembly2">
+            <cast castType="userDefined" path="$MessageAssembly2/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var5" var="anyType"/>
+            <cast castType="userDefined" path="$MessageAssembly2/JSON/spath('Data',2)/any" qualifier="Result" ref="var6" var="any"/>
+        </output>
+        <transaction>
+            <insert ref="dbinsert2">
+                <input path="$MessageAssembly1/Customer"/>
+                <output path="$dbinsert2/."/>
+                <move>
+                    <input path="CustomerId"/>
+                    <output path="CUSTOMERID"/>
+                </move>
+                <move>
+                    <input path="Name"/>
+                    <output path="NAME"/>
+                </move>
+                <move>
+                    <input path="Email"/>
+                    <output path="EMAIL"/>
+                </move>
+                <move>
+                    <input path="Phone"/>
+                    <output path="PHONE"/>
+                </move>
+            </insert>
+            <return>
+                <input path="$var4/DBInsertReturn"/>
+                <output path="$MessageAssembly2/JSON/spath('Data',2)/Result"/>
+                <move>
+                    <input path="NumberOfRowsInserted"/>
+                    <output path="."/>
+                </move>
+            </return>
+        </transaction>
+        <move>
+            <input path="$MessageAssembly1/Properties"/>
+            <output path="$MessageAssembly2/Properties"/>
+        </move>
+    </mappingDeclaration>
+</mappingRoot>

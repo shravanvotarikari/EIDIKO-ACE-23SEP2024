@@ -1,0 +1,45 @@
+CREATE COMPUTE MODULE DWH_ECONET_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		DECLARE DWH_Present BOOLEAN;
+		DECLARE ECONET_Present BOOLEAN;
+		DECLARE transaction_id CHARACTER;
+
+		SET transaction_id = InputRoot.XMLNSC.request.transactionId;
+
+		SET DWH_Present = EXISTS( SELECT 1 FROM Database.DWH AS D WHERE D.TRANSACTIONID = transaction_id);
+		SET ECONET_Present = EXISTS( SELECT 1 FROM Database.ECONET AS E WHERE E.TRANSACTIONID = transaction_id);
+
+		IF DWH_Present THEN
+
+			SET OutputRoot.XMLNSC.request.entry = 'Entry is present in DWH database';
+			PROPAGATE TO TERMINAL 'out1';
+
+		ELSE
+
+			IF ECONET_Present THEN
+
+				SET OutputRoot.XMLNSC.request.entry = 'Entry is present in ECONET database';
+				PROPAGATE TO TERMINAL 'out1';
+
+			ELSE
+
+				SET OutputRoot.XMLNSC.request.entry = 'User KYC is not present';
+				THROW USER EXCEPTION;
+
+			END IF;
+
+		END IF;
+		
+		
+
+	END;
+END MODULE;

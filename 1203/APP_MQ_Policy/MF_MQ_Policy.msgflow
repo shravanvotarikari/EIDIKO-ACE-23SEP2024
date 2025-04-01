@@ -6,7 +6,7 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/APP_MQ_Policy/icons/full/obj16/MF_MQ_Policy.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/APP_MQ_Policy/icons/full/obj30/MF_MQ_Policy.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="103,110" queueName="A1" destinationQueueManagerName="QM1">
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="103,110" queueName="A1" connection="CLIENT" destinationQueueManagerName="QM1" messageDomainProperty="DFDL">
         <translation xmi:type="utility:ConstantString" string="MQ Input"/>
       </nodes>
       <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="538,115" queueName="q2" connection="CLIENT" policyUrl="{MQ_POLICY}:Policy_01">

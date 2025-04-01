@@ -1,0 +1,34 @@
+CREATE COMPUTE MODULE DataLog_Handling_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		CALL CopyEntireMessage();
+
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		SET OutputLocalEnvironment.Destination.RouterList.DestinationData.labelName = 'Log';
+
+		DECLARE Data1 REFERENCE TO InputRoot.XMLNSC;
+
+		SET OutputRoot.XMLNSC.Data = CAST(ASBITSTREAM (Data1) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		
+		-- DECLARE Application_Name CHARACTER ApplicationLabel;
+		-- DECLARE Flow_Name CHARACTER MessageFlowLabel;
+		-- DECLARE Server_Name CHARACTER ExecutionGroupLabel;
+		-- DECLARE Time_stamp CHARACTER;
+		-- SET Time_stamp = CAST(CURRENT_TIMESTAMP AS CHARACTER FORMAT 'yyyy-MM-dd - HH-mm-ss');
+		
+		DECLARE RequestData CHARACTER;
+		SET RequestData = OutputRoot.XMLNSC.Data;
+
+		INSERT INTO Database.LOGTABLE_1 (APPLICATION_NAME,FLOW_NAME,SERVER_NAME,REQUEST_TIME,REQUEST_DATA)
+		VALUES (ApplicationLabel,MessageFlowLabel,ExecutionGroupLabel,CAST(CURRENT_TIMESTAMP AS CHARACTER FORMAT 'yyyy-MM-dd - HH-mm-ss'),RequestData);		
+		
+	END;	
+
+
+END MODULE;

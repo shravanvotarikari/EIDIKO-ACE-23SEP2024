@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" xmlns:map="default" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0">
+    <inlinedXMLSchema>
+        <![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+    
+        
+              
+     
+  <xsd:element name="val" nillable="true"> 
+    <xsd:complexType> 
+      <xsd:sequence> 
+        <xsd:element name="otp" nillable="true" type="xsd:string"/> 
+        <xsd:element name="s_otp" nillable="true" type="xsd:string"/> 
+      </xsd:sequence> 
+    </xsd:complexType> 
+  </xsd:element> 
+       
+  <xsd:element name="info" nillable="true"> 
+    <xsd:complexType> 
+      <xsd:sequence> 
+        <xsd:element name="email" nillable="true" type="xsd:string"/> 
+        <xsd:element name="otp" nillable="true" type="xsd:string"/> 
+      </xsd:sequence> 
+    </xsd:complexType> 
+  </xsd:element> 
+   
+</xsd:schema> 
+]]>
+    </inlinedXMLSchema>
+    <input path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var"/>
+    <input path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var5"/>
+    <input path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var9"/>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var11"/>
+    <input path="jar:file://!com/ibm/msl/mapping/cache/xsds/cache.xsd" var="var13"/>
+    <output path="jar:file://!com/ibm/msl/mapping/cache/xsds/cache.xsd" var="var12"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var14"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="io" uri="http://www.ibm.com/msl/cache/1.0"/>
+        <namespace kind="supplement" prefix="io2" uri="http://www.ibm.com/iib/msl/json"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="postValidate_Mapping">
+        <input namespace="http://www.ibm.com/iib/msl/json" path="$var9/mb:msg(JSON,assembly,JSON,Properties)" var="MessageAssembly">
+            <cast castType="userDefined" path="$MessageAssembly/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var9"/>
+            <cast castType="userDefined" path="$MessageAssembly/JSON/spath('Data',2)/any" qualifier="info" ref="var11"/>
+        </input>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var14/mb:msg(JSON,assembly,JSON,Properties)" var="MessageAssembly4">
+            <cast castType="userDefined" path="$MessageAssembly4/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var14"/>
+            <cast castType="userDefined" path="$MessageAssembly4/JSON/spath('Data',2)/any" qualifier="val" ref="var11"/>
+        </output>
+        <transaction>
+            <cacheGet>
+                <input path="$MessageAssembly/JSON/spath('Data',2)/info/email"/>
+                <output path="$var12/CacheGet"/>
+                <move>
+                    <input path="."/>
+                    <output path="Key"/>
+                </move>
+                <assign value="otp_map">
+                    <output path="MapName"/>
+                </assign>
+            </cacheGet>
+            <cacheReturn>
+                <input path="$var13/CacheGetReturn"/>
+                <output path="$MessageAssembly4/JSON/spath('Data',2)/val/s_otp"/>
+                <move>
+                    <input path="Value"/>
+                    <output path="."/>
+                </move>
+            </cacheReturn>
+        </transaction>
+        <move>
+            <input path="$MessageAssembly/Properties"/>
+            <output path="$MessageAssembly4/Properties"/>
+        </move>
+        <move>
+            <input path="$MessageAssembly/JSON/spath('Data',2)/info[1]/otp"/>
+            <output path="$MessageAssembly4/JSON/spath('Data',2)/val/otp"/>
+        </move>
+    </mappingDeclaration>
+</mappingRoot>
