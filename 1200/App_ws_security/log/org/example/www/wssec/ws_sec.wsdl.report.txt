@@ -1,0 +1,22 @@
+
+
+Importing file: C:\workspaces\message_model\App_ws_security\ws_sec.wsdl
+
+The WSDL import will proceed with bindings ws_secSOAP.
+Creating wsdl schema document for file:///C:/workspaces/message_model/App_ws_security/ws_sec.wsdl.
+Parsing wsdl binding {http://www.example.org/ws_sec/}ws_secSOAP.
+Parsing wsdl binding input NewOperation.
+Parsing wsdl binding output NewOperation.
+Processing doc style for operation NewOperation.
+Populating WSDL schema ws_sec.xsd.
+Creating file ws_sec.xsd in the workspace.
+Creating file ws_sec_InlineSchema1.xsd in the workspace.
+Copying source WSDL ws_sec.wsdl to ws_sec.wsdl.
+
+Elapsed time processing this message definition file: 0.925 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+
