@@ -1,0 +1,38 @@
+
+
+CREATE COMPUTE MODULE MF_transaction_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+				CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		DECLARE inref REFERENCE TO InputRoot.XMLNSC.Root.Body.*;	
+		DECLARE book REFERENCE TO InputRoot.XMLNSC.Root.Body.*.catalog.book[1];
+		
+--		DECLARE head REFERENCE to InputRoot.XMLNSC.Root.Header;
+		
+		  IF FIELDNAME(InputRoot.XMLNSC.Root.Body.*) IS NOT NULL THEN
+			
+		 DECLARE i INTEGER 1;
+		    
+	    WHILE LASTMOVE(book) DO
+	    	
+	        IF  book.author = 'Corets, Eva' THEN	
+	        	
+				SET OutputRoot.XMLNSC.books.book[i] = book;
+				SET i = i+1;
+				
+	        END IF;
+	
+	        MOVE book NEXTSIBLING;
+	    END WHILE;
+	    
+	    end if;
+	    
+	    
+	END; 
+	
+END MODULE;
