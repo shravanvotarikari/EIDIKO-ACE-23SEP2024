@@ -1,0 +1,31 @@
+
+
+CREATE COMPUTE MODULE Blob_to_Json
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		
+		RETURN TRUE;
+	END;
+
+
+CREATE PROCEDURE CopyEntireMessage() BEGIN
+			
+--DECLARE inputBlob BLOB InputRoot.BLOB.BLOB;
+--DECLARE jsonString CHARACTER;	
+--
+--
+    SET OutputRoot.JSON.Data.root = CAST(InputRoot.BLOB.BLOB AS CHARACTER CCSID 1208 ENCODING 546);
+--
+--CREATE LASTCHILD OF OutputRoot DOMAIN('JSON') PARSE(inputBlob,546,1208);
+--SET OutputRoot.JSON.Data.name = jsonString;
+
+		
+--CREATE LASTCHILD OF OutputRoot DOMAIN('JSON') PARSE(inputBlob,546,1208);
+
+		
+		
+		
+		
+	END;
+END MODULE;
