@@ -1,0 +1,19 @@
+
+
+CREATE COMPUTE MODULE MF_Timer_control_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+ CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputLocalEnvironment.TimeoutRequest.Action = 'SET';
+		SET OutputLocalEnvironment.TimeoutRequest.Identifier = 'id1' || cast(CURRENT_TIMESTAMP as CHARACTER);
+		SET OutputLocalEnvironment.TimeoutRequest.IgnoreMissed = 'FALSE';
+		
+		set OutputRoot = InputRoot;
+	END;
+END MODULE;
