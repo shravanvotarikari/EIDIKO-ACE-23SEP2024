@@ -1,0 +1,218 @@
+--BROKER SCHEMA Common
+--
+--CREATE COMPUTE MODULE Exc_Compute
+--	CREATE FUNCTION Main() RETURNS BOOLEAN
+--	BEGIN
+--		
+--		
+--		
+--		
+--		RETURN TRUE;
+--	END;
+--END MODULE;
+BROKER SCHEMA Common
+DECLARE var_path external CHARACTER ;--'C:\Users\Sreenivas Bandaru\Desktop\j\lfj\Log4jConfigurationFile.xml'
+DECLARE isSuccessful BOOLEAN;
+
+
+CREATE COMPUTE MODULE Exc_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE encodeRef ,ccidRef INTEGER;
+		SET Environment.XMLNSC = NULL;
+		
+		SET Environment.req.id=InputRoot.XMLNSC.id;
+
+		SET Environment.Log.payload = cast(ASBITSTREAM(InputRoot.[<]) as CHARACTER CCSID 1208 ENCODING 546);
+		
+		
+		DECLARE created_On TIMESTAMP CURRENT_TIMESTAMP;
+		
+		SET Environment.application_name= ApplicationLabel;
+		SET Environment.flowName= MessageFlowLabel;
+
+
+
+		DECLARE excp REFERENCE TO InputExceptionList.*[1];
+		DECLARE excpType CHARACTER FIELDNAME(InputExceptionList.*);
+		DECLARE text,actualExcp,number,actualExcpText,messageText CHARACTER;
+		DECLARE excptext REFERENCE TO excp.Text;
+		DECLARE insertRef REFERENCE TO InputExceptionList.*[1];
+		
+
+		DECLARE i INTEGER 1;
+		WHILE LASTMOVE(insertRef) DO
+			MOVE excp LASTCHILD;
+			IF excp.Number is not null THEN
+				SET text=excp.Text;
+				SET excpType = FIELDNAME(excp);
+				
+				MOVE insertRef TO excp.Insert[>];
+				WHILE LASTMOVE(insertRef) AND FIELDNAME(insertRef) = 'Insert' DO
+					SET actualExcpText = insertRef.Text;
+					IF Environment.dataa is NULL THEN
+						SET Environment.dataa = actualExcpText;
+					END IF;
+					MOVE insertRef NEXTSIBLING;
+					IF insertRef.Text <> '' THEN
+						SET actualExcp = actualExcpText || insertRef.Text;
+						
+					END IF;
+				END WHILE;
+
+				SET number = excp.Number;
+			END IF;
+		END WHILE;
+
+		SET messageText = text ||', ' ||Environment.dataa ||', '||actualExcp;
+		CREATE LASTCHILD OF Environment DOMAIN 'JSON';
+		CREATE LASTCHILD OF Environment.JSON NAME 'Data';
+		DECLARE envRef BOOLEAN EXISTS(Environment.Variables.[]);
+		DECLARE errOutRef REFERENCE TO Environment.JSON.Data;
+		SET Environment.excpType = excpType;
+		SET Environment.errorRes = messageText; --actualExcp;
+
+		SET errOutRef.statusCode = InputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code";
+		
+		IF InputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code" = 409 THEN
+			SET errOutRef.statusCode = 409;
+			SET errOutRef.title = 'Duplicated Transaction';
+			SET errOutRef.errorDesciption = 'A transaction with a similar identifier has already been processed.'; --'indicates a conflict between a clients request and the current state of a resource on a web server.';
+			SET Environment.errorRes = CAST(ASBITSTREAM (Environment.JSON.Data)AS CHARACTER CCSID ccidRef ENCODING encodeRef);
+			SET OutputRoot.JSON.Data = Environment.JSON.Data;
+
+		ELSEIF InputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code" = 504 THEN
+			SET errOutRef.statusCode = 409;
+			SET errOutRef.title = 'Duplicated Transaction';
+			SET errOutRef.errorDesciption = 'A transaction with a similar identifier has already been processed.'; --'indicates a conflict between a clients request and the current state of a resource on a web server.';
+			SET Environment.errorRes = CAST(ASBITSTREAM (Environment.JSON.Data)AS CHARACTER CCSID ccidRef ENCODING encodeRef);
+			SET OutputRoot.JSON.Data = Environment.JSON.Data;
+
+		ELSEIF InputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code" = 503 THEN
+			
+			SET errOutRef.statusCode = 503;
+			
+			SET errOutRef.title = 'Service Unavailable';
+			SET errOutRef.errorDesciption = 'Unfortunately, an internal server error prevented us from proceeding with your request. Try again later.';
+			SET Environment.errorRes = CAST(ASBITSTREAM (Environment.JSON.Data)AS CHARACTER CCSID ccidRef ENCODING encodeRef);
+			SET OutputRoot.JSON.Data = Environment.JSON.Data;
+		
+		ELSEIF InputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code" = 403 THEN
+			SET errOutRef.statusCode = 403;
+			SET errOutRef.title = 'Forbidden';
+			
+			SET errOutRef.errorDesciption = 'ERROR: The request could not be satisfied'; --Environment.dataa ||', '||actualExcp;
+			SET Environment.errorRes = CAST(ASBITSTREAM (Environment.JSON.Data)AS CHARACTER CCSID ccidRef ENCODING encodeRef);
+			SET OutputRoot.JSON.Data = Environment.JSON.Data;
+		ELSEIF InputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code" = 404 THEN
+			SET errOutRef.statusCode = 404;
+		
+			SET errOutRef.title = 'Resource Not Found';
+			SET errOutRef.errorDesciption = 'We were not able to find the resource you were looking for. Resource may have been moved or never existed.';
+			SET OutputRoot.JSON.Data = Environment.JSON.Data;
+			SET Environment.Log.payload=Environment.channelReq;
+
+
+
+		ELSEIF InputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code" = 500 OR Environment.statusCode = 500 THEN
+			
+			SET errOutRef.statusCode = COALESCE(Environment.statusCode,InputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code");
+			
+			SET errOutRef.title = 'Timeout Error';
+			SET errOutRef.errorDesciption = 'Unforunately, an internal server error prevented us from proceding with your request.Try again later.';
+			
+			SET OutputRoot.JSON.Data = Environment.JSON.Data;
+		
+		elseif excpType = 'ParserException' then
+			set OutputRoot.JSON.Data.statusCode = '400';
+			SET errOutRef.statusCode = 400;
+			set OutputRoot.JSON.Data.title = 'Invalid input';
+		
+		ELSEIF CONTAINS(messageText, 'invalid Method') THEN 
+			set OutputRoot.JSON.Data.statusCode = '400';
+			SET errOutRef.statusCode = 400;
+			SEt OutputRoot.JSON.Data.status = 'Invalid Method used'; 
+		ELSE
+
+			SET errOutRef.statusCode = 400;
+			IF number LIKE('%2951%') OR number LIKE('%5702%') THEN
+			
+--				SET errOutRef.title = 'Missing or invalid input fields';
+--				SET errOutRef.errorDesciption = 'The submitted data contains one or more field errors';
+		
+				CREATE FIELD OutputRoot.JSON.Data.fields IDENTITY (JSON.Array)fields;
+				--SET errOutRef.fields.Item[1].field = ;
+				SET errOutRef.fields.Item[1].message = COALESCE(actualExcpText, 'A validation error occurred when parsing a JSON message. Mandatory fields are missing');
+				SET OutputRoot.JSON.Data = Environment.JSON.Data;
+				--SET errOutRef.title = excpType;
+				SET errOutRef.errorDesciption=actualExcpText;
+			ELSE
+				IF number LIKE('%5751%') OR number LIKE('%5701%') THEN
+				
+					SET errOutRef.title = 'form validation errors';
+					SET errOutRef.errorDesciption = 'The submitted data contains one or more field errors';
+					CREATE FIELD OutputRoot.JSON.Data.fields IDENTITY (JSON.Array)fields;
+					SET errOutRef.fields.Item[1].field =excpType ;
+					SET errOutRef.fields.Item[1].message=messageText;
+			
+					SET OutputRoot.JSON.Data = Environment.JSON.Data;
+					SET errOutRef.title = excpType;
+					SET errOutRef.errorDesciption=text;
+				ELSEIF NOT EXISTS(InputRoot.HTTPResponseHeader[]) THEN
+					SET errOutRef.statusCode = 500;
+					
+					SET errOutRef.title = 'Internal Server Error';
+					SET errOutRef.errorDesciption = COALESCE('Unforunately, an internal server error prevented us from proceding with your request.Try again later.', messageText);
+					SET OutputRoot.JSON.Data = Environment.JSON.Data;
+
+					SET Environment.JSON.Data.title=Environment.excpType;
+					SET Environment.JSON.Data.errorDesciption=Environment.errorRes;
+
+					SET OutputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code" = 500;
+					
+
+				ELSEIF NOT EXISTS(OutputRoot.JSON.Data[]) THEN
+					DECLARE bodyBlob BLOB ASBITSTREAM(InputRoot.[<], InputProperties.Encoding,
+					InputProperties.CodedCharSetId);
+					DECLARE creationPtr REFERENCE TO OutputRoot;
+					CREATE LASTCHILD OF creationPtr DOMAIN('JSON') PARSE(bodyBlob,
+					InputProperties.Encoding,
+					InputProperties.CodedCharSetId);
+					
+				END IF;
+			END IF;
+		END IF;
+		
+		SET Environment.ErrorHandler.JSON.Data = OutputRoot.JSON.Data;
+		
+		SET OutputLocalEnvironment.Destination.HTTP.ReplyStatusCode = OutputRoot.JSON.Data.statusCode;
+		
+		CALL init_log4j(var_path) INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'dco_error','ERROR','****************************Start******************************************') INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'dco_error','ERROR', excpType) INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'dco_error','ERROR','ERROR is: '|| text) INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'dco_error','ERROR','Payload: '|| Environment.Log.payload) INTO isSuccessful;
+		
+		CALL write_log(MessageFlowLabel,'dco_error','ERROR',' ----------------------------End-------------------------------------------') INTO isSuccessful;
+		
+	
+								
+	END;
+END MODULE;
+
+
+
+CREATE FUNCTION init_log4j (IN var_path CHARACTER) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
+
+
+CREATE PROCEDURE write_log ( in mfname CHARACTER, in logger_name CHARACTER, in level CHARACTER, in data CHARACTER) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";

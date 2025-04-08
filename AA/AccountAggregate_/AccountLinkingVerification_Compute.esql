@@ -1,0 +1,71 @@
+
+
+CREATE COMPUTE MODULE AccountLinkingVerification_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		if not  CONTAINS(InputRoot.HTTPInputHeader."X-Original-HTTP-Command",'POST') then
+			throw User exception VALUES('Invalid method used');
+		end if;
+		
+		CALL init_log4j(var_path) INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_link_ver','INFO','*******************************Start***************************************') INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_link_ver','INFO', 'Account Linking Verification Request') INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_link_ver','INFO', cast(ASBITSTREAM(InputRoot.JSON.Data) as CHARACTER CCSID 1208 ENCODING 546)) INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_link_ver','INFO',' -----------------------------------------------------------------------') INTO isSuccessful;
+		
+	  	
+		call Verify_otp();
+		
+		
+		
+		RETURN TRUE;
+	END;
+
+	create procedure Verify_otp() Begin
+		DECLARE ns NAMESPACE '';
+		declare token CHARACTER InputRoot.JSON.Data.token;
+		declare reference_id CHARACTER InputRoot.JSON.Data.reference_id;
+		
+		DECLARE fetch_otp row;
+		set fetch_otp.data[] = SELECT * FROM Database.otp_table AS o WHERE o.REFID = InputRoot.JSON.Data.reference_id;
+		
+		DECLARE c_time TIMESTAMP  CURRENT_TIMESTAMP;
+		DECLARE elapsed_time CHARACTER (c_time - fetch_otp.data.CREATED_AT) minute;
+		declare minutes CHARACTER SUBSTRING(SUBSTRING(elapsed_time after 'INTERVAL ''') BEFORE '''');
+
+		IF minutes < 3  and fetch_otp.data.OTP = token then
+			set OutputRoot.JSON.Data.status = 'success';
+			
+			CALL init_log4j(var_path) INTO isSuccessful;
+			CALL write_log(MessageFlowLabel,'acc_link_ver','INFO',' -----------------------------------------------------------------------') INTO isSuccessful;
+			CALL write_log(MessageFlowLabel,'acc_link_ver','INFO', 'Account Linking Verification Response') INTO isSuccessful;
+			CALL write_log(MessageFlowLabel,'acc_link_ver','INFO', 'Verified') INTO isSuccessful;
+			CALL write_log(MessageFlowLabel,'acc_link_ver','INFO','*********************************END*************************************') INTO isSuccessful;
+			
+		else 
+			set OutputRoot.JSON.Data.status = 'failure';
+			set OutputRoot.JSON.Data.cause = 'invalid otp';
+			CALL init_log4j(var_path) INTO isSuccessful;
+			CALL write_log(MessageFlowLabel,'acc_link_ver','INFO',' -----------------------------------------------------------------------') INTO isSuccessful;
+			CALL write_log(MessageFlowLabel,'acc_link_ver','INFO', 'Account Linking Verification Response') INTO isSuccessful;
+			CALL write_log(MessageFlowLabel,'acc_link_ver','INFO', 'Verification failed') INTO isSuccessful;
+			CALL write_log(MessageFlowLabel,'acc_link_ver','INFO','**********************************END************************************') INTO isSuccessful;
+			
+		end if; 
+	
+	end;
+	
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;

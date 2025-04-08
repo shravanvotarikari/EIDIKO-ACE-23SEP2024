@@ -1,0 +1,80 @@
+
+
+CREATE COMPUTE MODULE AccountLinkingRequest_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		if not  CONTAINS(InputRoot.HTTPInputHeader."X-Original-HTTP-Command",'POST') then
+			throw User exception VALUES('invalid method used');
+		end if;
+		CALL init_log4j(var_path) INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_link_req','INFO','*******************************Start***************************************') INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_link_req','INFO', 'Account Linking Request') INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_link_req','INFO', cast(ASBITSTREAM(InputRoot.JSON.Data) as CHARACTER CCSID 1208 ENCODING 546)) INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_link_req','INFO',' -----------------------------------------------------------------------') INTO isSuccessful;
+		
+		declare reference_id CHARACTER InputRoot.JSON.Data.accountNumber||cast(CURRENT_TIMESTAMP as CHARACTER FORMAT 'yyyyMMdd-HHmmss');
+		
+		DECLARE TEMP ROW;
+		declare gen_otp CHARACTER Generate_OTP();
+		
+		SET TEMP.row[] = SELECT * FROM Database.otp_table AS o WHERE o.MOBILE_NUMBER =  InputRoot.JSON.Data.mobileNumber and o.ACCOUNT_NUMBER = InputRoot.JSON.Data.accountNumber;
+		
+		IF NOT EXISTS(TEMP.row[]) then
+			INSERT INTO Database.OTP_TABLE  VALUES (reference_id,gen_otp,CURRENT_TIME,InputRoot.JSON.Data.mobileNumber,InputRoot.JSON.Data.accountNumber);
+		else
+			update Database.OTP_TABLE as o SET REFID = reference_id,OTP = gen_otp,CREATED_AT = CURRENT_TIME  WHERE o.MOBILE_NUMBER =  InputRoot.JSON.Data.mobileNumber and o.ACCOUNT_NUMBER = InputRoot.JSON.Data.accountNumber ;
+		end if;
+		 
+--		INSERT INTO Database.OTP_TABLE (refid,OTP) VALUES (reference_id,Generate_OTP());
+		set OutputRoot.BLOB.BLOB = cast('Dear Customer, '||gen_otp|| '  is the OTP to link your '||InputRoot.JSON.Data.bankID|| ' Bank Accounts with Account Aggregator. Do not share it with anyone. Bank NEVER asks for OTP.' as blob CCSID 1208 ENCODING 546);
+		propagate to TERMINAL 'out1';
+		SET OutputRoot.JSON.Data.status = 'success';
+		set OutputRoot.JSON.Data.reference_id = reference_id;
+		
+		
+		CALL init_log4j(var_path) INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_link_req','INFO',' -----------------------------------------------------------------------') INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_link_req','INFO', 'Account Discovery Response') INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_link_req','INFO', 'OTP generated with reference id '||reference_id) INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_link_req','INFO','*******************************END***************************************') INTO isSuccessful;
+		
+	
+		RETURN TRUE;
+	END;
+	
+	create PROCEDURE Generate_OTP() returns CHARACTER
+	BEGIN
+		DECLARE otpi INTEGER 99999 * rand();
+		declare otp CHARACTER cast(otpi as CHARACTER);
+		
+		if otpi < 10 then 
+			set otp = '00000'|| otp;
+		elseif otpi < 100 then
+			set otp = '0000' ||otp;
+		
+		elseif otpi < 1000 then 
+			set otp = '000' || otp;
+		
+		elseif otpi < 10000 then
+			set otp = '00'||otp;
+		else 
+			set otp = '0' || otp;
+		
+		end if;
+		return otp;
+	END;
+		
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;

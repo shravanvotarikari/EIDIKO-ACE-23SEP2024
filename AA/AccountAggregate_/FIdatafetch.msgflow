@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmWSInput.msgnode="ComIbmWSInput.msgnode" xmlns:ComIbmWSReply.msgnode="ComIbmWSReply.msgnode" xmlns:Common_exc1.subflow="Common/exc1.subflow" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="FIdatafetch.msgflow" nsPrefix="FIdatafetch.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="SQUARE">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.in_dsn" name="in_dsn" defaultValueLiteral="RRBDSN">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.var_path" name="var_path" defaultValueLiteral="/home/ace/jay/l4j/Log4jConfigurationFile.xml">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <translation xmi:type="utility:TranslatableString" key="FIdatafetch" bundleName="FIdatafetch" pluginId="AccountAggregate_"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/AccountAggregate_/icons/full/obj16/FIdatafetch.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/AccountAggregate_/icons/full/obj30/FIdatafetch.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="115,91" URLSpecifier="/deposit/fidata" messageDomainProperty="JSON" messageSetProperty="fidatafetch.schema.json" validateTiming="immediate">
+        <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="529,90">
+        <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="312,46" dataSource="RRBDSN" computeExpression="esql://routine/#FIdatafetch_Compute.Main">
+        <translation xmi:type="utility:ConstantString" string="Compute"/>
+      </nodes>
+      <nodes xmi:type="Common_exc1.subflow:FCMComposite_1" xmi:id="FCMComposite_1_4" location="383,179">
+        <translation xmi:type="utility:ConstantString" string="exc1"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.Input1"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.catch" targetTerminalName="InTerminal.Input1"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.timeout" targetTerminalName="InTerminal.Input1"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_6" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.Input1"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_7" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.Output1" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer>
+      <propertyDescriptor groupName="Group.Basic" configurable="true" userDefined="true" describedAttribute="Property.in_dsn">
+        <propertyName xmi:type="utility:TranslatableString" key="Property.in_dsn" bundleName="FIdatafetch" pluginId="AccountAggregate_"/>
+        <propertyDescriptor groupName="Group.Basic" configurable="true" userDefined="true" describedAttribute="Property.var_path">
+          <propertyName xmi:type="utility:TranslatableString" key="Property.var_path" bundleName="FIdatafetch" pluginId="AccountAggregate_"/>
+        </propertyDescriptor>
+      </propertyDescriptor>
+    </propertyOrganizer>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>

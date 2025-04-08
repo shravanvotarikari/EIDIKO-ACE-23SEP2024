@@ -1,0 +1,85 @@
+--declare in_dsn EXTERNAL CHARACTER;
+DECLARE var_path external CHARACTER ;--'C:\Users\Sreenivas Bandaru\Desktop\j\lfj\Log4jConfigurationFile.xml'
+DECLARE isSuccessful BOOLEAN;
+
+DECLARE BANK_CODE SHARED CHARACTER;
+CREATE COMPUTE MODULE Account_Discovery_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		if not  CONTAINS(InputRoot.HTTPInputHeader."X-Original-HTTP-Command",'POST') then
+			throw User exception VALUES('Invalid method used');
+		end if;
+		CALL init_log4j(var_path) INTO isSuccessful;
+		
+		CALL write_log(MessageFlowLabel,'acc_disc','INFO','********************************START**************************************') INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_disc','INFO', 'Account Discovery Request') INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_disc','INFO', cast(ASBITSTREAM(InputRoot.JSON.Data) as CHARACTER CCSID 1208 ENCODING 546)) INTO isSuccessful;
+		--CALL write_log(MessageFlowLabel,'acc_disc','INFO',' -----------------------------------------------------------------------') INTO isSuccessful;
+		
+	  	
+		call getaccountDetails();
+		
+	
+		--CALL write_log(MessageFlowLabel,'acc_disc','INFO',' -----------------------------------------------------------------------') INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_disc','INFO', 'Account Discovery Response') INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_disc','INFO', cast(ASBITSTREAM(OutputRoot.JSON.Data)as CHARACTER CCSID 1208 ENCODING 546)) INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_disc','INFO','***********************************END***********************************') INTO isSuccessful;
+		
+	
+		RETURN TRUE;
+	END;
+	CREATE PROCEDURE getaccountDetails ( )
+	BEGIN
+		DECLARE DSN row ;
+		
+		set DSN.RRB[] = SELECT * FROM Database.RRBDSN.system.RRB_DSN AS d WHERE d.BANK_ID = InputRoot.JSON.Data.bankID;
+		SET BANK_CODE = DSN.RRB[1].BANK_CODE;
+		declare DSN_Name CHARACTER DSN.RRB[1].DSN;
+		declare schema_name CHARACTER DSN.RRB[1].SCHEMA;
+		
+		CALL write_log(MessageFlowLabel,'acc_disc','INFO',' -----------------------------------------------------------------------') INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_disc','INFO', 'Internal Server Response') INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_disc','INFO','DSN: '||DSN_Name||'; Bank Code: '||BANK_CODE||'; Schema: '||schema_name||';') INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,'acc_disc','INFO',' -----------------------------------------------------------------------') INTO isSuccessful;
+		
+		
+		
+		Declare Accounts row;
+		DECLARE SQL_QUERY CHARACTER 'select r.* from Database.'||DSN_Name||'.'||schema_name||' as r where r.MOBILE_NUMBER = InputRoot.JSON.Data.mobileNumber';
+		
+		SET Accounts.Acc[] = eval(SQL_QUERY);
+		
+
+		If NOT exists(Accounts.Acc[]) then 
+				set OutputRoot.JSON.Data.status = 'unsuccessful';
+				set OutputRoot.JSON.Data.cause = 'Invalid Request';
+		else 
+			declare N INTEGER 1;
+			set OutputRoot.JSON.Data.satus  = 'successful';
+			create FIELD OutputRoot.JSON.Data.accounts IDENTITY(JSON.Array);
+			declare rowref REFERENCE to Accounts.Acc;
+			while lastmove(rowref)  do 
+				set OutputRoot.JSON.Data.accounts.Item[N].accountNumber = rowref.ACCOUNT_NUMBER;
+				set OutputRoot.JSON.Data.accounts.Item[N].accType = rowref.ACCOUNT_TYPE;
+				set OutputRoot.JSON.Data.accounts.Item[N].fiType = rowref.FILE_TYPE;
+				set OutputRoot.JSON.Data.accounts.Item[N].bank_code = BANK_CODE;
+				--set OutputRoot.JSON.Data.accounts.Item[N].mobileNumber = rowref.MOBILE_NUMBER;
+				SET N = N+1;
+				MOVE rowref NEXTSIBLING;
+			end while;
+		end if;
+			
+		
+	END;
+END MODULE;
+
+
+CREATE FUNCTION init_log4j (IN var_path CHARACTER) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
+
+
+CREATE PROCEDURE write_log ( in mfname CHARACTER, in logger_name CHARACTER, in level CHARACTER, in data CHARACTER) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+

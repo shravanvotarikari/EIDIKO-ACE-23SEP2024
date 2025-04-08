@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "bankID": {
+      "type": "string",
+      "pattern": "^[0-9]{3}$"
+    },
+    "mobileNumber": {
+      "type": "string",
+      "pattern": "^[0-9]{10}$"
+    },
+    "fileType": {
+      "type": "string",
+      "enum": ["DEPOSIT", "LOAN", "CREDIT"]
+    }
+  },
+   "required": ["bankID", "mobileNumber"],
+  "additionalProperties": false
+}
