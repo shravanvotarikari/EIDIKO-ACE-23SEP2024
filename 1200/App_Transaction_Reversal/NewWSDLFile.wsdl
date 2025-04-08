@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://fcubs.ofss.com/service/FCUBSRTService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="FCUBSRTService" targetNamespace="http://fcubs.ofss.com/service/FCUBSRTService">
+  <wsdl:documentation>
+    <wsdl:appinfo source="WMQI_APPINFO">
+      <MRWSDLAppInfo imported="true">
+        <generatedXSD location="NewWSDLFile_InlineSchema1.xsd"/>
+        <binding hasEncoding="false" imported="true" name="FCUBSRTBinding" originalBindingStyle="document"/>
+      </MRWSDLAppInfo>
+    </wsdl:appinfo>
+  </wsdl:documentation>
+      
+    
+  <wsdl:types>
+            
+            
+    <xsd:schema xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" targetNamespace="http://fcubs.ofss.com/service/FCUBSRTService">
+      
+      <xsd:include schemaLocation="NewWSDLFile_InlineSchema1.xsd"/>
+    </xsd:schema>
+        
+  </wsdl:types>
+      
+  <wsdl:message name="ReverseTransactionRequest">
+            
+    <wsdl:part element="tns:REVERSETRANSACTION_IOPK_REQ" name="parameters"/>
+        
+  </wsdl:message>
+      
+  <wsdl:message name="ReverseTransactionResponse">
+            
+    <wsdl:part element="tns:REVERSETRANSACTION_IOPK_RES" name="parameters"/>
+        
+  </wsdl:message>
+      
+  <wsdl:portType name="FCUBSRTPortType">
+            
+    <wsdl:operation name="ReverseTransaction">
+                  
+      <wsdl:input message="tns:ReverseTransactionRequest"/>
+                  
+      <wsdl:output message="tns:ReverseTransactionResponse"/>
+              
+    </wsdl:operation>
+        
+  </wsdl:portType>
+      
+  <wsdl:binding name="FCUBSRTBinding" type="tns:FCUBSRTPortType">
+
+  	<soap:binding style="document"
+  		transport="http://schemas.xmlsoap.org/soap/http" />
+
+  	<wsdl:operation name="ReverseTransaction">
+
+  		<soap:operation soapAction="ReverseTransaction" />
+
+  		<wsdl:input>
+  			<soap:body use="literal" />
+  		</wsdl:input>
+
+  		<wsdl:output>
+  			<soap:body use="literal" />
+  		</wsdl:output>
+
+  	</wsdl:operation>
+
+  </wsdl:binding>
+
+  <wsdl:service name="FCUBSRTService">
+            
+    <wsdl:port binding="tns:FCUBSRTBinding" name="FCUBSRTPort">
+                  
+      <soap:address location="http://fcubs.ofss.com/service/FCUBSRTService"/>
+              
+    </wsdl:port>
+        
+  </wsdl:service>
+  
+</wsdl:definitions>

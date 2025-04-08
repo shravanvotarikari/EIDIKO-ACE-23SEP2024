@@ -1,0 +1,47 @@
+
+CREATE COMPUTE MODULE mf_Compute
+    CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+        CALL CopyEntireMessage();
+        RETURN TRUE;
+    END;
+
+    CREATE PROCEDURE CopyEntireMessage() BEGIN
+        -- Clear OutputRoot
+--        SET OutputRoot = NULL;
+--
+--       
+--       -- SET OutputRoot.SOAP.Domain = 'SOAP';
+--
+--        -- Create SOAP Envelope with namespace
+        SET OutputRoot.SOAP.Envelope.(XMLNSC.NamespaceDecl)xmlns:S = 'http://schemas.xmlsoap.org/soap/envelope/';
+        SET OutputRoot.SOAP.Envelope.SOAP.Body = NULL; -- Ensure SOAP Body exists
+        
+        -- Create the response structure within SOAP Body
+        SET OutputRoot.SOAP.Envelope.SOAP.Body.REVERSETRANSACTION_IOPK_RES.(XMLNSC.NamespaceDecl)xmlns = 'http://fcubs.ofss.com/service/FCUBSRTService';
+
+        -- Populate FCUBS_HEADER
+        
+        
+        set OutputRoot.SOAP.Body.ns:REVERSETRANSACTION_IOPK_RES.FCUBS_HEADER.SOURCE = 'FLEXCUBE';
+        set OutputRoot.SOAP.Body.ns:REVERSETRANSACTION_IOPK_RES.FCUBS_HEADER.UBSCOMP = 'FCUBS';
+        set OutputRoot.SOAP.Body.ns:REVERSETRANSACTION_IOPK_RES.FCUBS_HEADER.MSGID = '9243590686483705';
+        set OutputRoot.SOAP.Body.ns:REVERSETRANSACTION_IOPK_RES.FCUBS_HEADER.CORRELID = '99128207360178';
+        set OutputRoot.SOAP.Body.ns:REVERSETRANSACTION_IOPK_RES.FCUBS_HEADER.USERID = 'GIPUSER';
+        set OutputRoot.SOAP.Body.ns:REVERSETRANSACTION_IOPK_RES.FCUBS_HEADER.BRANCH = '701';
+        set OutputRoot.SOAP.Body.ns:REVERSETRANSACTION_IOPK_RES.FCUBS_HEADER.MODULEID = 'RT';
+        set OutputRoot.SOAP.Body.ns:REVERSETRANSACTION_IOPK_RES.FCUBS_HEADER.SERVICE = 'FCUBSRTService';
+        set OutputRoot.SOAP.Body.ns:REVERSETRANSACTION_IOPK_RES.FCUBS_HEADER.OPERATION = 'ReverseTransaction';
+        set OutputRoot.SOAP.Body.ns:REVERSETRANSACTION_IOPK_RES.FCUBS_HEADER.SOURCE_USERID = 'GIPUSER';
+        set OutputRoot.SOAP.Body.ns:REVERSETRANSACTION_IOPK_RES.FCUBS_HEADER.DESTINATION = 'GIP';
+        set OutputRoot.SOAP.Body.ns:REVERSETRANSACTION_IOPK_RES.FCUBS_HEADER.MULTITRIPID = '6243590888420376';
+		set OutputRoot.SOAP.Body.ns:REVERSETRANSACTION_IOPK_RES.FCUBS_HEADER.FUNCTIONID = 'DEGRTTLR';
+		set OutputRoot.SOAP.Body.ns:REVERSETRANSACTION_IOPK_RES.FCUBS_HEADER.ACTION = 'REVERSE';
+        set OutputRoot.SOAP.Body.ns:REVERSETRANSACTION_IOPK_RES.FCUBS_HEADER.MSGSTAT = 'SUCCESS';
+        
+        
+-->FCUBS BODY
+		SET  OutputRoot.SOAP.Body.ns:REVERSETRANSACTION_IOPK_RES.FCUBS_BODY.FCUBS_WARNING_RESP.WARNING.WCODE = 'GW-REV-01';
+		SET  OutputRoot.SOAP.Body.ns:REVERSETRANSACTION_IOPK_RES.FCUBS_BODY.FCUBS_WARNING_RESP.WARNING.WDESC = 'Transaction Reversed Successfully';
+    END;
+END MODULE;
