@@ -1,0 +1,94 @@
+DECLARE var12 EXTERNAL CHARACTER '';
+-- local machine :- C:\temp\LOG4J\Log4jConfigurationFile.xml
+--REMOTE MACHINE :- /home/ace/Hrishikesh/Log4j/Log4jConfigurationFile.xml 
+DECLARE var1 BOOLEAN;
+DECLARE DSN1_Name EXTERNAL CHARACTER '';
+DECLARE SCHEMA1_Name EXTERNAL CHARACTER '';
+
+CREATE COMPUTE MODULE MF_AccountDiscovery_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		--throw EXCEPTION MESSAGE 12;
+		CALL log(var12) into var1;
+		IF CONTAINS(InputRoot.HTTPInputHeader."X-Original-HTTP-Command", 'POST') THEN
+			CALL CopyEntireMessage();
+			RETURN TRUE;
+		ELSE
+			SET OutputRoot.JSON.Data.res = 'Invalid request type. Only POST allowed';
+			SET OutputLocalEnvironment.Destination.HTTP.ReplyStatusCode = 405;
+			RETURN true;
+		END IF;
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		-- SET OutputRoot = InputRoot;
+		call writing(MessageFlowLabel,'dco_info','INFO','------------------------------------------------------------START LOG ----------------------------------------------------') into var1;
+		DECLARE requestData CHARACTER;
+		set requestData = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		call writing(MessageFlowLabel,'dco_info','INFO', requestData) into var1;
+		
+		DECLARE inref REFERENCE TO InputRoot.JSON.Data;
+
+		DECLARE BANK_ID CHARACTER InputRoot.JSON.Data.bankId;
+		DECLARE MOBILENUM CHARACTER InputRoot.JSON.Data.mobileNo;
+		DECLARE fitype CHARACTER InputRoot.JSON.Data.fitype;
+		----------------------------------------------------- Fetch data from BankDetails table using BankId----------------------------------------
+
+		declare ref1 ROW;
+		set ref1.data1[] = SELECT B.BANKCODE,B.DSN,B.SCHEMATYPE FROM Database.{DSN1_Name}.{SCHEMA1_Name}.BANKDETAILS AS B WHERE B.BANKID = BANK_ID;
+		set Environment.bankDB_Response = ref1;
+
+		SET OutputRoot.JSON.Data.BankData = ref1;
+
+		declare log1 CHARACTER;
+		set log1 = CAST(ASBITSTREAM(OutputRoot.JSON.Data.BankData) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		call writing(MessageFlowLabel,'dco_info','INFO', log1 || 'Application_data: ' || 'Data retrieved from BankDetails(InternalDB) Succuessfully') into var1;
+
+		set OutputRoot = null;
+		-- set DSN2_NAME = ref1.data1.DSN;
+		-- set SCHEMA2_Name = ref1.data1.SCHEMATYPE;
+		DECLARE DSN2 CHARACTER Environment.bankDB_Response.data1.DSN;
+		DECLARE SCHEMATYPE2 CHARACTER Environment.bankDB_Response.data1.SCHEMATYPE;
+		DECLARE REF ROW;
+
+		SET REF.data[] = SELECT S.ACCOUNTNUMBER,S.ACCTYPE,S.FITYPE FROM Database.{DSN2}.{SCHEMATYPE2}.ACCOUNT_DETAILS AS S WHERE S.MOBILENO = MOBILENUM;
+		-- SET REF.data[] = SELECT S.ACCOUNTNUMBER,S.ACCTYPE,S.FITYPE FROM Database.ACCOUNT_DETAILS AS S WHERE S.MOBILENO = MOBILENUM;
+		Set Environment.ACCOUNT = REF;
+		set OutputRoot.JSON.Data.response = 'Success';
+		Set OutputRoot.JSON.Data.BankCode = Environment.bankDB_Response.data1.BANKCODE;
+		-- set OutputRoot.JSON.Data.AccountDetails = REF;
+
+		CREATE FIELD OutputRoot.JSON.Data.accounts IDENTITY(JSON.Array)accounts;
+		DECLARE i INT 1;
+		DECLARE itr REFERENCE TO REF.data[1];
+		WHILE LASTMOVE(itr) DO
+			CREATE FIELD OutputRoot.JSON.Data.accounts.Item[i].accNumber VALUE itr.ACCOUNTNUMBER;
+			CREATE FIELD OutputRoot.JSON.Data.accounts.Item[i].accType VALUE itr.ACCTYPE;
+			CREATE FIELD OutputRoot.JSON.Data.accounts.Item[i].fiType VALUE itr.FITYPE;
+			SET i = i + 1;
+			MOVE itr NEXTSIBLING;
+		END WHILE;		
+		
+		-- SET OutputRoot.JSON.Data.AccountData = REF;
+		declare log2 CHARACTER;
+		set log2 = CAST(ASBITSTREAM(OutputRoot.JSON.Data) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+
+		call writing(MessageFlowLabel,'dco_info','INFO', log2 || 'Application_data: ' || 'Response Generated Succuessfully') into var1;
+		call writing(MessageFlowLabel,'dco_info','INFO','------------------------------------------------------------END LOG ----------------------------------------------------') into var1;
+		--SET OutputRoot = null;
+		--Set OutputRoot.JSON.Data.BankCode = Environment.bankDB_Response.data1.BANKNAME;
+		--set OutputRoot.JSON.Data.AccountDetails = REF;
+	END;
+END MODULE;
+--------------------------------------------LOG4J---------------------------------------------------------------------------------------------------
+create FUNCTION writing(in mfname CHARACTER, in logger_name CHARACTER, in level CHARACTER , in data CHARACTER)
+RETURNS boolean
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+
+create FUNCTION log(in configure CHARACTER)
+RETURNS BOOLEAN
+language JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
