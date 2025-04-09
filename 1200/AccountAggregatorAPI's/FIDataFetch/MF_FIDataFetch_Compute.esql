@@ -1,0 +1,151 @@
+DECLARE var12 EXTERNAL CHARACTER '';
+-- local machine :- C:\temp\LOG4J\Log4jConfigurationFile.xml
+--REMOTE MACHINE :- /home/ace/Hrishikesh/Log4j/Log4jConfigurationFile.xml 
+DECLARE var1 BOOLEAN;
+DECLARE DSN1_Name EXTERNAL CHARACTER '';
+DECLARE SCHEMA1_Name EXTERNAL CHARACTER '';
+CREATE COMPUTE MODULE MF_FIDataFetch_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL log(var12) into var1;
+		IF CONTAINS(InputRoot.HTTPInputHeader."X-Original-HTTP-Command", 'POST') THEN
+			CALL CopyEntireMessage();
+			
+	call writing(MessageFlowLabel,'App4','INFO',' ------------------------------------------------------------END LOG ----------------------------------------------------') into var1;
+		
+			RETURN TRUE;
+		ELSE
+			SET OutputRoot.JSON.Data.res = 'Invalid request type. Only POST allowed';
+			SET OutputLocalEnvironment.Destination.HTTP.ReplyStatusCode = 405;
+			RETURN true;
+		END IF;
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE requestData CHARACTER;
+		set requestData = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		call writing(MessageFlowLabel,'App4','INFO',' ------------------------------------------------------------START LOG ----------------------------------------------------') into var1;
+		call writing(MessageFlowLabel,'App4','INFO', requestData) into var1;		
+		
+		
+		
+		DECLARE inref REFERENCE TO InputRoot.JSON.Data;
+		DECLARE accNo CHARACTER inref.accNo;
+		declare ref1 ROW;
+		set ref1.data1[] = SELECT B.BANKCODE,B.DSN,B.SCHEMATYPE FROM Database.{DSN1_Name}.{SCHEMA1_Name}.BANKDETAILS AS B WHERE B.BANKID = inref.bankId;
+		set Environment.bankDB_Response = ref1;
+		
+		DECLARE sqlQuery CHARACTER '';
+        
+     SET sqlQuery =   'SELECT 
+    p.ACC_ID, p.ACC_NO, p.HOLDER_TYPE, p.P_NAME, p.DOB, p.MOBILE, 
+    p.NOMINEE, p.EMAIL, p.PAN, p.CKYC_COMPLIANCE,
+    
+    t.TXN_ID, t.TXN_TYPE, t.TXN_MODE, t.AMOUNT, t.TRANSACTION_TIMESTAMP, 
+    t.VALUE_DATE, t.NARRATION, t.TXN_REFERENCE, t.CURRENT_BALANCE,
+    
+    s.BALANCE_DATE_TIME, s.TYPE, s.ACCOUNT_TYPE, s.BRANCH, s.STATUS, 
+    s.OPENING_DATE, s.MATURITY_DATE, s.INTEREST_RATE, s.MATURITY_AMOUNT,
+    s.CURRENCY, s.EXCHGE_RATE, s.FACILITY, s.IFSC_CODE, s.MICR_CODE, 
+    s.CURRENT_OD_LIMIT, s.DRAWING_LIMIT, s.PENDING_AMOUNT
+
+FROM Profiles p
+JOIN Transactions t ON p.ACC_NO = t.ACC_NO
+JOIN Summary s ON p.ACC_NO = s.ACC_NO
+WHERE p.ACC_NO = ?';
+--       SET Environment.sqlresult = PASSTHRU(sqlQuery);
+       DECLARE sqlresult ROW;
+       set sqlresult.var[] = PASSTHRU(sqlQuery to Database.{Environment.bankDB_Response.data1.DSN} values(accNo));
+       SET Environment.result = sqlresult;
+       set OutputRoot.JSON.Data.status = 'success';
+--FOR PROFILE TABLE DATA
+	
+       CREATE LASTCHILD OF OutputRoot DOMAIN 'XMLNSC';
+        DECLARE xmlRef REFERENCE TO OutputRoot.XMLNSC;
+
+        -- Root element: Account
+        CREATE LASTCHILD OF xmlRef NAME 'AccountType';
+
+        -- Profile
+        DECLARE profileRef REFERENCE TO xmlRef.AccountType;
+        CREATE LASTCHILD OF profileRef NAME 'Profile';
+        CREATE LASTCHILD OF profileRef.Profile NAME 'Holders''''';
+        SEt profileRef.Profile.Holders.(XMLNSC.Attribute)holderstype = 'JOINT';
+
+        CREATE LASTCHILD OF profileRef.Profile.Holders NAME 'Holder';
+        SET profileRef.Profile.Holders.Holder.(XMLNSC.Attribute)name = Environment.result.var.P_NAME;
+        SET profileRef.Profile.Holders.Holder.(XMLNSC.Attribute)dob = Environment.result.var.DOB;
+        SET profileRef.Profile.Holders.Holder.(XMLNSC.Attribute)mobile = Environment.result.var.MOBILE;
+        SET profileRef.Profile.Holders.Holder.(XMLNSC.Attribute)nominee = Environment.result.var.NOMINEE;
+        SET profileRef.Profile.Holders.Holder.(XMLNSC.Attribute)email = Environment.result.var.EMAIL;
+        SET profileRef.Profile.Holders.Holder.(XMLNSC.Attribute)pan = Environment.result.var.PAN;
+        SET profileRef.Profile.Holders.Holder.(XMLNSC.Attribute)ckycCompliance = Environment.result.var.CKYC_COMPLIANCE;
+
+        -- Summary
+        CREATE LASTCHILD OF profileRef NAME 'Summary';
+        SET profileRef.Summary.(XMLNSC.Attribute)openingDate = Environment.result.var.OPENING_DATE;
+        SET profileRef.Summary.(XMLNSC.Attribute)accountType = Environment.result.var.ACCOUNT_TYPE;
+        SET profileRef.Summary.(XMLNSC.Attribute)branch = Environment.result.var.BRANCH;
+        SET profileRef.Summary.(XMLNSC.Attribute)ifsc = Environment.result.var.IFSC_CODE;
+        SET profileRef.Summary.(XMLNSC.Attribute)maturityAmount =Environment.result.var.MATURITY_AMOUNT;
+        SET profileRef.Summary.(XMLNSC.Attribute)description = Environment.result.var.NARRATION;
+        SET profileRef.Summary.(XMLNSC.Attribute)interestPayout = 'HALF YEARLY';
+        SET profileRef.Summary.(XMLNSC.Attribute)interestRate = Environment.result.var.INTEREST_RATE;
+        SET profileRef.Summary.(XMLNSC.Attribute)maturityDate = Environment.result.var.MATURITY_DATE;
+        SET profileRef.Summary.(XMLNSC.Attribute)principalAmount = Environment.result.var.CURRENT_BALANCE;
+       -- SET profileRef.Summary.(XMLNSC.Attribute)tenureDays = '';
+        --SET profileRef.Summary.(XMLNSC.Attribute)tenureMonths = '';
+        --SET profileRef.Summary.(XMLNSC.Attribute)tenureYears = '';
+        --SET profileRef.Summary.(XMLNSC.Attribute)interestComputation = 'COMPOUND';
+       -- SET profileRef.Summary.(XMLNSC.Attribute)compoundingFrequency = 'HALF YEARLY';
+        SET profileRef.Summary.(XMLNSC.Attribute)interestPeriodicPayoutAmount = Environment.result.var.INTEREST_RATE;
+        SET profileRef.Summary.(XMLNSC.Attribute)interestOnMaturity = Environment.result.var.MATURITY_AMOUNT;
+      --  SET profileRef.Summary.(XMLNSC.Attribute)currentValue = '';
+
+        -- Transactions
+        CREATE LASTCHILD OF profileRef NAME 'Transactions';
+        SET profileRef.Transactions.(XMLNSC.Attribute)startDate = inref.fromDate;
+        SET profileRef.Transactions.(XMLNSC.Attribute)endDate = inref.toDate;
+
+        CREATE LASTCHILD OF profileRef.Transactions NAME 'Transaction';
+        SET profileRef.Transactions.Transaction.(XMLNSC.Attribute)txnId = Environment.result.var.TXN_ID;
+        SET profileRef.Transactions.Transaction.(XMLNSC.Attribute)amount = Environment.result.var.AMOUNT;
+        SET profileRef.Transactions.Transaction.(XMLNSC.Attribute)narration =  Environment.result.var.NARRATION;
+        SET profileRef.Transactions.Transaction.(XMLNSC.Attribute)type = Environment.result.var.TXN_TYPE;
+        SET profileRef.Transactions.Transaction.(XMLNSC.Attribute)mode = Environment.result.var.TXN_MODE;
+        SET profileRef.Transactions.Transaction.(XMLNSC.Attribute)balance = Environment.result.var.CURRENT_BALANCE;
+        SET profileRef.Transactions.Transaction.(XMLNSC.Attribute)transactionDateTime = Environment.result.var.TRANSACTION_TIMESTAMP;
+        SET profileRef.Transactions.Transaction.(XMLNSC.Attribute)valueDate = Environment.result.var.VALUE_DATE;
+        SET profileRef.Transactions.Transaction.(XMLNSC.Attribute)reference =  Environment.result.var.TXN_REFERENCE;
+
+
+		call writing(MessageFlowLabel,'App4','INFO',Environment.result) into var1;
+		
+	END;
+END MODULE;
+--------------------------------------------LOG4J---------------------------------------------------------------------------------------------------
+create FUNCTION writing(in mfname CHARACTER, in logger_name CHARACTER, in level CHARACTER , in data CHARACTER)
+RETURNS boolean
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+
+create FUNCTION log(in configure CHARACTER)
+RETURNS BOOLEAN
+language JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
+
+
+
+--    SET OutputRoot.JSON.Data.PROFILE.HOLDER_TYPE = Environment.result.var.HOLDER_TYPE;
+--    SET OutputRoot.JSON.Data.PROFILE.HOLDER_NAME = Environment.result.var.P_NAME;
+--    SET OutputRoot.JSON.Data.PROFILE.DOB = Environment.result.var.DOB;
+--    SET OutputRoot.JSON.Data.PROFILE.MOBILE = Environment.result.var.MOBILE;
+--    SET OutputRoot.JSON.Data.PROFILE.NOMINEE = Environment.result.var.NOMINEE;
+--    SET OutputRoot.JSON.Data.PROFILE.EMAIL = Environment.result.var.EMAIL;
+--    SET OutputRoot.JSON.Data.PROFILE.NOMINEE = Environment.result.var.NOMINEE;
+--    SET OutputRoot.JSON.Data.PROFILE.PAN = Environment.result.var.PAN;
+--    SET OutputRoot.JSON.Data.PROFILE.CKYC_COMPLIANCE = Environment.result.var.CKYC_COMPLIANCE;
+--    
+----FOR SUMMARY TABLE DATA
+--	SET OutputRoot.JSON.Data.PROFILE.HOLDER_TYPE = Environment.result.var.HOLDER_TYPE;

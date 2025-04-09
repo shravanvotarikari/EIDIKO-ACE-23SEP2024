@@ -3,10 +3,10 @@
     nsURI="MF_AccountLinkingRequest.msgflow" nsPrefix="MF_AccountLinkingRequest.msgflow">
   <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="SQUARE">
     <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
-    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.var12" name="var12" defaultValueLiteral="C:\temp\LOG4J\Log4jConfigurationFile.xml">
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.var12" name="var12" defaultValueLiteral="/home/ace/Hrishikesh/Log4j/Log4jConfigurationFile.xml">
       <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
-    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.DSN1_Name" name="DSN1_Name" defaultValueLiteral="ORADSN">
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.DSN1_Name" name="DSN1_Name" defaultValueLiteral="HRISHIDSN">
       <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
     <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.SCHEMA1_Name" name="SCHEMA1_Name" defaultValueLiteral="system">
@@ -19,13 +19,13 @@
       <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="153,130" URLSpecifier="/AccLinkReq" messageDomainProperty="JSON">
         <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="388,125" dataSource="ORADSN" computeExpression="esql://routine/#MF_AccountLinkingRequest_Compute.Main">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="388,125" dataSource="HRISHIDSN" computeExpression="esql://routine/#MF_AccountLinkingRequest_Compute.Main">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
       <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="676,125">
         <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
       </nodes>
-      <nodes xmi:type="ComIbmEmailOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="548,202" smtpServer="mail.eidiko-india.com:587" toAddresses="hrishikesh.landge@eidiko-india.com">
+      <nodes xmi:type="ComIbmEmailOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="548,202" smtpServer="mail.eidiko-india.com:587" toAddresses="hrishikesh.landge@eidiko-india.com" securityIdentity="secid">
         <translation xmi:type="utility:ConstantString" string="Email Output"/>
       </nodes>
       <nodes xmi:type="ExceptionHandling_ExceptionHandler.subflow:FCMComposite_1" xmi:id="FCMComposite_1_5" location="372,43">

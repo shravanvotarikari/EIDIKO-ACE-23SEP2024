@@ -24,8 +24,8 @@ CREATE COMPUTE MODULE MF_AccountLinkingVerification_Compute
 		--SET OutputRoot = InputRoot;
 		DECLARE requestData CHARACTER;
 		set requestData = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
-		call writing(MessageFlowLabel,'App2','INFO',' ------------------------------------------------------------START LOG ----------------------------------------------------') into var1;
-		call writing(MessageFlowLabel,'App2','INFO', requestData) into var1;		
+		call writing(MessageFlowLabel,'App3','INFO',' ------------------------------------------------------------START LOG ----------------------------------------------------') into var1;
+		call writing(MessageFlowLabel,'App3','INFO', requestData) into var1;		
 		
 		DECLARE cur_time TIMESTAMP CURRENT_TIMESTAMP;
 		DECLARE otp_valid INTERVAL;
@@ -50,6 +50,9 @@ CREATE COMPUTE MODULE MF_AccountLinkingVerification_Compute
 		ELSE
 			Throw USER EXCEPTION VALUES ('OTP TIMEOUT');
 		END IF;
+	call writing(MessageFlowLabel,'App3','INFO', CAST(OutputRoot.JSON.Data.Status as CHARACTER)) into var1;
+	call writing(MessageFlowLabel,'App3','INFO',' ------------------------------------------------------------END LOG ----------------------------------------------------') into var1;
+	
 	END;
 	
 END MODULE;

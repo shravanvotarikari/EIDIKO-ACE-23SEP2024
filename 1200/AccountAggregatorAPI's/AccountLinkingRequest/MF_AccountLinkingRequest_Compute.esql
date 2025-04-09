@@ -51,7 +51,7 @@ CREATE COMPUTE MODULE MF_AccountLinkingRequest_Compute
 		SET OutputRoot.JSON.Data.res.refID = ReferenceID;
 		--SET OutputRoot.EmailOutputHeader.Body = 'Your OTP is ' ;
 		call writing(MessageFlowLabel,'App2','INFO', CAST(ASBITSTREAM(OutputRoot.JSON.Data.res) as CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding)) into var1;
-		call writing(MessageFlowLabel,'App2','INFO',' -----------------------------------------------------START LOG --------------------------------------------') into var1;
+		call writing(MessageFlowLabel,'App2','INFO',' -----------------------------------------------------END LOG --------------------------------------------') into var1;
 		--SET OutputRoot.BLOB.BLOB = CAST( otp AS BLOB CCSID 1208);
 		
 		DECLARE Email CHARACTER;
