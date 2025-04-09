@@ -1,0 +1,169 @@
+DECLARE var13 EXTERNAL CHARACTER 'C:\temp\Log4jConfigurationFile.xml';
+DECLARE var14 BOOLEAN;
+DECLARE DSN4 EXTERNAL CHARACTER '';
+DECLARE schemaa3 EXTERNAL CHARACTER '';
+
+CREATE COMPUTE MODULE AccountDataFetch
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		IF InputLocalEnvironment.HTTP.Input.RequestLine.Method = 'POST' THEN
+			CALL Logging3(var13) INTO var14;
+			CALL CopyEntireMessage();
+		ELSE
+
+			Throw USER EXCEPTION VALUES('Inavlid Method');
+
+		END IF;
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot = InputRoot;
+		
+		DECLARE inref REFERENCE TO InputRoot.JSON.Data;
+		DECLARE Acc_No INTEGER inref.accNo;
+		DECLARE dataTypeRef REFERENCE TO InputRoot.JSON.Data.dataTypes;
+	
+	IF LENGTH(CAST(Acc_No AS CHARACTER)) = '12' THEN
+			
+		-- SET dataType1 = InputRoot.JSON.Data.dataTypes[1];
+		-- SET dataType2 = InputRoot.JSON.Data.dataTypes[2];
+		-- SET dataType3 = InputRoot.JSON.Data.dataTypes[3];
+		DECLARE query CHARACTER;
+		DECLARE SQL1,SQL2 ROW;
+		SET SQL2.Data[] = SELECT C.DSNNAME FROM Database.{DSN4}.{schemaa3}.CEDGE_BANKIDS AS C WHERE C.BANKID = inref.bankId;
+		DECLARE CBDSN CHARACTER SQL2.Data[1].DSNNAME;
+
+		SET query =
+		'SELECT
+		P.HOLDERSTYPE, P.HOLDER_NAME, P.MOBILE, P.NOMINEE, P.EMAIL, P.PAN,
+		P.CKYCCOMPLIANCE, P.DOB, P.ACC_NO,
+
+		S.CURRENTBALANCE, S.CURRENCY, S.BALANCEDATETIME, S.TYPE AS SUMMARY_TYPE,
+		S.BRANCH, S.FACILITY, S.IFSCCODE, S.MICRCODE, S.OPENINGDATE,
+		S.CURRENTODLIMIT, S.DRAWINGLIMIT, S.STATUS, S.PENDINGAMOUNT, S.TNXID,
+
+		T.TXNID, T.TYPE AS TXN_TYPE, T.MODE1, T.AMOUNT, T.CURRENTBALANCE AS TXN_BAL,
+		T.TRANSACTIONTIMESTAMP, T.VALUEDATE, T.NARRATION, T.REFERENCE
+
+		FROM
+		PROFILE P
+		LEFT JOIN
+		SUMMARY S ON P.ACC_NO = S.ACC_NO
+		LEFT JOIN
+		TRANSACTIONS T ON P.ACC_NO = T.ACC_NO
+		WHERE
+		P.ACC_NO = ?' ;
+		
+		SET SQL1.Data[] = PASSTHRU(query TO Database.{CBDSN} values(Acc_No));
+
+
+		SET Environment.SQL = SQL1;
+		-- SET OutputRoot.JSON.Data.Profile.HOLDERSTYPE = Environment.SQL.Data.HOLDERSTYPE;
+		-- SET OutputRoot.JSON.Data.Profile.HOLDER_NAME = Environment.SQL.Data.HOLDER_NAME;
+		-- SET OutputRoot.JSON.Data.Profile.MOBILE = Environment.SQL.Data.MOBILE;
+		-- SET OutputRoot.JSON.Data.Profile.NOMINEE = Environment.SQL.Data.NOMINEE;
+		-- SET OutputRoot.JSON.Data.Profile.EMAIL = Environment.SQL.Data.EMAIL;
+		-- SET OutputRoot.JSON.Data.Profile.PAN = Environment.SQL.Data.PAN;
+		-- SET OutputRoot.JSON.Data.Profile.CKYCCOMPLIANCE = Environment.SQL.Data.CKYCCOMPLIANCE;
+		-- SET OutputRoot.JSON.Data.Profile.DOB = Environment.SQL.Data.DOB;
+		-- SET OutputRoot.JSON.Data.Profile.ACC_NO = Environment.SQL.Data.ACC_NO;
+		
+		-- SET OutputRoot.JSON.Data.Transactions.TXNID = Environment.SQL.Data.TXNID;
+		-- SET OutputRoot.JSON.Data.Transactions.TXN_TYPE = Environment.SQL.Data.TXN_TYPE;
+		-- SET OutputRoot.JSON.Data.Transactions.MODE1 = Environment.SQL.Data.MODE1;
+		-- SET OutputRoot.JSON.Data.Transactions.AMOUNT = Environment.SQL.Data.AMOUNT;
+		-- SET OutputRoot.JSON.Data.Transactions.CURRENTBALANCE = Environment.SQL.Data.TXN_BAL;
+		-- SET OutputRoot.JSON.Data.Transactions.TRANSACTIONTIMESTAMP = Environment.SQL.Data.TRANSACTIONTIMESTAMP;
+		-- SET OutputRoot.JSON.Data.Transactions.VALUEDATE = Environment.SQL.Data.VALUEDATE;
+		-- SET OutputRoot.JSON.Data.Transactions.NARRATION = Environment.SQL.Data.NARRATION;
+		-- SET OutputRoot.JSON.Data.Transactions.REFERENCE = Environment.SQL.Data.REFERENCE;
+
+
+
+
+		CREATE FIELD OutputRoot.JSON.Data.accountType VALUE 'recurring_deposit';
+		CREATE FIELD OutputRoot.JSON.Data.Profile.Holders.type VALUE Environment.SQL.Data.HOLDERSTYPE;
+		SET OutputRoot.JSON.Data.Profile.Holders.name = Environment.SQL.Data.HOLDER_NAME;
+		SET OutputRoot.JSON.Data.Profile.Holders.dob = Environment.SQL.Data.DOB;
+		SET OutputRoot.JSON.Data.Profile.Holders.mobile = Environment.SQL.Data.MOBILE;
+		SET OutputRoot.JSON.Data.Profile.Holders.nominee = Environment.SQL.Data.NOMINEE;
+		SET OutputRoot.JSON.Data.Profile.Holders.email = Environment.SQL.Data.EMAIL;
+		SET OutputRoot.JSON.Data.Profile.Holders.pan = Environment.SQL.Data.PAN;
+		SET OutputRoot.JSON.Data.Profile.Holders.ckycCompliance = Environment.SQL.Data.CKYCCOMPLIANCE;
+
+
+
+		SET OutputRoot.JSON.Data.Summary.CURRENTBALANCE = Environment.SQL.Data.CURRENTBALANCE;
+		SET OutputRoot.JSON.Data.Summary.CURRENCY = Environment.SQL.Data.CURRENCY;
+		SET OutputRoot.JSON.Data.Summary.BALANCEDATETIME = Environment.SQL.Data.BALANCEDATETIME;
+		SET OutputRoot.JSON.Data.Summary.SUMMARY_TYPE = Environment.SQL.Data.SUMMARY_TYPE;
+		SET OutputRoot.JSON.Data.Summary.BRANCH = Environment.SQL.Data.BRANCH;
+		SET OutputRoot.JSON.Data.Summary.FACILITY = Environment.SQL.Data.FACILITY;
+		SET OutputRoot.JSON.Data.Summary.IFSCCODE = Environment.SQL.Data.IFSCCODE;
+		SET OutputRoot.JSON.Data.Summary.MICRCODE = Environment.SQL.Data.MICRCODE;
+		SET OutputRoot.JSON.Data.Summary.OPENINGDATE = Environment.SQL.Data.OPENINGDATE;
+		SET OutputRoot.JSON.Data.Summary.CURRENTODLIMIT = Environment.SQL.Data.CURRENTODLIMIT;
+		SET OutputRoot.JSON.Data.Summary.DRAWINGLIMIT = Environment.SQL.Data.DRAWINGLIMIT;
+		SET OutputRoot.JSON.Data.Summary.STATUS = Environment.SQL.Data.STATUS;
+		SET OutputRoot.JSON.Data.Summary.PENDINGAMOUNT = Environment.SQL.Data.PENDINGAMOUNT;
+		SET OutputRoot.JSON.Data.Summary.TNXID = Environment.SQL.Data.TNXID;
+
+		SET OutputRoot.JSON.Data.Transactions.startDate = Environment.SQL.Data.TRANSACTIONTIMESTAMP;
+		SET OutputRoot.JSON.Data.Transactions.endDate = Environment.SQL.Data.VALUEDATE;		
+
+
+		CREATE FIELD OutputRoot.JSON.Data.Transactions IDENTITY(JSON.Array);
+		DECLARE txnRef REFERENCE TO Environment.SQL.Data;
+		DECLARE N INTEGER 1;
+		WHILE LASTMOVE(txnRef) DO
+
+			DECLARE newTxn REFERENCE TO OutputRoot.JSON.Data.Transactions;
+			CREATE LASTCHILD OF newTxn NAME 'Item';
+
+			SET newTxn.Item[N].txnId = txnRef.TXNID;
+			SET newTxn.Item[N].amount = txnRef.AMOUNT;
+			SET newTxn.Item[N].narration = txnRef.NARRATION;
+			SET newTxn.Item[N].type = txnRef.TXN_TYPE;
+			SET newTxn.Item[N].mode = txnRef.MODE1;
+			SET newTxn.Item[N].balance = txnRef.TXN_BAL;
+			SET newTxn.Item[N].transactionDateTime = txnRef.TRANSACTIONTIMESTAMP;
+			SET newTxn.Item[N].valueDate = txnRef.VALUEDATE;
+			SET newTxn.Item[N].reference = txnRef.REFERENCE;
+			SET N=N+1;
+			MOVE txnRef NEXTSIBLING;
+		END WHILE;
+		
+	ELSE
+		
+		Throw USER EXCEPTION VALUES('Invalid Account Number');
+		
+	END IF;
+		
+		
+		DECLARE request, response CHARACTER;
+
+		SET request = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		SET response = CAST(ASBITSTREAM(OutputRoot.JSON.Data) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		call writeLog4(MessageFlowLabel,'accountdatafetch','INFO', '------------------------------------------START LOG-----------------------') into var14;
+		call writeLog4(MessageFlowLabel,'accountdatafetch','INFO', 'Application_REQUEST: ' || request) into var14;
+		call writeLog4(MessageFlowLabel,'accountdatafetch','INFO', 'Application_RESPONSE: ' || response) into var14;
+		call writeLog4(MessageFlowLabel,'accountdatafetch','INFO', '------------------------------------------END LOG-----------------------') into var14;
+	
+
+
+	END;
+END MODULE;
+
+
+
+
+CREATE FUNCTION writeLog4 (IN mfname CHARACTER, IN logger_name CHARACTER, IN level CHARACTER, IN Data CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+
+
+CREATE FUNCTION Logging4 (IN config CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";

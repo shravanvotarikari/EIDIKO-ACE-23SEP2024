@@ -1,0 +1,86 @@
+DECLARE var4 EXTERNAL CHARACTER 'C:\temp\Log4jConfigurationFile.xml';
+DECLARE var5 BOOLEAN;
+DECLARE DSN EXTERNAL CHARACTER '';
+
+CREATE COMPUTE MODULE Account_Discovery
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		IF InputLocalEnvironment.HTTP.Input.RequestLine.Method = 'POST' THEN
+
+			CALL Logging(var4) INTO var5;
+			CALL CopyEntireMessage();
+		ELSE
+			Throw USER EXCEPTION MESSAGE 9867 VALUES('Invalid method call');
+
+		END IF;
+
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot = InputRoot;
+
+		DECLARE bankId INTEGER InputRoot.JSON.Data.bankId;
+		DECLARE mobileNo CHARACTER InputRoot.JSON.Data.mobileNo;
+		DECLARE fitype CHARACTER InputRoot.JSON.Data.fitype;		
+
+
+
+		IF LENGTH(mobileNo) = '10' AND
+			(fitype = 'DEPOSIT' OR fitype = 'TERM_DEPOSIT' OR fitype = 'RECURRING_DEPOSIT') THEN
+
+			DECLARE SQL ROW;
+			-- DECLARE query1,query2 CHARACTER;
+			-- SET query1 = 'Select BANKNAME FROM CEDGE_BANKIDS WHERE BANKID = ?';
+			-- SET query2 = 'Select ACCOUNTNUMBER, ACCTYPE, FITYPE FROM CEDGE_ACCOUNTS WHERE MOBILENO = ?';
+			SET SQL.Data1[] = SELECT C.BANKCODE,C.DSNNAME,C.SCHEMANAME FROM Database.{DSN}.system.CEDGE_BANKIDS AS C WHERE C.BANKID = bankId;
+			DECLARE CBSDSN CHARACTER SQL.Data1[1].DSNNAME;
+			DECLARE schemaName CHARACTER SQL.Data1[1].SCHEMANAME;
+			DECLARE bankCode CHARACTER SQL.Data1[1].BANKCODE;
+			SET SQL.Data2[] = SELECT B.ACCOUNTNUMBER, B.ACCTYPE, B.FITYPE FROM Database.{CBSDSN}.{schemaName}.CEDGE_ACCOUNTS AS B WHERE B.MOBILENO = mobileNo;
+			SET OutputRoot.JSON.Data.Main.Status = 'Success';
+			SET OutputRoot.JSON.Data.Main.BankCode = bankCode;
+			DECLARE N INTEGER 1;
+			DECLARE SQLref REFERENCE TO SQL.Data2;
+			CREATE FIELD OutputRoot.JSON.Data.accounts IDENTITY (JSON.Array);
+			WHILE LASTMOVE(SQLref) DO
+
+				SET OutputRoot.JSON.Data.accounts.Item[N].AccountNumber = SQLref.ACCOUNTNUMBER;
+				SET OutputRoot.JSON.Data.accounts.Item[N].AccountType = SQLref.ACCTYPE;
+				SET OutputRoot.JSON.Data.accounts.Item[N].FItype = SQLref.FITYPE;
+					SET N = N+1;
+					Move SQLref NEXTSIBLING;
+			END WHILE;
+
+		ELSE
+
+			THROW USER EXCEPTION MESSAGE 1234 VALUES('Invalid Mobile Number');
+
+		END IF;		
+
+
+		DECLARE request, response CHARACTER;
+
+		SET request = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		SET response = CAST(ASBITSTREAM(OutputRoot.JSON.Data.accounts) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		call writeLog(MessageFlowLabel,'dco_info','INFO', '------------------------------------------START LOG-----------------------') into var5;		
+		call writeLog(MessageFlowLabel,'dco_info','INFO', 'Application_REQUEST: ' || request) into var5;
+		call writeLog(MessageFlowLabel,'dco_info','INFO', 'Application_RESPONSE: ' || response) into var5;
+		call writeLog(MessageFlowLabel,'dco_info','INFO', '------------------------------------------END LOG-----------------------') into var5;				
+
+
+
+	END;
+END MODULE;
+
+
+
+CREATE FUNCTION writeLog (IN mfname CHARACTER, IN logger_name CHARACTER, IN level CHARACTER, IN Data CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+
+
+CREATE FUNCTION Logging (IN config CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";

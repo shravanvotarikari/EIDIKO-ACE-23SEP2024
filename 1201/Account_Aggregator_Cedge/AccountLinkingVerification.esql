@@ -1,0 +1,86 @@
+
+
+DECLARE var11 EXTERNAL CHARACTER 'C:\temp\Log4jConfigurationFile.xml';
+DECLARE var12 BOOLEAN;
+DECLARE DSN3 EXTERNAL CHARACTER '';
+DECLARE schemaa2 EXTERNAL CHARACTER '';
+
+
+CREATE COMPUTE MODULE AccountLinkingVerification
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		IF InputLocalEnvironment.HTTP.Input.RequestLine.Method = 'POST' THEN
+			CALL Logging3(var11) INTO var12;
+			CALL CopyEntireMessage();
+		ELSE
+
+			Throw USER EXCEPTION VALUES('Inavlid Method');
+
+		END IF;
+
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		-- SET OutputRoot = InputRoot;
+		-- DECLARE bankId INTEGER InputRoot.JSON.Data.bankId;
+		-- DECLARE accNo INTEGER InputRoot.JSON.Data.accNo;
+		-- DECLARE token INTEGER InputRoot.JSON.Data.token;
+		-- DECLARE referenceId INTEGER InputRoot.JSON.Data.referenceId;
+		--
+
+		DECLARE inref REFERENCE TO InputRoot.JSON.Data;
+		DECLARE SQL ROW;
+	--	DECLARE query CHARACTER;
+	--	SET query = 'Select OTP,REFERENCEID,TIMESTAMP FROM CEDGE_OTP WHERE REFERENCEID = ?';		
+		
+		SET SQL.OTPS[] =  SELECT C.OTP,C.REFERENCEID,C.TIMESTAMP FROM Database.{DSN3}.{schemaa2}.CEDGE_OTP AS C WHERE C.REFERENCEID = inref.referenceId;
+		-- DECLARE RefID CHARACTER SQL.OTPS[1].REFERENCEID;
+		-- DECLARE RefOTP CHARACTER SQL.OTPS[1].OTP;
+		DECLARE CUR_TIME TIMESTAMP CURRENT_TIMESTAMP;
+		DECLARE Database_time TIMESTAMP (SQL.OTPS[1].TIMESTAMP + INTERVAL '5' MINUTE);
+
+		IF Database_time > CUR_TIME THEN
+
+			IF (inref.token = SQL.OTPS[1].OTP) THEN
+
+				SET OutputRoot.JSON.Data.Main.Status = 'Success';
+
+			ELSE
+
+				Throw USER EXCEPTION VALUES ('Invalid OTP');
+
+			END IF;
+
+		ELSE
+			Throw USER EXCEPTION VALUES ('OTP Timeout');
+
+		END IF;
+
+
+		DECLARE request, response CHARACTER;
+
+		SET request = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		SET response = CAST(ASBITSTREAM(OutputRoot.JSON.Data.Main) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		call writeLog3(MessageFlowLabel,'accountverification','INFO', '------------------------------------------START LOG-----------------------') into var12;
+		call writeLog3(MessageFlowLabel,'accountverification','INFO', 'Application_REQUEST: ' || request) into var12;
+		call writeLog3(MessageFlowLabel,'accountverification','INFO', 'Application_RESPONSE: ' || response) into var12;
+		call writeLog3(MessageFlowLabel,'accountverification','INFO', '------------------------------------------END LOG-----------------------') into var12;
+
+		
+
+	END;
+END MODULE;
+
+
+
+CREATE FUNCTION writeLog3 (IN mfname CHARACTER, IN logger_name CHARACTER, IN level CHARACTER, IN Data CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+
+
+CREATE FUNCTION Logging3 (IN config CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
