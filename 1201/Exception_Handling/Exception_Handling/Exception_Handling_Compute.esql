@@ -1,0 +1,52 @@
+BROKER SCHEMA Exception_Handling
+
+DECLARE var6 EXTERNAL CHARACTER 'C:\temp\Log4jConfigurationFile.xml'; 
+DECLARE var7 BOOLEAN;
+
+CREATE COMPUTE MODULE Exception_Handling_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL Logging2(var6) INTO var7;
+		CALL Exceptions();
+
+	END;
+
+	CREATE PROCEDURE Exceptions ( ) BEGIN
+		SET OutputRoot = InputRoot;
+		Declare STACKTRACE CHARACTER '';
+
+		DECLARE start REFERENCE TO InputExceptionList.*[1];
+
+		WHILE start.Number IS NOT NULL DO
+
+			SET STACKTRACE = CAST(start.Number as CHARACTER) || ':' || start.Text || ':'|| COALESCE(start.Label, '') || ''|| STACKTRACE ;
+
+			MOVE start LASTCHILD;
+		END WHILE;
+
+		SET OutputRoot.JSON.Data.ExceptionStackTrace = start.Text || ''||STACKTRACE;
+		--SET OutputLocalEnvironment.Destination.HTTP.ReplyStatusCode = '400';
+		
+					
+		DECLARE exceptions,payload  CHARACTER;		
+		SET exceptions = CAST(ASBITSTREAM(OutputRoot.JSON.Data) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		SET payload = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);			
+		call writeLog2(MessageFlowLabel,'exception','INFO', '------------------------------------------START LOG-----------------------') into var7;				
+		call writeLog2(MessageFlowLabel,'exception','INFO', 'Application_PAYLOAD: ' || payload) into var7;	
+		call writeLog2(MessageFlowLabel,'exception','INFO', 'Application_RESPONSE: ' || exceptions) into var7;	
+		call writeLog2(MessageFlowLabel,'exception','INFO', '------------------------------------------END LOG-----------------------') into var7;						
+		
+	END;
+
+END MODULE;
+
+
+
+CREATE FUNCTION writeLog2 (IN mfname CHARACTER, IN logger_name CHARACTER, IN level CHARACTER, IN Data CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+
+
+CREATE FUNCTION Logging2 (IN config CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
