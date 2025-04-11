@@ -1,0 +1,171 @@
+BROKER SCHEMA cEdge
+
+CREATE COMPUTE MODULE ExceptionHandling_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot.XMLNSC.request = NULL;
+		CREATE LASTCHILD OF OutputRoot.XMLNSC NAME 'response';
+		
+		DECLARE inref REFERENCE TO InputExceptionList;
+		DECLARE outref REFERENCE TO OutputRoot.XMLNSC.response;
+		DECLARE service CHARACTER 'CRUD_Operations';
+		CALL BuildExceptionDetails(inref, outref, service);
+		
+		DECLARE refVar REFERENCE TO InputExceptionList.RecoverableException;
+		WHILE LASTMOVE(refVar) AND FIELDNAME(refVar) <> 'Text' DO
+			SET OutputRoot.XMLNSC.response.ErrorText = refVar.Text;
+			MOVE refVar LASTCHILD;
+		END WHILE;
+		
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE BuildExceptionDetails(IN excpRef REFERENCE,INOUT outRef REFERENCE,IN serviceName CHARACTER) BEGIN
+		SET outRef.exceptionType = FIELDNAME(excpRef.[>]);
+		DECLARE CRLF CHARACTER CAST(X'0D0A' AS CHARACTER CCSID 1208);
+
+		IF CONTAINS(excpRef.actualExcpText,CRLF) THEN
+			SET excpRef.actualExcpText = SUBSTRING(excpRef.actualExcpText BEFORE CRLF );
+		END IF;
+
+		CASE
+		WHEN excpRef.excpType = 'DatabaseException' THEN
+
+			SET outRef.Status = 'FAILURE';
+			SET outRef.ErrorCode = 'ESB_SERVER_902';
+			SET outRef.ErrorType = excpRef.excpType;
+			SET outRef.Description = CAST(excpRef.excpText AS CHARACTER);
+			SET outRef.ActualDesc = 'Exception connection to database: '||excpRef.actualExcpText ;
+		WHEN excpRef.excpType = 'SqlException' THEN
+			SET outRef.Status = 'FAILURE';
+			SET outRef.ErrorCode = 'ESB_SERVER_902';
+			SET outRef.ErrorType = excpRef.excpType;
+			SET outRef.Description = CAST(excpRef.excpText AS CHARACTER);
+			SET outRef.ActualDesc = excpRef.actualExcpText ;
+		WHEN excpRef.excpType = 'UserException' THEN
+			SET outRef.Status = 'FAILURE';
+			SET outRef.ErrorCode = serviceName||'_908';
+			SET outRef.ErrorType = excpRef.excpType;
+			SET outRef.Description = CAST(excpRef.excpText AS CHARACTER);
+			SET outRef.ActualDesc = excpRef.actualExcpText ;
+		WHEN excpRef.excpType = 'CastException' THEN
+			SET outRef.Status = 'FAILURE';
+			SET outRef.ErrorCode = 'ESB_SERVER_907';
+			SET outRef.ErrorType = excpRef.excpType;
+			SET outRef.Description = CAST(excpRef.excpText AS CHARACTER);
+			SET outRef.ActualDesc = excpRef.actualExcpText ;
+		WHEN excpRef.excpType = 'MessageException' THEN
+			SET outRef.Status = 'FAILURE';
+			SET outRef.ErrorType = excpRef.excpType;
+			SET outRef.Description = CAST(excpRef.excpText AS CHARACTER);
+			if CONTAINS(excpRef.excpText,'Failed to open queue') THEN
+				SET outRef.ErrorCode = 'ESB_SERVER_905';
+				SET outRef.ActualDesc = 'Failed to open Queue: '||excpRef.actualExcpText ;
+			ELSE
+				SET outRef.ErrorCode = 'ESB_SERVER_905';
+				SET outRef.ActualDesc = excpRef.actualExcpText;
+			END IF;
+		WHEN excpRef.excpType = 'SocketException' THEN
+			SET outRef.Status = 'FAILURE';
+			SET outRef.ErrorCode = 'ESB_SERVER_903';
+			SET outRef.ErrorType = excpRef.excpType;
+			SET outRef.Description = CAST(excpRef.excpText AS CHARACTER);
+			SET outRef.ActualDesc = excpRef.actualExcpText;
+		WHEN excpRef.excpType = 'SocketTimeoutException' THEN
+			SET outRef.Status = 'FAILURE';
+			SET outRef.ErrorCode = 'ESB_SERVER_903';
+			SET outRef.ErrorType = excpRef.excpType;
+			SET outRef.Description = CAST(excpRef.excpText AS CHARACTER);
+			SET outRef.ActualDesc = excpRef.actualExcpText ;
+		WHEN excpRef.excpType = 'MessageException' THEN
+			SET outRef.Status = 'FAILURE';
+			SET outRef.ErrorType = excpRef.excpType;
+			SET outRef.Description = CAST(excpRef.excpText AS CHARACTER);
+			if CONTAINS(excpRef.excpText,'Failed to open queue') THEN
+				SET outRef.ErrorCode = 'ESB_SERVER_905';
+				SET outRef.ActualDesc = 'Failed to open Queue: '||excpRef.actualExcpText ;
+			ELSE
+				SET outRef.ErrorCode = 'ESB_SERVER_905';
+				SET outRef.ActualDesc = excpRef.actualExcpText ;
+			END IF;
+		WHEN excpRef.excpType = 'ParserException' THEN
+			SET outRef.Status = 'FAILURE';
+			SET outRef.ErrorCode = 'ESB_SERVER_907';
+			SET outRef.ErrorType = excpRef.excpType;
+			SET outRef.Description = CAST(excpRef.excpText AS CHARACTER);
+			SET outRef.ActualDesc = 'A Parsing error has occurred while parsing the given message structure'||', error: '||excpRef.actualExcpText;
+		WHEN excpRef.excpType = 'CastException' THEN
+			SET outRef.Status = 'FAILURE';
+			SET outRef.ErrorCode = 'ESB_SERVER_907';
+			SET outRef.ErrorType = excpRef.excpType;
+			SET outRef.Description = CAST(excpRef.excpText AS CHARACTER);
+			SET outRef.ActualDesc = excpRef.actualExcpText ;
+		WHEN excpRef.excpType = 'RecoverableException' THEN
+			SET outRef.Status = 'FAILURE';
+			SET outRef.Description = CAST(excpRef.excpText AS CHARACTER);
+
+			IF CONTAINS(excpRef.excpText,'Internal Server Error') THEN
+				SET outRef.ErrorCode = 'ESB_SERVER_906';
+				SET outRef.ErrorType = 'Internal Server Error';
+				SET outRef.ActualDesc = 'Received an HTTP Error Status Code (5xx or 400) with an empty response body, when a SOAP payload was expected.,HTTP/1.1 500 Internal Server Error';
+
+			ELSEIF CONTAINS(excpRef.excpText,'CCSID') AND CONTAINS(excpRef.excpText,'NULL') THEN
+				SET outRef.ErrorCode = 'ESB_SERVER_907';
+				SET outRef.ErrorType = 'CCSID Encoding Values are null';
+				SET outRef.ActualDesc = 'Null values for CCSID, Encoding';
+
+			ELSE
+				SET outRef.ErrorType = excpRef.excpType;
+				SET outRef.ErrorCode = 'ESB_SERVER_908';
+				SET outRef.ActualDesc = excpRef.actualExcpText ;
+			END IF;
+		WHEN excpRef.excpType = 'FatalException' THEN
+			SET outRef.Status = 'FAILURE';
+			SET outRef.ErrorCode = 'ESB_SERVER_909';
+			SET outRef.ErrorType = excpRef.excpType;
+			SET outRef.Description = CAST(excpRef.excpText AS CHARACTER);
+			SET outRef.ActualDesc = excpRef.actualExcpText;
+		WHEN excpRef.excpType = 'ConfigurationException' THEN
+			SET outRef.Status = 'FAILURE';
+			SET outRef.ErrorCode = 'ESB_SERVER_910';
+			SET outRef.ErrorType = excpRef.excpType;
+			SET outRef.Description = CAST(excpRef.excpText AS CHARACTER);
+			SET outRef.ActualDesc = excpRef.actualExcpText;
+		WHEN excpRef.excpType = 'SecurityException' THEN
+			SET outRef.Status = 'FAILURE';
+			SET outRef.ErrorCode = 'ESB_SERVER_911';
+			SET outRef.ErrorType = excpRef.excpType;
+			SET outRef.Description = CAST(excpRef.excpText AS CHARACTER);
+			SET outRef.ActualDesc = excpRef.actualExcpText;
+		WHEN excpRef.excpType = 'ConversionException' THEN
+			SET outRef.Status = 'FAILURE';
+			SET outRef.ErrorCode = 'ESB_SERVER_912';
+			SET outRef.ErrorType = excpRef.excpType;
+			SET outRef.Description = CAST(excpRef.excpText AS CHARACTER);
+			SET outRef.ActualDesc = excpRef.actualExcpText;
+		WHEN excpRef.excpType = 'UserException' THEN
+			SET outRef.Status = 'FAILURE';
+			SET outRef.ErrorCode = 'ESB_SERVER_913';
+			SET outRef.ErrorType = excpRef.excpType;
+			SET outRef.Description = CAST(excpRef.excpText AS CHARACTER);
+			SET outRef.ActualDesc = excpRef.actualExcpText ;
+		WHEN excpRef.excpType = 'UnknownException' THEN
+			SET outRef.Status = 'FAILURE';
+			SET outRef.ErrorCode = 'ESB_SERVER_914';
+			SET outRef.ErrorType = excpRef.excpType;
+			SET outRef.Description = CAST(excpRef.excpText AS CHARACTER);
+			SET outRef.ActualDesc = excpRef.actualExcpText ;
+		ELSE
+			SET outRef.Status = 'FAILURE';
+--			SET outRef.ErrorCode = 'ESB_SERVER_915';
+			SET outRef.Description = CAST(excpRef AS CHARACTER CCSID 1208);
+			SET outRef.ErrorType = excpRef.excpType;
+			SET outRef.ActualDesc = excpRef.actualExcpText ;
+		END CASE;
+		
+		
+		LOG EVENT SEVERITY 1 CATALOG 'BI
+		Pmsgs' MESSAGE 2951 VALUES(outRef.Status,outRef.ErrorCode,outRef.ErrorType,outRef.ActualDesc);
+	END;
+END MODULE;
