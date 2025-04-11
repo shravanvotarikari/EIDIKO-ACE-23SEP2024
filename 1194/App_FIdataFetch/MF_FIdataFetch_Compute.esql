@@ -1,0 +1,102 @@
+
+DECLARE log4jPath EXTERNAL CHARACTER;
+DECLARE dsn EXTERNAL CHARACTER;
+DECLARE schemaVar EXTERNAL CHARACTER;
+DECLARE var BOOLEAN;
+
+CREATE COMPUTE MODULE MF_FIdataFetch_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE httpMethod CHARACTER;
+		SET httpMethod = LEFT(InputRoot.HTTPInputHeader."X-Original-HTTP-Command", 4);
+
+		IF httpMethod = 'POST' THEN
+			CALL init_log4j(log4jPath) INTO var;
+			CALL write_log(MessageFlowLabel, 'FI_Data_Fetch', 'Request Data : ', CAST(InputRoot.JSON.Data AS CHARACTER)) INTO var;
+			CALL CopyEntireMessage();
+			CALL write_log(MessageFlowLabel, 'FI_Data_Fetch', 'Resopnse Data : ', CAST(OutputRoot.JSON.Data AS CHARACTER)) INTO var;
+		ELSE
+			SET OutputRoot.JSON.Data.response = 'Invalid Method Name';
+		END IF;
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		DECLARE bankId CHARACTER InputRoot.JSON.Data.bankId;
+		DECLARE accNo CHARACTER InputRoot.JSON.Data.accNo;
+		DECLARE fromDate CHARACTER InputRoot.JSON.Data.fromDate;
+		DECLARE toDate CHARACTER InputRoot.JSON.Data.toDate;
+
+		DECLARE query CHARACTER;
+
+		SET query = 'SELECT
+		p.ACC_ID, p.ACC_NO, p.HOLDER_TYPE, p.P_NAME, p.DOB, p.MOBILE, p.NOMINEE, p.EMAIL, p.PAN, p.CKYC_COMPLIANCE,
+		t.TXN_ID, t.TXN_TYPE, t.TXN_MODE, t.AMOUNT, t.TRANSACTION_TIMESTAMP, t.VALUE_DATE, t.NARRATION, t.TXN_REFERENCE, t.CURRENT_BALANCE,
+		s.BALANCE_DATE_TIME, s.TYPE, s.ACCOUNT_TYPE, s.BRANCH, s.STATUS, s.OPENING_DATE, s.MATURITY_DATE, s.INTEREST_RATE, s.MATURITY_AMOUNT,
+		s.CURRENCY, s.EXCHGE_RATE, s.FACILITY, s.IFSC_CODE, s.MICR_CODE, s.CURRENT_OD_LIMIT, s.DRAWING_LIMIT, s.PENDING_AMOUNT
+		FROM
+		(SELECT ACC_ID, ACC_NO, HOLDER_TYPE, P_NAME, DOB, MOBILE, NOMINEE, EMAIL, PAN, CKYC_COMPLIANCE
+		FROM ' || schemaVar || '.PROFILE WHERE ACC_NO = ''' || accNo || ''') p
+		JOIN
+		(SELECT TXN_ID, ACC_ID, ACC_NO, TXN_TYPE, TXN_MODE, AMOUNT, TRANSACTION_TIMESTAMP, VALUE_DATE, NARRATION, TXN_REFERENCE, CURRENT_BALANCE
+		FROM ' || schemaVar || '.TRANSACTIONSS WHERE ACC_NO = ''' || accNo || '''
+		AND TRANSACTION_TIMESTAMP BETWEEN ''' || fromDate || ''' AND ''' || toDate || ''') t
+		ON p.ACC_ID = t.ACC_ID AND p.ACC_NO = t.ACC_NO
+		LEFT JOIN
+		(SELECT ACC_NO, BALANCE_DATE_TIME, TYPE, ACCOUNT_TYPE, BRANCH, STATUS, OPENING_DATE, MATURITY_DATE, INTEREST_RATE, MATURITY_AMOUNT,
+		CURRENCY, EXCHGE_RATE, FACILITY, IFSC_CODE, MICR_CODE, CURRENT_OD_LIMIT, DRAWING_LIMIT, PENDING_AMOUNT
+		FROM ' || schemaVar || '.SUMMARY WHERE ACC_NO = ''' || accNo || ''') s
+		ON p.ACC_NO = s.ACC_NO';
+
+		DECLARE result row;
+		SET result.info[] = PASSTHRU(query);
+		
+		SET OutputRoot.JSON.Data = result;
+
+--		SET OutputRoot.JSON.Data.status = 'success';
+--
+--		SET OutputRoot.JSON.Data.AccountType = result.info.ACCOUNT_TYPE;		
+--
+----		Profile Array
+--		CREATE LASTCHILD OF OutputRoot.JSON.Data IDENTITY(JSON.Array)Profile;
+--		DECLARE profileArr REFERENCE TO OutputRoot.JSON.Data.Profile;
+--
+--		SET OutputRoot.JSON.Data.Profile.HolderType = result.info.HOLDER_TYPE;
+--		SET OutputRoot.JSON.Data.Profile.HolderName = result.info.P_NAME;
+--		SET OutputRoot.JSON.Data.Profile.DOB = result.info.DOB;
+--		SET OutputRoot.JSON.Data.Profile.mobile = result.info.MOBILE;
+--		SET OutputRoot.JSON.Data.Profile.nominee = result.info.NOMINEE;
+--		SET OutputRoot.JSON.Data.Profile.email = result.info.EMAIL;
+--		SET OutputRoot.JSON.Data.Profile.pan = result.info.PAN;
+--		SET OutputRoot.JSON.Data.Profile.kycStatus = result.info.CKYC_COMPLIANCE;
+--		
+----		Transaction Array
+--
+--		CREATE LASTCHILD OF OutputRoot.JSON.Data IDENTITY(JSON.Array)Transactions;
+--		DECLARE transactionArr REFERENCE TO OutputRoot.JSON.Data.Transactions;
+--
+--		SET transactionArr.Date.startDate = InputRoot.JSON.Data.fromDate;		
+--		SET transactionArr.Date.endDate = InputRoot.JSON.Data.toDate;		
+--
+--		SET transactionArr.txnId = result.info.TXN_ID;
+--		SET transactionArr.type = result.info.TXN_TYPE;
+--		SET transactionArr.mode = result.info.TXN_MODE;
+--		SET transactionArr.amount = result.info.AMOUNT;
+--		SET transactionArr.currentBalance = result.info.CURRENT_BALANCE;
+--		SET transactionArr.transactionTimestamp = result.info.TRANSACTION_TIMESTAMP;
+--		SET transactionArr.valueDate = result.info.VALUE_DATE;
+--		SET transactionArr.narration = result.info.NARRATION;
+
+
+	END;
+END MODULE;
+
+CREATE FUNCTION init_log4j (IN var_path CHARACTER) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
+
+
+CREATE PROCEDURE write_log ( in mfname CHARACTER, in nodeLabel CHARACTER, in level CHARACTER, in data CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";

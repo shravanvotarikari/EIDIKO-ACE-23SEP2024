@@ -1,0 +1,50 @@
+
+
+DECLARE log4jPath EXTERNAL CHARACTER;
+DECLARE dsn EXTERNAL CHARACTER;
+DECLARE schemaVar EXTERNAL CHARACTER;
+DECLARE var BOOLEAN;
+
+
+CREATE COMPUTE MODULE MF_AccountLinkingVerification_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE httpMethod CHARACTER;
+		SET httpMethod = LEFT(InputRoot.HTTPInputHeader."X-Original-HTTP-Command", 4);
+
+		IF httpMethod = 'POST' THEN
+			CALL init_log4j(log4jPath) INTO var;
+			CALL write_log(MessageFlowLabel, 'Account_Linking_Verification', 'Request Data : ', CAST(InputRoot.JSON.Data AS CHARACTER)) INTO var;
+			CALL CopyEntireMessage();
+			CALL write_log(MessageFlowLabel, 'Account_Linking_Verification', 'Resopnse Data : ', CAST(OutputRoot.JSON.Data AS CHARACTER)) INTO var;
+		ELSE
+			SET OutputRoot.JSON.Data.response = 'Invalid Method Name';
+		END IF;
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		DECLARE uniqueId row;
+		SET uniqueId.info[] = SELECT t.UNIQUEID, t.TIME FROM Database.{dsn}.{schemaVar}.OTPTABLE AS t WHERE t.OTP = InputRoot.JSON.Data.token;
+
+		DECLARE otptime TIMESTAMP uniqueId.info.TIME;
+		DECLARE validTime TIMESTAMP (CURRENT_TIME - INTERVAL '5' MINUTE);
+
+		IF (otptime > validTime) AND (uniqueId.info.UNIQUEID = InputRoot.JSON.Data.referenceId) THEN
+			SET OutputRoot.JSON.Data.status = 'Success';
+		ELSE
+			SET OutputRoot.JSON.Data.status = 'Failure';
+		END IF;
+
+	END;
+END MODULE;
+
+CREATE FUNCTION init_log4j (IN var_path CHARACTER) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
+
+
+CREATE PROCEDURE write_log ( in mfname CHARACTER, in nodeLabel CHARACTER, in level CHARACTER, in data CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";

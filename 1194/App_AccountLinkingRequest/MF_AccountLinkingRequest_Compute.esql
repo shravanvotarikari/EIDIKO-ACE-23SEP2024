@@ -1,0 +1,51 @@
+
+
+DECLARE log4jPath EXTERNAL CHARACTER;
+DECLARE dsn EXTERNAL CHARACTER;
+DECLARE schemaVar EXTERNAL CHARACTER;
+DECLARE var BOOLEAN;
+
+CREATE COMPUTE MODULE MF_AccountLinkingRequest_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE httpMethod CHARACTER;
+		SET httpMethod = LEFT(InputRoot.HTTPInputHeader."X-Original-HTTP-Command", 4);
+
+		IF httpMethod = 'POST' THEN
+			CALL init_log4j(log4jPath) INTO var;
+			CALL write_log(MessageFlowLabel, 'Account_Linking_Request', 'Request Data : ', CAST(InputRoot.JSON.Data AS CHARACTER)) INTO var;
+			CALL CopyEntireMessage();
+			CALL write_log(MessageFlowLabel, 'Account_Linking_Request', 'Resopnse Data : ', CAST(OutputRoot.JSON.Data AS CHARACTER)) INTO var;
+		ELSE
+			SET OutputRoot.JSON.Data.response = 'Invalid Method Name';
+		END IF;
+		RETURN FALSE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		-- Generating and sending OTP
+		DECLARE otp INTEGER RAND()*1000000;
+		DECLARE bankCode row;
+		SET bankCode.info[] = SELECT t.BANKCODE FROM Database.{dsn}.{schemaVar}.DSNTABLE AS t WHERE t.BANKID = InputRoot.JSON.Data.bankId;
+		DECLARE msgText CHARACTER;
+		SET msgText = 'Dear Customer, ' || CAST(otp as CHARACTER) || ' is the OTP to link your ' || bankCode.info.BANKCODE || ' Bank Accounts with Account Aggregator. Do not share it with anyone. Bank NEVER asks for OTP.';
+		SET OutputRoot.BLOB.BLOB = CAST(msgText as BLOB CCSID 1208);
+		PROPAGATE TO TERMINAL 'out';
+		-- Generating Unique Identifier
+		DECLARE uniqueId CHARACTER UUIDASCHAR;
+		INSERT INTO Database.{dsn}.{schemaVar}.otpTable VALUES (otp, uniqueId, CURRENT_TIME);
+		SET OutputRoot.JSON.Data.status = 'Success';
+		SET OutputRoot.JSON.Data.uniqueId = uniqueId;
+		PROPAGATE TO TERMINAL 'out1';
+	END;
+END MODULE;
+
+CREATE FUNCTION init_log4j (IN var_path CHARACTER) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
+
+
+CREATE PROCEDURE write_log ( in mfname CHARACTER, in nodeLabel CHARACTER, in level CHARACTER, in data CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
