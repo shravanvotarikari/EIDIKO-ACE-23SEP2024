@@ -1,0 +1,39 @@
+
+
+CREATE COMPUTE MODULE App_String_Func_MF_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot = InputRoot;
+		
+        DECLARE var CHARACTER InputRoot.XMLNSC.emp.name;
+
+        DECLARE rev CHARACTER '';
+        DECLARE var2 INTEGER LENGTH(var);
+		
+		--SET OutputRoot.XMLNSC.emp.name = 
+		
+        WHILE var2 > 0 DO
+            SET rev = rev || SUBSTRING(var FROM var2 FOR 1);
+            SET var2 = var2 - 1;
+        END WHILE;
+
+        SET OutputRoot.XMLNSC.emp.name = rev;
+
+	END;
+END MODULE;
