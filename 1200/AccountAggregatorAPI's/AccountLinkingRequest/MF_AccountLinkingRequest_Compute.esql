@@ -1,0 +1,78 @@
+-- local machine :- C:\temp\LOG4J\Log4jConfigurationFile.xml
+--REMOTE MACHINE :- /home/ace/Hrishikesh/Log4j/Log4jConfigurationFile.xml
+DECLARE var12 EXTERNAL CHARACTER '';
+DECLARE var1 BOOLEAN;
+DECLARE DSN1_Name EXTERNAL CHARACTER '';
+DECLARE SCHEMA1_Name EXTERNAL CHARACTER '';
+CREATE COMPUTE MODULE MF_AccountLinkingRequest_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL log(var12) into var1;
+		IF CONTAINS(InputRoot.HTTPInputHeader."X-Original-HTTP-Command", 'POST') THEN
+			CALL CopyEntireMessage();
+			RETURN TRUE;
+		ELSE
+			SET OutputRoot.JSON.Data.res = 'Invalid request type. Only POST allowed';
+			SET OutputLocalEnvironment.Destination.HTTP.ReplyStatusCode = 405;
+			RETURN true;
+		END IF;
+		RETURN TRUE;
+
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		-- SET OutputRoot = InputRoot;
+		
+		DECLARE requestData CHARACTER;
+		set requestData = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		call writing(MessageFlowLabel,'App2','INFO',' ------------------------------------------------------------START LOG ----------------------------------------------------') into var1;
+		call writing(MessageFlowLabel,'App2','INFO', requestData) into var1;		
+
+		DECLARE otp INTEGER;
+		SET otp = (FLOOR(RAND() * 900000 + 100000) );
+
+		DECLARE cur_time CHARACTER REPLACE(CAST(CURRENT_TIMESTAMP AS CHARACTER format 'yyyy-MM-dd_HH:MM:ss'), ' ', '_');
+		SET cur_time = REPLACE(cur_time, '''', '');
+		DECLARE ReferenceID CHARACTER cur_time || '_' || CAST(otp AS CHARACTER);
+
+		PASSTHRU('INSERT INTO OTP_Details (OTP, Reference_ID,ACCOUNTNUMBER) VALUES (?, ?, ?)', otp, ReferenceID,InputRoot.JSON.Data.accNo);
+
+	declare Bankcode ROW;
+
+	set Bankcode.var[] = SELECT B.BANKCODE FROM Database.{DSN1_Name}.{SCHEMA1_Name}.BANKDETAILS AS B WHERE B.BANKID = InputRoot.JSON.Data.bankId;
+
+	set OutputRoot.JSON.Data.code = Bankcode;
+
+		set Environment.ResponseData.OTP = otp;
+		set Environment.ResponseData.REFERENCE_ID = ReferenceID;
+
+		set OutputRoot.JSON.Data.res.OTP = otp;
+		SET OutputRoot.JSON.Data.res.refID = ReferenceID;
+		--SET OutputRoot.EmailOutputHeader.Body = 'Your OTP is ' ;
+		call writing(MessageFlowLabel,'App2','INFO', CAST(ASBITSTREAM(OutputRoot.JSON.Data.res) as CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding)) into var1;
+		call writing(MessageFlowLabel,'App2','INFO',' -----------------------------------------------------END LOG --------------------------------------------') into var1;
+		--SET OutputRoot.BLOB.BLOB = CAST( otp AS BLOB CCSID 1208);
+		
+		DECLARE Email CHARACTER;
+			SET Email = 'Dear Customer,'||CAST(otp AS CHARACTER)||' is the OTP to link your '|| OutputRoot.JSON.Data.code.var.BANKCODE ||' Bank Accounts with Account Aggregator. Do not share it with anyone. Bank NEVER asks for OTP.';
+			SET OutputRoot.EmailOutputHeader.Subject = 'Validate the OTP';
+			SET OutputRoot.BLOB.BLOB = CAST(Email as BLOB CCSID 1208);
+			Propagate TO TERMINAL 'out1';
+		
+		
+		set OutputRoot.JSON.Data.OTP = otp;
+		SET OutputRoot.JSON.Data.refID = ReferenceID;
+	END;
+END MODULE;
+--------------------------------------------LOG4J---------------------------------------------------------------------------------------------------
+create FUNCTION writing(in mfname CHARACTER, in logger_name CHARACTER, in level CHARACTER , in data CHARACTER)
+RETURNS boolean
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+
+create FUNCTION log(in configure CHARACTER)
+RETURNS BOOLEAN
+language JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
+

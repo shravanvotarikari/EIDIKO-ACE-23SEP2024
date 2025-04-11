@@ -14,8 +14,8 @@ CREATE COMPUTE MODULE MF_log4j_Compute
 		set OutputRoot.JSON.Data=InputRoot.XMLNSC;
 		set inreq=CAST(ASBITSTREAM(InputRoot.XMLNSC) as character ccsid  InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
 		set inres=CAST(ASBITSTREAM(OutputRoot.JSON.Data) as character ccsid  InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
-	    call writing(MessageFlowLabel,'dco_debug','DEBUG', 'Application_data: ' || inreq) into var1;
-		call writing(MessageFlowLabel,'dco_info','INFO', 'Application_data: ' || inres) into var1;
+	    call writing(MessageFlowLabel,'dco_debug','DEBUG', 'Application_data: ' || NodeLabel) into var1;
+		call writing(MessageFlowLabel,'dco_info','INFO', 'Application_data: ' || NodeLabel) into var1;
 	END;
 	
 END MODULE;

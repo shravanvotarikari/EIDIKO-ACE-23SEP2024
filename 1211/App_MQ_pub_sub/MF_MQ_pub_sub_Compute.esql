@@ -22,6 +22,6 @@ CREATE COMPUTE MODULE MF_MQ_pub_sub_Compute
 
 		SET OutputRoot.MQRFH2.psc.PubOpt = 'Local';
 		
-		SET OutputRoot.XMLNSC = InputRoot.XMLNSC;
+		SET OutputRoot = InputRoot;
 	END;
 END MODULE;

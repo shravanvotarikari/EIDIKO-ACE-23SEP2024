@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE mf2_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		set OutputRoot.XMLNSC = InputRoot.XMLNSC;
+		SET OutputLocalEnvironment.Destination.HTTP.RequestIdentifier =CAST(InputRoot.XMLNSC.root.id AS BLOB);
+	END;
+END MODULE;

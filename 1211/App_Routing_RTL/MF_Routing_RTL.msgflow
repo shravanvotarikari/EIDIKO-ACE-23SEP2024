@@ -24,9 +24,6 @@
       <nodes xmi:type="ComIbmRouteToLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="230,143">
         <translation xmi:type="utility:ConstantString" string="Route To Label"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="106,36" computeExpression="esql://routine/#MF_Routing_RTL_Compute.Main" computeMode="destinationAndMessage">
-        <translation xmi:type="utility:ConstantString" string="Compute"/>
-      </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="525,38" dataSource="remotedsn3" computeExpression="esql://routine/#MF_Routing_RTL_create_compute.Main">
         <translation xmi:type="utility:ConstantString" string="create_compute"/>
       </nodes>

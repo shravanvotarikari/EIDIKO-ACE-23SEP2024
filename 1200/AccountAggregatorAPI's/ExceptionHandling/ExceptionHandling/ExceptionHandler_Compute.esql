@@ -1,0 +1,140 @@
+BROKER SCHEMA ExceptionHandling
+DECLARE var122 EXTERNAL CHARACTER 'C:\temp\LOG4J\Log4jConfigurationFile.xml';
+DECLARE var11 BOOLEAN;
+
+CREATE COMPUTE MODULE ExceptionHandler_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE requestData CHARACTER;
+		set requestData = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		
+			CALL log(var122) into var11;
+			DECLARE inPropRef REFERENCE TO InputRoot.Properties;
+		DECLARE loggingData,messageText,errDesc CHARACTER;
+		DECLARE statusCode INTEGER;
+		DECLARE envValRef REFERENCE TO Environment.values;
+		-- CREATE LASTCHILD OF OutputRoot DOMAIN('JSON');
+		-- CREATE LASTCHILD OF OutputRoot.JSON NAME 'Data';
+		IF EXISTS(InputExceptionList.*[]) THEN
+			DECLARE excp REFERENCE TO InputExceptionList.*[1];
+			DECLARE excpType CHARACTER FIELDNAME(InputExceptionList.*);
+			DECLARE text,actualExcp,number,actualExcpText CHARACTER;
+			DECLARE excptext REFERENCE TO excp.Text;
+			DECLARE insertRef REFERENCE TO InputExceptionList.*[1];
+
+			WHILE LASTMOVE(excp) DO
+				MOVE excp LASTCHILD;
+				IF excp.Number is not null THEN
+					SET text=excp.Text;
+					SET excpType = FIELDNAME(excp);
+					DECLARE inserts REFERENCE TO excp.Insert;
+					DECLARE texts REFERENCE TO excp.Insert.texts;
+					MOVE insertRef TO excp.Insert[>];
+					WHILE LASTMOVE(insertRef) AND FIELDNAME(insertRef) = 'Insert' DO
+						SET actualExcpText = insertRef.Text;
+						IF Environment.dataa is NULL THEN
+							SET Environment.dataa = actualExcpText;
+						END IF;
+						MOVE insertRef NEXTSIBLING;
+						IF insertRef.Text <> '' THEN
+							SET actualExcp = actualExcpText || insertRef.Text;
+							-- SET excpType = text;
+						END IF;
+					END WHILE;
+					SET number = excp.Number;
+				END IF;
+			END WHILE;
+			SET messageText = text ||', ' ||Environment.dataa ||', '||actualExcpText;
+
+			IF CONTAINS(excpType,'Child SQL') THEN
+				SET statusCode = '500';
+				SET errDesc = 'Internal Server Error';
+			ELSEIF CONTAINS(excpType, 'parsing') OR CONTAINS(excpType, 'Parser') THEN
+				SET statusCode = '400';
+				SET errDesc = 'Bad Request';
+			ELSEIF CONTAINS(excpType, 'socket') THEN
+				SET statusCode = '500';
+				SET errDesc = 'Socket Connection Error';
+			ELSE
+				SET statusCode = '500';
+				SET errDesc = 'Internal Server Error';
+			END IF;
+
+		ELSE
+			IF EXISTS(InputRoot.XMLNSC[]) THEN
+				IF EXISTS(InputRoot.XMLNSC.*:Envelope.*:Body.*:Fault[]) THEN
+					SET messageText = InputRoot.XMLNSC.*:Envelope.*:Body.*:Fault.detail.text;
+					SET errDesc = 'Time Out Exception';
+				ELSE
+					SET messageText = CAST(InputRoot.XMLNSC AS CHARACTER CCSID inPropRef.CodedCharSetId ENCODING inPropRef.Encoding);
+				END IF;
+
+			ELSEIF EXISTS(InputRoot.JSON[]) THEN
+				SET messageText = CAST(InputRoot.JSON.Data AS CHARACTER CCSID inPropRef.CodedCharSetId ENCODING inPropRef.Encoding);
+			ELSEIF EXISTS(InputRoot.BLOB[]) THEN
+				SET messageText = CAST(InputRoot.BLOB.BLOB AS CHARACTER CCSID inPropRef.CodedCharSetId ENCODING inPropRef.Encoding);
+			END IF;
+
+
+			SET statusCode = COALESCE(InputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code",InputRoot.HTTPInputHeader."X-Original-HTTP-Status-Code");
+	
+				SET OutputRoot.XMLNSC.errlogData.payLoad = messageText;
+				SET OutputRoot.XMLNSC.errlogData.msgId = envValRef.msgId;
+				SET OutputRoot.XMLNSC.errlogData.serviceName = envValRef.application_name;
+				SET OutputRoot.XMLNSC.errlogData.errordescription = COALESCE(errDesc,Environment.errordata.errorDesc,Environment.JSON.Data.errorDescription,'Transaction Failed');
+				PROPAGATE TO TERMINAL 'out';
+				RETURN FALSE;
+			END IF;
+
+
+			IF statusCode = 500 THEN
+				SET Environment.errordata.errorDesc = 'Internal Server Error';
+			ELSEIF statusCode = 404 THEN
+				SET Environment.errordata.errorDesc = 'Resource Not Found';
+			ELSEIF statusCode = 400 THEN
+				SET Environment.errordata.errorDesc = 'Bad Request';
+			ELSE
+				SET Environment.errordata.errorDesc = 'Unknown Exception';
+			END IF;
+
+		--END IF;
+		--send final channel response (start)
+		declare log1 CHARACTER;
+		DECLARE log2 CHARACTER;
+		set log1 = CAST(ASBITSTREAM(OutputRoot.XMLNSC.errlogData.payLoad) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		set log2 = log1 || CAST(messageText as CHARACTER)|| CAST(statusCode as character);
+		call writing(MessageFlowLabel,'dco_error','ERROR', requestData) into var11;
+		call writing(MessageFlowLabel,'dco_error','ERROR', messageText) into var11;
+		
+		--CALL writing(MessageFlowLabel,'dco_error','ERROR', '   |  Processing node : ' || NodeLabel || '  |  Input Request : '|| CAST(ASBITSTREAM(OutputRoot.XMLNSC) as CHARACTER CCSID 1208)) INTO var11;
+		
+		IF (CONTAINS(envValRef.application_name,'payer')) THEN
+		ELSE
+			SET OutputRoot.JSON.Data.errorCode = statusCode;
+			SET OutputRoot.JSON.Data.errorDescription = COALESCE(errDesc,Environment.errordata.errorDesc);
+			SET OutputRoot.JSON.Data.actualErrorInformation = messageText;
+			SET OutputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code" = statusCode;
+			PROPAGATE TO TERMINAL 'out1' DELETE NONE;
+			SET OutputRoot.JSON = NULL;
+		END IF;
+		--send final channel response (end)
+		-- send message to log data (start)
+		SET OutputRoot.XMLNSC.errlogData.payLoad = messageText;
+		SET OutputRoot.XMLNSC.errlogData.msgId = envValRef.msgId;
+		SET OutputRoot.XMLNSC.errlogData.serviceName = envValRef.application_name;
+		SET OutputRoot.XMLNSC.errlogData.errordescription = COALESCE(errDesc,Environment.errordata.errorDesc);
+		-- send message to log data (end)
+		RETURN TRUE;
+	END;			
+END MODULE;
+
+--------------------------------------------LOG4J---------------------------------------------------------------------------------------------------
+create FUNCTION writing(in mfname CHARACTER, in logger_name CHARACTER, in level CHARACTER , in data CHARACTER)
+RETURNS boolean
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+ 
+create FUNCTION log(in configure CHARACTER) 
+RETURNS BOOLEAN
+language JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";

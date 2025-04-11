@@ -1,0 +1,22 @@
+
+
+Importing file: C:\workspaces\Project\app\NewWSDLFile.wsdl
+
+The WSDL import will proceed with bindings FCUBSRTBinding.
+Creating wsdl schema document for file:///C:/workspaces/Project/app/NewWSDLFile.wsdl.
+Parsing wsdl binding {http://fcubs.ofss.com/service/FCUBSRTService}FCUBSRTBinding.
+Parsing wsdl binding input ReverseTransaction.
+Parsing wsdl binding output ReverseTransaction.
+Processing doc style for operation ReverseTransaction.
+Populating WSDL schema NewWSDLFile.xsd.
+Creating file NewWSDLFile.xsd in the workspace.
+Creating file NewWSDLFile_InlineSchema1.xsd in the workspace.
+Copying source WSDL NewWSDLFile.wsdl to NewWSDLFile.wsdl.
+
+Elapsed time processing this message definition file: 0.386 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+

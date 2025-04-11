@@ -1,0 +1,83 @@
+DECLARE var6 EXTERNAL CHARACTER 'C:\temp\Log4jConfigurationFile.xml';
+DECLARE var7 BOOLEAN;
+DECLARE DSN2 EXTERNAL CHARACTER '';
+DECLARE schemaa EXTERNAL CHARACTER '';
+
+
+CREATE COMPUTE MODULE AccountLinkingRequest
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		IF InputLocalEnvironment.HTTP.Input.RequestLine.Method = 'POST' THEN
+			CALL Logging2(var6) INTO var7;
+			CALL CopyEntireMessage();
+		ELSE
+			Throw USER EXCEPTION MESSAGE 9867 VALUES('Invalid method call');
+
+		END IF;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot = InputRoot;
+
+
+		DECLARE bankId REFERENCE TO InputRoot.JSON.Data.bankId;
+		DECLARE mobileNo REFERENCE TO InputRoot.JSON.Data.mobileNo;
+		DECLARE accNo REFERENCE TO InputRoot.JSON.Data.accNo;
+		DECLARE OTP INTEGER;
+
+		IF LENGTH(mobileNo) = '10' AND LENGTH(accNo) = '12' THEN
+
+			SET OTP = (FLOOR(RAND() * 900000 + 100000) );
+			
+			DECLARE REF CHARACTER UUIDASCHAR;
+
+			--DECLARE query1,query2 CHARACTER;
+			DECLARE Data ROW;
+			--SET query2 = 'Select BANKCODE FROM CEDGE_BANKIDS WHERE BANKID = ?';
+			--SET SQL.Data1[] = SELECT C.BANKCODE,C.DSNNAME,C.SCHEMANAME FROM Database.{DSN}.system.CEDGE_BANKIDS AS C WHERE C.BANKID = bankId;			
+			SET Data.Bank[] = SELECT C.BANKCODE FROM Database.{DSN2}.{schemaa}.CEDGE_BANKIDS AS C WHERE C.BANKID = bankId;
+			DECLARE bankCode CHARACTER Data.Bank[1].BANKCODE;
+		--	SET query1 = 'Insert INTO CEDGE_OTP (OTP,REFERENCEID,TIMESTAMP,ACCOUNTNO) VALUES (?,?,?,?)';
+			INSERT INTO Database.{DSN2}.{schemaa}.CEDGE_OTP (OTP,REFERENCEID,TIMESTAMP,ACCOUNTNO ) VALUES (OTP,REF,CURRENT_TIMESTAMP,accNo );
+		--	PASSTHRU(query1,OTP,REF,CURRENT_TIMESTAMP,accNo);
+			
+			DECLARE Email CHARACTER;
+			SET Email = 'Dear Customer,'||CAST(OTP AS CHARACTER)||' is the OTP to link your'|| CAST(bankCode AS CHARACTER)||' Bank Accounts with Account Aggregator. Do not share it with anyone. Bank NEVER asks for OTP.';
+			SET OutputRoot.EmailOutputHeader.Subject = 'Validate the OTP';
+			SET OutputRoot.BLOB.BLOB = CAST(Email as BLOB CCSID 1208);
+			Propagate TO TERMINAL 'out1';
+
+			SET OutputRoot.JSON.Data.Main.Status = 'Success';
+			SET OutputRoot.JSON.Data.Main.ReferenceID = REF;
+			SET OutputRoot.JSON.Data.Main.BankDetails = Data;
+
+		ELSE
+
+			Throw USER EXCEPTION VALUES('Invalid Details');
+
+		END IF;		
+
+
+		DECLARE request, response CHARACTER;
+
+		SET request = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		SET response = CAST(ASBITSTREAM(OutputRoot.JSON.Data.Main) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		call writeLog2(MessageFlowLabel,'accountlinking','INFO', '------------------------------------------START LOG-----------------------') into var7;
+		call writeLog2(MessageFlowLabel,'accountlinking','INFO', 'Application_REQUEST: ' || request) into var7;
+		call writeLog2(MessageFlowLabel,'accountlinking','INFO', 'Application_RESPONSE: ' || response) into var7;
+		call writeLog2(MessageFlowLabel,'accountlinking','INFO', '------------------------------------------END LOG-----------------------') into var7;
+
+	END;
+END MODULE;
+
+
+
+CREATE FUNCTION writeLog2 (IN mfname CHARACTER, IN logger_name CHARACTER, IN level CHARACTER, IN Data CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+
+
+CREATE FUNCTION Logging2 (IN config CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";

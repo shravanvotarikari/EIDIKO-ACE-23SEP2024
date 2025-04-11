@@ -1,0 +1,68 @@
+DECLARE var12 EXTERNAL CHARACTER '';
+DECLARE var1 BOOLEAN;
+DECLARE DSN1_Name EXTERNAL CHARACTER '';
+DECLARE SCHEMA1_Name EXTERNAL CHARACTER '';
+
+CREATE COMPUTE MODULE MF_AccountLinkingVerification_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL log(var12) into var1;
+		IF CONTAINS(InputRoot.HTTPInputHeader."X-Original-HTTP-Command", 'POST') THEN
+			CALL CopyEntireMessage();
+			set Environment.res = 'OTP validated successfully';
+			call writing(MessageFlowLabel,'App2','INFO',Environment.data) into var1;
+			RETURN TRUE;
+		ELSE
+			SET OutputRoot.JSON.Data.res = 'Invalid request type. Only POST allowed';
+			SET OutputLocalEnvironment.Destination.HTTP.ReplyStatusCode = 405;
+			RETURN true;
+		END IF;
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot = InputRoot;
+		DECLARE requestData CHARACTER;
+		set requestData = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		call writing(MessageFlowLabel,'App3','INFO',' ------------------------------------------------------------START LOG ----------------------------------------------------') into var1;
+		call writing(MessageFlowLabel,'App3','INFO', requestData) into var1;		
+		
+		DECLARE cur_time TIMESTAMP CURRENT_TIMESTAMP;
+		DECLARE otp_valid INTERVAL;
+		
+		declare inref REFERENCE TO InputRoot.JSON.Data;
+		
+		DECLARE Sql ROW;
+		set Sql.var1[]=  SELECT B.OTP,B.REFERENCE_ID,B.CREATION_TIME FROM Database.{DSN1_Name}.{SCHEMA1_Name}.OTP_DETAILS AS B WHERE B.REFERENCE_ID = inref.referenceId;
+		DECLARE dummy_time TIMESTAMP (Sql.var1[1].CREATION_TIME + INTERVAL '5' MINUTE);
+		set Environment.dummyTime = dummy_time;
+		
+		
+		IF (dummy_time > cur_time) THEN
+			
+			IF (inref.token = Sql.var1[1].OTP) THEN
+				set OutputRoot.JSON.Data.Status = 'SUCCESS';
+				
+			ELSE
+				Throw USER EXCEPTION VALUES ('OTP RECIEVED IS INVALID');
+			END IF;
+			
+		ELSE
+			Throw USER EXCEPTION VALUES ('OTP TIMEOUT');
+		END IF;
+	call writing(MessageFlowLabel,'App3','INFO', CAST(OutputRoot.JSON.Data.Status as CHARACTER)) into var1;
+	call writing(MessageFlowLabel,'App3','INFO',' ------------------------------------------------------------END LOG ----------------------------------------------------') into var1;
+	
+	END;
+	
+END MODULE;
+--------------------------------------------LOG4J---------------------------------------------------------------------------------------------------
+create FUNCTION writing(in mfname CHARACTER, in logger_name CHARACTER, in level CHARACTER , in data CHARACTER)
+RETURNS boolean
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+
+create FUNCTION log(in configure CHARACTER)
+RETURNS BOOLEAN
+language JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
