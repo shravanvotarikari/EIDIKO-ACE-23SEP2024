@@ -165,7 +165,8 @@ CREATE COMPUTE MODULE ExceptionHandling_Compute
 		
 		
 		
-		LOG EVENT SEVERITY 1 CATALOG 'BIPmsgs' MESSAGE 2951 VALUES(outRef.Status,outRef.ErrorCode,outRef.ErrorType,outRef.ActualDesc);
+		LOG EVENT SEVERITY 1 CATALOG 'BI
+		Pmsgs' MESSAGE 2951 VALUES(outRef.Status,outRef.ErrorCode,outRef.ErrorType,outRef.ActualDesc);
 	END;
 
 END MODULE;

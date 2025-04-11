@@ -1,0 +1,57 @@
+
+DECLARE log4jPath EXTERNAL CHARACTER;
+DECLARE dsn EXTERNAL CHARACTER;
+DECLARE schemaName EXTERNAL CHARACTER;
+DECLARE var BOOLEAN;
+
+CREATE COMPUTE MODULE MF_AccountDiscovery_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE httpMethod CHARACTER;
+		SET httpMethod = LEFT(InputRoot.HTTPInputHeader."X-Original-HTTP-Command", 4);
+
+		IF httpMethod = 'POST' THEN
+			CALL init_log4j(log4jPath) INTO var;
+			CALL write_log(MessageFlowLabel, 'Account_Discovery', 'Request Data : ', CAST(InputRoot.JSON.Data AS CHARACTER)) INTO var;
+			CALL CopyEntireMessage();
+			CALL write_log(MessageFlowLabel, 'Account_Discovery', 'Resopnse Data : ', CAST(OutputRoot.JSON.Data AS CHARACTER)) INTO var;
+		ELSE
+			SET OutputRoot.JSON.Data.response = 'Invalid Method Name';
+		END IF;
+
+
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		-- Fetching DSN and Schema name from internal DB.
+		DECLARE dsn1, schema1 row;
+
+		DECLARE dsnInfo row;
+		SET dsnInfo.info[] = SELECT d.DSN, d.SCHEMA FROM Database.{dsn}.{schemaName}.DSNTABLE AS d WHERE d.BANKID = InputRoot.JSON.Data.bankId;
+		-- Fetching Account Details from CBS
+		DECLARE accInfo row;
+		SET accInfo.info[] = SELECT t.ACCNUMBER, t.ACCTYPE, t.FITYPE FROM Database.{dsnInfo.info.DSN}.{dsnInfo.info.SCHEMA}.BANKUSER AS t WHERE t.MOBILENUMBER = InputRoot.JSON.Data.mobileNo;
+
+		SET OutputRoot.JSON.Data.status = 'Success';
+
+		CREATE FIELD OutputRoot.JSON.Data.accounts IDENTITY(JSON.Array)accounts;
+		DECLARE i INT 1;
+
+		CREATE FIELD OutputRoot.JSON.Data.accounts[i].accNumber VALUE accInfo.info.ACCNUMBER;
+		CREATE FIELD OutputRoot.JSON.Data.accounts[i].accType VALUE accInfo.info.ACCTYPE;
+		CREATE FIELD OutputRoot.JSON.Data.accounts[i].fiType VALUE accInfo.info.FITYPE;
+
+		SET OutputRoot.JSON.Data.accounts = accInfo;
+
+	END;
+END MODULE;
+
+CREATE FUNCTION init_log4j (IN var_path CHARACTER) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
+
+
+CREATE PROCEDURE write_log ( in mfname CHARACTER, in loggerName CHARACTER, in Text CHARACTER, in data CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
