@@ -20,12 +20,15 @@ CREATE COMPUTE MODULE App_String_Func_MF2_Compute
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		--SET OutputRoot = InputRoot;
+		DECLARE encoderef,ccsidref INTEGER;
+		SET encoderef = InputRoot.Properties.Encoding;
+		SET ccsidref = InputRoot.Properties.CodedCharSetId;
 		
 		DECLARE var CHARACTER InputRoot.XMLNSC.emp.name;
 		
 		DECLARE var2 CHARACTER;
 		
-		SET var2 = REPLACE(var, 'i' ,'');
+		SET var2 = REPLACE(var, 'i' ,'ø');
 		SET OutputRoot.XMLNSC.emp.name = var2;
 	END;
 END MODULE;

@@ -23,10 +23,19 @@ CREATE COMPUTE MODULE App_String_Func_MF3_Compute
 		
 		DECLARE var CHARACTER InputRoot.XMLNSC.emp.name;
 		
-		DECLARE var2 CHARACTER;
+--		DECLARE var2 CHARACTER;
+--		SET var2 = OVERLAY(var PLACING '123IKO' FROM 4);
 		
-		SET var2 = OVERLAY(var PLACING '123IKO' FROM 4);
+		DECLARE var2 CHARACTER SUBSTRING(var FROM 1 FOR 3);
 		
-		SET OutputRoot.XMLNSC.emp.name = var2;
+		DECLARE var3 CHARACTER UCASE(SUBSTRING(var FROM 4 FOR 3));
+		
+		DECLARE var4 CHARACTER;
+		
+		SET var4 = var2 || '123' || var3;
+		
+		SET OutputRoot.XMLNSC.emp.name = var4;
+		
+		
 	END;
 END MODULE;
