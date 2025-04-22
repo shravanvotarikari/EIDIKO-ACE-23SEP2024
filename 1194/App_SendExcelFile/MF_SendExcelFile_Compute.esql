@@ -1,0 +1,21 @@
+
+CREATE COMPUTE MODULE MF_SendExcelFile_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.EmailOutputHeader.To = 'avishkarkhude.eidiko@gmail.com';
+		SET OutputRoot.EmailOutputHeader.From = 'avishkarchhaban.khude@eidiko-india.com';
+		SET OutputRoot.EmailOutputHeader.Subject = 'Sending excel file using Email Output Node.';
+		
+		SET OutputLocalEnvironment.Destination.Email.Attachment.Content = InputRoot.BLOB.BLOB;
+		SET OutputLocalEnvironment.Destination.Email.Attachment.ContentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+		SET OutputLocalEnvironment.Destination.Email.Attachment.ContentName = 'sentExcelFile.xlsx';
+		SET OutputLocalEnvironment.Destination.Email.Attachment.ContentEncoding = 'base64';
+		
+		SET OutputRoot.BLOB.BLOB = CAST('Hey there please find an attachment below.' as BLOB CCSID 1208);
+	END;
+END MODULE;
