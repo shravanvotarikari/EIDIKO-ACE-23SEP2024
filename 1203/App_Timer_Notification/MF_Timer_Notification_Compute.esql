@@ -11,5 +11,5 @@ CREATE COMPUTE MODULE MF_Timer_Notification_Compute
 		INSERT INTO Database.Timer VALUES(CAST(CURRENT_TIMESTAMP AS CHARACTER FORMAT 'yyyy-MM-dd HH:mm:ss'));
 		
 	--	SET OutputRoot = InputRoot;
-	END;`
+	END;
 END MODULE;
