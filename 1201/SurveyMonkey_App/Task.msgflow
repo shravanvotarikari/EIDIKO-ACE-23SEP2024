@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmApplicationConnectorRequest_surveymonkey.msgnode="ComIbmApplicationConnectorRequest_surveymonkey.msgnode" xmlns:ComIbmWSInput.msgnode="ComIbmWSInput.msgnode" xmlns:ComIbmWSReply.msgnode="ComIbmWSReply.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="Task.msgflow" nsPrefix="Task.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="RECTANGLE">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="Task" bundleName="Task" pluginId="SurveyMonkey_App"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/SurveyMonkey_App/icons/full/obj16/Task.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/SurveyMonkey_App/icons/full/obj30/Task.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="70,130" URLSpecifier="/todo" messageDomainProperty="JSON">
+        <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="530,130">
+        <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
+      </nodes>
+      <nodes xmi:type="ComIbmApplicationConnectorRequest_surveymonkey.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="290,130" applicationConnectorType="surveymonkey" action="RETRIEVEALL" businessObject="Collectors" displayName="undefined" schemaPrefix="gen/Task.SurveyMonkey_Request" policyUrl="{ToDo}:SurveyMonkey1" mappingMode="jsonmap" messageSetProperty="gen/Task.SurveyMonkey_Request.response.schema.json">
+        <filter>
+          <filterElementObject type="where">
+            <connectorPropertyRef propertyName="survey_id" compareAction=""/>
+          </filterElementObject>
+          <queryProperties limit="2" paginationType="TOKEN"/>
+        </filter>
+        <translation xmi:type="utility:ConstantString" string="SurveyMonkey Request"/>
+        <connectorProperty propertyName="survey_id" displayName="Surveys" propertyValue="418737385" displayValue="Remote Work Employee Check-in Survey"/>
+        <mappingInput inputName="InputRoot" inputLocation="$InputRoot" schemaLocation="" schemaRoot=""/>
+        <mappingInput inputName="InputLocalEnvironment" inputLocation="$InputLocalEnvironment" schemaLocation="" schemaRoot=""/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_9" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_9" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>

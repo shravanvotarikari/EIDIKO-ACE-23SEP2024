@@ -1,0 +1,157 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "displayOrder": 1,
+        "title": "Collector ID",
+        "description": "The ID that identifies the collector",
+        "type": "string"
+      },
+      "type": {
+        "displayOrder": 3,
+        "title": "Type",
+        "description": "The type of collector that's used to send the survey: 'Web Link' or 'Email'",
+        "enum": [
+          "weblink",
+          "email"
+        ],
+        "default": "email",
+        "type": "string"
+      },
+      "status": {
+        "displayOrder": 4,
+        "title": "Status",
+        "description": "The status of the collector: 'Open' or 'Closed'",
+        "enum": [
+          "open",
+          "closed"
+        ],
+        "type": "string"
+      },
+      "name": {
+        "displayOrder": 5,
+        "title": "Nickname",
+        "description": "The name that's given to the collector (the default is the type of collector)",
+        "type": "string"
+      },
+      "thank_you_message": {
+        "displayOrder": 7,
+        "title": "Thank You Message",
+        "description": "A message to show on the 'thank you' page (the default is 'Thank you for completing our survey!')",
+        "type": "string"
+      },
+      "disqualification_message": {
+        "displayOrder": 8,
+        "title": "Disqualification message",
+        "description": "A message to show on the disqualification page (the default is 'Thank you for completing our survey!')",
+        "type": "string"
+      },
+      "close_date": {
+        "displayOrder": 9,
+        "title": "Close date",
+        "description": "The date when the collector will close",
+        "type": "string",
+        "format": "date-time"
+      },
+      "closed_page_message": {
+        "displayOrder": 10,
+        "title": "Closed page message",
+        "description": "A message to show when a survey is closed (the default is 'Thank you for completing our survey!')",
+        "type": "string"
+      },
+      "redirect_url": {
+        "displayOrder": 11,
+        "title": "Redirection URL",
+        "description": "A URL to redirect respondents when they complete the survey",
+        "type": "string"
+      },
+      "display_survey_results": {
+        "displayOrder": 12,
+        "title": "Display survey results",
+        "description": "Shows instant results for a survey when a respondent completes it (by default, instant results are not shown)",
+        "type": "boolean"
+      },
+      "edit_response_type": {
+        "displayOrder": 13,
+        "title": "Edit response type",
+        "description": "Indicates when respondents can edit their response: 'Until Complete', 'Never', or 'Always' (the default is 'Until Complete')",
+        "enum": [
+          "until_complete",
+          "never",
+          "always"
+        ],
+        "type": "string"
+      },
+      "anonymous_type": {
+        "displayOrder": 14,
+        "title": "Anonymous type",
+        "description": "Indicates whether respondents are anonymous by turning off IP tracking and, for Email collectors, removing the respondent's email address and name from the response; values are  'not_anonymous', 'partially_anonymous', or 'fully_anonymous' (the default is 'not_anonymous')",
+        "enum": [
+          "not_anonymous",
+          "partially_anonymous",
+          "fully_anonymous"
+        ],
+        "type": "string"
+      },
+      "allow_multiple_responses": {
+        "displayOrder": 15,
+        "title": "Allow multiple responses",
+        "description": "Indicates whether respondents can complete a survey more than once from the same browser on the same computer (by default, they can't)",
+        "type": "boolean"
+      },
+      "password": {
+        "displayOrder": 16,
+        "title": "Password",
+        "description": "The password that is required to access the survey",
+        "type": "string"
+      },
+      "sender_email": {
+        "displayOrder": 17,
+        "title": "Sender email",
+        "description": "The email address of the sender of the survey that respondents see for Email collectors",
+        "type": "string"
+      },
+      "date_modified": {
+        "displayOrder": 18,
+        "title": "Date modified",
+        "description": "The date when the collector was last updated",
+        "type": "string",
+        "format": "date-time"
+      },
+      "url": {
+        "displayOrder": 6,
+        "title": "URL",
+        "description": "The URL of the Web Link collector",
+        "type": "string"
+      },
+      "date_created": {
+        "displayOrder": 19,
+        "title": "Date created",
+        "description": "The date when the collector was created",
+        "type": "string",
+        "format": "date-time"
+      },
+      "password_enabled": {
+        "displayOrder": 20,
+        "title": "Password enabled",
+        "description": "Indicates whether the collector is password protected",
+        "type": "boolean"
+      },
+      "href": {
+        "displayOrder": 21,
+        "title": "href",
+        "description": "The resource API URL",
+        "type": "string"
+      }
+    },
+    "title": "Collectors",
+    "required": [
+      "type"
+    ],
+    "additionalProperties": false
+  },
+  "type": "array",
+  "title": "Collectors"
+}
