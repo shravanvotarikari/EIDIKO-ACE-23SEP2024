@@ -32,8 +32,9 @@ CREATE COMPUTE MODULE AccountDataFetch
 		-- SET dataType3 = InputRoot.JSON.Data.dataTypes[3];
 		DECLARE query CHARACTER;
 		DECLARE SQL1,SQL2 ROW;
-		SET SQL2.Data[] = SELECT C.DSNNAME FROM Database.{DSN4}.{schemaa3}.CEDGE_BANKIDS AS C WHERE C.BANKID = inref.bankId;
+		SET SQL2.Data[] = SELECT C.DSNNAME,C.BANKCODE FROM Database.{DSN4}.{schemaa3}.CEDGE_BANKIDS AS C WHERE C.BANKID = inref.bankId;
 		DECLARE CBDSN CHARACTER SQL2.Data[1].DSNNAME;
+		DECLARE BankCode CHARACTER SQL2.Data[1].BANKCODE;
 
 		SET query =
 		'SELECT
@@ -83,8 +84,10 @@ CREATE COMPUTE MODULE AccountDataFetch
 
 
 
-		CREATE FIELD OutputRoot.JSON.Data.accountType VALUE 'recurring_deposit';
+		CREATE FIELD OutputRoot.JSON.Data.accountType VALUE 'Deposit';
+		SET OutputRoot.JSON.Data.BANKCODE = BankCode;
 		CREATE FIELD OutputRoot.JSON.Data.Profile.Holders.type VALUE Environment.SQL.Data.HOLDERSTYPE;
+		
 		SET OutputRoot.JSON.Data.Profile.Holders.name = Environment.SQL.Data.HOLDER_NAME;
 		SET OutputRoot.JSON.Data.Profile.Holders.dob = Environment.SQL.Data.DOB;
 		SET OutputRoot.JSON.Data.Profile.Holders.mobile = Environment.SQL.Data.MOBILE;

@@ -13,6 +13,9 @@ CREATE COMPUTE MODULE Exception_Handling_Compute
 
 	CREATE PROCEDURE Exceptions ( ) BEGIN
 		SET OutputRoot = InputRoot;
+		
+		DELETE FIELD OutputRoot.XMLNSC;
+		
 		Declare STACKTRACE CHARACTER '';
 
 		DECLARE start REFERENCE TO InputExceptionList.*[1];
