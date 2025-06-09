@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "displayOrder": 1,
+        "title": "Spreadsheet ID",
+        "description": "The ID of the spreadsheet",
+        "type": "string"
+      },
+      "title": {
+        "displayOrder": 2,
+        "title": "Title",
+        "description": "The title of the spreadsheet",
+        "display": {
+          "nameProperty": true
+        },
+        "type": "string"
+      }
+    },
+    "title": "spreadsheet",
+    "additionalProperties": false
+  },
+  "type": "array",
+  "title": "spreadsheet"
+}
