@@ -1,0 +1,24 @@
+
+
+CREATE COMPUTE MODULE MF_EnvironmentOverrideFileName_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		
+--		In request property of file output node, change the property 'Request file name property location' to :
+		
+--		$LocalEnvironment/Destination/File/Name
+--		SET OutputLocalEnvironment.Destination.File.Name = 'aviFile.txt';
+
+--		$Environment/Destination/File/Name
+--		SET Environment.Destination.File.Name = 'aviFile.txt';
+
+--		$ExceptionList/Destination/File/Name
+		SET OutputExceptionList.Destination.File.Name = 'aviFile.txt';
+	END;
+END MODULE;
