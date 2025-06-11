@@ -10,6 +10,7 @@ CREATE COMPUTE MODULE MF_EnvironmentOverrideFileName_Compute
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 		SET OutputRoot = InputRoot;
 		
+--		To override filename of file output node: 
 --		In request property of file output node, change the property 'Request file name property location' to :
 		
 --		$LocalEnvironment/Destination/File/Name
