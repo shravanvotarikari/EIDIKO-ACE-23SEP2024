@@ -3,6 +3,7 @@
 	<name>Exception_Handling</name>
 	<comment></comment>
 	<projects>
+		<project>Account_Request_Response</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
