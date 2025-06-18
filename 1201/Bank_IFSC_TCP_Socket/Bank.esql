@@ -1,0 +1,25 @@
+
+
+CREATE COMPUTE MODULE Bank
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		DECLARE IFSC CHARACTER InputRoot.XMLNSC.Root.ifsc;
+		DECLARE AccNo CHARACTER InputRoot.XMLNSC.Root.acc;
+		
+		SET OutputLocalEnvironment.Destination.HTTP.RequestURL=getPolicyProperty('{Policy_UDP}:udp_bank', 'SBIN0001067');
+		
+		
+	END;
+END MODULE;
+
+CREATE FUNCTION getPolicyProperty (IN policyName CHARACTER, IN propertyName CHARACTER)
+RETURNS CHARACTER
+LANGUAGE JAVA
+EXTERNAL NAME "MyPolicyAccessClass.getPolicyProperty" ;
