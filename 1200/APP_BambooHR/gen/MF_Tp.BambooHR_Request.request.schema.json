@@ -1,0 +1,247 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "employeeNumber": {
+      "displayOrder": 5,
+      "title": "Employee number",
+      "description": "The employee number assigned by your company",
+      "type": "number"
+    },
+    "firstName": {
+      "displayOrder": 2,
+      "title": "First name",
+      "description": "The first name of the employee",
+      "type": "string"
+    },
+    "middleName": {
+      "displayOrder": 5,
+      "title": "Middle name",
+      "description": "The middle name of the employee",
+      "type": "string"
+    },
+    "lastName": {
+      "displayOrder": 3,
+      "title": "Last name",
+      "description": "The last name of the employee",
+      "type": "string"
+    },
+    "preferredName": {
+      "displayOrder": 7,
+      "title": "Preferred name",
+      "description": "The preferred name of the employee",
+      "type": "string"
+    },
+    "dateOfBirth": {
+      "displayOrder": 6,
+      "title": "Birth date",
+      "description": "The employee's date of birth",
+      "type": "string"
+    },
+    "ssn": {
+      "displayOrder": 24,
+      "title": "SSN",
+      "description": "A standard United States social security number, with dashes (for example, xxx-xx-xxxx)",
+      "type": "string"
+    },
+    "gender": {
+      "displayOrder": 8,
+      "title": "Gender",
+      "description": "The employee's gender",
+      "enum": [
+        "male",
+        "female"
+      ],
+      "type": "string"
+    },
+    "maritalStatus": {
+      "displayOrder": 9,
+      "title": "Marital status",
+      "description": "The employee's marital status",
+      "enum": [
+        "Single",
+        "Married",
+        "Common law",
+        "Domestic partnership"
+      ],
+      "type": "string"
+    },
+    "hireDate": {
+      "displayOrder": 10,
+      "title": "Hire date",
+      "description": "The date the employee was hired",
+      "type": "string"
+    },
+    "ethnicity": {
+      "displayOrder": 11,
+      "title": "Ethnicity",
+      "description": "The employee's ethnicity",
+      "enum": [
+        "American Indian or Alaska Native",
+        "Asian",
+        "Black or African American",
+        "Hispanic or Latino",
+        "Native Hawaiian or Other Pacific Islander",
+        "Two or More Races",
+        "White",
+        "Decline to Answer"
+      ],
+      "type": "string"
+    },
+    "address1": {
+      "displayOrder": 12,
+      "title": "Address 1",
+      "description": "The employee's first address line",
+      "type": "string"
+    },
+    "address2": {
+      "displayOrder": 13,
+      "title": "Address 2",
+      "description": "The employee's second address line",
+      "type": "string"
+    },
+    "city": {
+      "displayOrder": 14,
+      "title": "City",
+      "description": "The employee's city",
+      "type": "string"
+    },
+    "state": {
+      "displayOrder": 15,
+      "title": "State",
+      "description": "The employee's state or province",
+      "type": "string"
+    },
+    "zipcode": {
+      "displayOrder": 16,
+      "title": "ZIP code",
+      "description": "The employee's ZIP code",
+      "type": "string"
+    },
+    "country": {
+      "displayOrder": 17,
+      "title": "Country",
+      "description": "The employee's country",
+      "type": "string"
+    },
+    "workPhone": {
+      "displayOrder": 18,
+      "title": "Work phone",
+      "description": "The employee's work phone number, without extension",
+      "type": "number"
+    },
+    "workPhoneExtension": {
+      "displayOrder": 19,
+      "title": "Extension",
+      "description": "The employee's work phone extension (if any)",
+      "type": "string"
+    },
+    "mobilePhone": {
+      "displayOrder": 20,
+      "title": "Mobile phone",
+      "description": "The employee's mobile phone number",
+      "type": "number"
+    },
+    "homePhone": {
+      "displayOrder": 21,
+      "title": "Home phone",
+      "description": "The employee's home phone number",
+      "type": "number"
+    },
+    "workEmail": {
+      "displayOrder": 22,
+      "title": "Work email",
+      "description": "The work email of the employee",
+      "type": "string"
+    },
+    "homeEmail": {
+      "displayOrder": 23,
+      "title": "Home email",
+      "description": "The home email of the employee",
+      "type": "string"
+    },
+    "employmentHistoryStatus": {
+      "displayOrder": 4,
+      "title": "Employment status",
+      "description": "The employee's current employment status",
+      "enum": [
+        "Contractor",
+        "Full-Time",
+        "Furloughed",
+        "Part-Time",
+        "Terminated"
+      ],
+      "type": "string"
+    },
+    "jobTitle": {
+      "displayOrder": 25,
+      "title": "Job title",
+      "description": "The job title of the employee",
+      "type": "string"
+    },
+    "department": {
+      "displayOrder": 26,
+      "title": "Department",
+      "description": "The department of the employee",
+      "type": "string"
+    },
+    "division": {
+      "displayOrder": 27,
+      "title": "Division",
+      "description": "The employee's current division",
+      "type": "string"
+    },
+    "location": {
+      "displayOrder": 31,
+      "title": "Location",
+      "description": "Current location of the employee",
+      "type": "string"
+    },
+    "payRate": {
+      "displayOrder": 32,
+      "title": "Pay rate",
+      "description": "The employee's current pay rate (for example, $8.25)",
+      "type": "string"
+    },
+    "paidPer": {
+      "displayOrder": 33,
+      "title": "Paid per",
+      "description": "The employee's current pay per",
+      "enum": [
+        "Hour",
+        "Day",
+        "Week",
+        "Month",
+        "Year",
+        "Quarter"
+      ],
+      "type": "string"
+    },
+    "payType": {
+      "displayOrder": 34,
+      "title": "Pay type",
+      "description": "The employee's current pay type",
+      "enum": [
+        "Hourly",
+        "Salary",
+        "Commission"
+      ],
+      "type": "string"
+    },
+    "paySchedule": {
+      "displayOrder": 35,
+      "title": "Pay schedule",
+      "description": "The employee's current pay schedule",
+      "type": "string"
+    }
+  },
+  "title": "employees",
+  "required": [
+    "firstName",
+    "lastName",
+    "employmentHistoryStatus"
+  ],
+  "additionalProperties": false,
+  "connectorName": "bamboohr",
+  "interaction": "CREATE"
+}

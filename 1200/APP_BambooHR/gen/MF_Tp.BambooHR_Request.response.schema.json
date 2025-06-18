@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "title": "Employee ID",
+      "description": "The identifier of the employee. Auto-generated when an employee information is saved.",
+      "type": "string"
+    }
+  },
+  "title": "employees",
+  "additionalProperties": false
+}
