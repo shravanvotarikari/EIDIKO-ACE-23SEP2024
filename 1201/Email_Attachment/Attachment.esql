@@ -1,0 +1,24 @@
+CREATE COMPUTE MODULE Attachment
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot = InputRoot;
+
+		DECLARE Email CHARACTER;
+		SET Email = 'Sample Body';
+		SET OutputRoot.EmailOutputHeader.Subject = 'Sample Subject';
+		
+        SET OutputRoot.BLOB.BLOB = CAST(Email as BLOB CCSID 1208);
+		
+		SET OutputLocalEnvironment.Destination.Email.Attachment.Content = InputRoot.BLOB.BLOB;
+        SET OutputLocalEnvironment.Destination.Email.Attachment.ContentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+        SET OutputLocalEnvironment.Destination.Email.Attachment.ContentEncoding = 'base64'; 
+        SET OutputLocalEnvironment.Destination.Email.Attachment.ContentName = 'SIMO_MeticalNetRC.xlsx';
+
+	END;
+END MODULE;
