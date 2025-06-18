@@ -1,0 +1,80 @@
+
+BROKER SCHEMA Steward_Bank
+DECLARE var3 EXTERNAL CHARACTER 'C:\temp\Log4jConfigurationFile.xml';
+DECLARE var2 BOOLEAN;
+
+CREATE COMPUTE MODULE Exception_handling
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		CALL LOG(var3) INTO var2;
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		DECLARE exception_text CHARACTER;
+		DECLARE exception_Number INTEGER;
+		DECLARE exception_type CHARACTER;		
+
+		DECLARE exce REFERENCE TO InputExceptionList.[1];
+		SET exception_type = FIELDNAME(exce);
+
+		SET OutputExceptionList.Status = 'FAILURE';
+		SET OutputExceptionList.ErrorType = exception_type;
+		SET OutputExceptionList.Description = CAST(exce AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);		
+
+
+		WHILE LASTMOVE(exce) DO
+			
+			IF (exce.Number IS NOT NULL) THEN
+				
+				SET exception_Number = exce.Number;
+				SET exception_text = exce.Text;
+				
+
+			CASE exception_type
+			WHEN 'DatabaseException' THEN
+				SET OutputRoot.XMLNSC.Root.ErrorCode = 'DB_ERROR_902';
+			WHEN 'UserException' THEN
+				SET OutputRoot.XMLNSC.Root.ErrorCode = 'USER_ERROR_908';
+			WHEN 'ParserException' THEN
+				SET OutputRoot.XMLNSC.Root.ErrorCode = 'PARSER_ERROR_907';
+			WHEN 'SocketException' THEN
+				SET OutputRoot.XMLNSC.Root.ErrorCode = 'NETWORK_ERROR_903';
+			WHEN 'RecoverableException' THEN
+				SET OutputRoot.XMLNSC.Root.ErrorCode = 'NETWORK_ERROR_910';
+				SET OutputRoot.XMLNSC.Root.Exception_Number = exception_Number;
+				SET OutputRoot.XMLNSC.Root.Exception_Text = exception_text;
+			ELSE
+				SET OutputRoot.XMLNSC.Root.ErrorCode = 'UNKNOWN_ERROR_999';
+			END CASE;
+
+			LOG EVENT SEVERITY 1 CATALOG 'BIPmsgs' MESSAGE 2951 VALUES(
+			OutputExceptionList.Status,
+			OutputExceptionList.ErrorCode,
+			OutputExceptionList.ErrorType,
+			OutputExceptionList.ActualDesc
+			);
+
+			--MOVE exce LASTCHILD;
+			END IF;
+		END WHILE;
+
+		call writing(MessageFlowLabel,'dco_info','INFO', 'Application_RESPONSE: ' ) into var2;
+
+
+	END;
+END MODULE;
+
+
+
+CREATE FUNCTION writing (IN mfname CHARACTER, IN logger_name CHARACTER, IN level CHARACTER, IN Data CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+
+
+CREATE FUNCTION Log (IN config CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";

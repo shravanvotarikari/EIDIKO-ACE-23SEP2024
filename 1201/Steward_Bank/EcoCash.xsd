@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:csv="http://www.ibm.com/dfdl/CommaSeparatedFormat" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ibmDfdlExtn="http://www.ibm.com/dfdl/extensions" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        
+  
+  <xsd:import namespace="http://www.ibm.com/dfdl/CommaSeparatedFormat" schemaLocation="IBMdefined/CommaSeparatedFormat.xsd"/>
+        
+  
+  <xsd:annotation>
+        		
+    
+    <xsd:appinfo source="http://www.ogf.org/dfdl/">
+            			
+      
+      <dfdl:format documentFinalTerminatorCanBeMissing="yes" encoding="{$dfdl:encoding}" escapeSchemeRef="csv:CSVEscapeScheme" ref="csv:CommaSeparatedFormat"/>
+            		
+    
+    </xsd:appinfo>
+        	
+  
+  </xsd:annotation>
+    	
+  
+  <xsd:element ibmSchExtn:docRoot="true" name="EcoCash">
+        		
+    
+    <xsd:complexType>
+            			
+      
+      <xsd:sequence dfdl:separator="">
+                				
+        
+        <xsd:element dfdl:occursCountKind="implicit" dfdl:terminator="%CR;%LF;%WSP*;" maxOccurs="unbounded" name="record">
+                    					
+          
+          <xsd:complexType>
+                        						
+            
+            <xsd:sequence dfdl:separatorSuppressionPolicy="trailingEmpty">
+                            							
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value1" name="MERCHANT_NAME" type="xsd:string"/>
+                            							
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value2" name="MSISDN" type="xsd:string"/>
+                            							
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value3" name="CODE" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value4" name="BANK_ACC_NAME" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value5" name="BATCH_IDENTIFIER" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value6" name="BRANCH_CODE" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value7" name="BANK_ACC_NUMBER" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value8" name="BANK" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value9" name="BRANCH_NAME" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value10" name="BALANCE" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value11" name="TRANSFER_CHARGE" type="xsd:string"/>
+                                                        
+              
+              <xsd:element ibmDfdlExtn:sampleValue="value12" name="BANK_CHARGE" type="xsd:string"/>
+                                                    
+            
+            </xsd:sequence>
+                        					
+          
+          </xsd:complexType>
+                    				
+        
+        </xsd:element>
+                				
+			
+      
+      </xsd:sequence>
+            		
+    
+    </xsd:complexType>
+        	
+  
+  </xsd:element>
+    
+
+</xsd:schema>

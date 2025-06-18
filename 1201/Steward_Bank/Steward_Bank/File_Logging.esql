@@ -1,0 +1,61 @@
+BROKER SCHEMA Steward_Bank
+--
+--DECLARE var12 EXTERNAL CHARACTER 'C:\temp\Log4jConfigurationFile.xml'; 
+--DECLARE var13 BOOLEAN;
+--
+--CREATE COMPUTE MODULE File_Logging
+--	CREATE FUNCTION Main() RETURNS BOOLEAN
+--	BEGIN
+--		
+--		CALL Logging(var12) INTO var13;
+--		 CALL CopyEntireMessage();
+--		RETURN TRUE;
+--	END;
+--
+--	
+--	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		--SET OutputRoot = InputRoot;
+--		
+--		DECLARE request, response CHARACTER;
+--			
+--		SET request = CAST(ASBITSTREAM(InputRoot.JSON.Data) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+--		SET response = CAST(ASBITSTREAM(OutputRoot.JSON.Data) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+--		call writeLog(MessageFlowLabel,'dco_debug','DEBUG', 'Application_REQUEST: ' || request) into var13;
+--		call writeLog(MessageFlowLabel,'dco_info','INFO', 'Application_RESPONSE: ' || response) into var13;
+--		
+--		
+--	END;
+--END MODULE;
+--
+--
+--CREATE FUNCTION writeLog (IN mfname CHARACTER, IN logger_name CHARACTER, IN level CHARACTER, IN Data CHARACTER ) RETURNS BOOLEAN
+--LANGUAGE JAVA
+--EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+--
+--
+--CREATE FUNCTION Logging (IN config CHARACTER ) RETURNS BOOLEAN
+--LANGUAGE JAVA
+--EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
+
+CREATE COMPUTE MODULE File_Logging
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		-- CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
