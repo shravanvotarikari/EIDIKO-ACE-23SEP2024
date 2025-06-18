@@ -1,0 +1,89 @@
+DECLARE var1 EXTERNAL CHARACTER 'C:\temp\Log4jConfigurationFile.xml'; 
+DECLARE var2 BOOLEAN;
+
+
+DECLARE cdr CHARACTER;
+CREATE COMPUTE MODULE Crud_log4j
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CRUD_Operation2('INSERT', '1211', 'Abhishekh', 'abhishekh@example.com') INTO cdr;
+--	CALL CRUD_Operation2('UPDATE', '1001', 'Hrishi','hrishi@example.com') INTO cdr;
+--		CALL CRUD_Operation2('DELETE', '1001','Hrishi','hrishi@example.com') INTO cdr;
+--		CALL CRUD_Operation2('SELECT', '1001','Hrishi','hrishi@example.com') INTO cdr;
+
+		CALL LOG(var1) INTO var2;
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		DECLARE request, response CHARACTER;
+		
+		SET OutputRoot = InputRoot;
+		
+		SET request = CAST(ASBITSTREAM(InputRoot.XMLNSC) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		SET response = CAST(ASBITSTREAM(OutputRoot.XMLNSC) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		call writing(MessageFlowLabel,'dco_debug','DEBUG', 'Application_REQUEST: ' || request) into var2;
+		call writing(MessageFlowLabel,'dco_info','INFO', 'Application_RESPONSE: ' || response) into var2;
+		
+	END;
+
+CREATE FUNCTION CRUD_Operation2 (IN Operation CHARACTER,IN CustomerID CHARACTER,IN CustomerName CHARACTER,IN Email CHARACTER)
+RETURNS CHARACTER
+BEGIN
+	DECLARE SQL CHARACTER;
+	DECLARE Result CHARACTER '';
+	--DECLARE data1 ROW;
+
+
+	CASE Operation
+	WHEN 'INSERT' THEN
+		SET SQL = 'INSERT INTO Customers (CustomerID, CustomerName, Email) VALUES (?, ?, ?)';
+		PASSTHRU(SQL, CustomerID, CustomerName, Email);
+		SET OutputRoot.XMLNSC.Root.Status = 'INSERT SUCCESS';
+		--call writing(MessageFlowLabel,'dco_debug','DEBUG', 'Insert Request') into var2;
+		call writing(MessageFlowLabel,'dco_info','INFO', 'Data inserted successfully') into var2;
+		
+
+	WHEN 'UPDATE' THEN
+		SET SQL = 'UPDATE Customers SET CustomerName = ? WHERE CustomerID = ?';
+		PASSTHRU(SQL, CustomerName, CustomerID);
+		SET OutputRoot.XMLNSC.Root.Status = 'Success';
+		--call writing(MessageFlowLabel,'dco_debug','DEBUG', 'Update Request') into var2;
+		call writing(MessageFlowLabel,'dco_info','INFO', 'Updated successfully') into var2;
+
+	WHEN 'SELECT' THEN
+		SET SQL = 'SELECT CustomerName, Email FROM Customers WHERE CustomerID = ?';
+		SET Environment.Variables.Result[] = PASSTHRU(SQL, CustomerID);
+		SET OutputRoot.XMLNSC.Root.Status = 'Success';
+		--call writing(MessageFlowLabel,'dco_debug','DEBUG', 'Select Request') into var2;
+		call writing(MessageFlowLabel,'dco_info','INFO', 'Selected successfully') into var2;
+		
+
+	WHEN 'DELETE' THEN
+		SET SQL = 'DELETE FROM Customers WHERE CustomerID = ?';
+		PASSTHRU(SQL, CustomerID);
+		SET OutputRoot.XMLNSC.Root.Status = 'Success';
+		--call writing(MessageFlowLabel,'dco_debug','DEBUG', 'Delete Request') into var2;
+		call writing(MessageFlowLabel,'dco_info','INFO', 'Deleted successfully') into var2;
+	ELSE
+		THROW USER EXCEPTION VALUES ('Invalid operation: ' || Operation);
+	END CASE;
+
+	RETURN Result;
+END;
+
+END MODULE;
+
+
+CREATE FUNCTION writing (IN mfname CHARACTER, IN logger_name CHARACTER, IN level CHARACTER, IN Data CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+
+
+CREATE FUNCTION Log (IN config CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
