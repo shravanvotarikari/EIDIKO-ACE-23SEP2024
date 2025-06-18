@@ -1,0 +1,18 @@
+
+
+CREATE COMPUTE MODULE CorellationID_MQ_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		SET OutputRoot.MQMD.CorrelId = CAST('000000000000000000000009' AS BLOB CCSID 1208);
+		SET OutputRoot.XMLNSC.data = InputRoot.XMLNSC;		
+
+	END;
+END MODULE;
