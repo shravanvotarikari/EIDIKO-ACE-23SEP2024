@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmApplicationConnectorRequest_slack.msgnode="ComIbmApplicationConnectorRequest_slack.msgnode" xmlns:ComIbmWSInput.msgnode="ComIbmWSInput.msgnode" xmlns:ComIbmWSReply.msgnode="ComIbmWSReply.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="slackmf.msgflow" nsPrefix="slackmf.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1" nodeLayoutStyle="RECTANGLE">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="slackmf" bundleName="slackmf" pluginId="SlackAppReq"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/SlackAppReq/icons/full/obj16/slackmf.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/SlackAppReq/icons/full/obj30/slackmf.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="60,109" URLSpecifier="/slack">
+        <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="519,106">
+        <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
+      </nodes>
+      <nodes xmi:type="ComIbmApplicationConnectorRequest_slack.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="277,105" applicationConnectorType="slack" action="CREATE" businessObject="message" displayName="undefined" schemaPrefix="gen/slackmf.Slack_Request1" policyUrl="{Slack}:Slack3" mappingMode="jsonmap" messageSetProperty="gen/slackmf.Slack_Request1.response.schema.json">
+        <translation xmi:type="utility:ConstantString" string="Slack Request1"/>
+        <connectorProperty propertyName="OBJECT_ID" displayName="Send to" propertyValue="C0901REL08M" displayValue="all-iib-team"/>
+        <connectorProperty propertyName="OBJECT_NAME" displayName="Destination type" propertyValue="channel" displayValue="Channel"/>
+        <requestMap map="{&quot;mappings&quot;:[{&quot;text&quot;:{&quot;template&quot;:&quot;Hello, Good Morning...:)&quot;}}],&quot;$map&quot;:&quot;http://ibm.com/appconnect/map/v1&quot;,&quot;input&quot;:[{&quot;variable&quot;:&quot;mappingInput_InputRoot&quot;,&quot;$ref&quot;:&quot;#/mappingInputs/InputRoot&quot;},{&quot;variable&quot;:&quot;mappingInput_InputLocalEnvironment&quot;,&quot;$ref&quot;:&quot;#/mappingInputs/InputLocalEnvironment&quot;},{&quot;variable&quot;:&quot;flowDetails&quot;,&quot;$ref&quot;:&quot;#/flowDetails&quot;}]}"/>
+        <mappingInput inputName="InputRoot" inputLocation="$InputRoot" schemaLocation="" schemaRoot=""/>
+        <mappingInput inputName="InputLocalEnvironment" inputLocation="$InputLocalEnvironment" schemaLocation="" schemaRoot=""/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>

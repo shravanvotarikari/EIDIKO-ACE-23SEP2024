@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "text": {
+      "displayOrder": 6,
+      "title": "Text",
+      "description": "A message text that to be send",
+      "type": "string"
+    }
+  },
+  "title": "message",
+  "required": [
+    "text"
+  ],
+  "additionalProperties": false,
+  "connectorName": "slack",
+  "interaction": "CREATE"
+}
