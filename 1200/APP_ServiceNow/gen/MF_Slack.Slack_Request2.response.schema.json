@@ -1,0 +1,210 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "displayOrder": 2,
+        "title": "ID",
+        "description": "The unique channel identifier",
+        "type": "string"
+      },
+      "name": {
+        "displayOrder": 1,
+        "title": "Channel name",
+        "description": "Specify a unique name for the public or private channel. The channel name must be 80 characters or less and only contain lowercase letters, numbers, hyphens, and underscores.",
+        "type": "string"
+      },
+      "is_channel": {
+        "displayOrder": 14,
+        "title": "Is channel",
+        "description": "Indicates whether it is a channel",
+        "type": "boolean"
+      },
+      "created": {
+        "displayOrder": 3,
+        "title": "Created date",
+        "description": "A Unix timestamp of when the channel was created",
+        "type": "number"
+      },
+      "creator": {
+        "displayOrder": 4,
+        "title": "Creator",
+        "description": "The user ID of the member who created the channel",
+        "type": "string"
+      },
+      "is_archived": {
+        "displayOrder": 5,
+        "title": "Is archived",
+        "description": "Indicates whether the channel is archived",
+        "type": "boolean"
+      },
+      "is_general": {
+        "displayOrder": 7,
+        "title": "Is general",
+        "description": "Indicates whether the channel is general",
+        "type": "boolean"
+      },
+      "is_member": {
+        "displayOrder": 6,
+        "title": "Is member",
+        "description": "Indicates whether the calling member is a part of the channel",
+        "type": "boolean"
+      },
+      "last_read": {
+        "displayOrder": 8,
+        "title": "Last read",
+        "description": "The date the channel was last read in ISO 8601 UTC format, YYYY-MM-DDTHH:MM:SSZ",
+        "type": "string"
+      },
+      "latest": {
+        "displayOrder": 16,
+        "title": "Latest",
+        "description": "The information about the latest item on the channel",
+        "type": "object",
+        "properties": {
+          "user": {
+            "displayOrder": 1,
+            "title": "User",
+            "description": "The user who created the latest item. For example, the most recent user who created a file or message in the channel.",
+            "type": "string"
+          },
+          "old_name": {
+            "displayOrder": 2,
+            "title": "Old name",
+            "description": "The older name of the channel",
+            "type": "string"
+          },
+          "name": {
+            "displayOrder": 3,
+            "title": "Name",
+            "description": "The new name of the channel",
+            "type": "string"
+          },
+          "type": {
+            "displayOrder": 4,
+            "title": "Type",
+            "description": "The type of the latest item. For example, the most recent type of item, such as a file or message, in the channel.",
+            "type": "string"
+          },
+          "subtype": {
+            "displayOrder": 5,
+            "title": "Subtype",
+            "description": "The sub-type of the latest item. For example, the most recent sub-type of item, such as a file or message, in the channel.",
+            "type": "string"
+          },
+          "text": {
+            "displayOrder": 6,
+            "title": "Text",
+            "description": "The text of the latest item. For example, the most recent text of an item, such as a file or message, in the channel",
+            "type": "string"
+          },
+          "ts": {
+            "displayOrder": 7,
+            "title": "Timestamp",
+            "description": "The latest date of a message posted on the channel",
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "unread_count": {
+        "displayOrder": 9,
+        "title": "Unread count",
+        "description": "The number of items marked as unread. The total number of messages that the user has yet to read.",
+        "type": "number"
+      },
+      "unread_count_display": {
+        "displayOrder": 10,
+        "title": "Unread count display",
+        "description": "The number of items marked as unread. The total number of messages that the user has yet to read.",
+        "type": "number"
+      },
+      "members": {
+        "displayOrder": 11,
+        "title": "Members",
+        "description": "The users that belong to a particular channel",
+        "type": "array"
+      },
+      "topic": {
+        "displayOrder": 12,
+        "title": "Topic",
+        "description": "The topic of the channel",
+        "type": "object",
+        "properties": {
+          "value": {
+            "displayOrder": 1,
+            "title": "Value",
+            "description": "The name of the current topic",
+            "type": "string"
+          },
+          "creator": {
+            "displayOrder": 2,
+            "title": "Creator",
+            "description": "The user identifier that created the channel",
+            "type": "string"
+          },
+          "last_set": {
+            "displayOrder": 3,
+            "title": "Last set",
+            "description": "The date of the last set topic in ISO 8601 UTC format, YYYY-MM-DDTHH:MM:SSZ",
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "purpose": {
+        "displayOrder": 13,
+        "title": "Purpose",
+        "description": "The purpose of the channel",
+        "type": "object",
+        "properties": {
+          "value": {
+            "displayOrder": 1,
+            "title": "Value",
+            "description": "The purpose of the channel",
+            "type": "string"
+          },
+          "creator": {
+            "displayOrder": 2,
+            "title": "Creator",
+            "description": "The user ID that created the current purpose",
+            "type": "string"
+          },
+          "last_set": {
+            "displayOrder": 3,
+            "title": "Last set",
+            "description": "The date of the last set purpose in ISO 8601 UTC format, YYYY-MM-DDTHH:MM:SSZ",
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "num_members": {
+        "displayOrder": 18,
+        "title": "Number of members",
+        "description": "The total number of members in a channel",
+        "type": "number"
+      },
+      "is_starred": {
+        "displayOrder": 15,
+        "title": "Is starred",
+        "description": "Indicates whether the channel is starred",
+        "type": "boolean"
+      },
+      "previous_names": {
+        "displayOrder": 17,
+        "title": "Previous names",
+        "description": "The previous names of the channel",
+        "type": "string"
+      }
+    },
+    "title": "channel",
+    "required": [
+      "name"
+    ],
+    "additionalProperties": false
+  },
+  "type": "array",
+  "title": "channel"
+}

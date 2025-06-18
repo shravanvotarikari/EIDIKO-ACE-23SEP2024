@@ -1,0 +1,192 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "displayOrder": 2,
+        "title": "ID",
+        "description": "The unique group ID",
+        "type": "string"
+      },
+      "name": {
+        "displayOrder": 1,
+        "title": "Name",
+        "description": "Name of the group",
+        "type": "string"
+      },
+      "is_group": {
+        "displayOrder": 13,
+        "title": "Is group",
+        "description": "Is group or not",
+        "type": "boolean"
+      },
+      "created": {
+        "displayOrder": 3,
+        "title": "Created",
+        "description": "A Unix timestamp of when the private channel was created",
+        "type": "number"
+      },
+      "creator": {
+        "displayOrder": 4,
+        "title": "Creator",
+        "description": "User ID of the member that created this group",
+        "type": "string"
+      },
+      "is_archived": {
+        "displayOrder": 5,
+        "title": "Is archived",
+        "description": "A boolean value indicating whether the group is archived or not",
+        "type": "boolean"
+      },
+      "is_mpim": {
+        "displayOrder": 15,
+        "title": "Is MPIM",
+        "description": "Is group an MPIM",
+        "type": "boolean"
+      },
+      "is_open": {
+        "displayOrder": 6,
+        "title": "Is open",
+        "description": "Whether the group is open or not",
+        "type": "boolean"
+      },
+      "last_read": {
+        "displayOrder": 7,
+        "title": "Last read",
+        "description": "The timestamp for the last message the calling user has read in this channel",
+        "type": "string"
+      },
+      "latest": {
+        "displayOrder": 14,
+        "title": "Latest",
+        "description": "Information about the latest item on the group",
+        "type": "object",
+        "properties": {
+          "user": {
+            "displayOrder": 1,
+            "title": "User",
+            "description": "User who has created the latest item. For example file, or message posted on the group.",
+            "type": "string"
+          },
+          "old_name": {
+            "displayOrder": 2,
+            "title": "Old name",
+            "description": "Old name of the group",
+            "type": "string"
+          },
+          "name": {
+            "displayOrder": 3,
+            "title": "Name",
+            "description": "New name of the group",
+            "type": "string"
+          },
+          "type": {
+            "displayOrder": 4,
+            "title": "Type",
+            "description": "Type of the latest item. For example file, or message posted on the group.",
+            "type": "string"
+          },
+          "subtype": {
+            "displayOrder": 5,
+            "title": "Subtype",
+            "description": "Subtype of the latest item. For example file, or message posted on the group.",
+            "type": "string"
+          },
+          "text": {
+            "displayOrder": 6,
+            "title": "Text",
+            "description": "Text of the latest item",
+            "type": "string"
+          },
+          "ts": {
+            "displayOrder": 7,
+            "title": "Timestamp",
+            "description": "Specifies the latest timestamp",
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "unread_count": {
+        "displayOrder": 8,
+        "title": "Unread count",
+        "description": "A full count of visible messages that the calling user has yet to read",
+        "type": "number"
+      },
+      "unread_count_display": {
+        "displayOrder": 9,
+        "title": "Unread count display",
+        "description": "A count of messages that the calling user has yet to read that matter to them (this means it excludes things like join/leave messages)",
+        "type": "number"
+      },
+      "members": {
+        "displayOrder": 10,
+        "title": "Members",
+        "description": "All users belonging to the particular group",
+        "type": "array"
+      },
+      "topic": {
+        "displayOrder": 11,
+        "title": "Topic",
+        "description": "Information about the private channel topic",
+        "type": "object",
+        "properties": {
+          "value": {
+            "displayOrder": 1,
+            "title": "Value",
+            "description": "Name of the current topic",
+            "type": "string"
+          },
+          "creator": {
+            "displayOrder": 2,
+            "title": "Creator",
+            "description": "User who has created the current topic",
+            "type": "string"
+          },
+          "last_set": {
+            "displayOrder": 3,
+            "title": "Last set",
+            "description": "Unix time stamp of the last set topic",
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "purpose": {
+        "displayOrder": 12,
+        "title": "Purpose",
+        "description": "Purpose of the group",
+        "type": "object",
+        "properties": {
+          "value": {
+            "displayOrder": 1,
+            "title": "Purpose",
+            "description": "Information about the private channel purpose",
+            "type": "string"
+          },
+          "creator": {
+            "displayOrder": 2,
+            "title": "Creator",
+            "description": "User who has created the current purpose",
+            "type": "string"
+          },
+          "last_set": {
+            "displayOrder": 3,
+            "title": "Last set",
+            "description": "Unix time stamp of the last set purpose",
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "title": "group",
+    "required": [
+      "name"
+    ],
+    "additionalProperties": false
+  },
+  "type": "array",
+  "title": "group"
+}

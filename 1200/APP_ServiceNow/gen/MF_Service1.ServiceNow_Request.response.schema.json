@@ -1,0 +1,723 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "items": {
+    "type": "object",
+    "properties": {
+      "parent": {
+        "displayOrder": 86,
+        "title": "Parent",
+        "description": "Parent",
+        "type": "string"
+      },
+      "made_sla": {
+        "displayOrder": 32,
+        "title": "Made SLA",
+        "description": "Made SLA",
+        "type": "boolean"
+      },
+      "caused_by": {
+        "displayOrder": 24,
+        "title": "Caused by Change",
+        "description": "Caused by",
+        "type": "string"
+      },
+      "watch_list": {
+        "displayOrder": 19,
+        "title": "Watch list",
+        "description": "Watch list",
+        "type": "string"
+      },
+      "upon_reject": {
+        "displayOrder": 33,
+        "title": "Upon reject",
+        "description": "The action to be taken when the incident is rejected. Supported values: None, Cancel All Future Task, Go to a previous task",
+        "enum": [
+          "cancel",
+          "goto"
+        ],
+        "type": "string"
+      },
+      "sys_updated_on": {
+        "displayOrder": 39,
+        "title": "Updated",
+        "description": "The date the incident was updated in ISO 8601 UTC format, yyyy-MM-ddTHH:mm:ss.SSSZ",
+        "type": "string",
+        "format": "date-time"
+      },
+      "child_incidents": {
+        "displayOrder": 34,
+        "title": "Child Incidents",
+        "description": "The number of child incidents which are dependent on it",
+        "type": "number"
+      },
+      "origin_table": {
+        "displayOrder": 8,
+        "title": "Origin table",
+        "description": "Origin table",
+        "type": "string"
+      },
+      "hold_reason": {
+        "displayOrder": 12,
+        "title": "Hold reason",
+        "description": "The reason for which the incident is on hold. Possible values : Awaiting Caller, Awaiting Evidence, Awaiting Problem Resolution, Awaiting Vendor",
+        "enum": [
+          1,
+          5,
+          3,
+          4
+        ],
+        "type": "number"
+      },
+      "task_effective_number": {
+        "displayOrder": 10,
+        "title": "Effective number",
+        "description": "Effective number",
+        "type": "string"
+      },
+      "approval_history": {
+        "displayOrder": 35,
+        "title": "Approval history",
+        "description": "Approval history",
+        "type": "string"
+      },
+      "number": {
+        "displayOrder": 1,
+        "title": "Number",
+        "description": "The incident ticket number",
+        "type": "string"
+      },
+      "resolved_by": {
+        "displayOrder": 74,
+        "title": "Resolved by",
+        "description": "Resolved by",
+        "type": "string"
+      },
+      "sys_updated_by": {
+        "displayOrder": 36,
+        "title": "Updated by",
+        "description": "User who updated the incident",
+        "type": "string"
+      },
+      "opened_by": {
+        "displayOrder": 75,
+        "title": "Opened by",
+        "description": "Opened by",
+        "type": "string"
+      },
+      "user_input": {
+        "displayOrder": 37,
+        "title": "User input",
+        "description": "User input",
+        "type": "string"
+      },
+      "sys_created_on": {
+        "displayOrder": 38,
+        "title": "Created",
+        "description": "The date the incident was created in ISO 8601 UTC format, yyyy-MM-ddTHH:mm:ss.SSSZ",
+        "type": "string",
+        "format": "date-time"
+      },
+      "sys_domain": {
+        "displayOrder": 76,
+        "title": "Domain",
+        "description": "Sys domain",
+        "type": "string"
+      },
+      "state": {
+        "displayOrder": 11,
+        "title": "State",
+        "description": "The lifecycle status of the incident ticket. Possible values: New, In Progress, On Hold, Resolved, Closed, and Canceled.",
+        "enum": [
+          1,
+          -5,
+          4,
+          7,
+          2,
+          3,
+          6,
+          8
+        ],
+        "type": "number"
+      },
+      "sys_created_by": {
+        "displayOrder": 40,
+        "title": "Created by",
+        "description": "User who created the incident",
+        "type": "string"
+      },
+      "route_reason": {
+        "displayOrder": 20,
+        "title": "Route reason",
+        "description": "Route reason",
+        "enum": [
+          1,
+          2
+        ],
+        "type": "number"
+      },
+      "knowledge": {
+        "displayOrder": 25,
+        "title": "Knowledge",
+        "description": "Indicates whether a knowledge base article should be created automatically from the incident. If 'true', a draft article is created when the incident is closed, using any available information from the incident's Short description and Additional comments fields.",
+        "type": "boolean"
+      },
+      "order": {
+        "displayOrder": 41,
+        "title": "Order",
+        "description": "Order",
+        "type": "number"
+      },
+      "calendar_stc": {
+        "displayOrder": 42,
+        "title": "Resolve time",
+        "description": "calendar_stc",
+        "type": "number"
+      },
+      "closed_at": {
+        "displayOrder": 28,
+        "title": "Closed",
+        "description": "The date the incident was closed in ISO 8601 UTC format, yyyy-MM-ddTHH:mm:ss.SSSZ",
+        "type": "string",
+        "format": "date-time"
+      },
+      "cmdb_ci": {
+        "displayOrder": 7,
+        "title": "Configuration item",
+        "description": "Configuration item",
+        "type": "string"
+      },
+      "delivery_plan": {
+        "displayOrder": 77,
+        "title": "Delivery plan",
+        "description": "Delivery plan",
+        "type": "string"
+      },
+      "impact": {
+        "displayOrder": 13,
+        "title": "Impact",
+        "description": "The effect that the incident has on users. Possible values: Low, Medium, and High.",
+        "enum": [
+          1,
+          2,
+          3
+        ],
+        "type": "number"
+      },
+      "contract": {
+        "displayOrder": 28,
+        "title": "Contract",
+        "description": "Contract",
+        "type": "string"
+      },
+      "active": {
+        "displayOrder": 43,
+        "title": "Active",
+        "description": "Active",
+        "type": "boolean"
+      },
+      "work_notes_list": {
+        "displayOrder": 20,
+        "title": "Work notes list",
+        "description": "Work notes list",
+        "type": "string"
+      },
+      "business_service": {
+        "displayOrder": 6,
+        "title": "Service",
+        "description": "Business service",
+        "type": "string"
+      },
+      "business_impact": {
+        "displayOrder": 33,
+        "title": "Business impact",
+        "description": "Business impact",
+        "type": "string"
+      },
+      "priority": {
+        "displayOrder": 15,
+        "title": "Priority",
+        "description": "Specifies how quickly the service desk must resolve the incident",
+        "enum": [
+          2,
+          3,
+          4,
+          5,
+          1
+        ],
+        "type": "number"
+      },
+      "sys_domain_path": {
+        "displayOrder": 44,
+        "title": "Domain Path",
+        "description": "Domain path",
+        "type": "string"
+      },
+      "rfc": {
+        "displayOrder": 23,
+        "title": "Change Request",
+        "description": "Change request",
+        "type": "string"
+      },
+      "time_worked": {
+        "displayOrder": 45,
+        "title": "Time worked",
+        "description": "The time spent on the incident",
+        "type": "string"
+      },
+      "rejection_goto": {
+        "displayOrder": 78,
+        "title": "Rejection goto",
+        "description": "Rejection goto",
+        "type": "string"
+      },
+      "expected_start": {
+        "displayOrder": 46,
+        "title": "Expected start",
+        "description": "The expected start date in ISO 8601 UTC format, yyyy-MM-ddTHH:mm:ss.SSSZ",
+        "type": "string",
+        "format": "date-time"
+      },
+      "opened_at": {
+        "displayOrder": 2,
+        "title": "Opened",
+        "description": "The date the incident was opened in ISO 8601 UTC format, yyyy-MM-ddTHH:mm:ss.SSSZ",
+        "type": "string",
+        "format": "date-time"
+      },
+      "business_duration": {
+        "displayOrder": 47,
+        "title": "Business duration",
+        "description": "Specify the business duration in ISO 8601 UTC format, yyyy-MM-ddTHH:mm:ss.SSSZ",
+        "type": "string"
+      },
+      "group_list": {
+        "displayOrder": 79,
+        "title": "Group list",
+        "description": "Group list",
+        "type": "string"
+      },
+      "work_end": {
+        "displayOrder": 48,
+        "title": "Actual end",
+        "description": "The work end date in ISO 8601 UTC format, yyyy-MM-ddTHH:mm:ss.SSSZ",
+        "type": "string",
+        "format": "date-time"
+      },
+      "reopened_time": {
+        "displayOrder": 42,
+        "title": "Last reopened at",
+        "description": "The date the incident was reopened in ISO 8601 UTC format, yyyy-MM-ddTHH:mm:ss.SSSZ",
+        "type": "string",
+        "format": "date-time"
+      },
+      "resolved_at": {
+        "displayOrder": 49,
+        "title": "Resolved",
+        "description": "The date the incident was resolved in ISO 8601 UTC format, yyyy-MM-ddTHH:mm:ss.SSSZ",
+        "type": "string",
+        "format": "date-time"
+      },
+      "caller_id": {
+        "displayOrder": 3,
+        "title": "Caller",
+        "description": "Caller",
+        "type": "string"
+      },
+      "approval_set": {
+        "displayOrder": 50,
+        "title": "Approval set",
+        "description": "The approval set date in ISO 8601 UTC format, yyyy-MM-ddTHH:mm:ss.SSSZ",
+        "type": "string",
+        "format": "date-time"
+      },
+      "subcategory": {
+        "displayOrder": 5,
+        "title": "Subcategory",
+        "description": "The subcategory of the incident",
+        "enum": [
+          "dhcp",
+          "email",
+          "oracle",
+          "cpu",
+          "keyboard",
+          "ip address",
+          "internal application",
+          "sql server",
+          "memory",
+          "mouse",
+          "dns",
+          "os",
+          "disk",
+          "vpn",
+          "antivirus",
+          "db2",
+          "monitor",
+          "wireless"
+        ],
+        "type": "string"
+      },
+      "wf_activity": {
+        "displayOrder": 80,
+        "title": "Workflow activity",
+        "description": "WF ACTIVITY",
+        "type": "string"
+      },
+      "work_notes": {
+        "displayOrder": 21,
+        "title": "Work notes",
+        "description": "Information about how to resolve the incident, or steps taken to resolve it, if applicable",
+        "type": "string"
+      },
+      "universal_request": {
+        "displayOrder": 46,
+        "title": "Universal Request",
+        "description": "Universal request",
+        "type": "string"
+      },
+      "short_description": {
+        "displayOrder": 18,
+        "title": "Short description",
+        "description": "A short description that summarizes the nature of the incident",
+        "display": {
+          "nameProperty": true
+        },
+        "type": "string"
+      },
+      "close_code": {
+        "displayOrder": 27,
+        "title": "Close code",
+        "description": "Document how an incident is resolved",
+        "enum": [
+          "Resolved by caller",
+          "Solution provided",
+          "Resolved by change",
+          "Workaround provided",
+          "Duplicate",
+          "Resolved by problem",
+          "User error",
+          "Known error",
+          "Resolved by request",
+          "No resolution provided"
+        ],
+        "type": "string"
+      },
+      "correlation_display": {
+        "displayOrder": 51,
+        "title": "Correlation display",
+        "description": "Correlation display",
+        "type": "string"
+      },
+      "delivery_task": {
+        "displayOrder": 81,
+        "title": "Delivery task",
+        "description": "Delivery task",
+        "type": "string"
+      },
+      "work_start": {
+        "displayOrder": 52,
+        "title": "Actual start",
+        "description": "The work start date in ISO 8601 UTC format, yyyy-MM-ddTHH:mm:ss.SSSZ",
+        "type": "string",
+        "format": "date-time"
+      },
+      "assignment_group": {
+        "displayOrder": 16,
+        "title": "Assignment group",
+        "description": "Assignment group",
+        "type": "string"
+      },
+      "business_stc": {
+        "displayOrder": 53,
+        "title": "Business resolve time",
+        "description": "Business resolve time",
+        "type": "number"
+      },
+      "additional_assignee_list": {
+        "displayOrder": 82,
+        "title": "Additional assignee list",
+        "description": "Additional assignment list",
+        "type": "string"
+      },
+      "cause": {
+        "displayOrder": 60,
+        "title": "Probable cause",
+        "description": "Probable cause",
+        "type": "string"
+      },
+      "description": {
+        "displayOrder": 54,
+        "title": "Description",
+        "description": "A description of the department",
+        "type": "string"
+      },
+      "origin_id": {
+        "displayOrder": 62,
+        "title": "Origin",
+        "description": "Origin",
+        "type": "string"
+      },
+      "calendar_duration": {
+        "displayOrder": 55,
+        "title": "Duration",
+        "description": "Specify the duration in ISO 8601 UTC format, yyyy-MM-ddTHH:mm:ss.SSSZ",
+        "type": "string"
+      },
+      "notify": {
+        "displayOrder": 56,
+        "title": "Notify",
+        "description": "Notify",
+        "enum": [
+          3,
+          1,
+          2
+        ],
+        "type": "number"
+      },
+      "sys_class_name": {
+        "displayOrder": 57,
+        "title": "Sys class name",
+        "description": "Class name of the object",
+        "type": "string"
+      },
+      "service_offering": {
+        "displayOrder": 59,
+        "title": "Service offering",
+        "description": "Service offering",
+        "type": "string"
+      },
+      "close_notes": {
+        "displayOrder": 29,
+        "title": "Close notes",
+        "description": "The notes entered at the time of closure",
+        "type": "string"
+      },
+      "closed_by": {
+        "displayOrder": 26,
+        "title": "Closed by",
+        "description": "Closed by",
+        "type": "string"
+      },
+      "follow_up": {
+        "displayOrder": 9,
+        "title": "Follow up",
+        "description": "The date the incident is to be observed next in ISO 8601 UTC format, yyyy-MM-ddTHH:mm:ss.SSSZ",
+        "type": "string",
+        "format": "date-time"
+      },
+      "parent_incident": {
+        "displayOrder": 83,
+        "title": "Parent Incident",
+        "description": "Parent incident",
+        "type": "string"
+      },
+      "sys_id": {
+        "displayOrder": 31,
+        "title": "Sys ID",
+        "description": "The globally unique ID (GUID) of the incident",
+        "type": "string"
+      },
+      "contact_type": {
+        "displayOrder": 10,
+        "title": "Contact type",
+        "description": "The type of contact used - whether email, phone, self-service or walk-in",
+        "enum": [
+          "chat",
+          "walk-in",
+          "email",
+          "virtual_agent",
+          "monitoring",
+          "phone",
+          "self-service"
+        ],
+        "type": "string"
+      },
+      "reopened_by": {
+        "displayOrder": 66,
+        "title": "Last reopened by",
+        "description": "Reopened by",
+        "type": "string"
+      },
+      "incident_state": {
+        "displayOrder": 59,
+        "title": "Incident state",
+        "description": "The lifecycle status of the incident ticket. Possible values: New, In Progress, On Hold, Resolved, Closed, and Canceled",
+        "enum": [
+          8,
+          2,
+          3,
+          6,
+          1,
+          7
+        ],
+        "type": "number"
+      },
+      "urgency": {
+        "displayOrder": 14,
+        "title": "Urgency",
+        "description": "The extent to which the task resolution can bear delay. Possible values: High, Medium, Low",
+        "enum": [
+          1,
+          2,
+          3
+        ],
+        "type": "number"
+      },
+      "problem_id": {
+        "displayOrder": 22,
+        "title": "Problem",
+        "description": "Problem",
+        "type": "string"
+      },
+      "company": {
+        "displayOrder": 84,
+        "title": "Company",
+        "description": "Company",
+        "type": "string"
+      },
+      "reassignment_count": {
+        "displayOrder": 60,
+        "title": "Reassignment count",
+        "description": "Reassignment count",
+        "type": "number"
+      },
+      "activity_due": {
+        "displayOrder": 61,
+        "title": "Activity due",
+        "description": "The activity due date in ISO 8601 UTC format, yyyy-MM-ddTHH:mm:ss.SSSZ",
+        "type": "string",
+        "format": "date-time"
+      },
+      "assigned_to": {
+        "displayOrder": 17,
+        "title": "Assigned to",
+        "description": "Assigned To",
+        "type": "string"
+      },
+      "severity": {
+        "displayOrder": 62,
+        "title": "Severity",
+        "description": "Severity",
+        "enum": [
+          1,
+          2,
+          3
+        ],
+        "type": "number"
+      },
+      "variables": {
+        "displayOrder": 85,
+        "title": "Variables",
+        "description": "Variables",
+        "type": "string"
+      },
+      "comments": {
+        "displayOrder": 63,
+        "title": "Additional comments",
+        "description": "More information about the issue as needed. All users who can view incidents see additional comments",
+        "type": "string"
+      },
+      "sla_due": {
+        "displayOrder": 64,
+        "title": "SLA due",
+        "description": "The SLA due date in ISO 8601 UTC format, yyyy-MM-ddTHH:mm:ss.SSSZ",
+        "type": "string",
+        "format": "date-time"
+      },
+      "approval": {
+        "displayOrder": 65,
+        "title": "Approval",
+        "description": "Possible values: Not yet requested, requested, approved, rejected",
+        "enum": [
+          "rejected",
+          "not requested",
+          "requested",
+          "approved"
+        ],
+        "type": "string"
+      },
+      "comments_and_work_notes": {
+        "displayOrder": 66,
+        "title": "Comments and Work notes",
+        "description": "Comments and work notes",
+        "type": "string"
+      },
+      "due_date": {
+        "displayOrder": 67,
+        "title": "Due date",
+        "description": "The due date in ISO 8601 UTC format, yyyy-MM-ddTHH:mm:ss.SSSZ",
+        "type": "string",
+        "format": "date-time"
+      },
+      "sys_mod_count": {
+        "displayOrder": 68,
+        "title": "Updates",
+        "description": "The number of times the incident details was modified",
+        "type": "number"
+      },
+      "reopen_count": {
+        "displayOrder": 69,
+        "title": "Reopen count",
+        "description": "The number of times the incident was reopened",
+        "type": "number"
+      },
+      "sys_tags": {
+        "displayOrder": 70,
+        "title": "Sys tags",
+        "description": "Sys tags",
+        "type": "string"
+      },
+      "escalation": {
+        "displayOrder": 71,
+        "title": "Escalation",
+        "description": "Possible values: Normal, moderate, high, overdue",
+        "enum": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "type": "number"
+      },
+      "upon_approval": {
+        "displayOrder": 72,
+        "title": "Upon approval",
+        "description": "The action to be taken upon approval",
+        "enum": [
+          "do_nothing",
+          "proceed"
+        ],
+        "type": "string"
+      },
+      "correlation_id": {
+        "displayOrder": 73,
+        "title": "Correlation ID",
+        "description": "Correlation ID",
+        "type": "string"
+      },
+      "location": {
+        "displayOrder": 8,
+        "title": "Location",
+        "description": "Location",
+        "type": "string"
+      },
+      "category": {
+        "displayOrder": 4,
+        "title": "Category",
+        "description": "The category that classifies the incident. Default values: Inquiry / Help, Software, Hardware, Network, and Database.",
+        "enum": [
+          "hardware",
+          "password_reset",
+          "network",
+          "inquiry",
+          "database",
+          "software"
+        ],
+        "type": "string"
+      }
+    },
+    "title": "incident",
+    "additionalProperties": false
+  },
+  "type": "array",
+  "title": "incident"
+}

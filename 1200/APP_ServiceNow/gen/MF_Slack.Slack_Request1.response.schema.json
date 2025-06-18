@@ -1,0 +1,173 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "items": {
+    "type": "object",
+    "properties": {
+      "channel": {
+        "displayOrder": 5,
+        "title": "Channel",
+        "description": "A channel, private group, or IM channel to send a message to. It can be an encoded ID or a name.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "displayOrder": 1,
+            "title": "ID",
+            "description": "The identifier of the Slack message",
+            "type": "string"
+          },
+          "is_channel": {
+            "displayOrder": 2,
+            "title": "Is channel",
+            "description": "Indicates whether a conversation is a channel",
+            "type": "boolean"
+          },
+          "is_group": {
+            "displayOrder": 3,
+            "title": "Is group",
+            "description": "Indicates whether the channel is a private channel",
+            "type": "boolean"
+          },
+          "is_im": {
+            "displayOrder": 4,
+            "title": "Is IM",
+            "description": "Indicates whether the conversation is a direct message between two distinguished individuals or a user and a bot",
+            "type": "boolean"
+          },
+          "is_mpim": {
+            "displayOrder": 5,
+            "title": "Is MPIM",
+            "description": "Indicates whether it is a private conversation between multiple users",
+            "type": "boolean"
+          },
+          "is_shared": {
+            "displayOrder": 6,
+            "title": "Is shared",
+            "description": "Indicates whether the conversation is shared between multiple workspace",
+            "type": "boolean"
+          },
+          "is_org_shared": {
+            "displayOrder": 7,
+            "title": "Is org shared",
+            "description": "Indicates whether a shared channel is shared between workspaces within the same organization",
+            "type": "boolean"
+          },
+          "is_ext_shared": {
+            "displayOrder": 8,
+            "title": "Is ext shared",
+            "description": "Indicates whether a conversation is part of a shared channel with a remote organization",
+            "type": "boolean"
+          },
+          "is_private": {
+            "displayOrder": 9,
+            "title": "Is private",
+            "description": "Indicates whether the conversation is privileged between two or more members",
+            "type": "boolean"
+          },
+          "name": {
+            "displayOrder": 10,
+            "title": "Name",
+            "description": "The name of the channel",
+            "type": "string"
+          },
+          "pending_shared": {
+            "displayOrder": 11,
+            "title": "Pending shared",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "is_pending_ext_shared": {
+            "displayOrder": 12,
+            "title": "Is pending ext shared",
+            "description": "Indicates whether the conversation is ready to become a part of a shared channel",
+            "type": "boolean"
+          },
+          "user": {
+            "displayOrder": 13,
+            "title": "User",
+            "description": "The user ID that has to be updated",
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "text": {
+        "displayOrder": 6,
+        "title": "Text",
+        "description": "A message text that to be send",
+        "type": "string"
+      },
+      "iid": {
+        "displayOrder": 22,
+        "title": "IID",
+        "type": "string"
+      },
+      "score": {
+        "displayOrder": 23,
+        "title": "Score",
+        "type": "number"
+      },
+      "team": {
+        "displayOrder": 24,
+        "title": "Team",
+        "type": "string"
+      },
+      "no_reactions": {
+        "displayOrder": 25,
+        "title": "No reaction",
+        "type": "boolean"
+      },
+      "blocks": {
+        "displayOrder": 26,
+        "title": "Blocks",
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "username": {
+        "displayOrder": 12,
+        "title": "Username",
+        "description": "The bot's username. This propety is only applicable when you set the value of As User property to false.",
+        "type": "string"
+      },
+      "type": {
+        "displayOrder": 18,
+        "title": "Type",
+        "description": "The type of the item such as file",
+        "type": "string"
+      },
+      "user": {
+        "displayOrder": 19,
+        "title": "User",
+        "description": "The user ID that has to be updated",
+        "type": "string"
+      },
+      "ts": {
+        "displayOrder": 21,
+        "title": "Timestamp",
+        "description": "The timestamp of the message to be updated",
+        "type": "string"
+      },
+      "messages": {
+        "displayOrder": 4,
+        "title": "Messages",
+        "description": "The list of messages",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "permalink": {
+        "displayOrder": 27,
+        "title": "Permalink",
+        "type": "string"
+      }
+    },
+    "title": "message",
+    "additionalProperties": false
+  },
+  "type": "array",
+  "title": "message"
+}
