@@ -1,0 +1,57 @@
+DECLARE var12 EXTERNAL CHARACTER 'C:\temp\LOG4J\Log4jConfigurationFile.xml';
+DECLARE var1 BOOLEAN;
+CREATE COMPUTE MODULE CrudOperation_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		set Environment = InputRoot.XMLNSC;
+		--throw USER EXCEPTION MESSAGE 1;
+		CALL log(var12) into var1;
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE inref1 INTEGER InputRoot.XMLNSC.DATA.ID;
+		DECLARE inref2 CHARACTER InputRoot.XMLNSC.DATA.NAME;
+		DECLARE inref3 CHARACTER InputRoot.XMLNSC.DATA.DEPARTMENT;
+		DECLARE inref4 CHARACTER InputRoot.XMLNSC.DATA.POSITION;
+		
+		
+		
+		DECLARE indata CHARACTER InputRoot.XMLNSC.DATA;
+		set indata=CAST(ASBITSTREAM(InputRoot.XMLNSC) as character ccsid  InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		
+		call writing(MessageFlowLabel,'dco_debug','DEBUG', 'Application_data: ' || indata) into var1;
+		--CALL InsertData(inref1,inref2,inref3,inref4);
+		  set OutputRoot.XMLNSC.data.result =  SelectData();
+		  
+		
+	END;
+END MODULE;
+
+create function InsertData( in param1 INTEGER, in param2 CHARACTER, in param3 CHARACTER, in param4 character)
+BEGIN
+	PASSTHRU('INSERT INTO COMPANY VALUES (?, ?, ?, ?)', param1, param2, param3, param4);
+	--call writing(MessageFlowLabel,'DCOINFO','INFO', 'Application_data: ' || 'Data Submitted Successfully') into var1;
+END;
+
+create function SelectData() returns CHARACTER
+BEGIN
+	DECLARE rowval ROW;
+	SET rowval.emp[] = SELECT C.NAME FROM Database.COMPANY AS C WHERE C.ID = 2;
+		call writing(MessageFlowLabel,'dco_info','INFO', 'Application_data: ' || 'Data Submitted Successfully') into var1;
+	
+	
+	RETURN cast(rowval as CHARACTER);
+END;
+--------------------------------------------LOG4J---------------------------------------------------------------------------------------------------
+create FUNCTION writing(in mfname CHARACTER, in logger_name CHARACTER, in level CHARACTER , in data CHARACTER)
+RETURNS boolean
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+ 
+create FUNCTION log(in configure CHARACTER) 
+RETURNS BOOLEAN
+language JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
+
