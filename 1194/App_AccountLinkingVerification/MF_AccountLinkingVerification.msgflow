@@ -15,16 +15,16 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_AccountLinkingVerification/icons/full/obj16/MF_AccountLinkingVerification.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_AccountLinkingVerification/icons/full/obj30/MF_AccountLinkingVerification.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="93,142" URLSpecifier="/accLinkingVerification" messageDomainProperty="JSON" messageSetProperty="jsonSchema.schema.json" validateTiming="immediate" validateMaster="contentAndValue">
-        <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="100,155" URLSpecifier="/accLinkingVerification" messageDomainProperty="JSON" messageSetProperty="jsonSchema.schema.json" validateTiming="immediate" validateMaster="contentAndValue">
+        <translation xmi:type="utility:ConstantString" string="channelRequest"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="422,138">
-        <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="429,151">
+        <translation xmi:type="utility:ConstantString" string="responseToChannel"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="239,138" dataSource="AVIDSN" computeExpression="esql://routine/#MF_AccountLinkingVerification_Compute.Main">
-        <translation xmi:type="utility:ConstantString" string="Compute"/>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="246,151" dataSource="AVIDSN" computeExpression="esql://routine/#MF_AccountLinkingVerification_Compute.Main">
+        <translation xmi:type="utility:ConstantString" string="OTPvalidation"/>
       </nodes>
-      <nodes xmi:type="cEdge_ExceptionHandling.subflow:FCMComposite_1" xmi:id="FCMComposite_1_4" location="310,51">
+      <nodes xmi:type="cEdge_ExceptionHandling.subflow:FCMComposite_1" xmi:id="FCMComposite_1_4" location="317,64">
         <translation xmi:type="utility:ConstantString" string="ExceptionHandling"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>

@@ -16,19 +16,19 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_AccountLinkingRequest/icons/full/obj16/MF_AccountLinkingRequest.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_AccountLinkingRequest/icons/full/obj30/MF_AccountLinkingRequest.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="62,95" URLSpecifier="/accLinkingRequest" messageDomainProperty="JSON" messageSetProperty="jsonSchema.schema.json" validateTiming="immediate" validateMaster="contentAndValue">
-        <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="73,109" URLSpecifier="/accLinkingRequest" messageDomainProperty="JSON" messageSetProperty="jsonSchema.schema.json" validateTiming="immediate" validateMaster="contentAndValue">
+        <translation xmi:type="utility:ConstantString" string="channelRequest"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="196,90" computeExpression="esql://routine/#MF_AccountLinkingRequest_Compute.Main" computeMode="all">
-        <translation xmi:type="utility:ConstantString" string="Compute"/>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="207,104" computeExpression="esql://routine/#MF_AccountLinkingRequest_Compute.Main" computeMode="all">
+        <translation xmi:type="utility:ConstantString" string="OTP &amp; UniqueId Generation"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="537,147">
-        <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="548,161">
+        <translation xmi:type="utility:ConstantString" string="responseToChannel"/>
       </nodes>
-      <nodes xmi:type="ComIbmEmailOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="325,31" smtpServer="mail.eidiko-india.com:587" toAddresses="avishkarkhude.eidiko@gmail.com" fromAddress="avishkarchhaban.khude@eidiko-india.com" subject="OTP for Account Linking Request using IIB">
-        <translation xmi:type="utility:ConstantString" string="Email Output"/>
+      <nodes xmi:type="ComIbmEmailOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="337,31" smtpServer="mail.eidiko-india.com:587" toAddresses="avishkarkhude.eidiko@gmail.com" fromAddress="avishkarchhaban.khude@eidiko-india.com" subject="OTP for Account Linking Request using IIB">
+        <translation xmi:type="utility:ConstantString" string="otpSentToUser"/>
       </nodes>
-      <nodes xmi:type="cEdge_ExceptionHandling.subflow:FCMComposite_1" xmi:id="FCMComposite_1_5" location="365,205">
+      <nodes xmi:type="cEdge_ExceptionHandling.subflow:FCMComposite_1" xmi:id="FCMComposite_1_5" location="376,219">
         <translation xmi:type="utility:ConstantString" string="ExceptionHandling"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>

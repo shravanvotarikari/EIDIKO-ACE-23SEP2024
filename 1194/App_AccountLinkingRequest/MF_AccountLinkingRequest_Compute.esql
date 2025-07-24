@@ -1,5 +1,4 @@
 
-
 DECLARE log4jPath EXTERNAL CHARACTER;
 DECLARE dsn EXTERNAL CHARACTER;
 DECLARE schemaVar EXTERNAL CHARACTER;
@@ -23,7 +22,6 @@ CREATE COMPUTE MODULE MF_AccountLinkingRequest_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-
 		-- Generating and sending OTP
 		DECLARE otp INTEGER RAND()*1000000;
 		DECLARE bankCode row;

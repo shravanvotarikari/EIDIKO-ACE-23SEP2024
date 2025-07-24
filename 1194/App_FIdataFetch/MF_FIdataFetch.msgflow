@@ -15,16 +15,16 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_FIdataFetch/icons/full/obj16/MF_FIdataFetch.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_FIdataFetch/icons/full/obj30/MF_FIdataFetch.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="109,131" URLSpecifier="/fiDataFetch" messageDomainProperty="JSON" messageSetProperty="jsonSchema.schema.json" validateTiming="immediate" validateMaster="contentAndValue">
-        <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="122,140" URLSpecifier="/fiDataFetch" messageDomainProperty="JSON" messageSetProperty="jsonSchema.schema.json" validateTiming="immediate" validateMaster="contentAndValue">
+        <translation xmi:type="utility:ConstantString" string="channelRequest"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="226,127" dataSource="AVIDSN" computeExpression="esql://routine/#MF_FIdataFetch_Compute.Main">
-        <translation xmi:type="utility:ConstantString" string="Compute"/>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="239,136" dataSource="AVIDSN" computeExpression="esql://routine/#MF_FIdataFetch_Compute.Main">
+        <translation xmi:type="utility:ConstantString" string="FIdataFetch"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="377,127">
-        <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="390,136">
+        <translation xmi:type="utility:ConstantString" string="responseToChannel"/>
       </nodes>
-      <nodes xmi:type="cEdge_ExceptionHandling.subflow:FCMComposite_1" xmi:id="FCMComposite_1_4" location="281,41">
+      <nodes xmi:type="cEdge_ExceptionHandling.subflow:FCMComposite_1" xmi:id="FCMComposite_1_4" location="294,50">
         <translation xmi:type="utility:ConstantString" string="ExceptionHandling"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>

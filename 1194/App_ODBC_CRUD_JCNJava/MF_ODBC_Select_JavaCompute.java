@@ -23,10 +23,10 @@ public class MF_ODBC_Select_JavaCompute extends MbJavaComputeNode {
 			// ----------------------------------------------------------
 			// Add user code below
 
-			Integer Id = 1176;
+			Integer Id = 1194;
 
 			MbSQLStatement state = createSQLStatement( "AVIDSN", 
-				"SET OutputRoot.XMLNS.root.Employee[] = PASSTHRU('SELECT * FROM AVISHKAR WHERE ID = " + Id + "');" );
+				"SET OutputRoot.XMLNSC.root.Employee[] = PASSTHRU('SELECT * FROM AVISHKAR WHERE ID = " + Id + "');" );
 
 			state.select( inAssembly, outAssembly );
 

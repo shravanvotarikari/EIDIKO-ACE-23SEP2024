@@ -1,0 +1,16 @@
+
+
+CREATE COMPUTE MODULE MF_MQ_Policy_PostMsg_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		SET OutputRoot.MQMD.CorrelId = CAST('AvishkarKhudeShwetMadhuz' AS BLOB CCSID 1208);
+
+
+	END;
+END MODULE;
