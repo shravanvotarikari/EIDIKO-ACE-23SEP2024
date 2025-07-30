@@ -16,5 +16,6 @@ CREATE COMPUTE MODULE App_SOAP_Demo_Compute
 		DECLARE ns NAMESPACE 'http://www.example.org/NewWSDLFile/';
 
 		SET OutputRoot.SOAP.Body.ns:NewOperationResponse.out=InputRoot.SOAP.Body.ns:NewOperation.in;
+		SET OutputRoot.SOAP.Body.ns:NewOperationResponse.out1=InputRoot.SOAP.Body.ns:NewOperation.in1;
 	END;
 END MODULE;

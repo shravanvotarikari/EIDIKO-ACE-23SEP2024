@@ -22,11 +22,12 @@
     <xsd:complexType>
                 
       <xsd:sequence>
-                    
-        <xsd:element name="out" type="xsd:string"/>
-                  
+
+      	<xsd:element name="out" type="xsd:string" />
+
+      	<xsd:element name="out1" type="xsd:string"></xsd:element>
       </xsd:sequence>
-              
+
     </xsd:complexType>
           
   </xsd:element>
