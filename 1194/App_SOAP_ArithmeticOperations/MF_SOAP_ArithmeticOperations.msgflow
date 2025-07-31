@@ -6,13 +6,13 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_SOAP_ArithmeticOperations/icons/full/obj16/MF_SOAP_ArithmeticOperations.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/App_SOAP_ArithmeticOperations/icons/full/obj30/MF_SOAP_ArithmeticOperations.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="373,86" computeExpression="esql://routine/#MF_SOAP_ArithmeticOperations_Compute.Main" computeMode="destinationAndMessage">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="273,79" computeExpression="esql://routine/#MF_SOAP_ArithmeticOperations_Compute.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
-      <nodes xmi:type="ComIbmSOAPInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="115,91" wsdlFileName="NewWSDLFile.wsdl" selectedPortType="NewWSDLFile" selectedBinding="NewWSDLFileSOAP" selectedPort="NewWSDLFileSOAP" targetNamespace="http://www.example.org/NewWSDLFile/" useHTTPTransport="true" urlSelector="/">
+      <nodes xmi:type="ComIbmSOAPInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="90,83" wsdlFileName="soapWSDLFile.wsdl" selectedPortType="soapWSDLFile" selectedBinding="soapWSDLFileSOAP" selectedPort="soapWSDLFileSOAP" targetNamespace="http://www.example.org/NewWSDLFile/" useHTTPTransport="true" urlSelector="/soap">
         <translation xmi:type="utility:ConstantString" string="SOAP Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmSOAPReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="618,87">
+      <nodes xmi:type="ComIbmSOAPReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="426,81">
         <translation xmi:type="utility:ConstantString" string="SOAP Reply"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>

@@ -1,0 +1,25 @@
+
+
+Importing file: C:\Users\Sreenivas Bandaru\git\gitHub\EIDIKO-ACE-23SEP2024\1194\App_SOAP_ArithmeticOperations\soapWSDLFile.wsdl
+
+The WSDL import will proceed with bindings soapWSDLFileSOAP.
+Creating wsdl schema document for file:///C:/Users/Sreenivas Bandaru/git/gitHub/EIDIKO-ACE-23SEP2024/1194/App_SOAP_ArithmeticOperations/soapWSDLFile.wsdl.
+Parsing wsdl binding {http://www.example.org/NewWSDLFile/}soapWSDLFileSOAP.
+Parsing wsdl binding input NewOperation.
+Parsing wsdl binding output NewOperation.
+Parsing wsdl binding input Addition.
+Parsing wsdl binding output Addition.
+Processing doc style for operation NewOperation.
+Processing doc style for operation Addition.
+Populating WSDL schema soapWSDLFile.xsd.
+Creating file soapWSDLFile.xsd in the workspace.
+Creating file soapWSDLFile_InlineSchema1.xsd in the workspace.
+Copying source WSDL soapWSDLFile.wsdl to soapWSDLFile.wsdl.
+
+Elapsed time processing this message definition file: 0.6 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+
