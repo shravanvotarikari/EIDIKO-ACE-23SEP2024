@@ -1,5 +1,3 @@
-DECLARE ns NAMESPACE 'http://www.example.org/NewWSDLFile/';
-
 
 CREATE COMPUTE MODULE MF_SOAP_ArithmeticOperations_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
@@ -14,16 +12,10 @@ CREATE COMPUTE MODULE MF_SOAP_ArithmeticOperations_Compute
 --		SET OutputRoot.SOAP.Body.new:NewOperationResponse.out = InputRoot.SOAP.Body.new:NewOperation.in;
 
 		SET OutputRoot.SOAP.Body.new:AdditionResponse.result = InputRoot.SOAP.Body.new:Addition.num1 + InputRoot.SOAP.Body.new:Addition.num2;
-		
---		IF InputRoot.SOAP.Context.operation = 'Addition' THEN
---			SET OutputRoot.SOAP.Body.new:AdditionResponse.sum = InputRoot.SOAP.Body.new:Addition.n1 + InputRoot.SOAP.Body.new:Addition.n2;
---		ELSEIF InputRoot.SOAP.Context.operation = 'Subtraction' THEN
---			SET OutputRoot.SOAP.Body.new.SubtractionResponse.sub = InputRoot.SOAP.Body.new:Subtraction.n1 - InputRoot.SOAP.Body.new:Subtraction.n2;
---		ELSEIF InputRoot.SOAP.Context.operation = 'Multiplication' THEN 
---			SET OutputRoot.SOAP.Body.new:MultiplicationResponse.mult = InputRoot.SOAP.Body.new:Multiplication.n1 * InputRoot.SOAP.Body.new:Multiplication.n2;
---		ELSE
---			SET OutputRoot.SOAP.Body.new:DivisionResponse.div = InputRoot.SOAP.Body.new:Division.n1 / InputRoot.SOAP.Body.new:Division.n2;
---		END IF;
+--		SET OutputRoot.SOAP.Body.new:AdditionResponse.result = InputRoot.SOAP.Body.new:Addition.num1 - InputRoot.SOAP.Body.new:Addition.num2;
+--		SET OutputRoot.SOAP.Body.new:AdditionResponse.result = InputRoot.SOAP.Body.new:Addition.num1 * InputRoot.SOAP.Body.new:Addition.num2;
+--		SET OutputRoot.SOAP.Body.new:AdditionResponse.result = InputRoot.SOAP.Body.new:Addition.num1 / InputRoot.SOAP.Body.new:Addition.num2;
+
 	END;
 END MODULE;
 
