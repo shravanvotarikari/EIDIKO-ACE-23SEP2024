@@ -1,30 +1,30 @@
-
-
 CREATE COMPUTE MODULE MF_Loops_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		CALL sumPrice();
-		RETURN TRUE;
+		RETURN FALSE;
 	END;
 
 	CREATE PROCEDURE sumPrice() BEGIN
 		DECLARE countOfElements INTEGER;
-		SET countOfElements = CARDINALITY(InputRoot.JSON.Data.Order.Item[]);
+		SET countOfElements = CARDINALITY(InputRoot.JSON.Data.Order.items.Item[]);
 		
 		DECLARE sum INTEGER 0;
 		DECLARE i INTEGER 1;
 		
 --		Sum Using While Loop
-		WHILE (i <= countOfElements) DO
-			SET sum = sum + InputRoot.JSON.Data.Order.Item[i].price;
+/*		WHILE (i <= countOfElements) DO
+			SET sum = sum + InputRoot.JSON.Data.Order.items.Item[i].price;
 			SET i = i + 1;
 		END WHILE;
+*/
 		
 		
 --		Sum using For Loop
---		FOR product AS InputRoot.JSON.Data.Order.Item[] DO
---			SET sum = sum + product.price;
---		END FOR;
+/*		FOR product AS InputRoot.JSON.Data.Order.items.Item[] DO
+			SET sum = sum + product.price;
+		END FOR;
+*/
 		-- Here product is alias name for InputRoot.JSON.Data.Order.Item[], Order is an json array (Input msg) which contains multiple childs
 		-- Each child of an array can be selected in esql by using 'Item' keyword
 		-- Here each Item containing two childs - name & price
@@ -32,13 +32,13 @@ CREATE COMPUTE MODULE MF_Loops_Compute
 
 		
 --		Sum using Repeat Loop
---		REPEAT
---			SET sum = sum + InputRoot.JSON.Data.Order.Item[i].price;
---			SET i = i + 1;
---		UNTIL i > countOfElements
---		END REPEAT;
+		REPEAT
+			SET sum = sum + InputRoot.JSON.Data.Order.items.Item[i].price;
+			SET i = i + 1;
+		UNTIL i > countOfElements -- UNTILS means 'hoi paryant'
+		END REPEAT;
 		
-		SET OutputLocalEnvironment.sum = sum;
-		SET OutputRoot = InputRoot;
+		--SET OutputLocalEnvironment.sum = sum;
+		SET OutputRoot.XMLNSC.sum = sum;
 	END;
 END MODULE;
