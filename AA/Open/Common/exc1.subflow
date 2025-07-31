@@ -8,6 +8,9 @@
     <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.in_dsn" name="in_dsn" defaultValueLiteral="RRBDSN">
       <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.logger" name="logger" defaultValueLiteral="acc_disc_error">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
     <translation xmi:type="utility:TranslatableString" key="exc1" bundleName="Common/exc1" pluginId="Open"/>
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Open/icons/full/obj16/exc1.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Open/icons/full/obj30/exc1.gif"/>
@@ -15,7 +18,7 @@
       <nodes xmi:type="eflow:FCMSink" xmi:id="OutTerminal.Output1" location="545,127">
         <translation xmi:type="utility:TranslatableString" key="OutTerminal.Output1" bundleName="Common/exc1" pluginId="Open"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="235,157" computeExpression="esql://routine/Common#Exc_Compute.Main" computeMode="all">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="265,143" computeExpression="esql://routine/Common#Exc_Compute.Main" computeMode="all">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
       <nodes xmi:type="eflow:FCMSource" xmi:id="InTerminal.Input1" location="45,127">
@@ -29,6 +32,9 @@
         <propertyName xmi:type="utility:TranslatableString" key="Property.var_path" bundleName="Common/exc1" pluginId="Open"/>
         <propertyDescriptor groupName="Group.Basic" configurable="true" userDefined="true" describedAttribute="Property.in_dsn">
           <propertyName xmi:type="utility:TranslatableString" key="Property.in_dsn" bundleName="Common/exc1" pluginId="Open"/>
+          <propertyDescriptor groupName="Group.Basic" configurable="true" userDefined="true" describedAttribute="Property.logger">
+            <propertyName xmi:type="utility:TranslatableString" key="Property.logger" bundleName="Common/exc1" pluginId="Open"/>
+          </propertyDescriptor>
         </propertyDescriptor>
       </propertyDescriptor>
     </propertyOrganizer>

@@ -1,0 +1,10 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "k",
+    "version" : "1.0.0",
+    "description" : "k"
+  },
+  "paths" : { },
+  "basePath" : "/k/v1"
+}

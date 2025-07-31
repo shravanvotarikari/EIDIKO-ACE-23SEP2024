@@ -13,7 +13,7 @@
 BROKER SCHEMA Common
 DECLARE var_path external CHARACTER ;--'C:\Users\Sreenivas Bandaru\Desktop\j\lfj\Log4jConfigurationFile.xml'
 DECLARE isSuccessful BOOLEAN;
-
+declare logger EXTERNAL CHARACTER;
 
 CREATE COMPUTE MODULE Exc_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
@@ -194,12 +194,12 @@ CREATE COMPUTE MODULE Exc_Compute
 		SET OutputLocalEnvironment.Destination.HTTP.ReplyStatusCode = OutputRoot.JSON.Data.statusCode;
 		
 		CALL init_log4j(var_path) INTO isSuccessful;
-		CALL write_log(MessageFlowLabel,'dco_error','ERROR','****************************Start******************************************') INTO isSuccessful;
-		CALL write_log(MessageFlowLabel,'dco_error','ERROR', excpType) INTO isSuccessful;
-		CALL write_log(MessageFlowLabel,'dco_error','ERROR','ERROR is: '|| text) INTO isSuccessful;
-		CALL write_log(MessageFlowLabel,'dco_error','ERROR','Payload: '|| Environment.Log.payload) INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,logger,'ERROR','****************************Start******************************************') INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,logger,'ERROR', excpType) INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,logger,'ERROR','ERROR is: '|| text) INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,logger,'ERROR','Payload: '|| Environment.Log.payload) INTO isSuccessful;
 		
-		CALL write_log(MessageFlowLabel,'dco_error','ERROR',' ----------------------------End-------------------------------------------') INTO isSuccessful;
+		CALL write_log(MessageFlowLabel,logger,'ERROR',' ----------------------------End-------------------------------------------') INTO isSuccessful;
 		
 	
 								
