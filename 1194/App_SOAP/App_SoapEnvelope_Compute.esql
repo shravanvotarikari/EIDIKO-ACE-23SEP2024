@@ -1,0 +1,23 @@
+
+CREATE COMPUTE MODULE App_SoapEnvelope_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+		
+--		SOAPExtract node - 
+--		Use the SOAPExtract node to remove SOAP envelopes, allowing just the body of a SOAP message to be processed.
+--		It can also route a SOAP message based on its operation name. Both functions are optional;
+--		they are contained in one node because they are often used together.
+--		By default SOAPExtract node remove SOAP Envelope, Header and Body tag from input soap message and
+--		store them in ‘LocalEnvironment/SOAP/Envelope’ this path.
+--		
+--		SOAPEnvelope node - 
+--		The SOAPEnvelope node adds the Envelope tag to the normal XML data by using the Envelope information stored in the LocalEnvironment by the SOAPExtract node.
+				
+	END;
+END MODULE;

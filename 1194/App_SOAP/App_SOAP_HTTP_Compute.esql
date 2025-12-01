@@ -1,0 +1,13 @@
+
+
+CREATE COMPUTE MODULE App_SOAP_HTTP_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.SOAP.Body.ns:NewOperationResponse.addition = CAST(InputRoot.SOAP.Body.ns:NewOperation.num1 AS INTEGER CCSID 1208 ENCODING 546) + CAST(InputRoot.SOAP.Body.ns:NewOperation.num2 AS INTEGER CCSID 1208 ENCODING 546);
+	END;
+END MODULE;
