@@ -1,0 +1,19 @@
+
+CREATE COMPUTE MODULE MF_MQ_Output_TransactionMode_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN FALSE;
+	END;
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		
+		PROPAGATE TO TERMINAL 'out';
+		
+		SET OutputRoot.JSON.Data.result = 'success';
+		THROW USER EXCEPTION VALUES('User generated error');
+		
+		PROPAGATE TO TERMINAL 'out1';
+	END;
+END MODULE;
