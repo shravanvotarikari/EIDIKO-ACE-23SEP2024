@@ -15,5 +15,12 @@ CREATE COMPUTE MODULE MF_MQ_Output_TransactionMode_Compute
 		THROW USER EXCEPTION VALUES('User generated error');
 		
 		PROPAGATE TO TERMINAL 'out1';
+		
+		-- When the transaction mode is set to Automatic, the message flow uses the MQ Input node’s transaction mode property.
+
+		-- When the transaction mode is Yes, all messages are sent to their respective MQ output queues only after the entire message flow completes successfully. If any exception occurs, none of the messages are sent to any output queue.
+
+		-- When the transaction mode is No, each message is sent independently. If an error occurs after the first message is sent but before the second message is processed, the first message will still be delivered successfully, even though the second one fails.
+	
 	END;
 END MODULE;
